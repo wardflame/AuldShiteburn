@@ -2,13 +2,15 @@
 {
     internal class LivingEntity : Entity
     {
-        string name;
-        private float maxHP, hp, maxStamina, stamina, maxMana, mana;
+        public string name;
+        private float hp, stamina, mana;
+        public float maxHP, maxStamina, maxMana;
         public float HP
         {
             get { return hp; }
             set
             {
+                hp = value;
                 if (value > maxHP)
                 {
                     hp = maxHP;
@@ -24,6 +26,7 @@
             get { return stamina; }
             set
             {
+                stamina = value;
                 if (value > maxStamina)
                 {
                     stamina = maxStamina;
@@ -39,6 +42,7 @@
             get { return mana; }
             set
             {
+                mana = value;
                 if (value > maxMana)
                 {
                     mana = maxMana;
