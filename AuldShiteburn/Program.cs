@@ -6,10 +6,6 @@ namespace AuldShiteburn
     {
         static void Main(string[] args)
         {
-            /*PlayerEntity player = new PlayerEntity();
-            player.DoDamage();
-            Console.WriteLine(player.health2);*/
-
             Console.WindowWidth = 180;
             Console.WindowHeight = 60;
 

@@ -14,6 +14,9 @@ namespace AuldShiteburn
         public void GameRunning()
         {
             AuldShiteburnMap shiteburn = new AuldShiteburnMap();
+            shiteburn.RandomiseAreas();
+
+            Map.Instance = shiteburn;
 
             PlayerEntity.GenerateCharacter();
             PlayerEntity.Instance.PosX = 1;

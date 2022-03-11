@@ -8,21 +8,55 @@ namespace AuldShiteburn.MapData
 {
     internal abstract class Map
     {
+        public static Map Instance { get; set; }
         public abstract string Name { get; }
         public abstract int Width { get; }
         public abstract int Height { get; }
+        private int posX;
+        private int posY;
+
         protected List<Area> AvailableAreas { get; } = new List<Area>();
         private Area[] areas;
 
-        public Area CurrentArea => areas[0];
+        public Area CurrentArea => areas[GetIndex(posX, posY)];
 
         public Map()
         {
             areas = new Area[Width * Height];
         }
+
         protected int GetIndex(int posX, int posY)
         {
             return posX + Width * posY;
+        }
+
+        public void UpdateMap()
+        {
+            MoveEntities();
+        }
+
+        private void ConnectAreas()
+        {
+            for (int y = 0; y < Height - 1; y++)
+            {
+                for (int x = 0; x < Width - 1; x++)
+                { 
+                    areas[GetIndex(x, y)].ConnectInDirection(Direction.East);
+                    areas[GetIndex(x, y)].ConnectInDirection(Direction.South);
+                    areas[GetIndex(x + 1, y)].ConnectInDirection(Direction.West);
+                    areas[GetIndex(x, y + 1)].ConnectInDirection(Direction.North);
+                }
+            }
+
+        }
+
+        protected void SetArea(int posX, int posY, Area area)
+        {
+            if (posX < 0 || posY < 0 || posX >= Width || posY >= Height)
+            {
+                return;
+            }
+            areas[GetIndex(posX, posY)] = area;
         }
 
         public void RandomiseAreas()
@@ -46,11 +80,65 @@ namespace AuldShiteburn.MapData
                 }
             }
             SetFixedAreas();
+            ConnectAreas();
         }
 
-
-
         protected abstract void SetFixedAreas();
+
+        public void MoveArea(Direction direction)
+        {
+            switch(direction)
+            {
+                case Direction.North:
+                    {
+                        posY--;
+                    }
+                    break;
+                case Direction.South:
+                    {
+                        posY++;
+                    }
+                    break;
+                case Direction.East:
+                    {
+                        posX++;
+                    }
+                    break;
+                case Direction.West:
+                    {
+                        posX--;
+                    }
+                    break;
+            }
+            posX = Math.Clamp(posX, 0, Width - 1);
+            posY = Math.Clamp(posY, 0, Height - 1);
+            Console.Clear();
+            switch(direction)
+            {
+                case Direction.North:
+                    {
+                        PlayerEntity.Instance.PosY = CurrentArea.Height - 2;
+                    }
+                    break;
+                case Direction.South:
+                    {
+                        PlayerEntity.Instance.PosY = 1;
+                    }
+                    break;
+                case Direction.East:
+                    {
+                        PlayerEntity.Instance.PosX = 1;
+                    }
+                    break;
+                case Direction.West:
+                    {
+                        PlayerEntity.Instance.PosX = CurrentArea.Width - 2;
+                    }
+                    break;
+            }
+            PrintArea();
+            PrintEntities();
+        }
 
         public void PrintArea()
         {
@@ -137,11 +225,6 @@ namespace AuldShiteburn.MapData
                 Console.Write(previousTile.DisplayChar);
                 PrintEntity(entity);
             }
-        }
-
-        public void UpdateMap()
-        {
-            MoveEntities();
         }
 
         public void CheckNPCTile()

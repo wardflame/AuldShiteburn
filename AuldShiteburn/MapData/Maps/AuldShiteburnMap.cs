@@ -15,7 +15,23 @@ namespace AuldShiteburn.MapData.Maps
 
         public AuldShiteburnMap()
         {
-            AvailableAreas.Add(new StartArea());
+            AvailableAreas.Add(new GraveyardArea());
+            AvailableAreas.Add(new GuildHallArea());
+            AvailableAreas.Add(new MarketArea());
+            AvailableAreas.Add(new ResidentsArea());
+            AvailableAreas.Add(new ShitepileArea());
+            AvailableAreas.Add(new ShiterootGardenArea());
+            AvailableAreas.Add(new StablesArea());
+            AvailableAreas.Add(new TheDrainArea());
+            AvailableAreas.Add(new TheGranaryArea());
         }
+
+        protected override void SetFixedAreas()
+        {
+            SetArea(0, 0, new StartArea());
+            SetArea(2, 2, new EndArea());
+        }
+
+
     }
 }
