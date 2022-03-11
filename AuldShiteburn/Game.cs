@@ -1,6 +1,8 @@
 ﻿using AuldShiteburn.EntityData;
 using AuldShiteburn.MapData;
-using AuldShiteburn.MapData.Areas;
+using AuldShiteburn.MapData.AreaData;
+using AuldShiteburn.MapData.AreaData.Areas;
+using AuldShiteburn.MapData.Maps;
 using System;
 
 namespace AuldShiteburn
@@ -11,14 +13,15 @@ namespace AuldShiteburn
 
         public void GameRunning()
         {
-            Map shiteburn = new Map();
-            shiteburn.Zones.Add(new StartArea());
+            AuldShiteburnMap shiteburn = new AuldShiteburnMap();
 
             PlayerEntity.GenerateCharacter();
             PlayerEntity.Instance.PosX = 1;
             PlayerEntity.Instance.PosY = 1;
 
             Console.CursorVisible = false;
+            shiteburn.PrintArea();
+            shiteburn.PrintEntities();
 
             while (running)
             {

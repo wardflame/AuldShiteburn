@@ -2,13 +2,13 @@
 using AuldShiteburn.MapData.TileData;
 using AuldShiteburn.MapData.TileData.Tiles.NPCs;
 
-namespace AuldShiteburn.MapData.Areas
+namespace AuldShiteburn.MapData.AreaData.Areas
 {
     class StartArea : Area
     {
         public override string Name => "Shitebreach";
-        public override int Width => 30;
-        public override int Height => 30;
+        public override int Width => 20;
+        public override int Height => 20;
 
         protected override void TileGeneration()
         {
