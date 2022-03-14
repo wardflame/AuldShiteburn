@@ -6,6 +6,13 @@ using System.Collections.Generic;
 
 namespace AuldShiteburn.MapData
 {
+    /// <summary>
+    /// Base map class. Holds an array of 'areas' which the player navigates.
+    /// Maps use a Width and Height property, multiplied, to determine how many
+    /// areas it contains. 3 width and 3 height = 9 total areas. Within, various
+    /// methods are used to generate, connect, set, and randomise areas, as well
+    /// as move entities around in each area.
+    /// </summary>
     internal abstract class Map
     {
         public static Map Instance { get; set; }
@@ -25,6 +32,12 @@ namespace AuldShiteburn.MapData
             areas = new Area[Width * Height];
         }
 
+        /// <summary>
+        /// Get the 
+        /// </summary>
+        /// <param name="posX"></param>
+        /// <param name="posY"></param>
+        /// <returns></returns>
         protected int GetIndex(int posX, int posY)
         {
             return posX + Width * posY;
@@ -157,6 +170,13 @@ namespace AuldShiteburn.MapData
             }
         }
 
+        public void PrintAreaName()
+        {
+            Console.CursorLeft = CurrentArea.Width * 2 + 1;
+            Console.CursorTop = 0;
+            Console.Write("Area: " + CurrentArea.Name);
+        }
+
         private void PrintEntity(Entity entity)
         {
             if (entity.PosX < 0)
@@ -192,14 +212,14 @@ namespace AuldShiteburn.MapData
             }
         }
 
-        private void MoveEntities()
+        public void PrintPlayerInfo()
         {
-            MoveEntity(PlayerEntity.Instance);
-            CheckNPCTile();
-            foreach (Entity entity in CurrentArea.entities)
-            {
-                MoveEntity(entity);
-            }
+            Console.CursorTop = CurrentArea.Height + 1;
+            Console.CursorLeft = 0;
+            Console.WriteLine(PlayerEntity.Instance.name);
+            Console.WriteLine("Health: " + PlayerEntity.Instance.HP);
+            Console.WriteLine("Stamina: " + PlayerEntity.Instance.Stamina);
+            Console.WriteLine("Mana: " + PlayerEntity.Instance.Mana);
         }
 
         private void MoveEntity(Entity entity)
@@ -227,7 +247,17 @@ namespace AuldShiteburn.MapData
             }
         }
 
-        public void CheckNPCTile()
+        private void MoveEntities()
+        {
+            MoveEntity(PlayerEntity.Instance);
+            ClearNPCTextQuery();
+            foreach (Entity entity in CurrentArea.entities)
+            {
+                MoveEntity(entity);
+            }
+        }
+
+        public void ClearNPCTextQuery()
         {
             int minusX = PlayerEntity.Instance.PosX - 1;
             int minusY = PlayerEntity.Instance.PosY - 1;
@@ -239,20 +269,13 @@ namespace AuldShiteburn.MapData
                 !(CurrentArea.GetTile(PlayerEntity.Instance.PosX, minusY) is NPCTile) &&
                 !(CurrentArea.GetTile(PlayerEntity.Instance.PosX, plusY) is NPCTile))
             {
-                for (int y = 0; y < Console.WindowHeight; y++)
-                {
-                    Console.CursorLeft = CurrentArea.Width * 2;
-                    Console.CursorTop = y;
-                    Console.Write(new string(' ', Console.WindowWidth - CurrentArea.Width * 2));
-                }
+                ClearInteractInterface();
             }
-            
-
         }
 
-        public void ClearRightInterface()
+        public void ClearInteractInterface()
         {
-            for (int y = 0; y < Console.WindowHeight; y++)
+            for (int y = 1; y <= CurrentArea.Height; y++)
             {
                 Console.CursorLeft = CurrentArea.Width * 2;
                 Console.CursorTop = y;

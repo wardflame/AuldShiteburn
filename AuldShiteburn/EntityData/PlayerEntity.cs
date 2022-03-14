@@ -9,11 +9,11 @@ namespace AuldShiteburn.EntityData
         public static PlayerEntity Instance { get; private set; }
         List<Item> inventory;
         public override string EntityChar => "PL";
-        public bool onMenu;
+        public bool inMenu;
 
         public override void Move()
         {
-            if (!onMenu)
+            if (!inMenu)
             {
                 switch (InputSystem.InputKey)
                 {

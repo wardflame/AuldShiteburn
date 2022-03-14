@@ -17,21 +17,21 @@ namespace AuldShiteburn.MapData.TileData.Tiles
         {
             if (entity is PlayerEntity player)
             {
-                player.onMenu = true;
+                player.inMenu = true;
                 Interaction(area);
-                player.onMenu = false;
+                player.inMenu = false;
             }
         }
 
-        public void Narration(string narration, Area area, int offsetY = 1)
+        public void Narration(string narration, Area area, int offsetY = 2)
         {
             Console.CursorLeft = (area.Width * 2) + 2;
             Console.CursorTop = offsetY;
             Console.Write(narration);
         }
 
-        public void Dialogue(string dialogue, Area area, int offsetY = 1)
-        {            
+        public void Dialogue(string dialogue, Area area, int offsetY = 2)
+        {
             Narration($"{NPCName}: {dialogue}", area, offsetY);
         }
     }

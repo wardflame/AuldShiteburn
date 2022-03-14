@@ -21,13 +21,16 @@ namespace AuldShiteburn
             PlayerEntity.GenerateCharacter();
             PlayerEntity.Instance.PosX = 1;
             PlayerEntity.Instance.PosY = 1;
+            PlayerEntity.Instance.name = "Lord Farquad";
 
             Console.CursorVisible = false;
             shiteburn.PrintArea();
             shiteburn.PrintEntities();
+            shiteburn.PrintPlayerInfo();
 
             while (running)
             {
+                shiteburn.PrintAreaName();
                 shiteburn.UpdateMap();
                 InputSystem.GetInput();
             }

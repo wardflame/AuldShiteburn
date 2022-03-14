@@ -24,7 +24,7 @@ namespace AuldShiteburn.MapData.AreaData.Areas
                     }
                     else if (x == 12 && y == 11)
                     {
-                        SetTile(x, y, new GaryNPCTile());
+                        SetTile(x, y, new AethelwulfNPCTile());
                     }
                     else
                     {

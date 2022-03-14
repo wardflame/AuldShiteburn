@@ -8,7 +8,7 @@ namespace AuldShiteburn.MapData.AreaData.Areas
 {
     class EndArea : Area
     {
-        public override string Name => "The Drain";
+        public override string Name => "End Area";
         public override int Width => 20;
         public override int Height => 20;
 
@@ -24,7 +24,7 @@ namespace AuldShiteburn.MapData.AreaData.Areas
                     }
                     else if (x == 4 && y == 1)
                     {
-                        SetTile(x, y, new GaryNPCTile());
+                        SetTile(x, y, new AethelwulfNPCTile());
                     }
                     else
                     {

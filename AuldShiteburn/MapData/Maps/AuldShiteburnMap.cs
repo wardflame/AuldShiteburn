@@ -31,7 +31,5 @@ namespace AuldShiteburn.MapData.Maps
             SetArea(0, 0, new StartArea());
             SetArea(2, 2, new EndArea());
         }
-
-
     }
 }
