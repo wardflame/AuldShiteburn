@@ -33,21 +33,33 @@ namespace AuldShiteburn.MapData
         }
 
         /// <summary>
-        /// Get the 
+        /// Get index by simulating rows and columns. Multiply posY by Width to search down rows,
+        /// then add by posX to search across columns.
         /// </summary>
-        /// <param name="posX"></param>
-        /// <param name="posY"></param>
+        /// <param name="posX">Location across the columns we're searching.</param>
+        /// <param name="posY">Location down the rows we're searching.</param>
         /// <returns></returns>
         protected int GetIndex(int posX, int posY)
         {
-            return posX + Width * posY;
+            return (Width * posY) + posX;
         }
 
-        public void UpdateMap()
+        /// <summary>
+        /// Move all the entities around an area.
+        /// </summary>
+        public void UpdateArea()
         {
             MoveEntities();
         }
 
+        /// <summary>
+        /// Should an area exist in any cardinal direction to the
+        /// area at the current index, replace the border tiles in
+        /// each to represent a passage to move between the areas.
+        /// For instance, if an area exists to the east of area 0, 0,
+        /// create passage tiles in area 0, 0, in the east and area 0, 1,
+        /// in the west.
+        /// </summary>
         private void ConnectAreas()
         {
             for (int y = 0; y < Height - 1; y++)
@@ -60,9 +72,15 @@ namespace AuldShiteburn.MapData
                     areas[GetIndex(x, y + 1)].ConnectInDirection(Direction.North);
                 }
             }
-
         }
 
+        /// <summary>
+        /// So long as the posX/Y values are within the map's bounds,
+        /// set the area at posX/Y index to the desired area.
+        /// </summary>
+        /// <param name="posX"></param>
+        /// <param name="posY"></param>
+        /// <param name="area"></param>
         protected void SetArea(int posX, int posY, Area area)
         {
             if (posX < 0 || posY < 0 || posX >= Width || posY >= Height)
@@ -72,6 +90,17 @@ namespace AuldShiteburn.MapData
             areas[GetIndex(posX, posY)] = area;
         }
 
+        /// <summary>
+        /// Create a list of random integers between 0 and the
+        /// number of available area. Each number must be unique.
+        /// Take these numbers and iterate through the bounds of
+        /// the map. For each index, take an integer from the random
+        /// list, select an area for the available areas according to
+        /// that number and populate the areas array.
+        /// 
+        /// After, ensure fixed areas are set and then connect the areas
+        /// to each other.
+        /// </summary>
         public void RandomiseAreas()
         {
             Random rand = new Random();
@@ -96,8 +125,20 @@ namespace AuldShiteburn.MapData
             ConnectAreas();
         }
 
+        /// <summary>
+        /// Per map, assign fixed areas to the area array. This is used for
+        /// setting the starting and ending areas, placed at the start and end
+        /// of the array.
+        /// </summary>
         protected abstract void SetFixedAreas();
 
+        /// <summary>
+        /// Increment/decrement the posX/Y index according to the desired cardinal direction
+        /// to traverse. Clamp the result in the event player manages to get out of bounds.
+        /// Then, place player position according to the location of entry. If going south,
+        /// place north in next area.
+        /// </summary>
+        /// <param name="direction">The cardinal direction we're attempting to traverse.</param>
         public void MoveArea(Direction direction)
         {
             switch(direction)
@@ -149,10 +190,20 @@ namespace AuldShiteburn.MapData
                     }
                     break;
             }
+            ClearAreaName();
+            PrintAreaName();
+            PrintPlayerInfo();
             PrintArea();
             PrintEntities();
         }
 
+        /// <summary>
+        /// Return the tile array for the current area. Then,
+        /// until x and y have reached the bounds of the area,
+        /// write the display character for each tile. Because
+        /// the area is intend to be square, characters are written
+        /// twice to produce the square look.
+        /// </summary>
         public void PrintArea()
         {
             Tile[] tiles = CurrentArea.GetArea();
@@ -170,6 +221,10 @@ namespace AuldShiteburn.MapData
             }
         }
 
+        /// <summary>
+        /// Place cursor to the top and just-right of the
+        /// area and print the current area name.
+        /// </summary>
         public void PrintAreaName()
         {
             Console.CursorLeft = CurrentArea.Width * 2 + 1;
@@ -177,6 +232,27 @@ namespace AuldShiteburn.MapData
             Console.Write("Area: " + CurrentArea.Name);
         }
 
+        /// <summary>
+        /// Place cursor to the top and just-right of the
+        /// area and print space characters to the end of
+        /// the row.
+        /// </summary>
+        public void ClearAreaName()
+        {
+            Console.CursorLeft = CurrentArea.Width * 2;
+            Console.CursorTop = 0;
+            for (int x = CurrentArea.Width * 2; x < Console.WindowWidth; x++)
+            {
+                Console.Write(new string(' ', Console.WindowWidth - CurrentArea.Width * 2));
+            }
+        }
+
+        /// <summary>
+        /// Ensure the entity is not outside the area bounds,
+        /// then print the entity by its display character to the
+        /// x/y position it claims to inhabit in the area.
+        /// </summary>
+        /// <param name="entity">Entity to print.</param>
         private void PrintEntity(Entity entity)
         {
             if (entity.PosX < 0)
@@ -203,6 +279,9 @@ namespace AuldShiteburn.MapData
             Console.Write(entity.EntityChar);
         }
 
+        /// <summary>
+        /// Print the player display character, then any other entities.
+        /// </summary>
         public void PrintEntities()
         {
             PrintEntity(PlayerEntity.Instance);
@@ -212,6 +291,9 @@ namespace AuldShiteburn.MapData
             }
         }
 
+        /// <summary>
+        /// Print the player's name and stats beneath the area map.
+        /// </summary>
         public void PrintPlayerInfo()
         {
             Console.CursorTop = CurrentArea.Height + 1;
@@ -222,6 +304,13 @@ namespace AuldShiteburn.MapData
             Console.WriteLine("Mana: " + PlayerEntity.Instance.Mana);
         }
 
+        /// <summary>
+        /// Store entity's starting position, allow entity to move. Get the tile at entity's new location.
+        /// If new tile is collidable, move the entity back to its former location. If the entity has
+        /// successfully moved, check the previous tile location. Replace old tile display character to what
+        /// it was when the area was generated. In most cases, the 'air tile.'
+        /// </summary>
+        /// <param name="entity">Entity to move.</param>
         private void MoveEntity(Entity entity)
         {
             int entX = entity.PosX;
@@ -247,6 +336,10 @@ namespace AuldShiteburn.MapData
             }
         }
 
+        /// <summary>
+        /// Move the player, clear any NPC text that might be on the left if out of range of NPC,
+        /// then move each entity that could be in the area too.
+        /// </summary>
         private void MoveEntities()
         {
             MoveEntity(PlayerEntity.Instance);
@@ -257,6 +350,10 @@ namespace AuldShiteburn.MapData
             }
         }
 
+        /// <summary>
+        /// If the player is not within the area of an NPC, remove the NPC interaction
+        /// text from the right side of the screen.
+        /// </summary>
         public void ClearNPCTextQuery()
         {
             int minusX = PlayerEntity.Instance.PosX - 1;
@@ -273,6 +370,11 @@ namespace AuldShiteburn.MapData
             }
         }
 
+        /// <summary>
+        /// Place the cursor 1 row down in final column of area width. Then, until reaching
+        /// the area height, go down each row and replace any text with space characters until
+        /// the end of the line.
+        /// </summary>
         public void ClearInteractInterface()
         {
             for (int y = 1; y <= CurrentArea.Height; y++)

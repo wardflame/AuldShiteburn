@@ -18,7 +18,6 @@ namespace AuldShiteburn.MapData.TileData.Tiles
             if (entity is PlayerEntity)
             {
                 Map.Instance.MoveArea(Direction);
-                Map.Instance.PrintAreaName();
             }
         }
     }

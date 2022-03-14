@@ -15,10 +15,10 @@ namespace AuldShiteburn.MapData.TileData.Tiles.NPCs
         {
             Map.Instance.ClearInteractInterface();
 
-            Narration("Before you sits a dirty, lowly man in sackcloth.", area, 3);
-            Dialogue("Ah, yes. Thou comst to Shiteburn, cursed plot of filth. I am Aethelwulf, a...umm...-", area, 4);
-            Dialogue("It would seem I can't get myself out of this place. Perhaps you could help?", area, 5);
-            Narration("Accept (y) Refuse (n)", area, 6);
+            Narration("Before you sits a dirty, lowly man in sackcloth.", area);
+            Dialogue("Ah, yes. Thou comst to Shiteburn, cursed plot of filth. I am Aethelwulf, a...umm...-", area, 3);
+            Dialogue("It would seem I can't get myself out of this place. Perhaps you could help?", area, 4);
+            Narration("Accept (y) Refuse (n)", area, 5);
 
             bool decision = false;
             while (!decision)
@@ -28,16 +28,16 @@ namespace AuldShiteburn.MapData.TileData.Tiles.NPCs
                 {
                     case ConsoleKey.Y:
                         {
-                            Dialogue("Yes. Good. My memories are scattered, the journey all but forgotten. All that remains of me now is this shell, ", area, 7);
-                            Dialogue("and the shite on my hands.", area, 8);
-                            Narration("He looks at his hands in silence. Feces are smeared around the tips of his fingers. He looks up at you.", area, 9);
-                            Dialogue("I beg you, cleanse me of this filth.", area, 10);
+                            Dialogue("Yes. Good. My memories are scattered, the journey all but forgotten. All that remains of me now is this shell, ", area, 6);
+                            Dialogue("and the shite on my hands.", area, 7);
+                            Narration("He looks at his hands in silence. Feces are smeared around the tips of his fingers. He looks up at you.", area, 8);
+                            Dialogue("I beg you, cleanse me of this filth.", area, 9);
                             decision = true;
                         }
                         break;
                     case ConsoleKey.N:
                         {
-                            Dialogue("Hmph. You mongrels... All the same. Shame on you.", area, 7);
+                            Dialogue("Hmph. You mongrels... All the same. Shame on you.", area, 6);
                             decision = true;
                         }
                         break;

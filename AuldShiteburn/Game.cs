@@ -27,11 +27,11 @@ namespace AuldShiteburn
             shiteburn.PrintArea();
             shiteburn.PrintEntities();
             shiteburn.PrintPlayerInfo();
+            shiteburn.PrintAreaName();
 
             while (running)
             {
-                shiteburn.PrintAreaName();
-                shiteburn.UpdateMap();
+                shiteburn.UpdateArea();
                 InputSystem.GetInput();
             }
         }
