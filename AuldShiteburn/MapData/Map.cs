@@ -62,14 +62,27 @@ namespace AuldShiteburn.MapData
         /// </summary>
         private void ConnectAreas()
         {
-            for (int y = 0; y < Height - 1; y++)
+            for (int y = 0; y < Height; y++)
             {
-                for (int x = 0; x < Width - 1; x++)
-                { 
-                    areas[GetIndex(x, y)].ConnectInDirection(Direction.East);
-                    areas[GetIndex(x, y)].ConnectInDirection(Direction.South);
-                    areas[GetIndex(x + 1, y)].ConnectInDirection(Direction.West);
-                    areas[GetIndex(x, y + 1)].ConnectInDirection(Direction.North);
+                for (int x = 0; x < Width; x++)
+                {
+                    if (x > 0)
+                    {
+                        areas[GetIndex(x, y)].ConnectInDirection(Direction.West);
+                    }
+                    if (y > 0)
+                    {
+                        areas[GetIndex(x, y)].ConnectInDirection(Direction.North);
+                    }
+                    if (x < Width - 1)
+                    {
+                        areas[GetIndex(x, y)].ConnectInDirection(Direction.East);
+                    }
+                    if (y < Height - 1)
+                    {
+                        areas[GetIndex(x, y)].ConnectInDirection(Direction.South);
+                    }
+
                 }
             }
         }
