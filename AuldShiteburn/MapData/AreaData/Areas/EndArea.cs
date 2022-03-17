@@ -1,16 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using AuldShiteburn.MapData.TileData;
+﻿using AuldShiteburn.MapData.TileData;
 using AuldShiteburn.MapData.TileData.Tiles.NPCs;
 
 namespace AuldShiteburn.MapData.AreaData.Areas
 {
     class EndArea : Area
     {
-        public override string Name => "End Area";
+        public override string Name => "Foulstench, Heart of the Shite";
         public override int Width => 20;
         public override int Height => 20;
+
+        protected override void InitEntities()
+        {
+        }
+
+        protected override void OnFirstEnter()
+        {
+        }
 
         protected override void TileGeneration()
         {

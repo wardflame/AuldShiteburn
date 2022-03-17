@@ -12,6 +12,7 @@ namespace AuldShiteburn.MapData
         public abstract int Width { get; }
         public abstract int Height { get; }
         private Tile[] area;
+        private bool firstEnter = true;
         public List<Entity> entities = new List<Entity>();
 
         public Area()
@@ -19,6 +20,9 @@ namespace AuldShiteburn.MapData
             area = new Tile[Width * Height];
             TileGeneration();
         }
+
+        protected abstract void OnFirstEnter();
+        protected abstract void InitEntities();
 
         protected abstract void TileGeneration();
 
@@ -54,7 +58,7 @@ namespace AuldShiteburn.MapData
         {
             PassageTile pTile = new PassageTile();
             pTile.Direction = direction;
-            switch(direction)
+            switch (direction)
             {
                 case Direction.North:
                     {

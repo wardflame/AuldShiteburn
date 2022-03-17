@@ -119,7 +119,7 @@ namespace AuldShiteburn.MapData
             Random rand = new Random();
             List<int> uniqueIndexes = new List<int>();
             for (int i = 0; i < Width * Height; i++)
-            { 
+            {
                 int index;
                 do
                 {
@@ -154,7 +154,7 @@ namespace AuldShiteburn.MapData
         /// <param name="direction">The cardinal direction we're attempting to traverse.</param>
         public void MoveArea(Direction direction)
         {
-            switch(direction)
+            switch (direction)
             {
                 case Direction.North:
                     {
@@ -180,7 +180,7 @@ namespace AuldShiteburn.MapData
             posX = Math.Clamp(posX, 0, Width - 1);
             posY = Math.Clamp(posY, 0, Height - 1);
             Console.Clear();
-            switch(direction)
+            switch (direction)
             {
                 case Direction.North:
                     {
@@ -228,8 +228,11 @@ namespace AuldShiteburn.MapData
                     Tile currentTile = CurrentArea.GetTile(x, y);
                     Console.CursorLeft = x * 2;
                     Console.CursorTop = y;
+                    Console.ForegroundColor = currentTile.Foreground;
+                    Console.BackgroundColor = currentTile.Background;
                     Console.Write(currentTile.DisplayChar);
                     Console.Write(currentTile.DisplayChar);
+                    Console.ResetColor();
                 }
             }
         }

@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using AuldShiteburn.EntityData;
+﻿using AuldShiteburn.EntityData;
+using System;
 
 namespace AuldShiteburn.MapData.TileData.Tiles
 {
@@ -9,7 +7,7 @@ namespace AuldShiteburn.MapData.TileData.Tiles
     {
         public Direction Direction { get; set; }
 
-        public PassageTile() : base("-", true)
+        public PassageTile() : base("-", true, ConsoleColor.DarkYellow)
         {
         }
 

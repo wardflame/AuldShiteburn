@@ -1,4 +1,5 @@
 ﻿using AuldShiteburn.ItemData;
+using AuldShiteburn.MenuData.Menus;
 using System;
 using System.Collections.Generic;
 
@@ -40,8 +41,15 @@ namespace AuldShiteburn.EntityData
                             PosX++;
                         }
                         break;
+                    case ConsoleKey.P:
+                        {
+                            inMenu = true;
+                            PauseMenu.InMenu();
+                            inMenu = false;
+                        }
+                        break;
                 }
-            }            
+            }
         }
 
         public static PlayerEntity GenerateCharacter()

@@ -1,8 +1,7 @@
 ﻿using AuldShiteburn.EntityData;
 using AuldShiteburn.MapData;
-using AuldShiteburn.MapData.AreaData;
-using AuldShiteburn.MapData.AreaData.Areas;
 using AuldShiteburn.MapData.Maps;
+using AuldShiteburn.MenuData.Menus;
 using System;
 
 namespace AuldShiteburn
@@ -13,6 +12,7 @@ namespace AuldShiteburn
 
         public void GameRunning()
         {
+            new PauseMenu();
             AuldShiteburnMap shiteburn = new AuldShiteburnMap();
             shiteburn.RandomiseAreas();
 

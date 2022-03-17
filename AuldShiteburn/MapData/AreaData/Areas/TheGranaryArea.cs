@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using AuldShiteburn.MapData.TileData;
+﻿using AuldShiteburn.MapData.TileData;
 using AuldShiteburn.MapData.TileData.Tiles.NPCs;
 
 namespace AuldShiteburn.MapData.AreaData.Areas
@@ -32,6 +29,15 @@ namespace AuldShiteburn.MapData.AreaData.Areas
                     }
                 }
             }
+        }
+
+        protected override void OnFirstEnter()
+        {
+
+        }
+
+        protected override void InitEntities()
+        {
         }
     }
 }

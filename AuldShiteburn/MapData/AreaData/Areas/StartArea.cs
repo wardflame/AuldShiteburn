@@ -1,5 +1,4 @@
-﻿using AuldShiteburn.EntityData;
-using AuldShiteburn.MapData.TileData;
+﻿using AuldShiteburn.MapData.TileData;
 using AuldShiteburn.MapData.TileData.Tiles.NPCs;
 
 namespace AuldShiteburn.MapData.AreaData.Areas
@@ -9,6 +8,14 @@ namespace AuldShiteburn.MapData.AreaData.Areas
         public override string Name => "Shitebreach";
         public override int Width => 20;
         public override int Height => 20;
+
+        protected override void InitEntities()
+        {
+        }
+
+        protected override void OnFirstEnter()
+        {
+        }
 
         protected override void TileGeneration()
         {

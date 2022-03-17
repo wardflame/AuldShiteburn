@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace AuldShiteburn.MapData.TileData.Tiles.NPCs
 {
@@ -43,7 +41,7 @@ namespace AuldShiteburn.MapData.TileData.Tiles.NPCs
                         break;
                 }
             }
-            
+
         }
     }
 }

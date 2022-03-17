@@ -1,13 +1,11 @@
 ﻿using AuldShiteburn.EntityData;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace AuldShiteburn.MapData.TileData
 {
     class BasicTile : Tile
     {
-        public BasicTile(string displayChar, bool collidable) : base(displayChar, collidable)
+        public BasicTile(string displayChar, bool collidable, ConsoleColor foreground = ConsoleColor.White, ConsoleColor background = ConsoleColor.Black) : base(displayChar, collidable, foreground, background)
         {
         }
 

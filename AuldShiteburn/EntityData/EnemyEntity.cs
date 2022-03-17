@@ -2,11 +2,10 @@
 {
     internal class EnemyEntity : LivingEntity
     {
-        public override string EntityChar => throw new System.NotImplementedException();
+        public override string EntityChar => "";
 
         public override void Move()
         {
-
         }
     }
 }

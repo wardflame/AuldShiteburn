@@ -1,7 +1,5 @@
 ﻿using AuldShiteburn.EntityData;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace AuldShiteburn.MapData.TileData.Tiles
 {
