@@ -10,6 +10,7 @@ namespace AuldShiteburn
             Console.Title = "Auld Shiteburn";
             Console.WindowWidth = 180;
             Console.WindowHeight = 60;
+            Console.CursorVisible = false;
 
             Game game = new Game();
             game.GameRunning();

@@ -23,7 +23,6 @@ namespace AuldShiteburn
             PlayerEntity.Instance.PosY = 1;
             PlayerEntity.Instance.name = "Lord Farquad";
 
-            Console.CursorVisible = false;
             shiteburn.PrintArea();
             shiteburn.PrintEntities();
             shiteburn.PrintPlayerInfo();
