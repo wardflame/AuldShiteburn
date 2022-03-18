@@ -8,7 +8,7 @@ namespace AuldShiteburn.OptionsData.Options
 {
     internal class ResumeOption : Option
     {
-        public override string DisplayString => ASCIIArt.MenuResume;
+        public override string DisplayString => ASCIIArt.menuResume;
 
         public override void OnUse()
         {

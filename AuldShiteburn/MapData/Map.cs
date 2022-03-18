@@ -210,6 +210,14 @@ namespace AuldShiteburn.MapData
             PrintEntities();
         }
 
+        public void PrintMap()
+        {
+            PrintAreaName();
+            PrintPlayerInfo();
+            PrintArea();
+            PrintEntities();
+        }
+
         /// <summary>
         /// Return the tile array for the current area. Then,
         /// until x and y have reached the bounds of the area,

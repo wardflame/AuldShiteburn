@@ -8,7 +8,7 @@ namespace AuldShiteburn.OptionsData.Options
 {
     internal class LoadOption : Option
     {
-        public override string DisplayString => ASCIIArt.MenuLoad;
+        public override string DisplayString => ASCIIArt.menuLoad;
 
         public override void OnUse()
         {

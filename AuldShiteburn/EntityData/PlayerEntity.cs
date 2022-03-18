@@ -1,4 +1,5 @@
 ﻿using AuldShiteburn.ItemData;
+using AuldShiteburn.MapData;
 using AuldShiteburn.MenuData.Menus;
 using System;
 using System.Collections.Generic;
@@ -45,6 +46,7 @@ namespace AuldShiteburn.EntityData
                         {
                             inMenu = true;
                             PauseMenu.InMenu();
+                            Map.Instance.PrintMap();
                             inMenu = false;
                         }
                         break;

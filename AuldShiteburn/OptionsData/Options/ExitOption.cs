@@ -6,7 +6,7 @@ namespace AuldShiteburn.OptionsData.Options
 {
     internal class ExitOption : Option
     {
-        public override string DisplayString => ASCIIArt.MenuExit;
+        public override string DisplayString => ASCIIArt.menuExit;
 
         public override void OnUse()
         {

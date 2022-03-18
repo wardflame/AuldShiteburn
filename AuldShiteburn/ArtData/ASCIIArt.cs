@@ -2,27 +2,27 @@
 {
     internal class ASCIIArt
     {
-        public static string MenuResume =
+        public static string menuResume =
             @"
 █▀█ █▀▀ █▀ █░█ █▀▄▀█ █▀▀
 █▀▄ ██▄ ▄█ █▄█ █░▀░█ ██▄";
 
-        public static string MenuSave =
+        public static string menuSave =
             @"
 █▀ ▄▀█ █░█ █▀▀
 ▄█ █▀█ ▀▄▀ ██▄";
 
-        public static string MenuLoad =
+        public static string menuLoad =
     @"
 █░░ █▀█ ▄▀█ █▀▄
 █▄▄ █▄█ █▀█ █▄▀";
 
-        public static string MenuSettings =
+        public static string menuSettings =
             @"
 █▀ █▀▀ ▀█▀ ▀█▀ █ █▄░█ █▀▀ █▀
 ▄█ ██▄ ░█░ ░█░ █ █░▀█ █▄█ ▄█";
 
-        public static string MenuExit =
+        public static string menuExit =
             @"
 █▀▀ ▀▄▀ █ ▀█▀
 ██▄ █░█ █ ░█░";

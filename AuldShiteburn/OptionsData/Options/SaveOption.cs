@@ -8,7 +8,7 @@ namespace AuldShiteburn.OptionsData.Options
 {
     internal class SaveOption : Option
     {
-        public override string DisplayString => ASCIIArt.MenuSave;
+        public override string DisplayString => ASCIIArt.menuSave;
 
         public override void OnUse()
         {
