@@ -8,7 +8,6 @@ namespace AuldShiteburn.MenuData.Menus
 {
     internal class PauseMenu : Menu
     {
-        public static List<Option> options = new List<Option>();
         public static void InMenu()
         {
             Console.Clear();
@@ -24,7 +23,7 @@ namespace AuldShiteburn.MenuData.Menus
                     {
                         case ConsoleKey.UpArrow:
                             {
-                                if (index <= options.Count && index > 0)
+                                if (index <= options.Count - 1 && index > 0)
                                 {
                                     index--;
                                     Console.Clear();
@@ -34,7 +33,7 @@ namespace AuldShiteburn.MenuData.Menus
                             break;
                         case ConsoleKey.DownArrow:
                             {
-                                if (index >= 0 && index < options.Count)
+                                if (index >= 0 && index < options.Count - 1)
                                 {
                                     index++;
                                     Console.Clear();
@@ -47,14 +46,14 @@ namespace AuldShiteburn.MenuData.Menus
                 options[index].OnUse();
                 browsing = false;
             }
-            Console.Clear();
         }
 
         protected override void InitMenu()
         {
+            options.Add(new NewGameOption());
             options.Add(new ResumeOption());
-            options.Add(new SaveOption());
-            options.Add(new LoadOption());
+            options.Add(new SaveGameOption());
+            options.Add(new LoadGameOption());
             options.Add(new SettingsOption());
             options.Add(new ExitOption());
         }

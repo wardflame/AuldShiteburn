@@ -6,9 +6,9 @@ using System.Text;
 
 namespace AuldShiteburn.OptionsData.Options
 {
-    internal class SaveOption : Option
+    internal class LoadGameOption : Option
     {
-        public override string DisplayString => ASCIIArt.menuSave;
+        public override string DisplayString => ASCIIArt.menuLoad;
 
         public override void OnUse()
         {

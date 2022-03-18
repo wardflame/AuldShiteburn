@@ -2,6 +2,11 @@
 {
     internal class ASCIIArt
     {
+        public static string menuNewGame =
+            @"
+█▄░█ █▀▀ █░█░█   █▀▀ ▄▀█ █▀▄▀█ █▀▀
+█░▀█ ██▄ ▀▄▀▄▀   █▄█ █▀█ █░▀░█ ██▄";
+
         public static string menuResume =
             @"
 █▀█ █▀▀ █▀ █░█ █▀▄▀█ █▀▀

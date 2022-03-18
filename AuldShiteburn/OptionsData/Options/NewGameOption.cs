@@ -1,4 +1,6 @@
 ﻿using AuldShiteburn.ArtData;
+using AuldShiteburn.MapData;
+using AuldShiteburn.MapData.Maps;
 using AuldShiteburn.OptionData;
 using System;
 using System.Collections.Generic;
@@ -6,12 +8,14 @@ using System.Text;
 
 namespace AuldShiteburn.OptionsData.Options
 {
-    internal class LoadOption : Option
+    class NewGameOption : Option
     {
-        public override string DisplayString => ASCIIArt.menuLoad;
+        public override string DisplayString => ASCIIArt.menuNewGame;
 
         public override void OnUse()
         {
+            Game.playing = false;
+            Game.newGame = true;
         }
     }
 }

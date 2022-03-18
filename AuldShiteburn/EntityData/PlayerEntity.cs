@@ -57,6 +57,9 @@ namespace AuldShiteburn.EntityData
         public static PlayerEntity GenerateCharacter()
         {
             Instance = new PlayerEntity();
+            Instance.PosX = 1;
+            Instance.PosY = 1;
+            Instance.name = "Lord Farquad";
             return Instance;
         }
     }

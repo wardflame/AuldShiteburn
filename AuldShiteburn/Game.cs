@@ -3,36 +3,42 @@ using AuldShiteburn.MapData;
 using AuldShiteburn.MapData.Maps;
 using AuldShiteburn.MenuData.Menus;
 using System;
+using System.Threading;
 
 namespace AuldShiteburn
 {
     public class Game
     {
         public static bool running = true;
+        public static bool playing = true;
+        public static bool newGame = true;
 
         public void GameRunning()
         {
-            new PauseMenu();
-            AuldShiteburnMap shiteburn = new AuldShiteburnMap();
-            shiteburn.RandomiseAreas();
-
-            Map.Instance = shiteburn;
-
-            PlayerEntity.GenerateCharacter();
-            PlayerEntity.Instance.PosX = 1;
-            PlayerEntity.Instance.PosY = 1;
-            PlayerEntity.Instance.name = "Lord Farquad";
-
-            shiteburn.PrintArea();
-            shiteburn.PrintEntities();
-            shiteburn.PrintPlayerInfo();
-            shiteburn.PrintAreaName();
-
             while (running)
             {
-                shiteburn.UpdateArea();
-                InputSystem.GetInput();
-            }
+                new PauseMenu();
+                AuldShiteburnMap shiteburn = new AuldShiteburnMap();
+                if (newGame)
+                {
+                    Console.Clear();
+                    shiteburn.RandomiseAreas();
+                    Map.Instance = shiteburn;
+                    PlayerEntity.GenerateCharacter();
+                    shiteburn.PrintMap();
+                    newGame = false;
+                }
+
+                playing = true;
+                while (playing)
+                {
+                    shiteburn.UpdateArea();
+                    if (playing)
+                    {
+                        InputSystem.GetInput();
+                    }
+                }
+            }            
         }
     }
 }
