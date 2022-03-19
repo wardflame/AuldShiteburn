@@ -17,7 +17,6 @@ namespace AuldShiteburn.OptionsData.Options
         public override void OnUse()
         {
             Console.Clear();
-            Save.Directories();
             AuldShiteburnMap shiteburn = new AuldShiteburnMap();
             shiteburn.RandomiseAreas();
             Map.Instance = shiteburn;

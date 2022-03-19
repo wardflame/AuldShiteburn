@@ -17,6 +17,7 @@ namespace AuldShiteburn
 
         public void GameRunning()
         {
+            Directories.SaveDirectoryInit();
             Menu.Instance = new MainMenu();
             while (running)
             {

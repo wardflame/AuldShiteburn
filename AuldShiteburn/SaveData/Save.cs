@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AuldShiteburn.BackendData;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -8,15 +10,18 @@ namespace AuldShiteburn.SaveData
     internal class Save
     {
         /// <summary>
-        /// If the main save directory Saves doesn't exist,
-        /// create it.
+        /// Save game settings, things such as text speed etc.
         /// </summary>
-        public static void Directories()
+        public static void SaveGameSettings()
         {
-            if (!Directory.Exists($"Saves"))
+            if (!Directory.Exists($"GameSettings"))
             {
-                Directory.CreateDirectory($"Saves");
+                Directory.CreateDirectory($"GameSettings");
             }
+
+            string save = JsonConvert.SerializeObject(GameSettings.Instance);
+
+            File.WriteAllText($"GameSettings\\GameSettings.json", save);
         }
     }
 }
