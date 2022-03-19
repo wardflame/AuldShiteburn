@@ -1,7 +1,9 @@
 ﻿using AuldShiteburn.EntityData;
 using AuldShiteburn.MapData;
 using AuldShiteburn.MapData.Maps;
+using AuldShiteburn.MenuData;
 using AuldShiteburn.MenuData.Menus;
+using AuldShiteburn.SaveData;
 using System;
 using System.Threading;
 
@@ -10,29 +12,23 @@ namespace AuldShiteburn
     public class Game
     {
         public static bool running = true;
+        public static bool mainMenu = true;
         public static bool playing = true;
-        public static bool newGame = true;
 
         public void GameRunning()
         {
+            Menu.Instance = new MainMenu();
             while (running)
             {
-                new PauseMenu();
-                AuldShiteburnMap shiteburn = new AuldShiteburnMap();
-                if (newGame)
+                while (mainMenu)
                 {
-                    Console.Clear();
-                    shiteburn.RandomiseAreas();
-                    Map.Instance = shiteburn;
-                    PlayerEntity.GenerateCharacter();
-                    shiteburn.PrintMap();
-                    newGame = false;
-                }
-
+                    Menu.Instance.InMenu();
+                    mainMenu = false;
+                }                
                 playing = true;
                 while (playing)
                 {
-                    shiteburn.UpdateArea();
+                    Map.Instance.UpdateArea();
                     if (playing)
                     {
                         InputSystem.GetInput();

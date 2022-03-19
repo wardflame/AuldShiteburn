@@ -1,5 +1,6 @@
 ﻿using AuldShiteburn.ItemData;
 using AuldShiteburn.MapData;
+using AuldShiteburn.MenuData;
 using AuldShiteburn.MenuData.Menus;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ namespace AuldShiteburn.EntityData
         List<Item> inventory;
         public override string EntityChar => "PL";
         public bool inMenu;
+        public long playtime;
 
         public override void Move()
         {
@@ -45,8 +47,8 @@ namespace AuldShiteburn.EntityData
                     case ConsoleKey.P:
                         {
                             inMenu = true;
-                            PauseMenu.InMenu();
-                            Map.Instance.PrintMap();
+                            Menu.Instance = new PauseMenu();
+                            Menu.Instance.InMenu();
                             inMenu = false;
                         }
                         break;

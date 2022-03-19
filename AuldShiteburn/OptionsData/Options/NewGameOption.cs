@@ -1,7 +1,9 @@
 ﻿using AuldShiteburn.ArtData;
+using AuldShiteburn.EntityData;
 using AuldShiteburn.MapData;
 using AuldShiteburn.MapData.Maps;
 using AuldShiteburn.OptionData;
+using AuldShiteburn.SaveData;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,8 +16,14 @@ namespace AuldShiteburn.OptionsData.Options
 
         public override void OnUse()
         {
-            Game.playing = false;
-            Game.newGame = true;
+            Console.Clear();
+            Save.Directories();
+            AuldShiteburnMap shiteburn = new AuldShiteburnMap();
+            shiteburn.RandomiseAreas();
+            Map.Instance = shiteburn;
+            PlayerEntity.GenerateCharacter();
+
+            shiteburn.PrintMap();
         }
     }
 }
