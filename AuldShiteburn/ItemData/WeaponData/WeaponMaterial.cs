@@ -3,8 +3,8 @@
     class WeaponMaterial
     {
         static WeaponMaterial weaponMaterialIron = new WeaponMaterial("Iron", Material.Iron, 2, 4);
-        static WeaponMaterial weaponMaterialSteel = new WeaponMaterial("Cold", Material.Steel, 4, 6);
-        static WeaponMaterial weaponMaterialMoonstone = new WeaponMaterial("Holy", Material.Moonstone, 6, 8);
+        static WeaponMaterial weaponMaterialSteel = new WeaponMaterial("Steel", Material.Steel, 4, 6);
+        static WeaponMaterial weaponMaterialMoonstone = new WeaponMaterial("Moonstone", Material.Moonstone, 6, 8);
         static WeaponMaterial weaponMaterialHardshite = new WeaponMaterial("Hardshite", Material.Hardshite, 6, 8);
 
         string name;

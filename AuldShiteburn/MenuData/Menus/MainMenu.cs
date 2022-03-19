@@ -1,5 +1,6 @@
 ﻿using AuldShiteburn.OptionData;
 using AuldShiteburn.OptionsData.Options;
+using System;
 using System.Collections.Generic;
 using System.Data;
 
@@ -7,7 +8,6 @@ namespace AuldShiteburn.MenuData.Menus
 {
     internal class MainMenu : Menu
     {
-        protected List<Option> options = new List<Option>();
         protected override void InitMenu()
         {
             options.Add(new NewGameOption());

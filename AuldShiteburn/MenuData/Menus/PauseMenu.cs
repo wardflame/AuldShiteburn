@@ -50,7 +50,6 @@ namespace AuldShiteburn.MenuData.Menus
 
         protected override void InitMenu()
         {
-            options.Add(new NewGameOption());
             options.Add(new ResumeOption());
             options.Add(new SaveGameOption());
             options.Add(new LoadGameOption());

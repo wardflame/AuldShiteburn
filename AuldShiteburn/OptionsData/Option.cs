@@ -20,7 +20,7 @@ namespace AuldShiteburn.OptionData
                 }
                 else
                 {
-                    Console.Write(option.DisplayString + "\n");
+                    Console.WriteLine(option.DisplayString);
                 }
             }
         }
