@@ -1,12 +1,10 @@
 ﻿using AuldShiteburn.ArtData;
+using AuldShiteburn.BackendData;
 using AuldShiteburn.EntityData;
 using AuldShiteburn.MapData;
 using AuldShiteburn.MapData.Maps;
 using AuldShiteburn.OptionData;
-using AuldShiteburn.SaveData;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace AuldShiteburn.OptionsData.Options
 {
@@ -21,7 +19,8 @@ namespace AuldShiteburn.OptionsData.Options
             shiteburn.RandomiseAreas();
             Map.Instance = shiteburn;
             PlayerEntity.GenerateCharacter();
-
+            Playtime.StartPlaytime();
+            Console.WriteLine(Map.Instance.CurrentArea);
             shiteburn.PrintMap();
         }
     }

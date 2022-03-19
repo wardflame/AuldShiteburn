@@ -3,6 +3,7 @@ using System;
 
 namespace AuldShiteburn.MapData.TileData
 {
+    [Serializable]
     internal abstract class Tile
     {
         public static BasicTile AirTile { get; } = new BasicTile(" ", false);

@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
+﻿using System.IO;
 
 namespace AuldShiteburn.SaveData
 {
     internal class Directories
     {
         /// <summary>
-        /// If a save directory with a name from the enumerator
+        /// If a directory with a name from the enumerator DirectoryName
         /// does not exist, create one.
         /// </summary>
         /// <param name="directory"></param>
@@ -20,6 +17,9 @@ namespace AuldShiteburn.SaveData
             }
         }
 
+        /// <summary>
+        /// If the default save directories do not exist, make them.
+        /// </summary>
         public static void SaveDirectoryInit()
         {
             if (!Directory.Exists($"{DirectoryName.Saves}"))
@@ -42,9 +42,16 @@ namespace AuldShiteburn.SaveData
             {
                 Directory.CreateDirectory($"{DirectoryName.Saves}\\{DirectoryName.SaveSlot4}");
             }
-
+            if (!Directory.Exists($"{DirectoryName.Saves}\\{DirectoryName.GameSettings}"))
+            {
+                Directory.CreateDirectory($"{DirectoryName.Saves}\\{DirectoryName.GameSettings}");
+            }
         }
     }
+
+    /// <summary>
+    /// An enum designed to keep directory names safe and consistent.
+    /// </summary>
     enum DirectoryName
     {
         Saves,

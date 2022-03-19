@@ -1,5 +1,8 @@
-﻿namespace AuldShiteburn.ItemData.WeaponData
+﻿using System;
+
+namespace AuldShiteburn.ItemData.WeaponData
 {
+    [Serializable]
     class WeaponType
     {
     }

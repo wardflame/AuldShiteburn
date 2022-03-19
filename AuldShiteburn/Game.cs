@@ -1,11 +1,7 @@
-﻿using AuldShiteburn.EntityData;
-using AuldShiteburn.MapData;
-using AuldShiteburn.MapData.Maps;
+﻿using AuldShiteburn.MapData;
 using AuldShiteburn.MenuData;
 using AuldShiteburn.MenuData.Menus;
 using AuldShiteburn.SaveData;
-using System;
-using System.Threading;
 
 namespace AuldShiteburn
 {
@@ -25,7 +21,7 @@ namespace AuldShiteburn
                 {
                     Menu.Instance.InMenu();
                     mainMenu = false;
-                }                
+                }
                 playing = true;
                 while (playing)
                 {
@@ -35,7 +31,7 @@ namespace AuldShiteburn
                         InputSystem.GetInput();
                     }
                 }
-            }            
+            }
         }
     }
 }

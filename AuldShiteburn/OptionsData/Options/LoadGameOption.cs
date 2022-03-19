@@ -1,8 +1,8 @@
 ﻿using AuldShiteburn.ArtData;
+using AuldShiteburn.MapData;
 using AuldShiteburn.OptionData;
+using AuldShiteburn.SaveData;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace AuldShiteburn.OptionsData.Options
 {
@@ -12,6 +12,9 @@ namespace AuldShiteburn.OptionsData.Options
 
         public override void OnUse()
         {
+            Load.LoadMap();
+            Console.Clear();
+            Map.Instance.PrintMap();
         }
     }
 }

@@ -1,8 +1,4 @@
-﻿using AuldShiteburn.OptionData;
-using AuldShiteburn.OptionsData.Options;
-using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using AuldShiteburn.OptionsData.Options;
 
 namespace AuldShiteburn.MenuData.Menus
 {

@@ -1,5 +1,4 @@
-﻿using AuldShiteburn.MenuData.Menus;
-using System;
+﻿using System;
 
 namespace AuldShiteburn
 {
@@ -8,8 +7,8 @@ namespace AuldShiteburn
         static void Main(string[] args)
         {
             Console.Title = "Auld Shiteburn";
-            Console.WindowWidth = 180;
-            Console.WindowHeight = 60;
+            Console.WindowWidth = 120;
+            Console.WindowHeight = 40;
             Console.CursorVisible = false;
 
             Game game = new Game();

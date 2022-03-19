@@ -25,7 +25,7 @@ namespace AuldShiteburn
                         Console.WriteLine(item);
                         Console.ResetColor();
                     }
-                }                
+                }
                 else
                 {
                     Console.Write(item + "\n");

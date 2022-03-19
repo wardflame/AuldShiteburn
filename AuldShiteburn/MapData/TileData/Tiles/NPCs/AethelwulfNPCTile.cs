@@ -2,6 +2,7 @@
 
 namespace AuldShiteburn.MapData.TileData.Tiles.NPCs
 {
+    [Serializable]
     class AethelwulfNPCTile : NPCTile
     {
         public override string NPCName => "Aethulwulf";

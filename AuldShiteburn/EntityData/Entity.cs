@@ -1,5 +1,8 @@
-﻿namespace AuldShiteburn.EntityData
+﻿using System;
+
+namespace AuldShiteburn.EntityData
 {
+    [Serializable]
     internal abstract class Entity
     {
         public int PosX { get; set; }

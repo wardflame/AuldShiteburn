@@ -1,8 +1,4 @@
-﻿using AuldShiteburn.ArtData;
-using AuldShiteburn.OptionData;
-using AuldShiteburn.OptionsData.Options;
-using System;
-using System.Collections.Generic;
+﻿using AuldShiteburn.OptionsData.Options;
 
 namespace AuldShiteburn.MenuData.Menus
 {

@@ -1,11 +1,13 @@
 ﻿using AuldShiteburn.EntityData;
 using AuldShiteburn.MapData.TileData;
 using AuldShiteburn.MapData.TileData.Tiles;
+using AuldShiteburn.SaveData;
 using System;
 using System.Collections.Generic;
 
 namespace AuldShiteburn.MapData
 {
+    [Serializable]
     /// <summary>
     /// Base map class. Holds an array of 'areas' which the player navigates.
     /// Maps use a Width and Height property, multiplied, to determine how many
@@ -16,6 +18,7 @@ namespace AuldShiteburn.MapData
     internal abstract class Map
     {
         public static Map Instance { get; set; }
+        public PlayerEntity Player { get; set; }
         public abstract string Name { get; }
         public abstract int Width { get; }
         public abstract int Height { get; }
@@ -24,7 +27,6 @@ namespace AuldShiteburn.MapData
 
         protected List<Area> AvailableAreas { get; } = new List<Area>();
         private Area[] areas;
-
         public Area CurrentArea => areas[GetIndex(posX, posY)];
 
         public Map()
@@ -39,11 +41,12 @@ namespace AuldShiteburn.MapData
         /// <param name="posX">Location across the columns we're searching.</param>
         /// <param name="posY">Location down the rows we're searching.</param>
         /// <returns></returns>
-        protected int GetIndex(int posX, int posY)
+        public int GetIndex(int posX, int posY)
         {
             return (Width * posY) + posX;
         }
 
+        #region Areas
         /// <summary>
         /// Move all the entities around an area.
         /// </summary>
@@ -204,12 +207,11 @@ namespace AuldShiteburn.MapData
                     break;
             }
             ClearAreaName();
-            PrintAreaName();
-            PrintPlayerInfo();
-            PrintArea();
-            PrintEntities();
+            PrintMap();
         }
+        #endregion Areas
 
+        #region Printing
         public void PrintMap()
         {
             PrintAreaName();
@@ -257,21 +259,6 @@ namespace AuldShiteburn.MapData
         }
 
         /// <summary>
-        /// Place cursor to the top and just-right of the
-        /// area and print space characters to the end of
-        /// the row.
-        /// </summary>
-        public void ClearAreaName()
-        {
-            Console.CursorLeft = CurrentArea.Width * 2;
-            Console.CursorTop = 0;
-            for (int x = CurrentArea.Width * 2; x < Console.WindowWidth; x++)
-            {
-                Console.Write(new string(' ', Console.WindowWidth - CurrentArea.Width * 2));
-            }
-        }
-
-        /// <summary>
         /// Ensure the entity is not outside the area bounds,
         /// then print the entity by its display character to the
         /// x/y position it claims to inhabit in the area.
@@ -309,9 +296,12 @@ namespace AuldShiteburn.MapData
         public void PrintEntities()
         {
             PrintEntity(PlayerEntity.Instance);
-            foreach (Entity entity in CurrentArea.entities)
+            if (CurrentArea.entities.Count > 0)
             {
-                PrintEntity(entity);
+                foreach (Entity entity in CurrentArea.entities)
+                {
+                    PrintEntity(entity);
+                }
             }
         }
 
@@ -327,7 +317,9 @@ namespace AuldShiteburn.MapData
             Console.WriteLine("Stamina: " + PlayerEntity.Instance.Stamina);
             Console.WriteLine("Mana: " + PlayerEntity.Instance.Mana);
         }
+        #endregion Printing
 
+        #region Moving Entities
         /// <summary>
         /// Store entity's starting position, allow entity to move. Get the tile at entity's new location.
         /// If new tile is collidable, move the entity back to its former location. If the entity has
@@ -373,6 +365,23 @@ namespace AuldShiteburn.MapData
                 MoveEntity(entity);
             }
         }
+        #endregion Moving Entities
+
+        #region Clear UI
+        /// <summary>
+        /// Place cursor to the top and just-right of the
+        /// area and print space characters to the end of
+        /// the row.
+        /// </summary>
+        public void ClearAreaName()
+        {
+            Console.CursorLeft = CurrentArea.Width * 2;
+            Console.CursorTop = 0;
+            for (int x = CurrentArea.Width * 2; x < Console.WindowWidth; x++)
+            {
+                Console.Write(new string(' ', Console.WindowWidth - CurrentArea.Width * 2));
+            }
+        }
 
         /// <summary>
         /// If the player is not within the area of an NPC, remove the NPC interaction
@@ -408,5 +417,6 @@ namespace AuldShiteburn.MapData
                 Console.Write(new string(' ', Console.WindowWidth - CurrentArea.Width * 2));
             }
         }
+        #endregion Clear UI
     }
 }

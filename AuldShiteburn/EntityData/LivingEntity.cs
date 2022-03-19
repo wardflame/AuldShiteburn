@@ -1,5 +1,8 @@
-﻿namespace AuldShiteburn.EntityData
+﻿using System;
+
+namespace AuldShiteburn.EntityData
 {
+    [Serializable]
     internal abstract class LivingEntity : Entity
     {
         public string name;

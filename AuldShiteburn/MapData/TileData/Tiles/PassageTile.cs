@@ -3,6 +3,7 @@ using System;
 
 namespace AuldShiteburn.MapData.TileData.Tiles
 {
+    [Serializable]
     class PassageTile : Tile
     {
         public Direction Direction { get; set; }

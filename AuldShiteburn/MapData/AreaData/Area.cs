@@ -6,6 +6,7 @@ using System.Collections.Generic;
 
 namespace AuldShiteburn.MapData
 {
+    [Serializable]
     internal abstract class Area
     {
         public abstract string Name { get; }

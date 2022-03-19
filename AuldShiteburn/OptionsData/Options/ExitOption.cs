@@ -1,7 +1,9 @@
 ﻿using AuldShiteburn.ArtData;
+using AuldShiteburn.BackendData;
 using AuldShiteburn.MenuData;
 using AuldShiteburn.MenuData.Menus;
 using AuldShiteburn.OptionData;
+using AuldShiteburn.SaveData;
 using System;
 
 namespace AuldShiteburn.OptionsData.Options
@@ -30,9 +32,11 @@ namespace AuldShiteburn.OptionsData.Options
                         {
                             if (!mainMenu)
                             {
-                                if (Utilities.VerificationQuery("\nYou are about to exit to the main menu. Any unsaved progress will be lost. Continue? (Y/N)") == true)
+                                if (Utilities.VerificationQuery("\nYou are about to exit to the main menu. Progress will be saved. Continue? (Y/N)") == true)
                                 {
                                     Console.Clear();
+                                    Save.SaveGame();
+                                    Playtime.ResetPlaytime();
                                     Menu.Instance = new MainMenu();
                                     Menu.Instance.InMenu();
                                 }

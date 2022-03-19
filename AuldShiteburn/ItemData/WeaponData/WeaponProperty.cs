@@ -1,5 +1,8 @@
-﻿namespace AuldShiteburn.ItemData.WeaponData
+﻿using System;
+
+namespace AuldShiteburn.ItemData.WeaponData
 {
+    [Serializable]
     class WeaponProperty
     {
         static WeaponProperty weaponPropertyFlaming = new WeaponProperty("Flaming", Property.Fire, 4, 6);

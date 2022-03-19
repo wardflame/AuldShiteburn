@@ -1,7 +1,9 @@
 ﻿using AuldShiteburn.MapData.AreaData.Areas;
+using System;
 
 namespace AuldShiteburn.MapData.Maps
 {
+    [Serializable]
     class AuldShiteburnMap : Map
     {
         public override string Name => "Auld Shiteburn";

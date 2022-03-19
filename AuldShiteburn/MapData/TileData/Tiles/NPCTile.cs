@@ -3,6 +3,7 @@ using System;
 
 namespace AuldShiteburn.MapData.TileData.Tiles
 {
+    [Serializable]
     abstract class NPCTile : Tile
     {
         public abstract string NPCName { get; }

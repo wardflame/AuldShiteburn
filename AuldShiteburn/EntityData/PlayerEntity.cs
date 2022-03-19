@@ -1,5 +1,4 @@
 ﻿using AuldShiteburn.ItemData;
-using AuldShiteburn.MapData;
 using AuldShiteburn.MenuData;
 using AuldShiteburn.MenuData.Menus;
 using System;
@@ -7,9 +6,10 @@ using System.Collections.Generic;
 
 namespace AuldShiteburn.EntityData
 {
+    [Serializable]
     internal class PlayerEntity : LivingEntity
     {
-        public static PlayerEntity Instance { get; private set; }
+        public static PlayerEntity Instance { get; set; }
         List<Item> inventory;
         public override string EntityChar => "PL";
         public bool inMenu;

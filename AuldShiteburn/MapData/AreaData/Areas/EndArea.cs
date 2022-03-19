@@ -1,8 +1,10 @@
 ﻿using AuldShiteburn.MapData.TileData;
 using AuldShiteburn.MapData.TileData.Tiles.NPCs;
+using System;
 
 namespace AuldShiteburn.MapData.AreaData.Areas
 {
+    [Serializable]
     class EndArea : Area
     {
         public override string Name => "Foulstench, Heart of the Shite";
