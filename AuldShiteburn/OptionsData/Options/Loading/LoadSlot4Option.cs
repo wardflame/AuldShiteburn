@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 using System;
 using System.IO;
 
-namespace AuldShiteburn.OptionsData.Options.Saving
+namespace AuldShiteburn.OptionsData.Options.Loading
 {
     internal class LoadSlot4Option : Option
     {

@@ -18,7 +18,7 @@ namespace AuldShiteburn.MapData
     internal abstract class Map
     {
         public static Map Instance { get; set; }
-        public PlayerEntity Player { get; set; }
+        public PlayerEntity Player => PlayerEntity.Instance;
         public abstract string Name { get; }
         public abstract int Width { get; }
         public abstract int Height { get; }
@@ -182,7 +182,6 @@ namespace AuldShiteburn.MapData
             }
             posX = Math.Clamp(posX, 0, Width - 1);
             posY = Math.Clamp(posY, 0, Height - 1);
-            Console.Clear();
             switch (direction)
             {
                 case Direction.North:
@@ -207,6 +206,8 @@ namespace AuldShiteburn.MapData
                     break;
             }
             ClearAreaName();
+            Console.CursorLeft = 0;
+            Console.CursorTop = 0;
             PrintMap();
         }
         #endregion Areas

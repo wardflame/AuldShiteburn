@@ -20,7 +20,6 @@ namespace AuldShiteburn.OptionsData.Options
             Map.Instance = shiteburn;
             PlayerEntity.GenerateCharacter();
             Playtime.StartPlaytime();
-            Console.WriteLine(Map.Instance.CurrentArea);
             shiteburn.PrintMap();
         }
     }

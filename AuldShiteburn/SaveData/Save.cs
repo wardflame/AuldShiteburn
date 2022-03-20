@@ -4,6 +4,7 @@ using AuldShiteburn.MapData;
 using Newtonsoft.Json;
 using System;
 using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace AuldShiteburn.SaveData
 {
@@ -14,14 +15,24 @@ namespace AuldShiteburn.SaveData
         /// </summary>
         public static void SaveGameSettings()
         {
-            if (!Directory.Exists($"GameSettings"))
+            if (!Directory.Exists($"{DirectoryName.GameSettings}"))
             {
-                Directory.CreateDirectory($"GameSettings");
+                Directory.CreateDirectory($"{DirectoryName.GameSettings}");
             }
 
-            string save = JsonConvert.SerializeObject(GameSettings.Instance);
-
-            File.WriteAllText($"GameSettings\\GameSettings.json", save);
+            FileStream stream = File.Create($"{DirectoryName.GameSettings}\\{DirectoryName.GameSettings}.dat");
+            BinaryFormatter formatter = new BinaryFormatter();
+            try
+            {
+                formatter.Serialize(stream, GameSettings.Instance);
+                stream.Close();
+            }
+            catch (Exception e)
+            {
+                Utils.WriteColour(ConsoleColor.Red, $"Error: Save failed. " + e.Message);
+                stream.Close();
+                File.Delete($"{DirectoryName.GameSettings}\\{DirectoryName.GameSettings}.dat");
+            }
         }
 
         /// <summary>
@@ -31,30 +42,31 @@ namespace AuldShiteburn.SaveData
         /// play time and then serialize the player to .json.
         /// Save the file name as the total time played in DateTime.
         /// </summary>
-        public static void SaveGame()
+        public static void SaveGame(DirectoryName saveSlot)
         {
-            if (!Directory.Exists($"{DirectoryName.Saves}\\{DirectoryName.SaveSlot1}"))
+            if (!Directory.Exists($"{DirectoryName.Saves}\\{saveSlot}"))
             {
-                Directory.CreateDirectory($"{DirectoryName.Saves}\\{DirectoryName.SaveSlot1}");
+                Directory.CreateDirectory($"{DirectoryName.Saves}\\{saveSlot}");
             }
 
-            /*var slot1Files = Directory.GetFiles($"{DirectoryName.Saves}\\{DirectoryName.SaveSlot1}");
-            for (int i = 0; i < slot1Files.Length - 1; i++)
-            {
-               File.Delete($"{DirectoryName.Saves}\\{DirectoryName.SaveSlot1}\\{slot1Files[i]}");
-            }*/
-
-            PlayerEntity.Instance.inMenu = false;
             PlayerEntity.Instance.playtime = Playtime.GetTotalPlayTime();
             DateTime gameTime = Playtime.GetSessionLengthAsDateTime();
-            Map.Instance.Player = PlayerEntity.Instance;
-            SaveStructure save = Map.Instance.SaveMap();
 
-            string saveMap = JsonConvert.SerializeObject(save);
-            File.WriteAllText($"{DirectoryName.Saves}\\{DirectoryName.SaveSlot1}\\{Map.Instance.Name}.{gameTime.ToString("H.mm.ss.ff")}.json", saveMap);
+            string saveName = $"{Map.Instance.Player.name} {gameTime.ToString("H.mm.ss.ff")}.dat";
 
-            /*string savePlayer = JsonConvert.SerializeObject(PlayerEntity.Instance);
-            File.WriteAllText($"{DirectoryName.Saves}\\{DirectoryName.SaveSlot1}\\{PlayerEntity.Instance.name}.{gameTime.ToString("H.mm.ss.ff")}.json", savePlayer);*/
+            FileStream stream = File.Create($"{DirectoryName.Saves}\\{saveSlot}\\{saveName}");
+            BinaryFormatter formatter = new BinaryFormatter();
+            try
+            {
+                formatter.Serialize(stream, Map.Instance);
+                stream.Close();
+            }
+            catch (Exception e)
+            {
+                Utils.WriteColour(ConsoleColor.Red, $"Error: Save failed. " + e.Message);
+                stream.Close();
+                File.Delete($"{DirectoryName.Saves}\\{saveSlot}\\{saveName}");
+            }
         }
     }
 }

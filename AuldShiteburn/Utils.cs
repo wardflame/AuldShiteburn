@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace AuldShiteburn
 {
-    class Utilities
+    class Utils
     {
         /// <summary>
         /// Get a generic list and print out its contents.
@@ -45,6 +45,13 @@ namespace AuldShiteburn
             {
                 return false;
             }
+        }
+
+        public static void WriteColour(ConsoleColor colour, string message)
+        {
+            Console.ForegroundColor = colour;
+            Console.WriteLine(message);
+            Console.ResetColor();
         }
     }
 }

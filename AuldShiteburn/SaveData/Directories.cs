@@ -42,9 +42,9 @@ namespace AuldShiteburn.SaveData
             {
                 Directory.CreateDirectory($"{DirectoryName.Saves}\\{DirectoryName.SaveSlot4}");
             }
-            if (!Directory.Exists($"{DirectoryName.Saves}\\{DirectoryName.GameSettings}"))
+            if (!Directory.Exists($"{DirectoryName.GameSettings}"))
             {
-                Directory.CreateDirectory($"{DirectoryName.Saves}\\{DirectoryName.GameSettings}");
+                Directory.CreateDirectory($"{DirectoryName.GameSettings}");
             }
         }
     }

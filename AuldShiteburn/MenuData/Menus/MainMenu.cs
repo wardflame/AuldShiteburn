@@ -1,9 +1,11 @@
-﻿using AuldShiteburn.OptionsData.Options;
+﻿using AuldShiteburn.ArtData;
+using AuldShiteburn.OptionsData.Options;
 
 namespace AuldShiteburn.MenuData.Menus
 {
     internal class MainMenu : Menu
     {
+        protected override string Banner => ASCIIArt.menuGameBanner;
         protected override void InitMenu()
         {
             options.Add(new NewGameOption());

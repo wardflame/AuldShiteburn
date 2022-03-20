@@ -1,8 +1,11 @@
-﻿using AuldShiteburn.ItemData;
+﻿using AuldShiteburn.BackendData;
+using AuldShiteburn.EntityData.PlayerData;
+using AuldShiteburn.ItemData;
 using AuldShiteburn.MenuData;
 using AuldShiteburn.MenuData.Menus;
 using System;
 using System.Collections.Generic;
+using static AuldShiteburn.EntityData.PlayerData.PlayerGenInfo;
 
 namespace AuldShiteburn.EntityData
 {
@@ -61,7 +64,53 @@ namespace AuldShiteburn.EntityData
             Instance = new PlayerEntity();
             Instance.PosX = 1;
             Instance.PosY = 1;
-            Instance.name = "Lord Farquad";
+
+            string titleStr;
+            string forenameStr;
+
+            #region Name Generation
+            Random rand = new Random();
+            int sexChance = rand.Next(0, 101);
+            if (sexChance <= GameSettings.Instance.SexRatio)
+            {
+                int forenameNum = rand.Next(0, Enum.GetValues(typeof(NameMale)).Length);
+                NameMale forename = (NameMale)forenameNum;
+                forenameStr = forename.ToString();
+
+                int willTitle = rand.Next(0, 101);
+                if (willTitle >= 70)
+                {
+                    int title = rand.Next(0, Enum.GetValues(typeof(TitleMale)).Length);
+                    TitleMale titleMale = (TitleMale)title;
+                    titleStr = titleMale.ToString();
+                    Instance.name = $"{titleStr} {forenameStr}";
+                }
+                else
+                {
+                    Instance.name = $"{forenameStr}";
+                }                
+            }
+            else
+            {
+                int forenameNum = rand.Next(0, Enum.GetValues(typeof(NameFemale)).Length);
+                NameFemale forename = (NameFemale)forenameNum;
+                forenameStr = forename.ToString();
+
+                int willTitle = rand.Next(0, 101);
+                if (willTitle >= 70)
+                {
+                    int title = rand.Next(0, Enum.GetValues(typeof(TitleFemale)).Length);
+                    TitleFemale titleMale = (TitleFemale)title;
+                    titleStr = titleMale.ToString();
+                    Instance.name = $"{titleStr} {forenameStr}";
+                }
+                else
+                {
+                    Instance.name = $"{forenameStr}";
+                }                
+            }
+            #endregion Name Generation
+
             return Instance;
         }
     }

@@ -1,11 +1,12 @@
 ﻿using AuldShiteburn.BackendData;
 using AuldShiteburn.MenuData;
 using AuldShiteburn.OptionData;
-using AuldShiteburn.OptionsData.Options.Saving;
+using AuldShiteburn.OptionsData.Options.Loading;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace AuldShiteburn.SaveData
 {
@@ -33,21 +34,27 @@ namespace AuldShiteburn.SaveData
         /// If a GameSettings save exists, return it.
         /// </summary>
         /// <returns>Game settings.</returns>
-        public static GameSettings LoadGameSettings()
+        public static void LoadGameSettings()
         {
-            bool getGameSettSave = Directory.Exists("GameSettings");
-            if (!getGameSettSave)
+            if (File.Exists($"{DirectoryName.GameSettings}\\{DirectoryName.GameSettings}.dat"))
             {
-                Directory.CreateDirectory("GameSettings");
-                return GameSettings.Instance;
+                FileStream stream = File.OpenRead($"{DirectoryName.GameSettings}\\{DirectoryName.GameSettings}.dat");
+                try
+                {
+                    BinaryFormatter formatter = new BinaryFormatter();
+                    GameSettings.Instance = (GameSettings)formatter.Deserialize(stream);
+                    stream.Close();
+                }
+                catch
+                {
+                    stream.Close();
+                    GameSettings.Instance = new GameSettings();
+                }
+                
             }
             else
             {
-                if (!File.Exists("GameSettings\\GameSettings.json"))
-                {
-                    return GameSettings.Instance;
-                }
-                return JsonConvert.DeserializeObject<GameSettings>(File.ReadAllText($"GameSettings\\GameSettings.json"));
+                GameSettings.Instance = new GameSettings();
             }
         }
 

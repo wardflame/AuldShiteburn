@@ -1,5 +1,6 @@
 ﻿using AuldShiteburn.ArtData;
 using AuldShiteburn.BackendData;
+using AuldShiteburn.EntityData;
 using AuldShiteburn.MenuData;
 using AuldShiteburn.MenuData.Menus;
 using AuldShiteburn.OptionData;
@@ -32,13 +33,15 @@ namespace AuldShiteburn.OptionsData.Options
                         {
                             if (!mainMenu)
                             {
-                                if (Utilities.VerificationQuery("\nYou are about to exit to the main menu. Progress will be saved. Continue? (Y/N)") == true)
+                                if (Utils.VerificationQuery("\nYou are about to exit to the main menu. Progress will be saved. Continue? (Y/N)") == true)
                                 {
                                     Console.Clear();
-                                    Save.SaveGame();
+                                    PlayerEntity.Instance.inMenu = false;
+                                    Save.SaveGame(DirectoryName.SaveSlot1);
                                     Playtime.ResetPlaytime();
-                                    Menu.Instance = new MainMenu();
-                                    Menu.Instance.InMenu();
+                                    Game.playing = false;
+                                    Game.mainMenu = true;
+                                    choosing = false;
                                 }
                                 else
                                 {
@@ -50,7 +53,7 @@ namespace AuldShiteburn.OptionsData.Options
                         break;
                     case ConsoleKey.E:
                         {
-                            if (Utilities.VerificationQuery("\nYou are about to exit the game. Any unsaved progress will be lost. Continue? (Y/N)") == true)
+                            if (Utils.VerificationQuery("\nYou are about to exit the game. Any unsaved progress will be lost. Continue? (Y/N)") == true)
                             {
                                 Environment.Exit(0);
                             }

@@ -6,6 +6,22 @@ namespace AuldShiteburn.BackendData
     internal class GameSettings
     {
         public static GameSettings Instance = new GameSettings();
-        public static int sexRatio = 50;
+        private int sexRatio = 50;
+        public int SexRatio
+        {
+            get { return sexRatio; }
+            set
+            {
+                sexRatio = value;
+                if (value > 100)
+                {
+                    sexRatio = 100;
+                }
+                else if (value < 0)
+                {
+                    sexRatio = 0;
+                }
+            }
+        }
     }
 }

@@ -8,9 +8,14 @@ namespace AuldShiteburn.MenuData
     {
         public static Menu Instance { get; set; }
         protected static List<Option> options;
+        protected abstract string Banner { get; }
         public void InMenu()
         {
             Console.Clear();
+            if (Banner != null)
+            {
+                Utils.WriteColour(ConsoleColor.DarkYellow, Banner);
+            }
             Option.PrintOptions(options, 0);
             bool browsing = true;
             while (browsing)
@@ -26,7 +31,16 @@ namespace AuldShiteburn.MenuData
                                 if (index <= options.Count - 1 && index > 0)
                                 {
                                     index--;
-                                    Console.Clear();
+                                    if (Banner != null)
+                                    {
+                                        Console.CursorLeft = 0;
+                                        Console.CursorTop = 7;
+                                    }
+                                    else
+                                    {
+                                        Console.CursorLeft = 0;
+                                        Console.CursorTop = 0;
+                                    }                                    
                                     Option.PrintOptions(options, index);
                                 }
                             }
@@ -36,7 +50,16 @@ namespace AuldShiteburn.MenuData
                                 if (index >= 0 && index < options.Count - 1)
                                 {
                                     index++;
-                                    Console.Clear();
+                                    if (Banner != null)
+                                    {
+                                        Console.CursorLeft = 0;
+                                        Console.CursorTop = 7;
+                                    }
+                                    else
+                                    {
+                                        Console.CursorLeft = 0;
+                                        Console.CursorTop = 0;
+                                    }
                                     Option.PrintOptions(options, index);
                                 }
                             }

@@ -14,11 +14,12 @@ namespace AuldShiteburn
         public void GameRunning()
         {
             Directories.SaveDirectoryInit();
-            Menu.Instance = new MainMenu();
+            Load.LoadGameSettings();
             while (running)
             {
                 while (mainMenu)
                 {
+                    Menu.Instance = new MainMenu();
                     Menu.Instance.InMenu();
                     mainMenu = false;
                 }
