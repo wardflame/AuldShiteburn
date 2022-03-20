@@ -7,8 +7,8 @@ namespace AuldShiteburn
 {
     public class Game
     {
-        public static bool running = true;
         public static bool mainMenu = true;
+        public static bool running = true;
         public static bool playing = true;
 
         public void GameRunning()
@@ -21,9 +21,7 @@ namespace AuldShiteburn
                 {
                     Menu.Instance = new MainMenu();
                     Menu.Instance.InMenu();
-                    mainMenu = false;
                 }
-                playing = true;
                 while (playing)
                 {
                     Map.Instance.UpdateArea();

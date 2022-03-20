@@ -50,9 +50,11 @@ namespace AuldShiteburn.EntityData
                     case ConsoleKey.P:
                         {
                             inMenu = true;
-                            Menu.Instance = new PauseMenu();
-                            Menu.Instance.InMenu();
-                            inMenu = false;
+                            while (inMenu)
+                            {
+                                Menu.Instance = new PauseMenu();
+                                Menu.Instance.InMenu();
+                            }                            
                         }
                         break;
                 }

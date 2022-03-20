@@ -33,7 +33,7 @@ namespace AuldShiteburn.OptionsData.Options
                         {
                             if (!mainMenu)
                             {
-                                if (Utils.VerificationQuery("\nYou are about to exit to the main menu. Progress will be saved. Continue? (Y/N)") == true)
+                                if (Utils.VerificationQuery("\nYou are about to exit to the main menu. Any unsaved progress will be lost. Continue? (Y/N)") == true)
                                 {
                                     Console.Clear();
                                     PlayerEntity.Instance.inMenu = false;
@@ -42,11 +42,11 @@ namespace AuldShiteburn.OptionsData.Options
                                     Game.playing = false;
                                     Game.mainMenu = true;
                                     choosing = false;
+                                    Menu.Instance.menuActive = false;
                                 }
                                 else
                                 {
-                                    Console.Clear();
-                                    Menu.Instance.InMenu();
+                                    choosing = false;
                                 }
                             }
                         }
@@ -59,15 +59,13 @@ namespace AuldShiteburn.OptionsData.Options
                             }
                             else
                             {
-                                Console.Clear();
-                                Menu.Instance.InMenu();
+                                choosing = false;
                             }
                         }
                         break;
                     case ConsoleKey.C:
                         {
-                            Console.Clear();
-                            Menu.Instance.InMenu();
+                            choosing = false;
                         }
                         break;
                 }

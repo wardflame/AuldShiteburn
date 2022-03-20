@@ -19,7 +19,10 @@ namespace AuldShiteburn.SaveData
         /// <returns>Return true if there is a directory available to access.</returns>
         public static bool GetSaves()
         {
-            if (Directory.GetFiles($"{DirectoryName.Saves}\\{DirectoryName.SaveSlot1}").Length <= 0)
+            if (Directory.GetFiles($"{DirectoryName.Saves}\\{DirectoryName.SaveSlot1}").Length <= 0 &&
+                Directory.GetFiles($"{DirectoryName.Saves}\\{DirectoryName.SaveSlot2}").Length <= 0 &&
+                Directory.GetFiles($"{DirectoryName.Saves}\\{DirectoryName.SaveSlot3}").Length <= 0 &&
+                Directory.GetFiles($"{DirectoryName.Saves}\\{DirectoryName.SaveSlot4}").Length <= 0)
             {
                 Console.WriteLine("\nThere are no saves available.");
                 return false;
@@ -66,7 +69,7 @@ namespace AuldShiteburn.SaveData
         /// be the player from that file.
         /// </summary>
         /// <returns></returns>
-        public static void LoadMap()
+        public static bool LoadSave()
         {
             if (GetSaves())
             {
@@ -111,11 +114,12 @@ namespace AuldShiteburn.SaveData
                     options[index].OnUse();
                     browsing = false;
                 }
+                return true;
             }
             else
             {
-                System.Threading.Thread.Sleep(4000);
-                Menu.Instance.InMenu();
+                System.Threading.Thread.Sleep(2000);
+                return false;
             }
         }
     }

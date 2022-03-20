@@ -28,24 +28,22 @@ Ratio: " + GameSettings.Instance.SexRatio);
                 {
                     case ConsoleKey.UpArrow:
                         {
-                            if (GameSettings.Instance.SexRatio >= 0 && GameSettings.Instance.SexRatio < 100)
-                            {
-                                Console.CursorLeft = 0;
-                                Console.CursorTop = 7;
-                                GameSettings.Instance.SexRatio += 1;
-                                Console.Write("Ratio: " + GameSettings.Instance.SexRatio);
-                            }                            
+                            Console.CursorLeft = 7;
+                            Console.CursorTop = 7;
+                            Console.Write("   ");
+                            Console.CursorLeft = 0;
+                            GameSettings.Instance.SexRatio++;
+                            Console.Write("Ratio: " + GameSettings.Instance.SexRatio);
                         }
                         break;
                     case ConsoleKey.DownArrow:
                         {
-                            if (GameSettings.Instance.SexRatio > 0 && GameSettings.Instance.SexRatio <= 100)
-                            {
-                                Console.CursorLeft = 0;
-                                Console.CursorTop = 7;
-                                GameSettings.Instance.SexRatio -= 1;
-                                Console.Write("Ratio: " + GameSettings.Instance.SexRatio);
-                            }
+                            Console.CursorLeft = 7;
+                            Console.CursorTop = 7;
+                            Console.Write("   ");
+                            Console.CursorLeft = 0;
+                            GameSettings.Instance.SexRatio--;
+                            Console.Write("Ratio: " + GameSettings.Instance.SexRatio);
                         }
                         break;
                 }

@@ -21,15 +21,12 @@ namespace AuldShiteburn.OptionsData.Options.Loading
             if (Directory.Exists($"{DirectoryName.Saves}\\{DirectoryName.SaveSlot1}"))
             {
                 var mapToLoad = Directory.GetFiles($"{DirectoryName.Saves}\\{DirectoryName.SaveSlot1}");
-                foreach (var map in mapToLoad)
-                {
-                    Console.WriteLine(map);
-                }
                 FileStream stream = File.OpenRead($"{mapToLoad[0]}");
                 try
                 {
                     BinaryFormatter formatter = new BinaryFormatter();
                     Map.Instance = (Map)formatter.Deserialize(stream);
+                    PlayerEntity.Instance = Map.Instance.Player;
                     stream.Close();
                 }
                 catch

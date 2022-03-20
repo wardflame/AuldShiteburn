@@ -1,5 +1,7 @@
 ﻿using AuldShiteburn.ArtData;
+using AuldShiteburn.EntityData;
 using AuldShiteburn.MapData;
+using AuldShiteburn.MenuData;
 using AuldShiteburn.OptionData;
 using AuldShiteburn.SaveData;
 using System;
@@ -11,10 +13,19 @@ namespace AuldShiteburn.OptionsData.Options
         public override string DisplayString => ASCIIArt.menuLoad;
 
         public override void OnUse()
-        {
-            Load.LoadMap();
-            Console.Clear();
-            Map.Instance.PrintMap();
+        {            
+            if (Load.LoadSave())
+            {
+                if (Game.mainMenu)
+                {
+                    Game.mainMenu = false;
+                }
+                Menu.Instance.menuActive = false;
+                PlayerEntity.Instance.inMenu = false;
+                Game.playing = true;
+                Console.Clear();
+                Map.Instance.PrintMap();
+            }            
         }
     }
 }
