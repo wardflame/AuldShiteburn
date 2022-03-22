@@ -1,4 +1,7 @@
 ﻿using AuldShiteburn.BackendData;
+using AuldShiteburn.EntityData;
+using AuldShiteburn.MapData;
+using AuldShiteburn.MapData.Maps;
 using AuldShiteburn.MenuData;
 using AuldShiteburn.OptionData;
 using AuldShiteburn.OptionsData.Options.Loading;
@@ -61,6 +64,34 @@ namespace AuldShiteburn.SaveData
             }
         }
 
+
+        public static void LoadSave(int saveSlotToLoad)
+        {
+            if (Directory.Exists($"{DirectoryName.Saves}\\{saveSlotToLoad}"))
+            {
+                var mapToLoad = Directory.GetFiles($"{DirectoryName.Saves}\\{saveSlotToLoad}");
+                FileStream stream = File.OpenRead($"{mapToLoad[0]}");
+                try
+                {
+                    BinaryFormatter formatter = new BinaryFormatter();
+                    Map.Instance = (Map)formatter.Deserialize(stream);
+                    PlayerEntity.Instance = Map.Instance.player;
+                    stream.Close();
+                }
+                catch
+                {
+                    stream.Close();
+                    Map.Instance = new AuldShiteburnMap();
+                    PlayerEntity.Instance = PlayerEntity.GenerateCharacter();
+                }
+            }
+            else
+            {
+                Map.Instance = new AuldShiteburnMap();
+                PlayerEntity.Instance = PlayerEntity.GenerateCharacter();
+            }
+        }
+
         /// <summary>
         /// Make a list of character directories inside main Saves directory.
         /// Have player choose character from list and access the character directory.
@@ -69,7 +100,7 @@ namespace AuldShiteburn.SaveData
         /// be the player from that file.
         /// </summary>
         /// <returns></returns>
-        public static bool LoadSave()
+        public static bool LoadOptions()
         {
             if (GetSaves())
             {
@@ -95,7 +126,7 @@ namespace AuldShiteburn.SaveData
                     options.Add(new LoadSlot4Option());
                 }
                 Console.Clear();
-                Option.SelectRunOption(options, null);                
+                Option.SelectRunOption(options, null);
                 return true;
             }
             else

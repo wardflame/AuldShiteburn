@@ -18,29 +18,7 @@ namespace AuldShiteburn.OptionsData.Options.Loading
 
         public override void OnUse()
         {
-            if (Directory.Exists($"{DirectoryName.Saves}\\{DirectoryName.SaveSlot1}"))
-            {
-                var mapToLoad = Directory.GetFiles($"{DirectoryName.Saves}\\{DirectoryName.SaveSlot1}");
-                FileStream stream = File.OpenRead($"{mapToLoad[0]}");
-                try
-                {
-                    BinaryFormatter formatter = new BinaryFormatter();
-                    Map.Instance = (Map)formatter.Deserialize(stream);
-                    PlayerEntity.Instance = Map.Instance.player;
-                    stream.Close();
-                }
-                catch
-                {
-                    stream.Close();
-                    Map.Instance = new AuldShiteburnMap();
-                    PlayerEntity.Instance = PlayerEntity.GenerateCharacter();
-                }
-            }
-            else
-            {
-                Map.Instance = new AuldShiteburnMap();
-                PlayerEntity.Instance = PlayerEntity.GenerateCharacter();
-            }
+            Load.LoadSave(DirectoryName.SaveSlot1);
         }
     }
 }

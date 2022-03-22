@@ -4,6 +4,7 @@ namespace AuldShiteburn.SaveData
 {
     internal class Directories
     {
+        const int SAVE_SLOTS = 5;
         /// <summary>
         /// If a directory with a name from the enumerator DirectoryName
         /// does not exist, create one.
@@ -11,10 +12,7 @@ namespace AuldShiteburn.SaveData
         /// <param name="directory"></param>
         public static void DirectoryExistCheck(DirectoryName directoryName)
         {
-            if (!Directory.Exists($"{directoryName}"))
-            {
-                Directory.CreateDirectory($"{directoryName}");
-            }
+            Directory.CreateDirectory($"{directoryName}");            
         }
 
         /// <summary>
@@ -22,30 +20,12 @@ namespace AuldShiteburn.SaveData
         /// </summary>
         public static void SaveDirectoryInit()
         {
-            if (!Directory.Exists($"{DirectoryName.Saves}"))
+            Directory.CreateDirectory($"{DirectoryName.Saves}");
+            for (int i = 1; i <= SAVE_SLOTS; i++)
             {
-                Directory.CreateDirectory($"{DirectoryName.Saves}");
+                Directory.CreateDirectory($"{DirectoryName.Saves}\\{i}");
             }
-            if (!Directory.Exists($"{DirectoryName.Saves}\\{DirectoryName.SaveSlot1}"))
-            {
-                Directory.CreateDirectory($"{DirectoryName.Saves}\\{DirectoryName.SaveSlot1}");
-            }
-            if (!Directory.Exists($"{DirectoryName.Saves}\\{DirectoryName.SaveSlot2}"))
-            {
-                Directory.CreateDirectory($"{DirectoryName.Saves}\\{DirectoryName.SaveSlot2}");
-            }
-            if (!Directory.Exists($"{DirectoryName.Saves}\\{DirectoryName.SaveSlot3}"))
-            {
-                Directory.CreateDirectory($"{DirectoryName.Saves}\\{DirectoryName.SaveSlot3}");
-            }
-            if (!Directory.Exists($"{DirectoryName.Saves}\\{DirectoryName.SaveSlot4}"))
-            {
-                Directory.CreateDirectory($"{DirectoryName.Saves}\\{DirectoryName.SaveSlot4}");
-            }
-            if (!Directory.Exists($"{DirectoryName.GameSettings}"))
-            {
-                Directory.CreateDirectory($"{DirectoryName.GameSettings}");
-            }
+            Directory.CreateDirectory($"{DirectoryName.GameSettings}");
         }
     }
 
