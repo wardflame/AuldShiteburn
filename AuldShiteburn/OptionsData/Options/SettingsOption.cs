@@ -9,14 +9,14 @@ namespace AuldShiteburn.OptionsData.Options
 {
     internal class SettingsOption : Option
     {
-        public override string DisplayString => ASCIIArt.menuSettings;
+        public override string DisplayString => ASCIIArt.MENU_SETTINGS;
 
         public override void OnUse()
         {
             List<Option> options = new List<Option>();
             options.Add(new SexRatioOption());
             Console.Clear();
-            SelectRunOption(options, null);
+            SelectRunOption(options, ASCIIArt.BANNER_SETTINGS);
         }
     }
 }

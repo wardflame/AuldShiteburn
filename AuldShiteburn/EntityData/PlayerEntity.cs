@@ -15,7 +15,7 @@ namespace AuldShiteburn.EntityData
         public static PlayerEntity Instance { get; set; }
         List<Item> inventory;
         public override string EntityChar => "PL";
-        public bool inMenu;
+        public bool inMenu { get; set; }
         public long playtime;
 
         public override void Move()
@@ -47,14 +47,14 @@ namespace AuldShiteburn.EntityData
                             PosX++;
                         }
                         break;
-                    case ConsoleKey.P:
+                    case ConsoleKey.Escape:
                         {
                             inMenu = true;
                             while (inMenu)
                             {
                                 Menu.Instance = new PauseMenu();
                                 Menu.Instance.InMenu();
-                            }                            
+                            }
                         }
                         break;
                 }

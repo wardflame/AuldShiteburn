@@ -1,8 +1,13 @@
 ﻿using AuldShiteburn.BackendData;
 using AuldShiteburn.EntityData;
 using AuldShiteburn.MapData;
+using AuldShiteburn.MenuData;
+using AuldShiteburn.MenuData.Menus;
+using AuldShiteburn.OptionData;
+using AuldShiteburn.OptionsData.Options.Loading;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
@@ -15,12 +20,9 @@ namespace AuldShiteburn.SaveData
         /// </summary>
         public static void SaveGameSettings()
         {
-            if (!Directory.Exists($"{DirectoryName.GameSettings}"))
-            {
-                Directory.CreateDirectory($"{DirectoryName.GameSettings}");
-            }
+            Directory.CreateDirectory($"{Directories.NAME_GAMESETTINGS}");
 
-            FileStream stream = File.Create($"{DirectoryName.GameSettings}\\{DirectoryName.GameSettings}.dat");
+            FileStream stream = File.Create($"{Directories.NAME_GAMESETTINGS}\\{Directories.NAME_GAMESETTINGS}.dat");
             BinaryFormatter formatter = new BinaryFormatter();
             try
             {
@@ -31,7 +33,7 @@ namespace AuldShiteburn.SaveData
             {
                 Utils.WriteColour(ConsoleColor.Red, $"Error: Save failed. " + e.Message);
                 stream.Close();
-                File.Delete($"{DirectoryName.GameSettings}\\{DirectoryName.GameSettings}.dat");
+                File.Delete($"{Directories.NAME_GAMESETTINGS}\\{Directories.NAME_GAMESETTINGS}.dat");
             }
         }
 
@@ -42,41 +44,49 @@ namespace AuldShiteburn.SaveData
         /// play time and then serialize the player to .json.
         /// Save the file name as the total time played in DateTime.
         /// </summary>
-        public static void SaveGame(DirectoryName saveSlot)
+        public static bool SaveGame(int saveSlot)
         {
-            if (!Directory.Exists($"{DirectoryName.Saves}\\{saveSlot}"))
-            {
-                Directory.CreateDirectory($"{DirectoryName.Saves}\\{saveSlot}");
-            }
-
-            if (Directory.GetFiles($"{DirectoryName.Saves}\\{saveSlot}").Length > 0)
-            {
-                for (int i = 0; i < Directory.GetFiles($"{DirectoryName.Saves}\\{saveSlot}").Length; i++)
-                {
-                    File.Delete(Directory.GetFiles($"{DirectoryName.Saves}\\{saveSlot}")[i]);
-                }
-            }
+            Directory.CreateDirectory($"{Directories.NAME_SAVES}\\{saveSlot}");
 
             PlayerEntity.Instance.playtime = Playtime.GetTotalPlayTime();
-            DateTime gameTime = Playtime.GetSessionLengthAsDateTime();
-
             Map.Instance.player = PlayerEntity.Instance;
 
-            string saveName = $"{Map.Instance.player.name} {gameTime.ToString("H.mm.ss.ff")}.dat";
+            string saveName = $"{saveSlot}.dat";
 
-            FileStream stream = File.Create($"{DirectoryName.Saves}\\{saveSlot}\\{saveName}");
+            FileStream stream = File.Create($"{Directories.NAME_SAVES}\\{saveSlot}\\{saveName}");
             BinaryFormatter formatter = new BinaryFormatter();
             try
             {
                 formatter.Serialize(stream, Map.Instance);
                 stream.Close();
+                return true;
             }
             catch (Exception e)
             {
                 Utils.WriteColour(ConsoleColor.Red, $"Error: Save failed. " + e.Message);
                 stream.Close();
-                File.Delete($"{DirectoryName.Saves}\\{saveSlot}\\{saveName}");
+                File.Delete($"{Directories.NAME_SAVES}\\{saveSlot}\\{saveName}");
             }
+            return false;
+        }
+
+        /// <summary>
+        /// Make a list of character directories inside main Saves directory.
+        /// Have player choose character from list and access the character directory.
+        /// List all saves in that character's directory and let player choose
+        /// a save from there. Which save they choose, return the static player to
+        /// be the player from that file.
+        /// </summary>
+        /// <returns></returns>
+        public static void SaveOptions()
+        {
+            List<Option> options = new List<Option>();
+            for (int i = 0; i < Directory.GetDirectories(Directories.NAME_SAVES).Length; i++)
+            {
+                options.Add(new SaveSlotOption(i + 1));                
+            }
+            Console.Clear();
+            Option.SelectRunOption(options, null);
         }
     }
 }

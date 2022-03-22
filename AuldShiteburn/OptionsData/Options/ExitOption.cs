@@ -11,7 +11,7 @@ namespace AuldShiteburn.OptionsData.Options
 {
     internal class ExitOption : Option
     {
-        public override string DisplayString => ASCIIArt.menuExit;
+        public override string DisplayString => ASCIIArt.MENU_EXIT;
         public override void OnUse()
         {
             bool mainMenu = Menu.Instance.GetType() == typeof(MainMenu);
@@ -37,7 +37,6 @@ namespace AuldShiteburn.OptionsData.Options
                                 {
                                     Console.Clear();
                                     PlayerEntity.Instance.inMenu = false;
-                                    Save.SaveGame(DirectoryName.SaveSlot1);
                                     Playtime.ResetPlaytime();
                                     Game.playing = false;
                                     Game.mainMenu = true;

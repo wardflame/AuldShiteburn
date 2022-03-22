@@ -10,22 +10,11 @@ namespace AuldShiteburn.OptionsData.Options
 {
     internal class LoadGameOption : Option
     {
-        public override string DisplayString => ASCIIArt.menuLoad;
-
+        public override string DisplayString => ASCIIArt.MENU_LOAD;
+        
         public override void OnUse()
-        {            
-            if (Load.LoadSave())
-            {
-                if (Game.mainMenu)
-                {
-                    Game.mainMenu = false;
-                    Game.playing = true;
-                }
-                Menu.Instance.menuActive = false;
-                PlayerEntity.Instance.inMenu = false;
-                Console.Clear();
-                Map.Instance.PrintMap();
-            }
+        {
+            Load.LoadOptions();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using AuldShiteburn.OptionsData.Options;
+using AuldShiteburn.SaveData;
 
 namespace AuldShiteburn.MenuData.Menus
 {
@@ -9,7 +10,10 @@ namespace AuldShiteburn.MenuData.Menus
         {
             options.Add(new ResumeOption());
             options.Add(new SaveGameOption());
-            options.Add(new LoadGameOption());
+            if (Load.GetSaves())
+            {
+                options.Add(new LoadGameOption());
+            }
             options.Add(new SettingsOption());
             options.Add(new ExitOption());
         }

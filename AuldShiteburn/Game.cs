@@ -30,7 +30,6 @@ namespace AuldShiteburn
                 }
                 while (playing)
                 {
-                    Playtime.StartPlaytime();
                     Map.Instance.UpdateArea();
                     if (playing)
                     {

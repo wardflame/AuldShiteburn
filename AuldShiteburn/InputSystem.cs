@@ -4,7 +4,7 @@ namespace AuldShiteburn
 {
     static class InputSystem
     {
-        public static ConsoleKey InputKey { get; private set; }
+        public static ConsoleKey InputKey { get; set; }
 
         public static void GetInput()
         {

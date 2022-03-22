@@ -34,6 +34,6 @@ namespace AuldShiteburn.MapData.TileData
             return tile;
         }
 
-        public abstract void OnCollision(Entity entity, Area area);
+        public abstract void OnCollision(Entity entity);
     }
 }

@@ -11,7 +11,7 @@ namespace AuldShiteburn.OptionsData.Options
 {
     class NewGameOption : Option
     {
-        public override string DisplayString => ASCIIArt.menuNewGame;
+        public override string DisplayString => ASCIIArt.MENU_NEWGAME;
 
         public override void OnUse()
         {

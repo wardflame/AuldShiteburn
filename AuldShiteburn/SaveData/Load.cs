@@ -4,6 +4,7 @@ using AuldShiteburn.MapData;
 using AuldShiteburn.MapData.Maps;
 using AuldShiteburn.MenuData;
 using AuldShiteburn.OptionData;
+using AuldShiteburn.OptionsData.Options;
 using AuldShiteburn.OptionsData.Options.Loading;
 using Newtonsoft.Json;
 using System;
@@ -22,12 +23,16 @@ namespace AuldShiteburn.SaveData
         /// <returns>Return true if there is a directory available to access.</returns>
         public static bool GetSaves()
         {
-            if (Directory.GetFiles($"{DirectoryName.Saves}\\{DirectoryName.SaveSlot1}").Length <= 0 &&
-                Directory.GetFiles($"{DirectoryName.Saves}\\{DirectoryName.SaveSlot2}").Length <= 0 &&
-                Directory.GetFiles($"{DirectoryName.Saves}\\{DirectoryName.SaveSlot3}").Length <= 0 &&
-                Directory.GetFiles($"{DirectoryName.Saves}\\{DirectoryName.SaveSlot4}").Length <= 0)
+            int vacantSlot = 0;
+            for (int i = 0; i < Directories.SAVE_SLOTS; i++)
             {
-                Console.WriteLine("\nThere are no saves available.");
+                if (Directory.GetFiles($"{Directories.NAME_SAVES}\\{i + 1}").Length <= 0)
+                {
+                    vacantSlot++;
+                }
+            }
+            if (vacantSlot >= Directories.SAVE_SLOTS)
+            {
                 return false;
             }
             else
@@ -35,16 +40,16 @@ namespace AuldShiteburn.SaveData
                 return true;
             }
         }
-
+        
         /// <summary>
         /// If a GameSettings save exists, return it.
         /// </summary>
         /// <returns>Game settings.</returns>
         public static void LoadGameSettings()
         {
-            if (File.Exists($"{DirectoryName.GameSettings}\\{DirectoryName.GameSettings}.dat"))
+            if (File.Exists($"{Directories.NAME_GAMESETTINGS}\\{Directories.NAME_GAMESETTINGS}.dat"))
             {
-                FileStream stream = File.OpenRead($"{DirectoryName.GameSettings}\\{DirectoryName.GameSettings}.dat");
+                FileStream stream = File.OpenRead($"{Directories.NAME_GAMESETTINGS}\\{Directories.NAME_GAMESETTINGS}.dat");
                 try
                 {
                     BinaryFormatter formatter = new BinaryFormatter();
@@ -64,12 +69,16 @@ namespace AuldShiteburn.SaveData
             }
         }
 
-
-        public static void LoadSave(int saveSlotToLoad)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="saveSlotToLoad"></param>
+        /// <returns></returns>
+        public static bool LoadSave(int saveSlotToLoad)
         {
-            if (Directory.Exists($"{DirectoryName.Saves}\\{saveSlotToLoad}"))
+            if (Directory.Exists($"{Directories.NAME_SAVES}\\{saveSlotToLoad}"))
             {
-                var mapToLoad = Directory.GetFiles($"{DirectoryName.Saves}\\{saveSlotToLoad}");
+                var mapToLoad = Directory.GetFiles($"{Directories.NAME_SAVES}\\{saveSlotToLoad}");
                 FileStream stream = File.OpenRead($"{mapToLoad[0]}");
                 try
                 {
@@ -77,6 +86,7 @@ namespace AuldShiteburn.SaveData
                     Map.Instance = (Map)formatter.Deserialize(stream);
                     PlayerEntity.Instance = Map.Instance.player;
                     stream.Close();
+                    return true;
                 }
                 catch
                 {
@@ -89,7 +99,9 @@ namespace AuldShiteburn.SaveData
             {
                 Map.Instance = new AuldShiteburnMap();
                 PlayerEntity.Instance = PlayerEntity.GenerateCharacter();
+                return true;
             }
+            return false;
         }
 
         /// <summary>
@@ -100,40 +112,19 @@ namespace AuldShiteburn.SaveData
         /// be the player from that file.
         /// </summary>
         /// <returns></returns>
-        public static bool LoadOptions()
+        public static void LoadOptions()
         {
-            if (GetSaves())
+            List<Option> options = new List<Option>();
+            for (int i = 0; i < Directories.SAVE_SLOTS; i++)
             {
-                bool slotOccupied1 = Directory.GetFiles($"{DirectoryName.Saves}\\{DirectoryName.SaveSlot1}").Length > 0;
-                bool slotOccupied2 = Directory.GetFiles($"{DirectoryName.Saves}\\{DirectoryName.SaveSlot2}").Length > 0;
-                bool slotOccupied3 = Directory.GetFiles($"{DirectoryName.Saves}\\{DirectoryName.SaveSlot3}").Length > 0;
-                bool slotOccupied4 = Directory.GetFiles($"{DirectoryName.Saves}\\{DirectoryName.SaveSlot4}").Length > 0;
-                List<Option> options = new List<Option>();
-                if (slotOccupied1)
+                if (Directory.GetFiles($"{Directories.NAME_SAVES}\\{i + 1}").Length > 0)
                 {
-                    options.Add(new LoadSlot1Option());
+                    LoadSave(i + 1);
+                    options.Add(new LoadSlotOption(i + 1, PlayerEntity.Instance.name, PlayerEntity.Instance.playtime));
                 }
-                if (slotOccupied2)
-                {
-                    options.Add(new LoadSlot2Option());
-                }
-                if (slotOccupied3)
-                {
-                    options.Add(new LoadSlot3Option());
-                }
-                if (slotOccupied4)
-                {
-                    options.Add(new LoadSlot4Option());
-                }
-                Console.Clear();
-                Option.SelectRunOption(options, null);
-                return true;
             }
-            else
-            {
-                System.Threading.Thread.Sleep(2000);
-                return false;
-            }
+            Console.Clear();
+            Option.SelectRunOption(options, null);
         }
     }
 }

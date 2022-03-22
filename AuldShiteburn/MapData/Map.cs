@@ -341,7 +341,7 @@ namespace AuldShiteburn.MapData
                 entity.PosX = entX;
                 entity.PosY = entY;
             }
-            currentTile.OnCollision(entity, CurrentArea);
+            currentTile.OnCollision(entity);
 
             if (entity.PosX != entX || entity.PosY != entY)
             {

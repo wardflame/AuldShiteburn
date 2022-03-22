@@ -10,7 +10,7 @@ namespace AuldShiteburn.MapData.TileData
         {
         }
 
-        public override void OnCollision(Entity entity, Area area)
+        public override void OnCollision(Entity entity)
         {
         }
     }

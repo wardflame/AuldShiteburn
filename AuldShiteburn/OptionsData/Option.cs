@@ -1,4 +1,5 @@
-﻿using AuldShiteburn.MenuData;
+﻿using AuldShiteburn.ArtData;
+using AuldShiteburn.MenuData;
 using AuldShiteburn.MenuData.Menus;
 using System;
 using System.Collections.Generic;
@@ -13,10 +14,11 @@ namespace AuldShiteburn.OptionData
         public static void SelectRunOption(List<Option> options, string menuBanner)
         {
             int index = 0;
-            PrintOptions(options, index);
+            PrintOptions(options, index, menuBanner);
             bool browsing = true;
             while (browsing)
             {
+                bool quit = false;
                 do
                 {
                     InputSystem.GetInput();
@@ -27,17 +29,9 @@ namespace AuldShiteburn.OptionData
                                 if (index <= options.Count - 1 && index > 0)
                                 {
                                     index--;
-                                    if (menuBanner != null)
-                                    {
-                                        Console.CursorLeft = 0;
-                                        Console.CursorTop = 7;
-                                    }
-                                    else
-                                    {
-                                        Console.CursorLeft = 0;
-                                        Console.CursorTop = 0;
-                                    }
-                                    PrintOptions(options, index);
+                                    Console.CursorLeft = 0;
+                                    Console.CursorTop = 0;
+                                    PrintOptions(options, index, menuBanner);
                                 }
                             }
                             break;
@@ -46,31 +40,19 @@ namespace AuldShiteburn.OptionData
                                 if (index >= 0 && index < options.Count - 1)
                                 {
                                     index++;
-                                    if (menuBanner != null)
-                                    {
-                                        Console.CursorLeft = 0;
-                                        Console.CursorTop = 7;
-                                    }
-                                    else
-                                    {
-                                        Console.CursorLeft = 0;
-                                        Console.CursorTop = 0;
-                                    }
-                                    PrintOptions(options, index);
+                                    Console.CursorLeft = 0;
+                                    Console.CursorTop = 0;
+                                    PrintOptions(options, index, menuBanner);
                                 }
                             }
                             break;
                         case ConsoleKey.Backspace:
                             {
-                                if (Menu.Instance.GetType() == typeof(PauseMenu))
-                                {
-                                    Menu.Instance.menuActive = false;
-                                }
-                                goto exit_loop;
+                                quit = true;
                             }
+                            break;
                     }
-                } while (InputSystem.InputKey != ConsoleKey.Enter);
-                exit_loop:
+                } while (InputSystem.InputKey != ConsoleKey.Enter && !quit);
                 if (InputSystem.InputKey == ConsoleKey.Enter)
                 {
                     options[index].OnUse();
@@ -78,8 +60,13 @@ namespace AuldShiteburn.OptionData
                 browsing = false;
             }
         }
-        public static void PrintOptions(List<Option> options, int index)
+
+        public static void PrintOptions(List<Option> options, int index, string banner)
         {
+            if (banner != null)
+            {
+                Utils.WriteColour(ConsoleColor.DarkYellow, banner);
+            }
             foreach (Option option in options)
             {
                 if (options.IndexOf(option) == index)

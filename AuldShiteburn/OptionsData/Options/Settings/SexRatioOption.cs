@@ -21,6 +21,8 @@ Use the Up and Down arrow keys to increase/decrease the ratio.
 Press Enter to confirm.
 
 Ratio: " + GameSettings.Instance.SexRatio);
+            int previousSexRatio = GameSettings.Instance.SexRatio;
+            bool quit = false;
             do
             {
                 InputSystem.GetInput();
@@ -29,7 +31,7 @@ Ratio: " + GameSettings.Instance.SexRatio);
                     case ConsoleKey.UpArrow:
                         {
                             Console.CursorLeft = 7;
-                            Console.CursorTop = 7;
+                            Console.CursorTop = 14;
                             Console.Write("   ");
                             Console.CursorLeft = 0;
                             GameSettings.Instance.SexRatio++;
@@ -39,17 +41,28 @@ Ratio: " + GameSettings.Instance.SexRatio);
                     case ConsoleKey.DownArrow:
                         {
                             Console.CursorLeft = 7;
-                            Console.CursorTop = 7;
+                            Console.CursorTop = 14;
                             Console.Write("   ");
                             Console.CursorLeft = 0;
                             GameSettings.Instance.SexRatio--;
                             Console.Write("Ratio: " + GameSettings.Instance.SexRatio);
                         }
                         break;
+                    case ConsoleKey.Backspace:
+                        {
+                            quit = true;
+                        }
+                        break;
                 }
-            } while (InputSystem.InputKey != ConsoleKey.Enter);
-            
-            Save.SaveGameSettings();
+            } while (InputSystem.InputKey != ConsoleKey.Enter && !quit);
+            if (InputSystem.InputKey == ConsoleKey.Enter)
+            {
+                Save.SaveGameSettings();
+            }
+            else
+            {
+                GameSettings.Instance.SexRatio = previousSexRatio;
+            }
             Menu.Instance.InMenu();
         }
     }

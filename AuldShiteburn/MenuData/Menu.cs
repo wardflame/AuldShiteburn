@@ -9,16 +9,12 @@ namespace AuldShiteburn.MenuData
         public static Menu Instance { get; set; }
         public List<Option> options;
         public abstract string Banner { get; }
-        public bool menuActive = true;
+        public bool menuActive { get; set; } = true;
         public void InMenu()
         {
             while (menuActive)
             {
-                Console.Clear();
-                if (Banner != null)
-                {
-                    Utils.WriteColour(ConsoleColor.DarkYellow, Banner);
-                }
+                Console.Clear();                
                 Option.SelectRunOption(options, Banner);
             }
         }
