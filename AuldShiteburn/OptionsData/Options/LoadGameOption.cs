@@ -19,13 +19,13 @@ namespace AuldShiteburn.OptionsData.Options
                 if (Game.mainMenu)
                 {
                     Game.mainMenu = false;
+                    Game.playing = true;
                 }
                 Menu.Instance.menuActive = false;
                 PlayerEntity.Instance.inMenu = false;
-                Game.playing = true;
                 Console.Clear();
                 Map.Instance.PrintMap();
-            }            
+            }
         }
     }
 }

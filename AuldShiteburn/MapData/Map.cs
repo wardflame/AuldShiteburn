@@ -18,7 +18,7 @@ namespace AuldShiteburn.MapData
     internal abstract class Map
     {
         public static Map Instance { get; set; }
-        public PlayerEntity Player => PlayerEntity.Instance;
+        public PlayerEntity player;
         public abstract string Name { get; }
         public abstract int Width { get; }
         public abstract int Height { get; }

@@ -53,7 +53,7 @@ namespace AuldShiteburn.OptionsData.Options
                         break;
                     case ConsoleKey.E:
                         {
-                            if (Utils.VerificationQuery("\nYou are about to exit the game. Any unsaved progress will be lost. Continue? (Y/N)") == true)
+                            if (Utils.VerificationQuery("\nYou are about to exit the game. Continue? (Y/N)") == true)
                             {
                                 Environment.Exit(0);
                             }

@@ -49,10 +49,20 @@ namespace AuldShiteburn.SaveData
                 Directory.CreateDirectory($"{DirectoryName.Saves}\\{saveSlot}");
             }
 
+            if (Directory.GetFiles($"{DirectoryName.Saves}\\{saveSlot}").Length > 0)
+            {
+                for (int i = 0; i < Directory.GetFiles($"{DirectoryName.Saves}\\{saveSlot}").Length; i++)
+                {
+                    File.Delete(Directory.GetFiles($"{DirectoryName.Saves}\\{saveSlot}")[i]);
+                }
+            }
+
             PlayerEntity.Instance.playtime = Playtime.GetTotalPlayTime();
             DateTime gameTime = Playtime.GetSessionLengthAsDateTime();
 
-            string saveName = $"{Map.Instance.Player.name} {gameTime.ToString("H.mm.ss.ff")}.dat";
+            Map.Instance.player = PlayerEntity.Instance;
+
+            string saveName = $"{Map.Instance.player.name} {gameTime.ToString("H.mm.ss.ff")}.dat";
 
             FileStream stream = File.Create($"{DirectoryName.Saves}\\{saveSlot}\\{saveName}");
             BinaryFormatter formatter = new BinaryFormatter();

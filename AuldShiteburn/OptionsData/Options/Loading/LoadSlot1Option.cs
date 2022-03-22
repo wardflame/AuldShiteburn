@@ -26,18 +26,20 @@ namespace AuldShiteburn.OptionsData.Options.Loading
                 {
                     BinaryFormatter formatter = new BinaryFormatter();
                     Map.Instance = (Map)formatter.Deserialize(stream);
-                    PlayerEntity.Instance = Map.Instance.Player;
+                    PlayerEntity.Instance = Map.Instance.player;
                     stream.Close();
                 }
                 catch
                 {
                     stream.Close();
                     Map.Instance = new AuldShiteburnMap();
+                    PlayerEntity.Instance = PlayerEntity.GenerateCharacter();
                 }
             }
             else
             {
                 Map.Instance = new AuldShiteburnMap();
+                PlayerEntity.Instance = PlayerEntity.GenerateCharacter();
             }
         }
     }

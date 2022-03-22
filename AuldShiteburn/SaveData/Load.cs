@@ -73,47 +73,29 @@ namespace AuldShiteburn.SaveData
         {
             if (GetSaves())
             {
+                bool slotOccupied1 = Directory.GetFiles($"{DirectoryName.Saves}\\{DirectoryName.SaveSlot1}").Length > 0;
+                bool slotOccupied2 = Directory.GetFiles($"{DirectoryName.Saves}\\{DirectoryName.SaveSlot2}").Length > 0;
+                bool slotOccupied3 = Directory.GetFiles($"{DirectoryName.Saves}\\{DirectoryName.SaveSlot3}").Length > 0;
+                bool slotOccupied4 = Directory.GetFiles($"{DirectoryName.Saves}\\{DirectoryName.SaveSlot4}").Length > 0;
                 List<Option> options = new List<Option>();
-                options.Add(new LoadSlot1Option());
-                options.Add(new LoadSlot2Option());
-                options.Add(new LoadSlot3Option());
-                options.Add(new LoadSlot4Option());
-                bool browsing = true;
-                Console.Clear();
-                Option.PrintOptions(options, 0);
-                while (browsing)
+                if (slotOccupied1)
                 {
-                    int index = 0;
-                    do
-                    {
-                        InputSystem.GetInput();
-                        switch (InputSystem.InputKey)
-                        {
-                            case ConsoleKey.UpArrow:
-                                {
-                                    if (index <= options.Count - 1 && index > 0)
-                                    {
-                                        index--;
-                                        Console.Clear();
-                                        Option.PrintOptions(options, index);
-                                    }
-                                }
-                                break;
-                            case ConsoleKey.DownArrow:
-                                {
-                                    if (index >= 0 && index < options.Count - 1)
-                                    {
-                                        index++;
-                                        Console.Clear();
-                                        Option.PrintOptions(options, index);
-                                    }
-                                }
-                                break;
-                        }
-                    } while (InputSystem.InputKey != ConsoleKey.Enter);
-                    options[index].OnUse();
-                    browsing = false;
+                    options.Add(new LoadSlot1Option());
                 }
+                if (slotOccupied2)
+                {
+                    options.Add(new LoadSlot2Option());
+                }
+                if (slotOccupied3)
+                {
+                    options.Add(new LoadSlot3Option());
+                }
+                if (slotOccupied4)
+                {
+                    options.Add(new LoadSlot4Option());
+                }
+                Console.Clear();
+                Option.SelectRunOption(options, null);                
                 return true;
             }
             else

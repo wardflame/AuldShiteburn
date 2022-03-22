@@ -1,7 +1,9 @@
-﻿using AuldShiteburn.MapData;
+﻿using AuldShiteburn.BackendData;
+using AuldShiteburn.MapData;
 using AuldShiteburn.MenuData;
 using AuldShiteburn.MenuData.Menus;
 using AuldShiteburn.SaveData;
+using System;
 
 namespace AuldShiteburn
 {
@@ -15,6 +17,10 @@ namespace AuldShiteburn
         {
             Directories.SaveDirectoryInit();
             Load.LoadGameSettings();
+            Console.WriteLine("Use the Arrow Up and Arrow Down keys to navigate menus." +
+                "\nUse the Enter and Backspace keys to enter/exit menus." +
+                "\nPress any key to continue...");
+            Console.ReadKey();
             while (running)
             {
                 while (mainMenu)
@@ -24,6 +30,7 @@ namespace AuldShiteburn
                 }
                 while (playing)
                 {
+                    Playtime.StartPlaytime();
                     Map.Instance.UpdateArea();
                     if (playing)
                     {

@@ -4,7 +4,7 @@ namespace AuldShiteburn.MenuData.Menus
 {
     internal class PauseMenu : Menu
     {
-        protected override string Banner => null;
+        public override string Banner => null;
         protected override void InitMenu()
         {
             options.Add(new ResumeOption());
