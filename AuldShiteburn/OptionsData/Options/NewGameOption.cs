@@ -18,6 +18,7 @@ namespace AuldShiteburn.OptionsData.Options
             Console.Clear();
             Menu.Instance.menuActive = false;
             Game.mainMenu = false;
+            Game.playing = true;
             AuldShiteburnMap shiteburn = new AuldShiteburnMap();
             shiteburn.RandomiseAreas();
             Map.Instance = shiteburn;

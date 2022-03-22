@@ -49,12 +49,8 @@ namespace AuldShiteburn.EntityData
                         break;
                     case ConsoleKey.Escape:
                         {
-                            inMenu = true;
-                            while (inMenu)
-                            {
-                                Menu.Instance = new PauseMenu();
-                                Menu.Instance.InMenu();
-                            }
+                            Menu.Instance = new PauseMenu();
+                            Menu.Instance.InMenu();
                         }
                         break;
                 }

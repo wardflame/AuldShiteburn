@@ -115,6 +115,8 @@ namespace AuldShiteburn.SaveData
         public static void LoadOptions()
         {
             List<Option> options = new List<Option>();
+            Map currentMap = Map.Instance;
+            PlayerEntity currentPlayer = PlayerEntity.Instance;
             for (int i = 0; i < Directories.SAVE_SLOTS; i++)
             {
                 if (Directory.GetFiles($"{Directories.NAME_SAVES}\\{i + 1}").Length > 0)
@@ -123,6 +125,8 @@ namespace AuldShiteburn.SaveData
                     options.Add(new LoadSlotOption(i + 1, PlayerEntity.Instance.name, PlayerEntity.Instance.playtime));
                 }
             }
+            Map.Instance = currentMap;
+            PlayerEntity.Instance = currentPlayer;
             Console.Clear();
             Option.SelectRunOption(options, null);
         }
