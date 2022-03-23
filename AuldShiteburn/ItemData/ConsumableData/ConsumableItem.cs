@@ -3,7 +3,7 @@
 namespace AuldShiteburn.ItemData.ConsumableData
 {
     [Serializable]
-    internal class Consumable : Item
+    internal class ConsumableItem : Item
     {
     }
 }

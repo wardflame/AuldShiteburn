@@ -3,7 +3,7 @@
 namespace AuldShiteburn.ItemData.ArmourData
 {
     [Serializable]
-    internal class Armour : Item
+    internal class ArmourItem : Item
     {
     }
 }

@@ -3,11 +3,11 @@
 namespace AuldShiteburn.ItemData.WeaponData
 {
     [Serializable]
-    internal class Weapon : Item
+    internal class WeaponItem : Item
     {
-        public Weapon GenerateWeapon()
+        public static WeaponItem GenerateWeapon()
         {
-            Weapon weapon = new Weapon();
+            WeaponItem weapon = new WeaponItem();
             return weapon;
         }
     }

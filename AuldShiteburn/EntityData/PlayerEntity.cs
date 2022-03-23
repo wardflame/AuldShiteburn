@@ -1,6 +1,7 @@
 ﻿using AuldShiteburn.BackendData;
 using AuldShiteburn.EntityData.PlayerData;
 using AuldShiteburn.ItemData;
+using AuldShiteburn.ItemData.KeyData;
 using AuldShiteburn.MenuData;
 using AuldShiteburn.MenuData.Menus;
 using System;
@@ -68,19 +69,15 @@ namespace AuldShiteburn.EntityData
 
             #region Name Generation
             Random rand = new Random();
-            int sexChance = rand.Next(0, 101);
+            int sexChance = rand.Next(1, 101);
             if (sexChance <= GameSettings.Instance.SexRatio)
             {
-                int forenameNum = rand.Next(0, Enum.GetValues(typeof(NameMale)).Length);
-                NameMale forename = (NameMale)forenameNum;
-                forenameStr = forename.ToString();
+                forenameStr = PlayerGenInfo.nameMale[rand.Next(PlayerGenInfo.nameMale.Count)];
 
-                int willTitle = rand.Next(0, 101);
+                int willTitle = rand.Next(1, 101);
                 if (willTitle >= 70)
                 {
-                    int title = rand.Next(0, Enum.GetValues(typeof(TitleMale)).Length);
-                    TitleMale titleMale = (TitleMale)title;
-                    titleStr = titleMale.ToString();
+                    titleStr = PlayerGenInfo.titleMale[rand.Next(PlayerGenInfo.titleMale.Count)];
                     Instance.name = $"{titleStr} {forenameStr}";
                 }
                 else
@@ -90,16 +87,12 @@ namespace AuldShiteburn.EntityData
             }
             else
             {
-                int forenameNum = rand.Next(0, Enum.GetValues(typeof(NameFemale)).Length);
-                NameFemale forename = (NameFemale)forenameNum;
-                forenameStr = forename.ToString();
+                forenameStr = PlayerGenInfo.nameFemale[rand.Next(PlayerGenInfo.nameFemale.Count)];
 
-                int willTitle = rand.Next(0, 101);
+                int willTitle = rand.Next(1, 101);
                 if (willTitle >= 70)
                 {
-                    int title = rand.Next(0, Enum.GetValues(typeof(TitleFemale)).Length);
-                    TitleFemale titleMale = (TitleFemale)title;
-                    titleStr = titleMale.ToString();
+                    titleStr = PlayerGenInfo.titleFemale[rand.Next(PlayerGenInfo.titleFemale.Count)];
                     Instance.name = $"{titleStr} {forenameStr}";
                 }
                 else

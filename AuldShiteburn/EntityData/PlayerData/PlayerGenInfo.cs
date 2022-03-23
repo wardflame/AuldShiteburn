@@ -6,56 +6,47 @@ namespace AuldShiteburn.EntityData.PlayerData
 {
     internal struct PlayerGenInfo
     {
-        public enum Sex
+        public static List<string> titleMale = new List<string>()
         {
-            Male,
-            Female
-        }
-
-        public enum TitleMale
-        {            
-            King,
-            Duke,
-            Baron,
-            Sir
-        }
-
-        public enum TitleFemale
+            "King",
+            "Duke",
+            "Baron",
+            "Sir"
+        };
+        public static List<string> titleFemale = new List<string>()
         {
-            Queen,
-            Duchess,
-            Baroness,
-            Dame
-        }
-
-        public enum NameMale
+            "Queen",
+            "Duchess",
+            "Baroness",
+            "Dame"
+        };
+        public static List<string> nameMale = new List<string>()
         {
-            Arthur,
-            Jonathan,
-            Jon,
-            Edward,
-            Ed,
-            Charles,
-            Godwin,
-            Godfrey,
-            Godrick,
-            Darian,
-            George
-        }
-
-        public enum NameFemale
+            "Arthur",
+            "Jonathan",
+            "Jon",
+            "Edward",
+            "Ed",
+            "Charles",
+            "Godwin",
+            "Godfrey",
+            "Godrick",
+            "Darian",
+            "George"
+        };
+        public static List<string> nameFemale = new List<string>()
         {
-            Annalise,
-            Anna,
-            Renfrey,
-            Elizabeth,
-            Freya,
-            Aida,
-            Brook,
-            Fiona,
-            Isolda,
-            Odilia,
-            Morwen
-        }
+            "Annalise",
+            "Anna",
+            "Renfrey",
+            "Elizabeth",
+            "Freya",
+            "Aida",
+            "Brook",
+            "Fiona",
+            "Isolda",
+            "Odilia",
+            "Morwen"
+        };
     }
 }
