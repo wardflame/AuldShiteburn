@@ -11,6 +11,19 @@ namespace AuldShiteburn.MapData.AreaData.Areas
         public override int Width => 20;
         public override int Height => 20;
 
+        protected override void AddSpecialTiles()
+        {
+            placeData.Add(new TilePlaceData(8, 1, new AethelwulfNPCTile()));
+            for (int i = 1; i < 4; i++)
+            {
+                placeData.Add(new TilePlaceData(5, i, Tile.WallTile));
+            }
+            for (int i = 1; i < 6; i++)
+            {
+                placeData.Add(new TilePlaceData(i, 5, Tile.WallTile));
+            }
+        }
+
         protected override void InitEntities()
         {
         }
@@ -28,10 +41,6 @@ namespace AuldShiteburn.MapData.AreaData.Areas
                     if (x == 0 || y == 0 || x == Width - 1 || y == Height - 1)
                     {
                         SetTile(x, y, Tile.WallTile);
-                    }
-                    else if (x == 4 && y == 1)
-                    {
-                        SetTile(x, y, new AethelwulfNPCTile());
                     }
                     else
                     {

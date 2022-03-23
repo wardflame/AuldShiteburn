@@ -18,6 +18,12 @@ namespace AuldShiteburn.MapData
     internal abstract class Map
     {
         public static Map Instance { get; set; }
+        private static List<Type> interactionTiles = new List<Type>()
+        {
+            typeof(NPCTile),
+            typeof(DoorTile)
+        };
+
         public PlayerEntity player;
         public abstract string Name { get; }
         public abstract int Width { get; }
@@ -336,12 +342,12 @@ namespace AuldShiteburn.MapData
 
             Tile currentTile = CurrentArea.GetTile(entity.PosX, entity.PosY);
 
+            currentTile.OnCollision(entity);
             if (CurrentArea.GetTile(entity.PosX, entity.PosY).Collidable)
             {
                 entity.PosX = entX;
                 entity.PosY = entY;
             }
-            currentTile.OnCollision(entity);
 
             if (entity.PosX != entX || entity.PosY != entY)
             {
@@ -385,8 +391,8 @@ namespace AuldShiteburn.MapData
         }
 
         /// <summary>
-        /// If the player is not within the area of an NPC, remove the NPC interaction
-        /// text from the right side of the screen.
+        /// If the player is not within the area of a tile type, remove text from the interaction
+        /// region of the screen.
         /// </summary>
         public void ClearNPCTextQuery()
         {
@@ -395,13 +401,26 @@ namespace AuldShiteburn.MapData
             int plusX = PlayerEntity.Instance.PosX + 1;
             int plusY = PlayerEntity.Instance.PosY + 1;
 
-            if (!(CurrentArea.GetTile(minusX, PlayerEntity.Instance.PosY) is NPCTile) &&
-                !(CurrentArea.GetTile(plusX, PlayerEntity.Instance.PosY) is NPCTile) &&
-                !(CurrentArea.GetTile(PlayerEntity.Instance.PosX, minusY) is NPCTile) &&
-                !(CurrentArea.GetTile(PlayerEntity.Instance.PosX, plusY) is NPCTile))
+            if (!interactionTiles.Exists(text => CheckTileType(minusX, PlayerEntity.Instance.PosY, text)) &&
+                !interactionTiles.Exists(text => CheckTileType(plusX, PlayerEntity.Instance.PosY, text)) &&
+                !interactionTiles.Exists(text => CheckTileType(PlayerEntity.Instance.PosX, minusY, text)) &&
+                !interactionTiles.Exists(text => CheckTileType(PlayerEntity.Instance.PosX, plusY, text)))
             {
                 ClearInteractInterface();
             }
+        }
+
+        /// <summary>
+        /// Get the tile at posX/Y and check if it's the class, or subclass, of type.
+        /// </summary>
+        /// <param name="posX">Area x coordinate.</param>
+        /// <param name="posY">Area y coordinate.</param>
+        /// <param name="type">Type to check.</param>
+        /// <returns>Returns true if tile is class/subclass of type.</returns>
+        private bool CheckTileType(int posX, int posY, Type type)
+        {
+            Tile tile = CurrentArea.GetTile(posX, posY);
+            return tile.GetType().IsSubclassOf(type) || tile.GetType() == type;
         }
 
         /// <summary>

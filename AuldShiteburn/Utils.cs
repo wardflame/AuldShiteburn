@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AuldShiteburn.MapData;
+using System;
 using System.Collections.Generic;
 
 namespace AuldShiteburn
@@ -52,6 +53,13 @@ namespace AuldShiteburn
             Console.ForegroundColor = colour;
             Console.WriteLine(message);
             Console.ResetColor();
+        }
+
+        public static void WriteDoorPrompt(int offsetY, string message)
+        {
+            Console.CursorLeft = (Map.Instance.CurrentArea.Width * 2) + 2;
+            Console.CursorTop = offsetY;
+            Console.Write(message);
         }
     }
 }

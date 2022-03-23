@@ -10,8 +10,8 @@ namespace AuldShiteburn.MapData.TileData
         public static BasicTile WallTile { get; } = new BasicTile("#", true, ConsoleColor.DarkGray);
 
 
-        public string DisplayChar { get; }
-        public bool Collidable { get; }
+        public virtual string DisplayChar { get; }
+        public virtual bool Collidable { get; }
         public ConsoleColor Foreground { get; }
         public ConsoleColor Background { get; }
 

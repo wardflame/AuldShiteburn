@@ -13,19 +13,34 @@ namespace AuldShiteburn.MapData
         public abstract int Width { get; }
         public abstract int Height { get; }
         private Tile[] area;
+        protected List<TilePlaceData> placeData = new List<TilePlaceData>();
         private bool firstEnter = true;
         public List<Entity> entities = new List<Entity>();
 
         public Area()
         {
             area = new Tile[Width * Height];
+            AddSpecialTiles();
             TileGeneration();
+            PlaceSpecialTiles();
         }
 
         protected abstract void OnFirstEnter();
         protected abstract void InitEntities();
 
         protected abstract void TileGeneration();
+
+        private void PlaceSpecialTiles()
+        {
+            foreach (TilePlaceData specialTile in placeData)
+            {
+                SetTile(specialTile.x, specialTile.y, specialTile.specialTile);
+            }
+        }
+
+        protected virtual void AddSpecialTiles()
+        {
+        }
 
         protected int GetIndex(int posX, int posY)
         {

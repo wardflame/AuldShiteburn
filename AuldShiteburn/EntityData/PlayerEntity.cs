@@ -13,7 +13,7 @@ namespace AuldShiteburn.EntityData
     internal class PlayerEntity : LivingEntity
     {
         public static PlayerEntity Instance { get; set; }
-        List<Item> inventory;
+        public List<Item> inventory = new List<Item>();
         public override string EntityChar => "PL";
         public bool inMenu { get; set; }
         public long playtime;
