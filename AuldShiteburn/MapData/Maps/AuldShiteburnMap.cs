@@ -27,7 +27,7 @@ namespace AuldShiteburn.MapData.Maps
 
         protected override void SetFixedAreas()
         {
-            SetArea(0, 0, new ResidentsArea());
+            SetArea(0, 0, new StartArea());
             SetArea(2, 2, new EndArea());
         }
     }

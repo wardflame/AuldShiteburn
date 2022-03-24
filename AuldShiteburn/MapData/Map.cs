@@ -406,7 +406,7 @@ namespace AuldShiteburn.MapData
                 !interactionTiles.Exists(text => CheckTileType(PlayerEntity.Instance.PosX, minusY, text)) &&
                 !interactionTiles.Exists(text => CheckTileType(PlayerEntity.Instance.PosX, plusY, text)))
             {
-                ClearInteractInterface();
+                ClearInteractInterface(offsetY: 3);
             }
         }
 
@@ -428,13 +428,13 @@ namespace AuldShiteburn.MapData
         /// the area height, go down each row and replace any text with space characters until
         /// the end of the line.
         /// </summary>
-        public void ClearInteractInterface()
+        public void ClearInteractInterface(int offsetX = 0, int offsetY = 2)
         {
-            for (int y = 1; y <= CurrentArea.Height; y++)
+            for (int y = 1; y <= Utils.UIInteractHeight + offsetY; y++)
             {
-                Console.CursorLeft = CurrentArea.Width * 2;
+                Console.CursorLeft = Utils.UIInteractOffset + offsetX;
                 Console.CursorTop = y;
-                Console.Write(new string(' ', Console.WindowWidth - CurrentArea.Width * 2));
+                Console.Write(new string(' ', Console.WindowWidth - (Utils.UIInteractOffset - offsetX)));
             }
         }
         #endregion Clear UI

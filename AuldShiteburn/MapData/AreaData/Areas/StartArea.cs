@@ -13,7 +13,7 @@ namespace AuldShiteburn.MapData.AreaData.Areas
 
         protected override void AddSpecialTiles()
         {
-            placeData.Add(new TilePlaceData(8, 1, new AethelwulfNPCTile()));
+            placeData.Add(new TilePlaceData(8, 1, new OrmodNPCTile()));
             for (int i = 1; i < 4; i++)
             {
                 placeData.Add(new TilePlaceData(5, i, Tile.WallTile));

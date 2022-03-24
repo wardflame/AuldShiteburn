@@ -7,6 +7,7 @@ using System.Text;
 
 namespace AuldShiteburn.MapData.TileData.Tiles
 {
+    [Serializable]
     internal class DoorTile : Tile
     {
         public override string DisplayChar => Locked ? "X": "=";
@@ -36,7 +37,7 @@ namespace AuldShiteburn.MapData.TileData.Tiles
                     }
                     if (Locked)
                     {
-                        Utils.WriteDoorPrompt(2, "It's locked.");
+                        Utils.WriteDoorPrompt("It's locked.");
                     }
                 }
             }

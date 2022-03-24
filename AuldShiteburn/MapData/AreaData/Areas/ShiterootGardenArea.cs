@@ -31,7 +31,7 @@ namespace AuldShiteburn.MapData.AreaData.Areas
                     }
                     else if (x == 8 && y == 9)
                     {
-                        SetTile(x, y, new AethelwulfNPCTile());
+                        SetTile(x, y, new OrmodNPCTile());
                     }
                     else
                     {

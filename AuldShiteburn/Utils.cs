@@ -6,6 +6,8 @@ namespace AuldShiteburn
 {
     class Utils
     {
+        public static int UIInteractOffset => (Map.Instance.CurrentArea.Width * 2) + 2;
+        public static int UIInteractHeight { get; } = 2;
         /// <summary>
         /// Get a generic list and print out its contents.
         /// In the context of a menu, assign an index if applicable,
@@ -55,10 +57,10 @@ namespace AuldShiteburn
             Console.ResetColor();
         }
 
-        public static void WriteDoorPrompt(int offsetY, string message)
+        public static void WriteDoorPrompt(string message)
         {
-            Console.CursorLeft = (Map.Instance.CurrentArea.Width * 2) + 2;
-            Console.CursorTop = offsetY;
+            Console.CursorLeft = UIInteractOffset;
+            Console.CursorTop = UIInteractHeight;
             Console.Write(message);
         }
     }

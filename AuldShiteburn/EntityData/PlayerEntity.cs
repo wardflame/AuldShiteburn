@@ -1,12 +1,10 @@
 ﻿using AuldShiteburn.BackendData;
 using AuldShiteburn.EntityData.PlayerData;
 using AuldShiteburn.ItemData;
-using AuldShiteburn.ItemData.KeyData;
 using AuldShiteburn.MenuData;
 using AuldShiteburn.MenuData.Menus;
 using System;
 using System.Collections.Generic;
-using static AuldShiteburn.EntityData.PlayerData.PlayerGenInfo;
 
 namespace AuldShiteburn.EntityData
 {

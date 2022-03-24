@@ -10,6 +10,7 @@ using System.Text;
 
 namespace AuldShiteburn.MapData.TileData.Tiles
 {
+    [Serializable]
     internal class LootTile : Tile
     {
         private const float CHANCE_KEY = 0.95f;
