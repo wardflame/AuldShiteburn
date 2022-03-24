@@ -20,6 +20,7 @@ namespace AuldShiteburn.OptionsData.Options.Loading
             this.slot = slot;
         }
 
+        /// Attempt to save the map to the according save slot.
         public override void OnUse()
         {
             if (!Save.SaveGame(slot))

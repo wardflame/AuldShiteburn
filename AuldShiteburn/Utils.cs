@@ -36,20 +36,39 @@ namespace AuldShiteburn
             }
         }
 
+        /// <summary>
+        /// Query the player and get a yes/no response.
+        /// </summary>
+        /// <param name="query">Query string.</param>
+        /// <returns></returns>
         public static bool VerificationQuery(string query)
         {
-            Console.WriteLine(query);
-            InputSystem.GetInput();
-            if (InputSystem.InputKey == ConsoleKey.Y)
+            Console.WriteLine(query);            
+            do
             {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+                InputSystem.GetInput();
+                switch (InputSystem.InputKey)
+                {
+                    case ConsoleKey.Y:
+                        {
+                            return true;
+                        }
+                        break;
+                    case ConsoleKey.N:
+                        {
+                            return false;
+                        }
+                        break;
+                }
+            } while (InputSystem.InputKey != ConsoleKey.Y && InputSystem.InputKey != ConsoleKey.N);
+            return false;
         }
 
+        /// <summary>
+        /// Write a string with colour.
+        /// </summary>
+        /// <param name="colour">Colour for string.</param>
+        /// <param name="message">String to print.</param>
         public static void WriteColour(ConsoleColor colour, string message)
         {
             Console.ForegroundColor = colour;
@@ -57,8 +76,13 @@ namespace AuldShiteburn
             Console.ResetColor();
         }
 
-        public static void WriteDoorPrompt(string message)
+        /// <summary>
+        /// Clear the interact area and print a prompt message.
+        /// </summary>
+        /// <param name="message">String to print as prompt.</param>
+        public static void InteractPrompt(string message)
         {
+            Map.Instance.ClearInteractInterface();
             Console.CursorLeft = UIInteractOffset;
             Console.CursorTop = UIInteractHeight;
             Console.Write(message);

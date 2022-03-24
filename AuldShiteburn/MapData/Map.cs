@@ -20,7 +20,7 @@ namespace AuldShiteburn.MapData
         public static Map Instance { get; set; }
         private static List<Type> interactionTiles = new List<Type>()
         {
-            typeof(NPCTile),
+            typeof(InteractionTile),
             typeof(DoorTile)
         };
 
@@ -434,7 +434,7 @@ namespace AuldShiteburn.MapData
             {
                 Console.CursorLeft = Utils.UIInteractOffset + offsetX;
                 Console.CursorTop = y;
-                Console.Write(new string(' ', Console.WindowWidth - (Utils.UIInteractOffset - offsetX)));
+                Console.Write(new string(' ', Console.WindowWidth - Utils.UIInteractOffset));
             }
         }
         #endregion Clear UI

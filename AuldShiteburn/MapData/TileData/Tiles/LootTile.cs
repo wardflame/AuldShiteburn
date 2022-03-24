@@ -18,15 +18,18 @@ namespace AuldShiteburn.MapData.TileData.Tiles
         private const float CHANCE_ARMOUR = 0.4f;
         private const float CHANCE_CONSUMABLE = 0.0f;
 
+        public override ConsoleColor Foreground => looted ? ConsoleColor.DarkGray : ConsoleColor.Magenta;
+
         private List<Item> items = new List<Item>();
         private bool looted = false;
 
-        public LootTile(List<Item> items, bool randomised) : base("?", false, ConsoleColor.Magenta)
+        public LootTile(List<Item> items, bool randomised) : base("?", false)
         {
             if (!randomised)
             {
                 this.items = items;
             }
+            /// If the items in the loot tile aren't fixed, generate them by chance.
             else
             {
                 Random rand = new Random();
@@ -37,18 +40,21 @@ namespace AuldShiteburn.MapData.TileData.Tiles
                     Item keyItem = keys[rand.Next(keys.Count)];
                     this.items.Add(keyItem);
                 }
+                chance = rand.NextDouble();
                 if (chance >= CHANCE_WEAPON)
                 {
                     List<Item> weapons = items.FindAll(weapon => weapon is WeaponItem);
                     Item weaponItem = weapons[rand.Next(weapons.Count)];
                     this.items.Add(weaponItem);
                 }
+                chance = rand.NextDouble();
                 if (chance >= CHANCE_ARMOUR)
                 {
                     List<Item> armours = items.FindAll(armour => armour is ArmourItem);
                     Item armourItem = armours[rand.Next(armours.Count)];
                     this.items.Add(armourItem);
                 }
+                chance = rand.NextDouble();
                 if (chance >= CHANCE_CONSUMABLE)
                 {
                     List<Item> consumables = items.FindAll(consumable => consumable is ConsumableItem);
@@ -60,7 +66,12 @@ namespace AuldShiteburn.MapData.TileData.Tiles
 
         public override void OnCollision(Entity entity)
         {
-            
+            foreach (Item item in items)
+            {
+                PlayerEntity.Instance.inventory.Add(item);
+                items.Remove(item);
+            }
+            looted = true;
         }
     }
 }

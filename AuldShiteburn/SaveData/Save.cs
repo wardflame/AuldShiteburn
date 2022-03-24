@@ -16,7 +16,7 @@ namespace AuldShiteburn.SaveData
     internal class Save
     {
         /// <summary>
-        /// Save game settings, things such as text speed etc.
+        /// Save game settings, things such as text speed etc. to binary.
         /// </summary>
         public static void SaveGameSettings()
         {
@@ -38,11 +38,10 @@ namespace AuldShiteburn.SaveData
         }
 
         /// <summary>
-        /// Save player character.
-        /// If a directory doesn't exist within Saves that has
-        /// the character's name, create one. Set the player's
-        /// play time and then serialize the player to .json.
-        /// Save the file name as the total time played in DateTime.
+        /// Allocate player to the map singleton's player variable and save the map.
+        /// If a directory doesn't exist within Saves for said save slot, create one.
+        /// Set the player's play time and then serialize the map to .dat in binary.
+        /// Save the file name in line with the save slot.
         /// </summary>
         public static bool SaveGame(int saveSlot)
         {
@@ -64,6 +63,7 @@ namespace AuldShiteburn.SaveData
             catch (Exception e)
             {
                 Utils.WriteColour(ConsoleColor.Red, $"Error: Save failed. " + e.Message);
+                System.Threading.Thread.Sleep(10000);
                 stream.Close();
                 File.Delete($"{Directories.NAME_SAVES}\\{saveSlot}\\{saveName}");
             }
@@ -71,11 +71,9 @@ namespace AuldShiteburn.SaveData
         }
 
         /// <summary>
-        /// Make a list of character directories inside main Saves directory.
-        /// Have player choose character from list and access the character directory.
-        /// List all saves in that character's directory and let player choose
-        /// a save from there. Which save they choose, return the static player to
-        /// be the player from that file.
+        /// Check if a save exists with any of the save directories. If one does,
+        /// create a new save slot option with the according name. Then, allow the
+        /// player to cycle through the save slots and choose one to save into.
         /// </summary>
         /// <returns></returns>
         public static void SaveOptions()

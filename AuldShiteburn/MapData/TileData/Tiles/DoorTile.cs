@@ -37,7 +37,7 @@ namespace AuldShiteburn.MapData.TileData.Tiles
                     }
                     if (Locked)
                     {
-                        Utils.WriteDoorPrompt("It's locked.");
+                        Utils.InteractPrompt("It's locked.");
                     }
                 }
             }

@@ -4,6 +4,7 @@ using System.Text;
 
 namespace AuldShiteburn.ItemData.KeyData
 {
+    [Serializable]
     internal class KeyItem : Item
     {
         public static List<KeyItem> keys = new List<KeyItem>()

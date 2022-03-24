@@ -21,10 +21,6 @@ namespace AuldShiteburn.MapData.AreaData.Areas
                     {
                         SetTile(x, y, Tile.WallTile);
                     }
-                    else if (x == 2 && y == 2)
-                    {
-                        SetTile(x, y, new OrmodNPCTile());
-                    }
                     else
                     {
                         SetTile(x, y, Tile.AirTile);

@@ -4,6 +4,7 @@ using System.Text;
 
 namespace AuldShiteburn.MapData.TileData
 {
+    [Serializable]
     internal struct TilePlaceData
     {
         public int x;
