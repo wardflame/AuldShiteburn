@@ -10,12 +10,13 @@ namespace AuldShiteburn.MapData.TileData.Tiles
     [Serializable]
     internal class DoorTile : Tile
     {
-        public override string DisplayChar => Locked ? "X": "=";
+        public override string DisplayChar => Locked ? "X": ".";
         public override bool Collidable => Locked;
+        public override ConsoleColor Foreground => ConsoleColor.DarkYellow;
         public bool Locked { get; set; }
         public KeyItem key;
 
-        public DoorTile(bool locked, KeyItem key = null) : base("", true, ConsoleColor.DarkYellow)
+        public DoorTile(bool locked, KeyItem key = null) : base("", true)
         {
             this.Locked = locked;
             this.key = key;

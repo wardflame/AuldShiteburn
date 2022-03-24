@@ -353,8 +353,10 @@ namespace AuldShiteburn.MapData
             {
                 Tile previousTile = CurrentArea.GetTile(entX, entY);
                 Console.SetCursorPosition(entX * 2, entY);
+                Console.ForegroundColor = previousTile.Foreground;
                 Console.Write(previousTile.DisplayChar);
                 Console.Write(previousTile.DisplayChar);
+                Console.ResetColor();
                 PrintEntity(entity);
             }
         }

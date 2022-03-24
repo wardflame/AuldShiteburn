@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AuldShiteburn.EntityData.PlayerData
 {
-    internal struct PlayerGenInfo
+    internal struct PlayerGenerationData
     {
         public static List<string> titleMale = new List<string>()
         {

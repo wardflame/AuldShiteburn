@@ -70,12 +70,12 @@ namespace AuldShiteburn.EntityData
             int sexChance = rand.Next(1, 101);
             if (sexChance <= GameSettings.Instance.SexRatio)
             {
-                forenameStr = PlayerGenInfo.nameMale[rand.Next(PlayerGenInfo.nameMale.Count)];
+                forenameStr = PlayerGenerationData.nameMale[rand.Next(PlayerGenerationData.nameMale.Count)];
 
                 int willTitle = rand.Next(1, 101);
                 if (willTitle >= 70)
                 {
-                    titleStr = PlayerGenInfo.titleMale[rand.Next(PlayerGenInfo.titleMale.Count)];
+                    titleStr = PlayerGenerationData.titleMale[rand.Next(PlayerGenerationData.titleMale.Count)];
                     Instance.name = $"{titleStr} {forenameStr}";
                 }
                 else
@@ -85,12 +85,12 @@ namespace AuldShiteburn.EntityData
             }
             else
             {
-                forenameStr = PlayerGenInfo.nameFemale[rand.Next(PlayerGenInfo.nameFemale.Count)];
+                forenameStr = PlayerGenerationData.nameFemale[rand.Next(PlayerGenerationData.nameFemale.Count)];
 
                 int willTitle = rand.Next(1, 101);
                 if (willTitle >= 70)
                 {
-                    titleStr = PlayerGenInfo.titleFemale[rand.Next(PlayerGenInfo.titleFemale.Count)];
+                    titleStr = PlayerGenerationData.titleFemale[rand.Next(PlayerGenerationData.titleFemale.Count)];
                     Instance.name = $"{titleStr} {forenameStr}";
                 }
                 else

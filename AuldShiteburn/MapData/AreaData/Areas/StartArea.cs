@@ -1,4 +1,5 @@
 ﻿using AuldShiteburn.MapData.TileData;
+using AuldShiteburn.MapData.TileData.Tiles;
 using AuldShiteburn.MapData.TileData.Tiles.NPCs;
 using System;
 
@@ -22,6 +23,7 @@ namespace AuldShiteburn.MapData.AreaData.Areas
             {
                 placeData.Add(new TilePlaceData(i, 5, Tile.WallTile));
             }
+            placeData.Add(new TilePlaceData(6, 4, new DoorTile(false)));
         }
 
         protected override void InitEntities()
