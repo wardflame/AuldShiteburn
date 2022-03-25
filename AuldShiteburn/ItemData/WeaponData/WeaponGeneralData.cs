@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace AuldShiteburn.ItemData.WeaponData
 {
@@ -18,14 +16,5 @@ namespace AuldShiteburn.ItemData.WeaponData
         Steel,
         Moonstone,
         Hardshite
-    }
-    public enum WeaponPropertyType
-    {
-        Ruined,
-        Standard,
-        Fire,
-        Cold,
-        Holy,
-        Occult
     }
 }

@@ -6,8 +6,18 @@ namespace AuldShiteburn
 {
     class Utils
     {
+        #region UI Cursor Offsets
         public static int UIInteractOffset => (Map.Instance.CurrentArea.Width * 2) + 2;
         public static int UIInteractHeight { get; } = 2;
+
+        public static int UIInventoryOffset { get; } = 1;
+        public static int UIInventoryHeight => Map.Instance.CurrentArea.Height + 8;
+
+        public static int UIPlayerStatOffset { get; } = 1;
+        public static int UIPlayerStatHeight => Map.Instance.CurrentArea.Height + 1;
+        #endregion UI Cursor Offsets
+
+
         /// <summary>
         /// Get a generic list and print out its contents.
         /// In the context of a menu, assign an index if applicable,
@@ -43,7 +53,7 @@ namespace AuldShiteburn
         /// <returns></returns>
         public static bool VerificationQuery(string query)
         {
-            Console.WriteLine(query);            
+            Console.WriteLine(query);
             do
             {
                 InputSystem.GetInput();
@@ -74,6 +84,39 @@ namespace AuldShiteburn
             Console.ForegroundColor = colour;
             Console.WriteLine(message);
             Console.ResetColor();
+        }
+
+        /// <summary>
+        /// Set the cursor to the default interact window position,
+        /// with offsets to go wider or deeper than usual.
+        /// </summary>
+        /// <param name="offsetX">Addition cursor width offset.</param>
+        /// <param name="offsetY">Additional cursor height offset.</param>
+        public static void SetCursorInteract(int offsetX = 0, int offsetY = 0)
+        {
+            Console.SetCursorPosition(Utils.UIInteractOffset + offsetX, Utils.UIInteractHeight + offsetY);
+        }
+
+        /// <summary>
+        /// Set the cursor to the default player stat window position,
+        /// with offsets to go wider or deeper than usual.
+        /// </summary>
+        /// <param name="offsetX">Addition cursor width offset.</param>
+        /// <param name="offsetY">Additional cursor height offset.</param>
+        public static void SetCursorPlayerStat(int offsetX = 0, int offsetY = 0)
+        {
+            Console.SetCursorPosition(UIPlayerStatOffset + offsetX, UIPlayerStatHeight + offsetY);
+        }
+
+        /// <summary>
+        /// Set the cursor to the default inventory window position,
+        /// with offsets to go wider or deeper than usual.
+        /// </summary>
+        /// <param name="offsetX">Addition cursor width offset.</param>
+        /// <param name="offsetY">Additional cursor height offset.</param>
+        public static void SetCursorInventory(int offsetX = 0, int offsetY = 0)
+        {
+            Console.SetCursorPosition(UIInventoryOffset + offsetX, UIInventoryHeight + offsetY);
         }
 
         /// <summary>

@@ -4,8 +4,6 @@ using AuldShiteburn.MenuData;
 using AuldShiteburn.OptionData;
 using AuldShiteburn.SaveData;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace AuldShiteburn.OptionsData.Options.Settings
 {
@@ -64,7 +62,7 @@ Ratio: " + GameSettings.Instance.SexRatio);
             {
                 GameSettings.Instance.SexRatio = previousSexRatio;
             }
-            Menu.Instance.InMenu();
+            Menu.Instance.RunMenu();
         }
     }
 }

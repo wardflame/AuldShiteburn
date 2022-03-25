@@ -1,14 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace AuldShiteburn.ItemData.WeaponData
 {
     [Serializable]
     class WeaponMaterial
     {
+        #region Weapon Materials
         public static WeaponMaterial WeaponMaterialIron
         {
             get { return new WeaponMaterial("Iron", WeaponMaterialType.Iron, 1, 2); }
-        } 
+        }
         public static WeaponMaterial WeaponMaterialSteel
         {
             get { return new WeaponMaterial("Steel", WeaponMaterialType.Steel, 2, 3); }
@@ -21,7 +23,15 @@ namespace AuldShiteburn.ItemData.WeaponData
         {
             get { return new WeaponMaterial("Hardshite", WeaponMaterialType.Hardshite, 4, 6); }
         }
+        #endregion Weapon Materials
 
+        public static List<WeaponMaterial> WeaponMaterials = new List<WeaponMaterial>()
+        {
+            WeaponMaterialIron,
+            WeaponMaterialSteel,
+            WeaponMaterialMoonstone,
+            WeaponMaterialHardshite
+        };
         public string Name { get; }
         public WeaponMaterialType Material { get; }
         public int MinDamage { get; }

@@ -37,7 +37,7 @@ namespace AuldShiteburn.SaveData
                 return true;
             }
         }
-        
+
         /// <summary>
         /// If a GameSettings save exists, return it.
         /// </summary>
@@ -58,7 +58,7 @@ namespace AuldShiteburn.SaveData
                     stream.Close();
                     GameSettings.Instance = new GameSettings();
                 }
-                
+
             }
             else
             {

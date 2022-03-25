@@ -162,7 +162,7 @@ namespace AuldShiteburn.ArtData
                     }
                 }
             }
-            return string.Join (Environment.NewLine, lines.ToArray());
+            return string.Join(Environment.NewLine, lines.ToArray());
         }
     }
 }

@@ -5,8 +5,6 @@ using AuldShiteburn.MenuData;
 using AuldShiteburn.OptionData;
 using AuldShiteburn.SaveData;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace AuldShiteburn.OptionsData.Options.Loading
 {

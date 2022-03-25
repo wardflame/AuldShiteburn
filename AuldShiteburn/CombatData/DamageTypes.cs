@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace AuldShiteburn.CombatData
 {
     [Serializable]
-    public enum WeaponDamageType
+    public enum PhysicalDamageType
     {
         None,
         Slash,
@@ -13,8 +11,9 @@ namespace AuldShiteburn.CombatData
         Pierce,
     }
 
-    public enum DamagePropertyType
+    public enum PropertyDamageType
     {
+        Damaged,
         Standard,
         Fire,
         Cold,

@@ -7,9 +7,9 @@ using System;
 namespace AuldShiteburn.MapData.AreaData.Areas
 {
     [Serializable]
-    class ResidencesArea : Area
+    class LivingQuarterArea : Area
     {
-        public override string Name => "Residences";
+        public override string Name => "Living Quarter";
         public override int Width => 20;
         public override int Height => 20;
 

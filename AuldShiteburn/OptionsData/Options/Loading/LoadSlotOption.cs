@@ -2,13 +2,10 @@
 using AuldShiteburn.BackendData;
 using AuldShiteburn.EntityData;
 using AuldShiteburn.MapData;
-using AuldShiteburn.MapData.Maps;
 using AuldShiteburn.MenuData;
 using AuldShiteburn.OptionData;
 using AuldShiteburn.SaveData;
 using System;
-using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
 
 namespace AuldShiteburn.OptionsData.Options.Loading
 {

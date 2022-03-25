@@ -1,5 +1,4 @@
 ﻿using AuldShiteburn.ArtData;
-using AuldShiteburn.MenuData;
 using AuldShiteburn.OptionData;
 using AuldShiteburn.OptionsData.Options.Settings;
 using System;

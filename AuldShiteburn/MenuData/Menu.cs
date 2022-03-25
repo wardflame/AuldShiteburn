@@ -10,11 +10,11 @@ namespace AuldShiteburn.MenuData
         public List<Option> options;
         public abstract string Banner { get; }
         public bool menuActive { get; set; } = true;
-        public void InMenu()
+        public void RunMenu()
         {
             while (menuActive)
             {
-                Console.Clear();                
+                Console.Clear();
                 Option.SelectRunOption(options, Banner);
             }
         }

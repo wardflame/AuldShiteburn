@@ -1,6 +1,7 @@
 ﻿using AuldShiteburn.BackendData;
 using AuldShiteburn.EntityData.PlayerData;
 using AuldShiteburn.ItemData;
+using AuldShiteburn.ItemData.WeaponData;
 using AuldShiteburn.MenuData;
 using AuldShiteburn.MenuData.Menus;
 using System;
@@ -12,11 +13,14 @@ namespace AuldShiteburn.EntityData
     internal class PlayerEntity : LivingEntity
     {
         public static PlayerEntity Instance { get; set; }
-        public ClassData Class { get; private set; }
-        public List<Item> Inventory { get; set; } = new List<Item>();
         public override string EntityChar => "PL";
         public bool InMenu { get; set; }
-        public long Playtime;
+        public long Playtime { get; set; }
+        public ClassData Class { get; private set; }
+        public ClassType ClassType { get; private set; }
+        public List<Item> Inventory { get; set; } = new List<Item>();
+        public WeaponItem EquippedWeapon { get; set; }
+
 
         public override void Move()
         {
@@ -50,7 +54,7 @@ namespace AuldShiteburn.EntityData
                     case ConsoleKey.Escape:
                         {
                             Menu.Instance = new PauseMenu();
-                            Menu.Instance.InMenu();
+                            Menu.Instance.RunMenu();
                         }
                         break;
                 }
@@ -66,6 +70,7 @@ namespace AuldShiteburn.EntityData
 
             #region Class Generation and Stat Assignments
             Instance.Class = ClassData.Classes[rand.Next(ClassData.Classes.Count)];
+            Instance.ClassType = Instance.Class.ClassType;
             Instance.maxHP = Instance.Class.HP;
             Instance.HP = Instance.Class.HP;
             Instance.UsesStamina = Instance.Class.UsesStamina;
@@ -75,6 +80,7 @@ namespace AuldShiteburn.EntityData
             Instance.maxMana = Instance.Class.Mana;
             Instance.Mana = Instance.Class.Mana;
             #endregion Class Generation
+
             #region Name Generation
             string titleStr;
             string forenameStr;
@@ -85,7 +91,7 @@ namespace AuldShiteburn.EntityData
                 int titleIndex = rand.Next(0, Instance.Class.TitlesMale.Count);
                 titleStr = Instance.Class.TitlesMale[titleIndex];
                 Instance.Name = $"{titleStr} {forenameStr}";
-                       
+
             }
             else
             {
@@ -102,6 +108,10 @@ namespace AuldShiteburn.EntityData
                 Instance.Name = $"{titleStr} {forenameStr}";
             }
             #endregion Name Generation
+
+            #region Loot Assignment
+            Instance.Inventory.Add(WeaponItem.GenerateWeapon());
+            #endregion Loot Assignment
 
             return Instance;
         }

@@ -114,22 +114,22 @@ namespace AuldShiteburn.MapData.TileData.Tiles
                                 {
                                     Map.Instance.ClearInteractInterface(offsetY: 3);
                                     PrintBrowseUI(true);
-                                    SetCursorInteract();
+                                    Utils.SetCursorInteract();
                                     PrintInteraction(interactions[index]);
                                 }
                                 else if (index <= interactions.Count - 1 && index > 0)
                                 {
                                     Map.Instance.ClearInteractInterface(offsetY: 3);
                                     PrintBrowseUI();
-                                    SetCursorInteract();
+                                    Utils.SetCursorInteract();
                                     PrintInteraction(interactions[index]);
                                 }
                                 else
                                 {
                                     Map.Instance.ClearInteractInterface();
-                                    SetCursorInteract();
+                                    Utils.SetCursorInteract();
                                     PrintInteraction(interactions[index]);
-                                }                                
+                                }
                             }
                         }
                         break;
@@ -140,23 +140,23 @@ namespace AuldShiteburn.MapData.TileData.Tiles
                                 index++;
                                 if (interactions[index].decision)
                                 {
-                                    SetCursorInteract();
+                                    Utils.SetCursorInteract();
                                     Map.Instance.ClearInteractInterface();
                                     PrintInteraction(interactions[index]);
-                                    SetCursorInteract(0, 1);
+                                    Utils.SetCursorInteract(0, 1);
                                     if (Decision())
                                     {
                                         index++;
                                         Map.Instance.ClearInteractInterface();
-                                        SetCursorInteract();
+                                        Utils.SetCursorInteract();
                                         PrintInteraction(interactions[index]);
                                     }
                                     else
                                     {
                                         Map.Instance.ClearInteractInterface(offsetY: 2);
-                                        SetCursorInteract();
+                                        Utils.SetCursorInteract();
                                         Console.Write(Dialogue(decisionRefusal));
-                                        SetCursorInteract(offsetY: 3);
+                                        Utils.SetCursorInteract(offsetY: 3);
                                         Console.Write(new string(' ', Console.WindowWidth - Utils.UIInteractOffset));
                                         quit = true;
                                     }
@@ -167,17 +167,17 @@ namespace AuldShiteburn.MapData.TileData.Tiles
                                     {
                                         Map.Instance.ClearInteractInterface(offsetY: 3);
                                         PrintBrowseUI(end: true);
-                                        SetCursorInteract();
+                                        Utils.SetCursorInteract();
                                         PrintInteraction(interactions[index]);
                                     }
                                     else
                                     {
                                         Map.Instance.ClearInteractInterface(offsetY: 3);
                                         PrintBrowseUI();
-                                        SetCursorInteract();
+                                        Utils.SetCursorInteract();
                                         PrintInteraction(interactions[index]);
-                                    }                                        
-                                }                                    
+                                    }
+                                }
                             }
                             else if (index >= interactions.Count)
                             {
@@ -189,7 +189,7 @@ namespace AuldShiteburn.MapData.TileData.Tiles
                         {
                             if (index >= interactions.Count - 1)
                             {
-                                SetCursorInteract(offsetY: 3);
+                                Utils.SetCursorInteract(offsetY: 3);
                                 Console.Write(new string(' ', Console.WindowWidth - Utils.UIInteractOffset));
                                 return true;
                             }
@@ -212,20 +212,20 @@ namespace AuldShiteburn.MapData.TileData.Tiles
         {
             if (start)
             {
-                SetCursorInteract(offsetY: 3);
+                Utils.SetCursorInteract(offsetY: 3);
                 Console.Write("Next -->");
             }
             else if (end)
             {
-                SetCursorInteract(offsetY: 3);
+                Utils.SetCursorInteract(offsetY: 3);
                 Console.Write("<-- Previous . Press Backspace to Leave");
             }
             else
             {
-                SetCursorInteract(offsetY: 3);
+                Utils.SetCursorInteract(offsetY: 3);
                 Console.Write("<-- Previous . Next -->");
             }
-            
+
         }
 
         /// <summary>
@@ -235,22 +235,11 @@ namespace AuldShiteburn.MapData.TileData.Tiles
         /// <param name="interaction"></param>
         protected void PrintInteraction(InteractionData interaction)
         {
-            SetCursorInteract();
+            Utils.SetCursorInteract();
             Console.ForegroundColor = interaction.foreground;
             Console.BackgroundColor = interaction.background;
             Console.Write(interaction.line);
             Console.ResetColor();
-        }
-
-        /// <summary>
-        /// Set the cursor to the default interact window position,
-        /// with offsets to go wider or deeper than usual.
-        /// </summary>
-        /// <param name="offsetX">Addition cursor width offset.</param>
-        /// <param name="offsetY">Additional cursor height offset.</param>
-        protected void SetCursorInteract(int offsetX = 0, int offsetY = 0)
-        {
-            Console.SetCursorPosition(Utils.UIInteractOffset + offsetX, Utils.UIInteractHeight + offsetY);
         }
     }
 }

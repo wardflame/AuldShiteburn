@@ -1,7 +1,7 @@
 ﻿using AuldShiteburn.EntityData;
+using AuldShiteburn.ItemData.WeaponData;
 using AuldShiteburn.MapData.TileData;
 using AuldShiteburn.MapData.TileData.Tiles;
-using AuldShiteburn.SaveData;
 using System;
 using System.Collections.Generic;
 
@@ -317,17 +317,27 @@ namespace AuldShiteburn.MapData
         /// </summary>
         public void PrintPlayerInfo()
         {
-            Console.CursorTop = CurrentArea.Height + 1;
-            Console.CursorLeft = 0;
-            Console.WriteLine(PlayerEntity.Instance.Name);            
-            Console.WriteLine($"Health: {PlayerEntity.Instance.HP}");
+            Utils.SetCursorPlayerStat();
+            Console.Write($"{PlayerEntity.Instance.Name} the {PlayerEntity.Instance.Class.Name}");
+            Utils.SetCursorPlayerStat(offsetY: 1);
+            Console.Write($"Health: {PlayerEntity.Instance.HP}");
             if (PlayerEntity.Instance.UsesStamina)
             {
-                Console.WriteLine($"Stamina: {PlayerEntity.Instance.Stamina}");
+                Utils.SetCursorPlayerStat(offsetY: 2);
+                Console.Write($"Stamina: {PlayerEntity.Instance.Stamina}");
             }
             if (PlayerEntity.Instance.UsesMana)
             {
-                Console.WriteLine("Mana: " + PlayerEntity.Instance.Mana);
+                Utils.SetCursorPlayerStat(offsetY: 2);
+                Console.Write($"Mana: {PlayerEntity.Instance.Mana}");
+            }
+            Utils.SetCursorPlayerStat(offsetY: 3);
+            Console.Write($"Equipped Weapon: {PlayerEntity.Instance.Mana}");
+
+            Utils.SetCursorInventory();
+            foreach (WeaponItem item in PlayerEntity.Instance.Inventory)
+            {
+                Console.Write($"(i) Inventory");
             }
         }
         #endregion Printing

@@ -6,7 +6,6 @@ using AuldShiteburn.ItemData.KeyData;
 using AuldShiteburn.ItemData.WeaponData;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace AuldShiteburn.MapData.TileData.Tiles
 {

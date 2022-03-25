@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace AuldShiteburn.EntityData.PlayerData
 {
@@ -10,20 +9,20 @@ namespace AuldShiteburn.EntityData.PlayerData
         public static List<string> AcolyteTitles { get; } = new List<string>()
         {
             "Foundling",
-            "Acolyte",
+            "Apostate",
             "Warlock",
             "Shitebirthed"
         };
         public static List<string> FighterTitlesMale { get; } = new List<string>()
         {
-            "Sir",            
+            "Sir",
             "Baron",
             "Duke",
-            "King"            
+            "King"
         };
         public static List<string> FighterTitlesFemale { get; } = new List<string>()
         {
-            "Dame",            
+            "Dame",
             "Baroness",
             "Duchess",
             "Queen"

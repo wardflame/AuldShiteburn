@@ -1,8 +1,6 @@
 ﻿using AuldShiteburn.BackendData;
 using AuldShiteburn.EntityData;
 using AuldShiteburn.MapData;
-using AuldShiteburn.MenuData;
-using AuldShiteburn.MenuData.Menus;
 using AuldShiteburn.OptionData;
 using AuldShiteburn.OptionsData.Options.Loading;
 using System;
@@ -80,7 +78,7 @@ namespace AuldShiteburn.SaveData
             List<Option> options = new List<Option>();
             for (int i = 0; i < Directory.GetDirectories(Directories.NAME_SAVES).Length; i++)
             {
-                options.Add(new SaveSlotOption(i + 1));                
+                options.Add(new SaveSlotOption(i + 1));
             }
             Console.Clear();
             Option.SelectRunOption(options, null);

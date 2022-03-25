@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace AuldShiteburn.MapData.TileData.Tiles
 {
+    [Serializable]
     internal abstract class NPCTile : InteractionTile
     {
         public NPCTile(string displayChar) : base(displayChar)

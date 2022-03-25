@@ -4,7 +4,6 @@ using AuldShiteburn.EntityData;
 using AuldShiteburn.MenuData;
 using AuldShiteburn.MenuData.Menus;
 using AuldShiteburn.OptionData;
-using AuldShiteburn.SaveData;
 using System;
 
 namespace AuldShiteburn.OptionsData.Options

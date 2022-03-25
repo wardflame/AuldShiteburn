@@ -16,7 +16,7 @@ namespace AuldShiteburn.MapData.Maps
             AvailableAreas.Add(new GraveyardArea());
             AvailableAreas.Add(new GuildHallArea());
             AvailableAreas.Add(new MarketArea());
-            AvailableAreas.Add(new ResidencesArea());
+            AvailableAreas.Add(new LivingQuarterArea());
             AvailableAreas.Add(new ShitepileArea());
             AvailableAreas.Add(new ShiterootGardenArea());
             AvailableAreas.Add(new StablesArea());
@@ -31,7 +31,7 @@ namespace AuldShiteburn.MapData.Maps
 
             if (newGame)
             {
-                SetArea(1, 0, new ResidencesArea());
+                SetArea(1, 0, new LivingQuarterArea());
                 newGame = false;
             }
         }

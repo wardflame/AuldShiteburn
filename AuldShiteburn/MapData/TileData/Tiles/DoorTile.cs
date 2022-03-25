@@ -2,15 +2,13 @@
 using AuldShiteburn.ItemData;
 using AuldShiteburn.ItemData.KeyData;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace AuldShiteburn.MapData.TileData.Tiles
 {
     [Serializable]
     internal class DoorTile : Tile
     {
-        public override string DisplayChar => Locked ? "X": ".";
+        public override string DisplayChar => Locked ? "X" : ".";
         public override bool Collidable => Locked;
         public override ConsoleColor Foreground => ConsoleColor.DarkYellow;
         public bool Locked { get; set; }
@@ -32,7 +30,7 @@ namespace AuldShiteburn.MapData.TileData.Tiles
                     {
                         if (item == key)
                         {
-                            Locked = false;                            
+                            Locked = false;
                             break;
                         }
                     }

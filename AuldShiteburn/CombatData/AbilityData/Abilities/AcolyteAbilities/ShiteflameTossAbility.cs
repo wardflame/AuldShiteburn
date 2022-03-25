@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace AuldShiteburn.CombatData.AbilityData.Abilities.AcolyteAbilities
 {
     [Serializable]
-    internal class ShiteflameAbility : Ability
+    internal class ShiteflameTossAbility : Ability
     {
         public override string Name => "Shiteflame Toss";
         public override string Description => $"Hurls a pungent ball of burning shite at the target for {MinDamage} to {MaxDamage} Occult damage.";

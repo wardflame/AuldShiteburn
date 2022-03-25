@@ -1,5 +1,4 @@
-﻿using AuldShiteburn.BackendData;
-using AuldShiteburn.MapData;
+﻿using AuldShiteburn.MapData;
 using AuldShiteburn.MenuData;
 using AuldShiteburn.MenuData.Menus;
 using AuldShiteburn.SaveData;
@@ -26,7 +25,7 @@ namespace AuldShiteburn
                 while (mainMenu)
                 {
                     Menu.Instance = new MainMenu();
-                    Menu.Instance.InMenu();
+                    Menu.Instance.RunMenu();
                 }
                 while (playing)
                 {
