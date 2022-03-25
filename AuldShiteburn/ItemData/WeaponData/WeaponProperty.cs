@@ -5,6 +5,7 @@ namespace AuldShiteburn.ItemData.WeaponData
     [Serializable]
     class WeaponProperty
     {
+        #region Weapon Properties
         public static WeaponProperty WeaponPropertyRuined
         {
             get { return new WeaponProperty("Ruined", WeaponPropertyType.Ruined, -1, -3); }
@@ -27,8 +28,9 @@ namespace AuldShiteburn.ItemData.WeaponData
         }
         public static WeaponProperty WeaponPropertyShitty
         {
-            get { return new WeaponProperty("Shitty", WeaponPropertyType.Shitty, 4, 6); }
+            get { return new WeaponProperty("Shitty", WeaponPropertyType.Occult, 4, 6); }
         }
+        #endregion Weapon Properties
 
         public string Name { get; }
         public WeaponPropertyType Property { get; }

@@ -5,9 +5,11 @@ namespace AuldShiteburn.EntityData
     [Serializable]
     internal abstract class LivingEntity : Entity
     {
-        public virtual string Name { get; protected set; }
-        private float hp, stamina, mana;
-        public float maxHP, maxStamina, maxMana;
+        public string Name { get; protected set; }
+        public bool UsesStamina { get; set; }
+        public bool UsesMana { get; set; }
+        protected float hp, stamina, mana;
+        protected float maxHP, maxStamina, maxMana;
         public float HP
         {
             get { return hp; }

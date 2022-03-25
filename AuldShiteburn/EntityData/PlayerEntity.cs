@@ -64,19 +64,24 @@ namespace AuldShiteburn.EntityData
             Instance.PosY = 1;
             Random rand = new Random();
 
-            #region Class Generation
-
-            Instance.Class = ClassData.Fighter;
+            #region Class Generation and Stat Assignments
+            Instance.Class = ClassData.Classes[rand.Next(ClassData.Classes.Count)];
+            Instance.maxHP = Instance.Class.HP;
+            Instance.HP = Instance.Class.HP;
+            Instance.UsesStamina = Instance.Class.UsesStamina;
+            Instance.UsesMana = Instance.Class.UsesMana;
+            Instance.maxStamina = Instance.Class.Stamina;
+            Instance.Stamina = Instance.Class.Stamina;
+            Instance.maxMana = Instance.Class.Mana;
+            Instance.Mana = Instance.Class.Mana;
             #endregion Class Generation
-
+            #region Name Generation
             string titleStr;
             string forenameStr;
-
-            #region Name Generation
             int sexChance = rand.Next(1, 101);
             if (sexChance <= GameSettings.Instance.SexRatio)
             {
-                forenameStr = PlayerGenerationData.nameMale[rand.Next(PlayerGenerationData.nameMale.Count)];
+                forenameStr = PlayerGenerationData.NamesMale[rand.Next(PlayerGenerationData.NamesMale.Count)];
                 int titleIndex = rand.Next(0, Instance.Class.TitlesMale.Count);
                 titleStr = Instance.Class.TitlesMale[titleIndex];
                 Instance.Name = $"{titleStr} {forenameStr}";
@@ -84,9 +89,16 @@ namespace AuldShiteburn.EntityData
             }
             else
             {
-                forenameStr = PlayerGenerationData.nameFemale[rand.Next(PlayerGenerationData.nameMale.Count)];
+                forenameStr = PlayerGenerationData.NameFemale[rand.Next(PlayerGenerationData.NameFemale.Count)];
                 int titleIndex = rand.Next(0, Instance.Class.TitlesMale.Count);
-                titleStr = Instance.Class.TitlesFemale[titleIndex];
+                if (Instance.Class.TitlesFemale != null)
+                {
+                    titleStr = Instance.Class.TitlesFemale[titleIndex];
+                }
+                else
+                {
+                    titleStr = Instance.Class.TitlesMale[titleIndex];
+                }
                 Instance.Name = $"{titleStr} {forenameStr}";
             }
             #endregion Name Generation

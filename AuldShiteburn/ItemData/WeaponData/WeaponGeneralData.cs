@@ -12,13 +12,6 @@ namespace AuldShiteburn.ItemData.WeaponData
         MartialArms,
         StrengthLargeArms
     }
-    enum DamageType
-    {
-        None,
-        Strike,
-        Slash,
-        Pierce
-    }
     enum WeaponMaterialType
     {
         Iron,
@@ -26,13 +19,13 @@ namespace AuldShiteburn.ItemData.WeaponData
         Moonstone,
         Hardshite
     }
-    enum WeaponPropertyType
+    public enum WeaponPropertyType
     {
         Ruined,
         Standard,
         Fire,
         Cold,
         Holy,
-        Shitty
+        Occult
     }
 }
