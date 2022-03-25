@@ -30,7 +30,7 @@ namespace AuldShiteburn.OptionsData.Options.Loading
             else
             {
                 Menu.Instance.menuActive = false;
-                PlayerEntity.Instance.inMenu = false;
+                PlayerEntity.Instance.InMenu = false;
                 Console.Clear();
                 Map.Instance.PrintMap();
             }

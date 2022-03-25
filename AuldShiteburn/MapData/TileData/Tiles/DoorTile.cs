@@ -28,7 +28,7 @@ namespace AuldShiteburn.MapData.TileData.Tiles
             {
                 if (key != null && Locked)
                 {
-                    foreach (Item item in PlayerEntity.Instance.inventory)
+                    foreach (Item item in PlayerEntity.Instance.Inventory)
                     {
                         if (item == key)
                         {

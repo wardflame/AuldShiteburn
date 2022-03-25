@@ -5,36 +5,42 @@ namespace AuldShiteburn.ItemData.WeaponData
     [Serializable]
     class WeaponProperty
     {
-        public static WeaponProperty weaponPropertyStandard = new WeaponProperty("Flaming", Property.Standard, 0, 0, 0.9f);
-        public static WeaponProperty weaponPropertyFlaming = new WeaponProperty("Flaming", Property.Fire, 4, 6, 0.9f);
-        public static WeaponProperty weaponPropertyCold = new WeaponProperty("Cold", Property.Cold, 4, 6, 0.9f);
-        public static WeaponProperty weaponPropertyHoly = new WeaponProperty("Holy", Property.Holy, 4, 6, 0.95f);
-        public static WeaponProperty weaponPropertyShitty = new WeaponProperty("Shitty", Property.Shitty, 4, 6, 0.98f);
-        public static WeaponProperty weaponPropertyRuined = new WeaponProperty("Flaming", Property.Ruined, -1, -3, 0.9f);
-
-        public string name;
-        public Property property;
-        public int minDamage;
-        public int maxDamage;
-        public float genChance;
-
-        public WeaponProperty(string name, Property property, int minDamage, int maxDamage, float genChance)
+        public static WeaponProperty WeaponPropertyRuined
         {
-            this.name = name;
-            this.property = property;
-            this.minDamage = minDamage;
-            this.maxDamage = maxDamage;
-            this.genChance = genChance;
+            get { return new WeaponProperty("Ruined", WeaponPropertyType.Ruined, -1, -3); }
         }
-    }
+        public static WeaponProperty WeaponPropertyStandard
+        {
+            get { return new WeaponProperty("Standard", WeaponPropertyType.Standard, 0, 0); }
+        }
+        public static WeaponProperty WeaponPropertyFlaming
+        {
+            get { return new WeaponProperty("Flaming", WeaponPropertyType.Fire, 2, 4); }
+        }
+        public static WeaponProperty WeaponPropertyCold
+        {
+            get { return new WeaponProperty("Cold", WeaponPropertyType.Cold, 2, 4); }
+        }
+        public static WeaponProperty WeaponPropertyHoly
+        {
+            get { return new WeaponProperty("Holy", WeaponPropertyType.Holy, 4, 6); }
+        }
+        public static WeaponProperty WeaponPropertyShitty
+        {
+            get { return new WeaponProperty("Shitty", WeaponPropertyType.Shitty, 4, 6); }
+        }
 
-    enum Property
-    {
-        Standard,
-        Fire,
-        Cold,
-        Holy,
-        Shitty,
-        Ruined
+        public string Name { get; }
+        public WeaponPropertyType Property { get; }
+        public int MinDamage { get; }
+        public int MaxDamage { get; }
+
+        public WeaponProperty(string name, WeaponPropertyType property, int minDamage, int maxDamage)
+        {
+            Name = name;
+            Property = property;
+            MinDamage = minDamage;
+            MaxDamage = maxDamage;
+        }
     }
 }

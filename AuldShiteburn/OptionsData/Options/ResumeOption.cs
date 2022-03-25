@@ -15,7 +15,7 @@ namespace AuldShiteburn.OptionsData.Options
         {
             Console.Clear();
             Menu.Instance.menuActive = false;
-            PlayerEntity.Instance.inMenu = false;
+            PlayerEntity.Instance.InMenu = false;
             Map.Instance.PrintMap();
         }
     }

@@ -319,7 +319,7 @@ namespace AuldShiteburn.MapData
         {
             Console.CursorTop = CurrentArea.Height + 1;
             Console.CursorLeft = 0;
-            Console.WriteLine(PlayerEntity.Instance.name);
+            Console.WriteLine(PlayerEntity.Instance.Name);
             Console.WriteLine("Health: " + PlayerEntity.Instance.HP);
             Console.WriteLine("Stamina: " + PlayerEntity.Instance.Stamina);
             Console.WriteLine("Mana: " + PlayerEntity.Instance.Mana);

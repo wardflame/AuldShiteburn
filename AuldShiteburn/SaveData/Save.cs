@@ -5,7 +5,6 @@ using AuldShiteburn.MenuData;
 using AuldShiteburn.MenuData.Menus;
 using AuldShiteburn.OptionData;
 using AuldShiteburn.OptionsData.Options.Loading;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -47,7 +46,7 @@ namespace AuldShiteburn.SaveData
         {
             Directory.CreateDirectory($"{Directories.NAME_SAVES}\\{saveSlot}");
 
-            PlayerEntity.Instance.playtime = Playtime.GetTotalPlayTime();
+            PlayerEntity.Instance.Playtime = Playtime.GetTotalPlayTime();
             Map.Instance.player = PlayerEntity.Instance;
 
             string saveName = $"{saveSlot}.dat";

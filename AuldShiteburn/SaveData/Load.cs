@@ -2,11 +2,8 @@
 using AuldShiteburn.EntityData;
 using AuldShiteburn.MapData;
 using AuldShiteburn.MapData.Maps;
-using AuldShiteburn.MenuData;
 using AuldShiteburn.OptionData;
-using AuldShiteburn.OptionsData.Options;
 using AuldShiteburn.OptionsData.Options.Loading;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -122,7 +119,7 @@ namespace AuldShiteburn.SaveData
                 if (Directory.GetFiles($"{Directories.NAME_SAVES}\\{i + 1}").Length > 0)
                 {
                     LoadSave(i + 1);
-                    options.Add(new LoadSlotOption(i + 1, PlayerEntity.Instance.name, PlayerEntity.Instance.playtime));
+                    options.Add(new LoadSlotOption(i + 1, PlayerEntity.Instance.Name, PlayerEntity.Instance.Playtime));
                 }
             }
             Map.Instance = currentMap;

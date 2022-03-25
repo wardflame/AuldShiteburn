@@ -6,14 +6,14 @@ namespace AuldShiteburn.EntityData.PlayerData
 {
     internal struct PlayerGenerationData
     {
-        public static List<string> titleMale = new List<string>()
+        public static List<string> fighterTitleMale = new List<string>()
         {
             "King",
             "Duke",
             "Baron",
             "Sir"
         };
-        public static List<string> titleFemale = new List<string>()
+        public static List<string> fighterTitleFemale = new List<string>()
         {
             "Queen",
             "Duchess",

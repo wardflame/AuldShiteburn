@@ -21,9 +21,9 @@ namespace AuldShiteburn.MapData.TileData.Tiles
         {
             if (entity is PlayerEntity player)
             {
-                player.inMenu = true;
+                player.InMenu = true;
                 Interaction();
-                player.inMenu = false;
+                player.InMenu = false;
             }
         }
 

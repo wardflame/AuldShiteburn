@@ -36,7 +36,7 @@ namespace AuldShiteburn.OptionsData.Options
                                 if (Utils.VerificationQuery("\nYou are about to exit to the main menu. Any unsaved progress will be lost. Continue? (Y/N)") == true)
                                 {
                                     Console.Clear();
-                                    PlayerEntity.Instance.inMenu = false;
+                                    PlayerEntity.Instance.InMenu = false;
                                     Playtime.ResetPlaytime();
                                     Game.playing = false;
                                     Game.mainMenu = true;

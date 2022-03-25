@@ -1,4 +1,5 @@
-﻿using AuldShiteburn.BackendData;
+﻿using AuldShiteburn.ArtData;
+using AuldShiteburn.BackendData;
 using AuldShiteburn.MenuData;
 using AuldShiteburn.OptionData;
 using AuldShiteburn.SaveData;
@@ -10,12 +11,12 @@ namespace AuldShiteburn.OptionsData.Options.Settings
 {
     internal class SexRatioOption : Option
     {
-        public override string DisplayString => "SEX RATIO";
+        public override string DisplayString => ASCIIArt.MENU_SEXRATIO;
 
         public override void OnUse()
         {
-            Console.WriteLine(@"SEX RATIO - Determines the frequency of getting male/female characters. E.g. at 70, the player, when generating,
-has a 70% chance to be male, and 30% to be female.
+            Console.WriteLine(@"SEX RATIO - Determines the frequency of getting male/female characters. At 0, all names will be female.
+At 100, all names will be male. E.g. At 70, there's a 70% chance to get a male name and a 30% to get a female name.
 
 Use the Up and Down arrow keys to increase/decrease the ratio.
 Press Enter to confirm.
@@ -31,7 +32,7 @@ Ratio: " + GameSettings.Instance.SexRatio);
                     case ConsoleKey.UpArrow:
                         {
                             Console.CursorLeft = 7;
-                            Console.CursorTop = 14;
+                            Console.CursorTop = 17;
                             Console.Write("   ");
                             Console.CursorLeft = 0;
                             GameSettings.Instance.SexRatio++;
@@ -41,7 +42,7 @@ Ratio: " + GameSettings.Instance.SexRatio);
                     case ConsoleKey.DownArrow:
                         {
                             Console.CursorLeft = 7;
-                            Console.CursorTop = 14;
+                            Console.CursorTop = 17;
                             Console.Write("   ");
                             Console.CursorLeft = 0;
                             GameSettings.Instance.SexRatio--;

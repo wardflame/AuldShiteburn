@@ -6,7 +6,6 @@ using AuldShiteburn.MapData.Maps;
 using AuldShiteburn.MenuData;
 using AuldShiteburn.OptionData;
 using AuldShiteburn.SaveData;
-using Newtonsoft.Json;
 using System;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -38,7 +37,7 @@ namespace AuldShiteburn.OptionsData.Options.Loading
                 }
                 Console.Clear();
                 Menu.Instance.menuActive = false;
-                PlayerEntity.Instance.inMenu = false;
+                PlayerEntity.Instance.InMenu = false;
                 Playtime.StartPlaytime();
                 Map.Instance.PrintMap();
             }

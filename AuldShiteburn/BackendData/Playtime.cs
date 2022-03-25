@@ -25,7 +25,7 @@ namespace AuldShiteburn.BackendData
 
         public static long GetTotalPlayTime()
         {
-            return (PlayerEntity.Instance.playtime + sessionTimer.ElapsedTicks);
+            return (PlayerEntity.Instance.Playtime + sessionTimer.ElapsedTicks);
         }
 
         public static DateTime GetSessionLengthAsDateTime()

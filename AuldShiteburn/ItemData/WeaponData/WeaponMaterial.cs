@@ -5,30 +5,34 @@ namespace AuldShiteburn.ItemData.WeaponData
     [Serializable]
     class WeaponMaterial
     {
-        static WeaponMaterial weaponMaterialIron = new WeaponMaterial("Iron", Material.Iron, 2, 4);
-        static WeaponMaterial weaponMaterialSteel = new WeaponMaterial("Steel", Material.Steel, 4, 6);
-        static WeaponMaterial weaponMaterialMoonstone = new WeaponMaterial("Moonstone", Material.Moonstone, 6, 8);
-        static WeaponMaterial weaponMaterialHardshite = new WeaponMaterial("Hardshite", Material.Hardshite, 6, 8);
-
-        string name;
-        Material material;
-        int minDamage;
-        int maxDamage;
-
-        public WeaponMaterial(string name, Material material, int minDamage, int maxDamage)
+        public static WeaponMaterial WeaponMaterialIron
         {
-            this.name = name;
-            this.material = material;
-            this.minDamage = minDamage;
-            this.maxDamage = maxDamage;
+            get { return new WeaponMaterial("Iron", WeaponMaterialType.Iron, 1, 2); }
+        } 
+        public static WeaponMaterial WeaponMaterialSteel
+        {
+            get { return new WeaponMaterial("Steel", WeaponMaterialType.Steel, 2, 3); }
         }
-    }
+        public static WeaponMaterial WeaponMaterialMoonstone
+        {
+            get { return new WeaponMaterial("Moonstone", WeaponMaterialType.Moonstone, 4, 6); }
+        }
+        public static WeaponMaterial WeaponMaterialHardshite
+        {
+            get { return new WeaponMaterial("Hardshite", WeaponMaterialType.Hardshite, 4, 6); }
+        }
 
-    enum Material
-    {
-        Iron,
-        Steel,
-        Moonstone,
-        Hardshite
+        public string Name { get; }
+        public WeaponMaterialType Material { get; }
+        public int MinDamage { get; }
+        public int MaxDamage { get; }
+
+        public WeaponMaterial(string name, WeaponMaterialType material, int minDamage, int maxDamage)
+        {
+            Name = name;
+            Material = material;
+            MinDamage = minDamage;
+            MaxDamage = maxDamage;
+        }
     }
 }

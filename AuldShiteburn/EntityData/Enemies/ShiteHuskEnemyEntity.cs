@@ -3,7 +3,7 @@
 namespace AuldShiteburn.EntityData.Enemies
 {
     [Serializable]
-    internal class ShiteblobEnemyEntity : EnemyEntity
+    internal class ShiteHuskEnemyEntity : EnemyEntity
     {
 
     }

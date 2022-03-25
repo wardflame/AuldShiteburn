@@ -12,14 +12,15 @@ namespace AuldShiteburn.EntityData
     internal class PlayerEntity : LivingEntity
     {
         public static PlayerEntity Instance { get; set; }
-        public List<Item> inventory = new List<Item>();
+        public ClassData Class { get; private set; }
+        public List<Item> Inventory { get; set; } = new List<Item>();
         public override string EntityChar => "PL";
-        public bool inMenu { get; set; }
-        public long playtime;
+        public bool InMenu { get; set; }
+        public long Playtime;
 
         public override void Move()
         {
-            if (!inMenu)
+            if (!InMenu)
             {
                 switch (InputSystem.InputKey)
                 {
@@ -61,42 +62,32 @@ namespace AuldShiteburn.EntityData
             Instance = new PlayerEntity();
             Instance.PosX = 1;
             Instance.PosY = 1;
+            Random rand = new Random();
+
+            #region Class Generation
+
+            Instance.Class = ClassData.Fighter;
+            #endregion Class Generation
 
             string titleStr;
             string forenameStr;
 
             #region Name Generation
-            Random rand = new Random();
             int sexChance = rand.Next(1, 101);
             if (sexChance <= GameSettings.Instance.SexRatio)
             {
                 forenameStr = PlayerGenerationData.nameMale[rand.Next(PlayerGenerationData.nameMale.Count)];
-
-                int willTitle = rand.Next(1, 101);
-                if (willTitle >= 70)
-                {
-                    titleStr = PlayerGenerationData.titleMale[rand.Next(PlayerGenerationData.titleMale.Count)];
-                    Instance.name = $"{titleStr} {forenameStr}";
-                }
-                else
-                {
-                    Instance.name = $"{forenameStr}";
-                }                
+                int titleIndex = rand.Next(0, Instance.Class.TitlesMale.Count);
+                titleStr = Instance.Class.TitlesMale[titleIndex];
+                Instance.Name = $"{titleStr} {forenameStr}";
+                       
             }
             else
             {
-                forenameStr = PlayerGenerationData.nameFemale[rand.Next(PlayerGenerationData.nameFemale.Count)];
-
-                int willTitle = rand.Next(1, 101);
-                if (willTitle >= 70)
-                {
-                    titleStr = PlayerGenerationData.titleFemale[rand.Next(PlayerGenerationData.titleFemale.Count)];
-                    Instance.name = $"{titleStr} {forenameStr}";
-                }
-                else
-                {
-                    Instance.name = $"{forenameStr}";
-                }                
+                forenameStr = PlayerGenerationData.nameFemale[rand.Next(PlayerGenerationData.nameMale.Count)];
+                int titleIndex = rand.Next(0, Instance.Class.TitlesMale.Count);
+                titleStr = Instance.Class.TitlesFemale[titleIndex];
+                Instance.Name = $"{titleStr} {forenameStr}";
             }
             #endregion Name Generation
 
