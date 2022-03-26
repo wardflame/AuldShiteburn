@@ -319,8 +319,10 @@ namespace AuldShiteburn.MapData
         {
             Utils.SetCursorPlayerStat();
             Console.Write($"{PlayerEntity.Instance.Name} the {PlayerEntity.Instance.Class.Name}");
+
             Utils.SetCursorPlayerStat(offsetY: 1);
             Console.Write($"Health: {PlayerEntity.Instance.HP}");
+
             if (PlayerEntity.Instance.UsesStamina)
             {
                 Utils.SetCursorPlayerStat(offsetY: 2);
@@ -331,14 +333,12 @@ namespace AuldShiteburn.MapData
                 Utils.SetCursorPlayerStat(offsetY: 2);
                 Console.Write($"Mana: {PlayerEntity.Instance.Mana}");
             }
+
             Utils.SetCursorPlayerStat(offsetY: 3);
             Console.Write($"Equipped Weapon: {PlayerEntity.Instance.Mana}");
 
             Utils.SetCursorInventory();
-            foreach (WeaponItem item in PlayerEntity.Instance.Inventory)
-            {
-                Console.Write($"(i) Inventory");
-            }
+            Console.Write($"(i) Inventory");
         }
         #endregion Printing
 
@@ -424,7 +424,7 @@ namespace AuldShiteburn.MapData
                 !interactionTiles.Exists(text => CheckTileType(PlayerEntity.Instance.PosX, minusY, text)) &&
                 !interactionTiles.Exists(text => CheckTileType(PlayerEntity.Instance.PosX, plusY, text)))
             {
-                ClearInteractInterface(offsetY: 3);
+                Utils.ClearInteractInterface(offsetY: 3);
             }
         }
 
@@ -439,21 +439,6 @@ namespace AuldShiteburn.MapData
         {
             Tile tile = CurrentArea.GetTile(posX, posY);
             return tile.GetType().IsSubclassOf(type) || tile.GetType() == type;
-        }
-
-        /// <summary>
-        /// Place the cursor 1 row down in final column of area width. Then, until reaching
-        /// the area height, go down each row and replace any text with space characters until
-        /// the end of the line.
-        /// </summary>
-        public void ClearInteractInterface(int offsetX = 0, int offsetY = 2)
-        {
-            for (int y = 1; y <= Utils.UIInteractHeight + offsetY; y++)
-            {
-                Console.CursorLeft = Utils.UIInteractOffset + offsetX;
-                Console.CursorTop = y;
-                Console.Write(new string(' ', Console.WindowWidth - Utils.UIInteractOffset));
-            }
         }
         #endregion Clear UI
     }

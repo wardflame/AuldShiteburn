@@ -98,6 +98,21 @@ namespace AuldShiteburn
         }
 
         /// <summary>
+        /// Place the cursor 1 row down in final column of area width. Then, until reaching
+        /// the area height, go down each row and replace any text with space characters until
+        /// the end of the line.
+        /// </summary>
+        public static void ClearInteractInterface(int offsetX = 0, int offsetY = 2)
+        {
+            for (int y = 1; y <= UIInteractHeight + offsetY; y++)
+            {
+                Console.CursorLeft = UIInteractOffset + offsetX;
+                Console.CursorTop = y;
+                Console.Write(new string(' ', Console.WindowWidth - UIInteractOffset));
+            }
+        }
+
+        /// <summary>
         /// Set the cursor to the default player stat window position,
         /// with offsets to go wider or deeper than usual.
         /// </summary>
@@ -106,6 +121,21 @@ namespace AuldShiteburn
         public static void SetCursorPlayerStat(int offsetX = 0, int offsetY = 0)
         {
             Console.SetCursorPosition(UIPlayerStatOffset + offsetX, UIPlayerStatHeight + offsetY);
+        }
+
+        /// <summary>
+        /// Place the cursor 1 row down in final column of area width. Then, until reaching
+        /// the area height, go down each row and replace any text with space characters until
+        /// the end of the line.
+        /// </summary>
+        public static void ClearPlayerStatInterface(int offsetX = 0, int offsetY = 2)
+        {
+            for (int y = 1; y <= UIPlayerStatHeight + offsetY; y++)
+            {
+                Console.CursorLeft = UIPlayerStatOffset + offsetX;
+                Console.CursorTop = y;
+                Console.Write(new string(' ', Console.WindowWidth - UIPlayerStatOffset));
+            }
         }
 
         /// <summary>
@@ -120,12 +150,27 @@ namespace AuldShiteburn
         }
 
         /// <summary>
+        /// Place the cursor 1 row down in final column of area width. Then, until reaching
+        /// the area height, go down each row and replace any text with space characters until
+        /// the end of the line.
+        /// </summary>
+        public static void ClearInventoryInterface(int offsetX = 0, int offsetY = 2)
+        {
+            for (int y = 1; y <= UIInventoryHeight + offsetY; y++)
+            {
+                Console.CursorLeft = UIInventoryOffset + offsetX;
+                Console.CursorTop = y;
+                Console.Write(new string(' ', Console.WindowWidth - UIInventoryOffset));
+            }
+        }
+
+        /// <summary>
         /// Clear the interact area and print a prompt message.
         /// </summary>
         /// <param name="message">String to print as prompt.</param>
         public static void InteractPrompt(string message)
         {
-            Map.Instance.ClearInteractInterface();
+            Utils.ClearInteractInterface();
             Console.CursorLeft = UIInteractOffset;
             Console.CursorTop = UIInteractHeight;
             Console.Write(message);

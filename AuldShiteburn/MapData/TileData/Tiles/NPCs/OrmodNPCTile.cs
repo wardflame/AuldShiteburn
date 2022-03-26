@@ -18,7 +18,7 @@ namespace AuldShiteburn.MapData.TileData.Tiles.NPCs
 
         protected override void Interaction()
         {
-            Map.Instance.ClearInteractInterface();
+            Utils.ClearInteractInterface();
             if (!stage1)
             {
                 stage1 = CycleInteraction(stage1EarhRequest, "Hmph. All right.");

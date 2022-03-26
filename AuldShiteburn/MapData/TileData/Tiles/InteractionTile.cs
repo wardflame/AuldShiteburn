@@ -112,21 +112,21 @@ namespace AuldShiteburn.MapData.TileData.Tiles
 
                                 if (index <= 0)
                                 {
-                                    Map.Instance.ClearInteractInterface(offsetY: 3);
+                                    Utils.ClearInteractInterface(offsetY: 3);
                                     PrintBrowseUI(true);
                                     Utils.SetCursorInteract();
                                     PrintInteraction(interactions[index]);
                                 }
                                 else if (index <= interactions.Count - 1 && index > 0)
                                 {
-                                    Map.Instance.ClearInteractInterface(offsetY: 3);
+                                    Utils.ClearInteractInterface(offsetY: 3);
                                     PrintBrowseUI();
                                     Utils.SetCursorInteract();
                                     PrintInteraction(interactions[index]);
                                 }
                                 else
                                 {
-                                    Map.Instance.ClearInteractInterface();
+                                    Utils.ClearInteractInterface();
                                     Utils.SetCursorInteract();
                                     PrintInteraction(interactions[index]);
                                 }
@@ -141,19 +141,19 @@ namespace AuldShiteburn.MapData.TileData.Tiles
                                 if (interactions[index].decision)
                                 {
                                     Utils.SetCursorInteract();
-                                    Map.Instance.ClearInteractInterface();
+                                    Utils.ClearInteractInterface();
                                     PrintInteraction(interactions[index]);
                                     Utils.SetCursorInteract(0, 1);
                                     if (Decision())
                                     {
                                         index++;
-                                        Map.Instance.ClearInteractInterface();
+                                        Utils.ClearInteractInterface();
                                         Utils.SetCursorInteract();
                                         PrintInteraction(interactions[index]);
                                     }
                                     else
                                     {
-                                        Map.Instance.ClearInteractInterface(offsetY: 2);
+                                        Utils.ClearInteractInterface(offsetY: 2);
                                         Utils.SetCursorInteract();
                                         Console.Write(Dialogue(decisionRefusal));
                                         Utils.SetCursorInteract(offsetY: 3);
@@ -165,14 +165,14 @@ namespace AuldShiteburn.MapData.TileData.Tiles
                                 {
                                     if (index >= interactions.Count - 1)
                                     {
-                                        Map.Instance.ClearInteractInterface(offsetY: 3);
+                                        Utils.ClearInteractInterface(offsetY: 3);
                                         PrintBrowseUI(end: true);
                                         Utils.SetCursorInteract();
                                         PrintInteraction(interactions[index]);
                                     }
                                     else
                                     {
-                                        Map.Instance.ClearInteractInterface(offsetY: 3);
+                                        Utils.ClearInteractInterface(offsetY: 3);
                                         PrintBrowseUI();
                                         Utils.SetCursorInteract();
                                         PrintInteraction(interactions[index]);
