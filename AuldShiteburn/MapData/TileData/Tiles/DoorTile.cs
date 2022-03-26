@@ -22,7 +22,7 @@ namespace AuldShiteburn.MapData.TileData.Tiles
 
         public override void OnCollision(Entity entity)
         {
-            if (entity is PlayerEntity)
+            /*if (entity is PlayerEntity)
             {
                 if (key != null && Locked)
                 {
@@ -39,7 +39,7 @@ namespace AuldShiteburn.MapData.TileData.Tiles
                         Utils.InteractPrompt("It's locked.");
                     }
                 }
-            }
+            }*/
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using AuldShiteburn.EntityData;
+using AuldShiteburn.EntityData.PlayerData;
 using AuldShiteburn.ItemData.WeaponData;
 using AuldShiteburn.MapData.TileData;
 using AuldShiteburn.MapData.TileData.Tiles;
@@ -223,6 +224,7 @@ namespace AuldShiteburn.MapData
         {
             PrintAreaName();
             PrintPlayerInfo();
+            PrintPlayerInventory();
             PrintArea();
             PrintEntities();
         }
@@ -337,8 +339,13 @@ namespace AuldShiteburn.MapData
             Utils.SetCursorPlayerStat(offsetY: 3);
             Console.Write($"Equipped Weapon: {PlayerEntity.Instance.Mana}");
 
-            Utils.SetCursorInventory();
-            Console.Write($"(i) Inventory");
+            Utils.SetCursorInventory();            
+            //Console.Write($"(i) Inventory");
+        }
+
+        public void PrintPlayerInventory()
+        {
+            PlayerEntity.Instance.PrintInventory();            
         }
         #endregion Printing
 

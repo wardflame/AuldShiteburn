@@ -1,7 +1,10 @@
-﻿using AuldShiteburn.MapData.TileData;
+﻿using AuldShiteburn.ItemData;
+using AuldShiteburn.ItemData.WeaponData;
+using AuldShiteburn.MapData.TileData;
 using AuldShiteburn.MapData.TileData.Tiles;
 using AuldShiteburn.MapData.TileData.Tiles.NPCs;
 using System;
+using System.Collections.Generic;
 
 namespace AuldShiteburn.MapData.AreaData.Areas
 {
@@ -24,6 +27,13 @@ namespace AuldShiteburn.MapData.AreaData.Areas
                 placeData.Add(new TilePlaceData(i, 5, Tile.WallTile));
             }
             placeData.Add(new TilePlaceData(6, 4, new DoorTile(false)));
+            placeData.Add(new TilePlaceData(3, 3,
+                new LootTile(
+                    new List<Item>()
+                    {
+                        WeaponItem.GenerateWeapon()
+                    },
+                    false)));
         }
 
         protected override void InitEntities()

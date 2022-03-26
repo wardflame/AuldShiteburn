@@ -1,6 +1,7 @@
 ﻿using AuldShiteburn.BackendData;
 using AuldShiteburn.EntityData.PlayerData;
 using AuldShiteburn.ItemData;
+using AuldShiteburn.ItemData.ArmourData;
 using AuldShiteburn.ItemData.WeaponData;
 using AuldShiteburn.MenuData;
 using AuldShiteburn.MenuData.Menus;
@@ -18,8 +19,9 @@ namespace AuldShiteburn.EntityData
         public long Playtime { get; set; }
         public ClassData Class { get; private set; }
         public ClassType ClassType { get; private set; }
-        public List<Item> Inventory { get; set; } = new List<Item>();
+        public Inventory Inventory { get; set; } = new Inventory();
         public WeaponItem EquippedWeapon { get; set; }
+        public ArmourItem EquippedArmour { get; set; }
 
 
         public override void Move()
@@ -110,10 +112,56 @@ namespace AuldShiteburn.EntityData
             #endregion Name Generation
 
             #region Loot Assignment
-            Instance.Inventory.Add(WeaponItem.GenerateWeapon());
+            Instance.Inventory.ItemList[0,0] = WeaponItem.GenerateWeapon();
             #endregion Loot Assignment
 
             return Instance;
+        }
+
+        public void PrintInventory()
+        {
+            Utils.ClearInventoryInterface();
+            Utils.SetCursorInventory();
+            int typeOffset = 0;
+            for (int y = 0; y < Inventory.Height; y++)
+            {
+                if (y == 0)
+                {
+                    Console.Write("[WEAPONS]");
+                }
+                if (y == 1)
+                {
+                    typeOffset = 25;
+                    Utils.SetCursorInventory(typeOffset);
+                    Console.Write("[ARMOUR]");
+                }
+                if (y == 2)
+                {
+                    typeOffset = 45;
+                    Utils.SetCursorInventory(typeOffset);
+                    Console.Write("[CONSUMABLES]");
+                }
+                if (y == 3)
+                {
+                    typeOffset = 65;
+                    Utils.SetCursorInventory(typeOffset);
+                    Console.Write("[KEY ITEMS]");
+                }
+                for (int x = 1; x <= Inventory.Width; x++)
+                {
+                    Utils.SetCursorInventory(typeOffset, x);
+                    {
+                        if (Inventory.ItemList[x - 1, y] != null)
+                        {
+                            Console.Write($"{Inventory.ItemList[x - 1, y].Name}");
+                        }
+                        else
+                        {
+                            Console.Write("--");
+                        }
+                    }                    
+                }
+            }
         }
     }
 }

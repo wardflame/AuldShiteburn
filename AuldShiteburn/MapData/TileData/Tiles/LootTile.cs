@@ -19,8 +19,8 @@ namespace AuldShiteburn.MapData.TileData.Tiles
 
         public override ConsoleColor Foreground => looted ? ConsoleColor.DarkGray : ConsoleColor.Magenta;
 
-        private List<Item> items = new List<Item>();
-        private bool looted = false;
+        public List<Item> items = new List<Item>();
+        public bool looted = false;
 
         public LootTile(List<Item> items, bool randomised) : base("?", false)
         {
@@ -65,11 +65,14 @@ namespace AuldShiteburn.MapData.TileData.Tiles
 
         public override void OnCollision(Entity entity)
         {
-            foreach (Item item in items)
+            for (int i = 0; i < items.Count; i++)
             {
-                PlayerEntity.Instance.Inventory.Add(item);
-                items.Remove(item);
+                if (PlayerEntity.Instance.Inventory.AddItem(items[i]))
+                {
+                    items.Remove(items[i]);
+                }
             }
+            Map.Instance.PrintPlayerInventory();
             looted = true;
         }
     }

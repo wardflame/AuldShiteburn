@@ -94,7 +94,7 @@ namespace AuldShiteburn
         /// <param name="offsetY">Additional cursor height offset.</param>
         public static void SetCursorInteract(int offsetX = 0, int offsetY = 0)
         {
-            Console.SetCursorPosition(Utils.UIInteractOffset + offsetX, Utils.UIInteractHeight + offsetY);
+            Console.SetCursorPosition(UIInteractOffset + offsetX, UIInteractHeight + offsetY);
         }
 
         /// <summary>
@@ -104,7 +104,7 @@ namespace AuldShiteburn
         /// </summary>
         public static void ClearInteractInterface(int offsetX = 0, int offsetY = 2)
         {
-            for (int y = 1; y <= UIInteractHeight + offsetY; y++)
+            for (int y = UIInteractHeight; y <= UIInteractHeight + offsetY; y++)
             {
                 Console.CursorLeft = UIInteractOffset + offsetX;
                 Console.CursorTop = y;
@@ -130,7 +130,7 @@ namespace AuldShiteburn
         /// </summary>
         public static void ClearPlayerStatInterface(int offsetX = 0, int offsetY = 2)
         {
-            for (int y = 1; y <= UIPlayerStatHeight + offsetY; y++)
+            for (int y = UIPlayerStatHeight; y <= UIPlayerStatHeight + offsetY; y++)
             {
                 Console.CursorLeft = UIPlayerStatOffset + offsetX;
                 Console.CursorTop = y;
@@ -154,9 +154,9 @@ namespace AuldShiteburn
         /// the area height, go down each row and replace any text with space characters until
         /// the end of the line.
         /// </summary>
-        public static void ClearInventoryInterface(int offsetX = 0, int offsetY = 2)
+        public static void ClearInventoryInterface(int offsetX = 0, int offsetY = 4)
         {
-            for (int y = 1; y <= UIInventoryHeight + offsetY; y++)
+            for (int y = UIInventoryHeight; y <= UIInventoryHeight + offsetY; y++)
             {
                 Console.CursorLeft = UIInventoryOffset + offsetX;
                 Console.CursorTop = y;
