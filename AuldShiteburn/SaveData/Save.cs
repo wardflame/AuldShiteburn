@@ -28,7 +28,7 @@ namespace AuldShiteburn.SaveData
             }
             catch (Exception e)
             {
-                Utils.WriteColour(ConsoleColor.Red, $"Error: Save failed. " + e.Message);
+                Utils.WriteColour($"Error: Save failed. " + e.Message, ConsoleColor.Red);
                 stream.Close();
                 File.Delete($"{Directories.NAME_GAMESETTINGS}\\{Directories.NAME_GAMESETTINGS}.dat");
             }
@@ -59,7 +59,7 @@ namespace AuldShiteburn.SaveData
             }
             catch (Exception e)
             {
-                Utils.WriteColour(ConsoleColor.Red, $"Error: Save failed. " + e.Message);
+                Utils.WriteColour($"Error: Save failed. " + e.Message, ConsoleColor.Red);
                 System.Threading.Thread.Sleep(10000);
                 stream.Close();
                 File.Delete($"{Directories.NAME_SAVES}\\{saveSlot}\\{saveName}");

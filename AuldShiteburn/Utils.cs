@@ -82,7 +82,7 @@ namespace AuldShiteburn
         /// </summary>
         /// <param name="colour">Colour for string.</param>
         /// <param name="message">String to print.</param>
-        public static void WriteColour(ConsoleColor colour, string message)
+        public static void WriteColour(string message, ConsoleColor colour = ConsoleColor.Gray)
         {
             Console.ForegroundColor = colour;
             Console.Write(message);
@@ -166,7 +166,7 @@ namespace AuldShiteburn
         /// the area height, go down each row and replace any text with space characters until
         /// the end of the line.
         /// </summary>
-        public static void ClearInventoryInterface(int offsetX = 0, int offsetY = 5)
+        public static void ClearInventoryInterface(int offsetX = 0, int offsetY = 6)
         {
             for (int y = UIInventoryHeight; y <= UIInventoryHeight + offsetY; y++)
             {

@@ -53,7 +53,7 @@ namespace AuldShiteburn.ItemData.WeaponData
         {
             get
             {
-                if (PlayerEntity.Instance.ClassType == ProficientClass)
+                if (PlayerEntity.Instance.Class.ClassType == ProficientClass)
                 {
                     return minDamage += Combat.PROFICIENCY_DAMAGE_MODIFIER;
                 }
@@ -68,7 +68,7 @@ namespace AuldShiteburn.ItemData.WeaponData
         {
             get
             {
-                if (PlayerEntity.Instance.ClassType == ProficientClass)
+                if (PlayerEntity.Instance.Class.ClassType == ProficientClass)
                 {
                     return maxDamage += Combat.PROFICIENCY_DAMAGE_MODIFIER;
                 }

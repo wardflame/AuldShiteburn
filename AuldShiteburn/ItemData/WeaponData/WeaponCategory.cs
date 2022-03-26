@@ -69,7 +69,7 @@ namespace AuldShiteburn.ItemData.WeaponData
         }
         #endregion StrengthWeapons
 
-        public static List<WeaponCategory> WeaponCategories = new List<WeaponCategory>()
+        public static List<WeaponCategory> AllWeaponCategories = new List<WeaponCategory>()
         {
             Dagger,
             Rapier,
@@ -81,6 +81,31 @@ namespace AuldShiteburn.ItemData.WeaponData
             BattleAxe,
             Mace,
             Warhammer,
+            Greatsword,
+            Greataxe,
+            Greathammer
+        };
+        public static List<WeaponCategory> DextrousWeapons = new List<WeaponCategory>()
+        {
+            Dagger,
+            Rapier,
+            Shortsword
+        };
+        public static List<WeaponCategory> PrimitiveWeapons = new List<WeaponCategory>()
+        {
+            HandAxe,
+            Cudgel,
+            Spear
+        };
+        public static List<WeaponCategory> MartialWeapons = new List<WeaponCategory>()
+        {
+            Longsword,
+            BattleAxe,
+            Mace,
+            Warhammer
+        };
+        public static List<WeaponCategory> StrengthWeapons = new List<WeaponCategory>()
+        {
             Greatsword,
             Greataxe,
             Greathammer

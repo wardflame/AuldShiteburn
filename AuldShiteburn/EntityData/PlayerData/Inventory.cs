@@ -15,13 +15,13 @@ namespace AuldShiteburn.EntityData.PlayerData
     internal class Inventory
     {
         public const int WEAPON_OFFSET = 0;
-        public const int ARMOUR_OFFSET = 25;
-        public const int CONSUMABLE_OFFSET = 45;
-        public const int KEY_OFFSET = 65;
+        public const int ARMOUR_OFFSET = 35;
+        public const int CONSUMABLE_OFFSET = 70;
+        public const int KEY_OFFSET = 105;
 
-        public Item[,] ItemList { get; set; } = new Item[RowCapacity, CategoryColumns];
-        public static int RowCapacity { get; } = 5;
-        public static int CategoryColumns { get; } = 4;
+        public Item[,] ItemList { get; set; } = new Item[Row, Column];
+        public static int Row { get; } = 6;
+        public static int Column { get; } = 4;
 
         public bool AddItem(Item item)
         {
@@ -29,9 +29,9 @@ namespace AuldShiteburn.EntityData.PlayerData
             int typeOffset = GetItemTypeUIOffset(item);
 
             Utils.SetCursorInventory(offsetY: -1);
-            Utils.ClearLine(40);
+            Utils.ClearLine(60);
             Utils.SetCursorInventory(offsetY: -1);
-            Utils.WriteColour(ConsoleColor.Yellow, $"Choose a slot to place {item.Name}.");
+            Utils.WriteColour($"Choose a slot to place {item.Name}.", ConsoleColor.Yellow);
 
             int index = 0;
             InventoryHighlight(index, typeColumn, typeOffset);
@@ -45,22 +45,24 @@ namespace AuldShiteburn.EntityData.PlayerData
                     {
                         case ConsoleKey.UpArrow:
                             {
-                                if (index <= RowCapacity - 1 && index > 0)
+                                if (index <= Row - 1 && index > 0)
                                 {
                                     index--;
                                     Console.CursorLeft = 0;
                                     Console.CursorTop = 0;
+                                    PlayerEntity.Instance.PrintInventory();
                                     InventoryHighlight(index, typeColumn, typeOffset);
                                 }
                             }
                             break;
                         case ConsoleKey.DownArrow:
                             {
-                                if (index >= 0 && index < RowCapacity - 1)
+                                if (index >= 0 && index < Row - 1)
                                 {
                                     index++;
                                     Console.CursorLeft = 0;
                                     Console.CursorTop = 0;
+                                    PlayerEntity.Instance.PrintInventory();
                                     InventoryHighlight(index, typeColumn, typeOffset);
                                 }
                             }
@@ -86,19 +88,21 @@ namespace AuldShiteburn.EntityData.PlayerData
                         {
                             Item previousItem = PlayerEntity.Instance.Inventory.ItemList[index, typeColumn];
                             Utils.SetCursorInventory(offsetY: -1);
-                            Utils.ClearLine(40);
+                            Utils.ClearLine(60);
                             Utils.SetCursorInventory(offsetY: -1);
-                            Utils.WriteColour(ConsoleColor.Red, $"No empty slots available. Drop {previousItem.Name}? (Y/N)");
+                            Utils.WriteColour($"No empty slots available. Drop {previousItem.Name}? (Y/N)", ConsoleColor.Red);
                             if (Utils.VerificationQuery(null))
                             {
                                 PlayerEntity.Instance.Inventory.ItemList[index, typeColumn] = item;
                                 DropItem(previousItem);
+                                PlayerEntity.Instance.PrintInventory();
+                                return true;
                             }
                             else
                             {
-                                DropItem(item);
+                                PlayerEntity.Instance.PrintInventory();
+                                return false;
                             }
-                            Map.Instance.PrintMap();
                         }                        
                     }
                     else
@@ -117,9 +121,9 @@ namespace AuldShiteburn.EntityData.PlayerData
         private void DropItem (Item dropItem)
         {
             Utils.SetCursorInventory(offsetY: -1);
-            Utils.ClearLine(40);
+            Utils.ClearLine(60);
             Utils.SetCursorInventory(offsetY: -1);
-            Utils.WriteColour(ConsoleColor.Red, $"Dropped {dropItem.Name} on the floor.");
+            Utils.WriteColour($"Dropped {dropItem.Name} on the floor.", ConsoleColor.Red);
             Tile currentTile = Map.Instance.CurrentArea.GetTile(PlayerEntity.Instance.PosX, PlayerEntity.Instance.PosY);
             if (currentTile is LootTile)
             {
@@ -182,7 +186,7 @@ namespace AuldShiteburn.EntityData.PlayerData
 
         private int CheckForEmptySlot(int typeColumn)
         {
-            for (int i = 0; i < RowCapacity; i++)
+            for (int i = 0; i < Row; i++)
             {
                 if (PlayerEntity.Instance.Inventory.ItemList[i, typeColumn] == null)
                 {
@@ -194,14 +198,15 @@ namespace AuldShiteburn.EntityData.PlayerData
 
         public static void InventoryHighlight(int index, int typeColumn, int typeOffset)
         {
-            for (int y = 1; y <= RowCapacity; y++)
+            for (int y = 1; y <= Row; y++)
             {
                 Utils.SetCursorInventory(typeOffset, y);
                 if (PlayerEntity.Instance.Inventory.ItemList[y - 1, typeColumn] != null)
                 {
                     if (y - 1 == index )
                     {
-                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Utils.WriteColour(">>", ConsoleColor.Yellow);
+                        Console.ForegroundColor = ConsoleColor.Cyan;
                     }
                     Console.Write($"{PlayerEntity.Instance.Inventory.ItemList[y - 1, typeColumn].Name}");
                     Console.ResetColor();
@@ -210,7 +215,8 @@ namespace AuldShiteburn.EntityData.PlayerData
                 {
                     if (y - 1 == index )
                     {
-                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Utils.WriteColour(">>", ConsoleColor.Yellow);
+                        Console.ForegroundColor = ConsoleColor.Cyan;
                     }
                     Console.Write($"--");
                     Console.ResetColor();

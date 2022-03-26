@@ -66,32 +66,35 @@ namespace AuldShiteburn.MapData.TileData.Tiles
 
         public override void OnCollision(Entity entity)
         {
-            Utils.SetCursorInteract();
-            Console.WriteLine("Loot Items: ");
-            int lootItems = 0;
-            foreach (Item item in items)
-            {
-                lootItems++;
-                Utils.SetCursorInteract(offsetY: lootItems);
-                Console.WriteLine(item.Name);
-            }
-            Utils.SetCursorInventory();
-            int itemsLooted = 0;
             foreach (Item item in items.ToArray())
             {
+                LootStock();
                 if (PlayerEntity.Instance.Inventory.AddItem(item))
                 {
                     items.Remove(item);
-                    itemsLooted++;
                 }
             }
-            Map.Instance.PrintPlayerInventory();
-            if (itemsLooted == items.Count + 1)
+            if (LootStock() == 0)
             {
                 items.Clear();
                 looted = true;
             }
             Utils.ClearInteractInterface();
+        }
+
+        private int LootStock()
+        {
+            Utils.ClearInteractInterface(offsetY:5);
+            Utils.SetCursorInteract();
+            Console.WriteLine("Loot Items: ");
+            int lootStock = 0;
+            foreach (Item item in items)
+            {
+                lootStock++;
+                Utils.SetCursorInteract(offsetY: lootStock);
+                Console.WriteLine($"{lootStock}. {item.Name}");
+            }
+            return lootStock;
         }
     }
 }

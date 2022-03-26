@@ -224,7 +224,7 @@ namespace AuldShiteburn.MapData
         public void PrintMap()
         {
             PrintAreaName();
-            PrintPlayerInfo();
+            PrintPlayerStats();
             PrintPlayerInventory();
             PrintArea();
             PrintEntities();
@@ -318,27 +318,32 @@ namespace AuldShiteburn.MapData
         /// <summary>
         /// Print the player's name and stats beneath the area map.
         /// </summary>
-        public void PrintPlayerInfo()
+        public void PrintPlayerStats()
         {
             Utils.SetCursorPlayerStat();
             Console.Write($"{PlayerEntity.Instance.Name} the {PlayerEntity.Instance.Class.Name}");
 
             Utils.SetCursorPlayerStat(offsetY: 1);
-            Console.Write($"Health: {PlayerEntity.Instance.HP}");
+            Console.Write($"Health: ");
+            Utils.WriteColour($"{PlayerEntity.Instance.HP}", ConsoleColor.Red);
 
             if (PlayerEntity.Instance.UsesStamina)
             {
                 Utils.SetCursorPlayerStat(offsetY: 2);
-                Console.Write($"Stamina: {PlayerEntity.Instance.Stamina}");
+                Console.Write($"Stamina: ");
+                Utils.WriteColour($"{PlayerEntity.Instance.Stamina}", ConsoleColor.Green);
             }
             if (PlayerEntity.Instance.UsesMana)
             {
                 Utils.SetCursorPlayerStat(offsetY: 2);
-                Console.Write($"Mana: {PlayerEntity.Instance.Mana}");
+                Console.Write($"Mana: ");
+                Utils.WriteColour($"{PlayerEntity.Instance.Mana}", ConsoleColor.Blue);
             }
 
             Utils.SetCursorPlayerStat(offsetY: 3);
-            Console.Write($"Equipped Weapon: {PlayerEntity.Instance.Mana}");
+            Console.Write($"Equipped Weapon: {PlayerEntity.Instance.EquippedWeapon.Name}");
+            Utils.SetCursorPlayerStat(offsetY: 4);
+            Console.Write($"Equipped Armour: {PlayerEntity.Instance.EquippedArmour.Name}");
 
             Utils.SetCursorInventory();            
             //Console.Write($"(i) Inventory");

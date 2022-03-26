@@ -23,7 +23,7 @@ namespace AuldShiteburn.OptionsData.Options.Loading
         {
             if (!Save.SaveGame(slot))
             {
-                Utils.WriteColour(ConsoleColor.DarkRed, "Save failed.");
+                Utils.WriteColour("Save failed.", ConsoleColor.DarkRed);
             }
             else
             {

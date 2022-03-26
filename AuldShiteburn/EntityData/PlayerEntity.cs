@@ -72,7 +72,6 @@ namespace AuldShiteburn.EntityData
 
             #region Class Generation and Stat Assignments
             Instance.Class = ClassData.Classes[rand.Next(ClassData.Classes.Count)];
-            Instance.ClassType = Instance.Class.ClassType;
             Instance.maxHP = Instance.Class.HP;
             Instance.HP = Instance.Class.HP;
             Instance.UsesStamina = Instance.Class.UsesStamina;
@@ -112,11 +111,10 @@ namespace AuldShiteburn.EntityData
             #endregion Name Generation
 
             #region Loot Assignment
-            Instance.Inventory.ItemList[0,0] = WeaponItem.GenerateWeapon();
-            Instance.Inventory.ItemList[1,0] = WeaponItem.GenerateWeapon();
-            Instance.Inventory.ItemList[2,0] = WeaponItem.GenerateWeapon();
-            Instance.Inventory.ItemList[3,0] = WeaponItem.GenerateWeapon();
-            Instance.Inventory.ItemList[4,0] = WeaponItem.GenerateWeapon();
+            Instance.Inventory.ItemList[0, 0] = WeaponItem.GenerateSpawnWeapon(Instance.Class.ClassType);
+            Instance.Inventory.ItemList[0, 1] = new ArmourItem("Plate");
+            Instance.EquippedWeapon = (WeaponItem)Instance.Inventory.ItemList[0, 0];
+            Instance.EquippedArmour = (ArmourItem)Instance.Inventory.ItemList[0, 1];
             #endregion Loot Assignment
 
             return Instance;
@@ -126,42 +124,52 @@ namespace AuldShiteburn.EntityData
         {
             Utils.ClearInventoryInterface();
             Utils.SetCursorInventory();
-            int typeOffset = 0;
-            for (int x = 0; x < Inventory.CategoryColumns; x++)
+            int offset = 0;
+            for (int x = 0; x < Inventory.Column; x++)
             {
                 if (x == 0)
                 {
-                    Console.Write("[WEAPONS]");
+                    offset = Inventory.WEAPON_OFFSET;
+                    Utils.SetCursorInventory(Inventory.WEAPON_OFFSET);
+                    Console.Write("[");
+                    Utils.WriteColour("WEAPONS");
+                    Console.Write("]");
                 }
                 if (x == 1)
                 {
-                    typeOffset = 25;
-                    Utils.SetCursorInventory(typeOffset);
-                    Console.Write("[ARMOUR]");
+                    offset = Inventory.ARMOUR_OFFSET;
+                    Utils.SetCursorInventory(Inventory.ARMOUR_OFFSET);
+                    Console.Write("[");
+                    Utils.WriteColour("ARMOUR");
+                    Console.Write("]");
                 }
                 if (x == 2)
                 {
-                    typeOffset = 45;
-                    Utils.SetCursorInventory(typeOffset);
-                    Console.Write("[CONSUMABLES]");
+                    offset = Inventory.CONSUMABLE_OFFSET;
+                    Utils.SetCursorInventory(Inventory.CONSUMABLE_OFFSET);
+                    Console.Write("[");
+                    Utils.WriteColour("CONSUMABLES");
+                    Console.Write("]");
                 }
                 if (x == 3)
                 {
-                    typeOffset = 65;
-                    Utils.SetCursorInventory(typeOffset);
-                    Console.Write("[KEY ITEMS]");
+                    offset = Inventory.KEY_OFFSET;
+                    Utils.SetCursorInventory(Inventory.KEY_OFFSET);
+                    Console.Write("[");
+                    Utils.WriteColour("KEY ITEMS");
+                    Console.Write("]");
                 }
-                for (int y = 1; y <= Inventory.RowCapacity; y++)
+                for (int y = 1; y <= Inventory.Row; y++)
                 {
-                    Utils.SetCursorInventory(typeOffset, y);
+                    Utils.SetCursorInventory(offset, y);
                     {
                         if (Inventory.ItemList[y - 1, x] != null)
                         {
-                            Console.Write($"{Inventory.ItemList[y - 1, x].Name}");
+                            Utils.WriteColour($"{Inventory.ItemList[y - 1, x].Name}", ConsoleColor.DarkGray);
                         }
                         else
                         {
-                            Console.Write("--");
+                            Utils.WriteColour("--", ConsoleColor.DarkGray);
                         }
                     }                    
                 }

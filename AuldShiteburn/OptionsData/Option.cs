@@ -62,7 +62,7 @@ namespace AuldShiteburn.OptionData
         {
             if (banner != null)
             {
-                Utils.WriteColour(ConsoleColor.DarkYellow, banner);
+                Utils.WriteColour(banner, ConsoleColor.DarkYellow);
             }
             foreach (Option option in options)
             {
