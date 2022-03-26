@@ -32,7 +32,7 @@ namespace AuldShiteburn.ItemData.WeaponData
             int chance = rand.Next(1, 101);
 
             #region Material Generation
-            if (chance <= 70)
+            if (chance <= 60)
             {
                 weapon.Material = WeaponMaterial.WeaponMaterialIron;
             }

@@ -22,7 +22,8 @@ namespace AuldShiteburn.MapData
         private static List<Type> interactionTiles = new List<Type>()
         {
             typeof(InteractionTile),
-            typeof(DoorTile)
+            typeof(DoorTile),
+            typeof(LootTile)
         };
 
         public PlayerEntity player;
@@ -432,6 +433,8 @@ namespace AuldShiteburn.MapData
                 !interactionTiles.Exists(text => CheckTileType(PlayerEntity.Instance.PosX, plusY, text)))
             {
                 Utils.ClearInteractInterface(offsetY: 3);
+                Utils.SetCursorInventory(offsetY: -1);
+                Utils.ClearLine(Console.WindowWidth);
             }
         }
 

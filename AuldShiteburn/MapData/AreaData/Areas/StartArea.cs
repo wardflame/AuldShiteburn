@@ -1,4 +1,5 @@
 ﻿using AuldShiteburn.ItemData;
+using AuldShiteburn.ItemData.ArmourData;
 using AuldShiteburn.ItemData.WeaponData;
 using AuldShiteburn.MapData.TileData;
 using AuldShiteburn.MapData.TileData.Tiles;
@@ -31,7 +32,8 @@ namespace AuldShiteburn.MapData.AreaData.Areas
                 new LootTile(
                     new List<Item>()
                     {
-                        WeaponItem.GenerateWeapon()
+                        WeaponItem.GenerateWeapon(),
+                        new ArmourItem("Mail")
                     },
                     false)));
         }

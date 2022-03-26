@@ -113,6 +113,10 @@ namespace AuldShiteburn.EntityData
 
             #region Loot Assignment
             Instance.Inventory.ItemList[0,0] = WeaponItem.GenerateWeapon();
+            Instance.Inventory.ItemList[1,0] = WeaponItem.GenerateWeapon();
+            Instance.Inventory.ItemList[2,0] = WeaponItem.GenerateWeapon();
+            Instance.Inventory.ItemList[3,0] = WeaponItem.GenerateWeapon();
+            Instance.Inventory.ItemList[4,0] = WeaponItem.GenerateWeapon();
             #endregion Loot Assignment
 
             return Instance;
@@ -123,37 +127,37 @@ namespace AuldShiteburn.EntityData
             Utils.ClearInventoryInterface();
             Utils.SetCursorInventory();
             int typeOffset = 0;
-            for (int y = 0; y < Inventory.Height; y++)
+            for (int x = 0; x < Inventory.CategoryColumns; x++)
             {
-                if (y == 0)
+                if (x == 0)
                 {
                     Console.Write("[WEAPONS]");
                 }
-                if (y == 1)
+                if (x == 1)
                 {
                     typeOffset = 25;
                     Utils.SetCursorInventory(typeOffset);
                     Console.Write("[ARMOUR]");
                 }
-                if (y == 2)
+                if (x == 2)
                 {
                     typeOffset = 45;
                     Utils.SetCursorInventory(typeOffset);
                     Console.Write("[CONSUMABLES]");
                 }
-                if (y == 3)
+                if (x == 3)
                 {
                     typeOffset = 65;
                     Utils.SetCursorInventory(typeOffset);
                     Console.Write("[KEY ITEMS]");
                 }
-                for (int x = 1; x <= Inventory.Width; x++)
+                for (int y = 1; y <= Inventory.RowCapacity; y++)
                 {
-                    Utils.SetCursorInventory(typeOffset, x);
+                    Utils.SetCursorInventory(typeOffset, y);
                     {
-                        if (Inventory.ItemList[x - 1, y] != null)
+                        if (Inventory.ItemList[y - 1, x] != null)
                         {
-                            Console.Write($"{Inventory.ItemList[x - 1, y].Name}");
+                            Console.Write($"{Inventory.ItemList[y - 1, x].Name}");
                         }
                         else
                         {

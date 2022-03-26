@@ -17,6 +17,7 @@ namespace AuldShiteburn.MapData.TileData.Tiles
         private const float CHANCE_ARMOUR = 0.4f;
         private const float CHANCE_CONSUMABLE = 0.0f;
 
+        public override bool Collidable => false;
         public override ConsoleColor Foreground => looted ? ConsoleColor.DarkGray : ConsoleColor.Magenta;
 
         public List<Item> items = new List<Item>();
@@ -65,15 +66,32 @@ namespace AuldShiteburn.MapData.TileData.Tiles
 
         public override void OnCollision(Entity entity)
         {
-            for (int i = 0; i < items.Count; i++)
+            Utils.SetCursorInteract();
+            Console.WriteLine("Loot Items: ");
+            int lootItems = 0;
+            foreach (Item item in items)
             {
-                if (PlayerEntity.Instance.Inventory.AddItem(items[i]))
+                lootItems++;
+                Utils.SetCursorInteract(offsetY: lootItems);
+                Console.WriteLine(item.Name);
+            }
+            Utils.SetCursorInventory();
+            int itemsLooted = 0;
+            foreach (Item item in items.ToArray())
+            {
+                if (PlayerEntity.Instance.Inventory.AddItem(item))
                 {
-                    items.Remove(items[i]);
+                    items.Remove(item);
+                    itemsLooted++;
                 }
             }
             Map.Instance.PrintPlayerInventory();
-            looted = true;
+            if (itemsLooted == items.Count + 1)
+            {
+                items.Clear();
+                looted = true;
+            }
+            Utils.ClearInteractInterface();
         }
     }
 }

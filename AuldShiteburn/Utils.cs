@@ -53,7 +53,10 @@ namespace AuldShiteburn
         /// <returns></returns>
         public static bool VerificationQuery(string query)
         {
-            Console.WriteLine(query);
+            if (query != null)
+            {
+                Console.WriteLine(query);
+            }
             do
             {
                 InputSystem.GetInput();
@@ -82,8 +85,17 @@ namespace AuldShiteburn
         public static void WriteColour(ConsoleColor colour, string message)
         {
             Console.ForegroundColor = colour;
-            Console.WriteLine(message);
+            Console.Write(message);
             Console.ResetColor();
+        }
+
+        /// <summary>
+        /// Clear an area of the screen.
+        /// </summary>
+        /// <param name="clearLength">How far to send the empty characters.</param>
+        public static void ClearLine(int clearLength = 0)
+        {
+            Console.Write(new string(' ', clearLength));
         }
 
         /// <summary>
@@ -154,7 +166,7 @@ namespace AuldShiteburn
         /// the area height, go down each row and replace any text with space characters until
         /// the end of the line.
         /// </summary>
-        public static void ClearInventoryInterface(int offsetX = 0, int offsetY = 4)
+        public static void ClearInventoryInterface(int offsetX = 0, int offsetY = 5)
         {
             for (int y = UIInventoryHeight; y <= UIInventoryHeight + offsetY; y++)
             {

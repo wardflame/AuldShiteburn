@@ -47,7 +47,7 @@ namespace AuldShiteburn.MapData
             return posX + Width * posY;
         }
 
-        protected void SetTile(int posX, int posY, Tile tile)
+        public void SetTile(int posX, int posY, Tile tile)
         {
             if (posX < 0 || posY < 0 || posX >= Width || posY >= Height)
             {
