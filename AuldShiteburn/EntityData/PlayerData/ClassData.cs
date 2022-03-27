@@ -10,7 +10,7 @@ namespace AuldShiteburn.EntityData.PlayerData
         #region Classes
         public static ClassData Heathen
         {
-            get { return new ClassData("Heathen", ClassType.Acolyte, PlayerGenerationData.AcolyteTitles, null, false, true, 12, 0, 30, WeaponFamily.PrimitiveArms); }
+            get { return new ClassData("Heathen", ClassType.Heathen, PlayerGenerationData.HeathenTitles, null, false, true, 12, 0, 30, WeaponFamily.PrimitiveArms); }
         }
         public static ClassData Fighter
         {
@@ -67,7 +67,7 @@ namespace AuldShiteburn.EntityData.PlayerData
     enum ClassType
     {
         None,
-        Acolyte,
+        Heathen,
         Fighter,
         Marauder,
         Monk,

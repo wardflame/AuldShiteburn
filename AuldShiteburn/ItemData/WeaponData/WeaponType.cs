@@ -6,70 +6,70 @@ using System.Collections.Generic;
 namespace AuldShiteburn.ItemData.WeaponData
 {
     [Serializable]
-    class WeaponCategory
+    class WeaponType
     {
         #region DextrousWeapons
-        public static WeaponCategory Dagger
+        public static WeaponType Dagger
         {
-            get { return new WeaponCategory("Dagger", WeaponFamily.DextrousSmallArms, PhysicalDamageType.Pierce, 3, 5); }
+            get { return new WeaponType("Dagger", WeaponFamily.DextrousSmallArms, PhysicalDamageType.Pierce, 3, 5); }
         }
-        public static WeaponCategory Rapier
+        public static WeaponType Rapier
         {
-            get { return new WeaponCategory("Rapier", WeaponFamily.DextrousSmallArms, PhysicalDamageType.Pierce, 3, 5); }
+            get { return new WeaponType("Rapier", WeaponFamily.DextrousSmallArms, PhysicalDamageType.Pierce, 3, 5); }
         }
-        public static WeaponCategory Shortsword
+        public static WeaponType Shortsword
         {
-            get { return new WeaponCategory("Shortsword", WeaponFamily.DextrousSmallArms, PhysicalDamageType.Slash, 3, 5); }
+            get { return new WeaponType("Shortsword", WeaponFamily.DextrousSmallArms, PhysicalDamageType.Slash, 3, 5); }
         }
         #endregion DextrousWeapons
         #region PrimitiveWeapons
-        public static WeaponCategory HandAxe
+        public static WeaponType HandAxe
         {
-            get { return new WeaponCategory("Greatsword", WeaponFamily.PrimitiveArms, PhysicalDamageType.Slash, 4, 6); }
+            get { return new WeaponType("Hand Axe", WeaponFamily.PrimitiveArms, PhysicalDamageType.Slash, 4, 6); }
         }
-        public static WeaponCategory Cudgel
+        public static WeaponType Cudgel
         {
-            get { return new WeaponCategory("Greatsword", WeaponFamily.PrimitiveArms, PhysicalDamageType.Strike, 4, 6); }
+            get { return new WeaponType("Cudgel", WeaponFamily.PrimitiveArms, PhysicalDamageType.Strike, 4, 6); }
         }
-        public static WeaponCategory Spear
+        public static WeaponType Spear
         {
-            get { return new WeaponCategory("Spear", WeaponFamily.PrimitiveArms, PhysicalDamageType.Pierce, 4, 6); }
+            get { return new WeaponType("Spear", WeaponFamily.PrimitiveArms, PhysicalDamageType.Pierce, 4, 6); }
         }
         #endregion PrimitiveWeapons
         #region MartialWeapons
-        public static WeaponCategory Longsword
+        public static WeaponType Longsword
         {
-            get { return new WeaponCategory("Longsword", WeaponFamily.MartialArms, PhysicalDamageType.Slash, 5, 7); }
+            get { return new WeaponType("Longsword", WeaponFamily.MartialArms, PhysicalDamageType.Slash, 5, 7); }
         }
-        public static WeaponCategory BattleAxe
+        public static WeaponType BattleAxe
         {
-            get { return new WeaponCategory("Battle Axe", WeaponFamily.MartialArms, PhysicalDamageType.Slash, 5, 7); }
+            get { return new WeaponType("Battle Axe", WeaponFamily.MartialArms, PhysicalDamageType.Slash, 5, 7); }
         }
-        public static WeaponCategory Mace
+        public static WeaponType Mace
         {
-            get { return new WeaponCategory("Mace", WeaponFamily.MartialArms, PhysicalDamageType.Strike, 5, 7); }
+            get { return new WeaponType("Mace", WeaponFamily.MartialArms, PhysicalDamageType.Strike, 5, 7); }
         }
-        public static WeaponCategory Warhammer
+        public static WeaponType Warhammer
         {
-            get { return new WeaponCategory("Warhammer", WeaponFamily.MartialArms, PhysicalDamageType.Strike, 5, 7); }
+            get { return new WeaponType("Warhammer", WeaponFamily.MartialArms, PhysicalDamageType.Strike, 5, 7); }
         }
         #endregion MartialWeapons
         #region StrengthWeapons
-        public static WeaponCategory Greatsword
+        public static WeaponType Greatsword
         {
-            get { return new WeaponCategory("Greatsword", WeaponFamily.StrengthLargeArms, PhysicalDamageType.Slash, 7, 9); }
+            get { return new WeaponType("Greatsword", WeaponFamily.StrengthLargeArms, PhysicalDamageType.Slash, 7, 9); }
         }
-        public static WeaponCategory Greataxe
+        public static WeaponType Greataxe
         {
-            get { return new WeaponCategory("Greataxe", WeaponFamily.StrengthLargeArms, PhysicalDamageType.Slash, 7, 9); }
+            get { return new WeaponType("Greataxe", WeaponFamily.StrengthLargeArms, PhysicalDamageType.Slash, 7, 9); }
         }
-        public static WeaponCategory Greathammer
+        public static WeaponType Greathammer
         {
-            get { return new WeaponCategory("Greathammer", WeaponFamily.StrengthLargeArms, PhysicalDamageType.Strike, 7, 9); }
+            get { return new WeaponType("Greathammer", WeaponFamily.StrengthLargeArms, PhysicalDamageType.Strike, 7, 9); }
         }
         #endregion StrengthWeapons
 
-        public static List<WeaponCategory> AllWeaponCategories = new List<WeaponCategory>()
+        public static List<WeaponType> AllWeaponTypes { get; } = new List<WeaponType>()
         {
             Dagger,
             Rapier,
@@ -85,26 +85,26 @@ namespace AuldShiteburn.ItemData.WeaponData
             Greataxe,
             Greathammer
         };
-        public static List<WeaponCategory> DextrousWeapons = new List<WeaponCategory>()
+        public static List<WeaponType> DextrousWeaponTypes { get; } = new List<WeaponType>()
         {
             Dagger,
             Rapier,
             Shortsword
         };
-        public static List<WeaponCategory> PrimitiveWeapons = new List<WeaponCategory>()
+        public static List<WeaponType> PrimitiveWeaponTypes { get; } = new List<WeaponType>()
         {
             HandAxe,
             Cudgel,
             Spear
         };
-        public static List<WeaponCategory> MartialWeapons = new List<WeaponCategory>()
+        public static List<WeaponType> MartialWeaponTypes { get; } = new List<WeaponType>()
         {
             Longsword,
             BattleAxe,
             Mace,
             Warhammer
         };
-        public static List<WeaponCategory> StrengthWeapons = new List<WeaponCategory>()
+        public static List<WeaponType> StrengthWeaponTypes { get; } = new List<WeaponType>()
         {
             Greatsword,
             Greataxe,
@@ -160,7 +160,7 @@ namespace AuldShiteburn.ItemData.WeaponData
             }
         }
 
-        public WeaponCategory(string name, WeaponFamily family, PhysicalDamageType primaryAttack, int minDamage, int maxDamage, PhysicalDamageType secondaryAttack = PhysicalDamageType.None)
+        public WeaponType(string name, WeaponFamily family, PhysicalDamageType primaryAttack, int minDamage, int maxDamage, PhysicalDamageType secondaryAttack = PhysicalDamageType.None)
         {
             Name = name;
             Family = family;

@@ -18,7 +18,6 @@ namespace AuldShiteburn.EntityData
         public bool InMenu { get; set; }
         public long Playtime { get; set; }
         public ClassData Class { get; private set; }
-        public ClassType ClassType { get; private set; }
         public Inventory Inventory { get; set; } = new Inventory();
         public WeaponItem EquippedWeapon { get; set; }
         public ArmourItem EquippedArmour { get; set; }

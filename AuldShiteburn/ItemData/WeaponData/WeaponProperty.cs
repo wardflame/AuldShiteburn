@@ -32,11 +32,11 @@ namespace AuldShiteburn.ItemData.WeaponData
         }
         public static WeaponProperty WeaponPropertyShitty
         {
-            get { return new WeaponProperty("Shitty", PropertyDamageType.Occult, ClassType.Acolyte, 4, 6); }
+            get { return new WeaponProperty("Shitty", PropertyDamageType.Occult, ClassType.Heathen, 4, 6); }
         }
         #endregion Weapon Properties
 
-        public static List<WeaponProperty> WeaponProperties = new List<WeaponProperty>()
+        public static List<WeaponProperty> WeaponProperties { get; } = new List<WeaponProperty>()
         {
             WeaponPropertyRuined,
             WeaponPropertyStandard,

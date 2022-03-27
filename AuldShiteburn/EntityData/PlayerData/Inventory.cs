@@ -12,6 +12,7 @@ using System.Text;
 
 namespace AuldShiteburn.EntityData.PlayerData
 {
+    [Serializable]
     internal class Inventory
     {
         public const int WEAPON_OFFSET = 0;

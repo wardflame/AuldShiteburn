@@ -21,23 +21,26 @@ namespace AuldShiteburn.ItemData.WeaponData
                 }
             }
         }
-        public WeaponCategory Category { get; set; }
+        public WeaponType Category { get; set; }
         public WeaponMaterial Material { get; set; }
         public WeaponProperty Property { get; set; }
 
+        /// <summary>
+        /// Randomly generate a weapon by category, material and property.
+        /// </summary>
+        /// <returns>Random-generated weapon.</returns>
         public static WeaponItem GenerateWeapon()
         {
             WeaponItem weapon = new WeaponItem();
             Random rand = new Random();
-            weapon.Category = WeaponCategory.AllWeaponCategories[rand.Next(0, WeaponCategory.AllWeaponCategories.Count)];
-            int chance = rand.Next(1, 101);
+            weapon.Category = WeaponType.AllWeaponTypes[rand.Next(0, WeaponType.AllWeaponTypes.Count)];
 
             #region Material Generation
-            if (chance <= 20)
+            if (rand.Next(1, 101) <= 20)
             {
-                weapon.Material = WeaponMaterial.WeaponMaterials[rand.Next(3, WeaponMaterial.WeaponMaterials.Count)];
+                weapon.Material = WeaponMaterial.WeaponMaterialList[rand.Next(3, WeaponMaterial.WeaponMaterialList.Count)];
             }
-            else if (chance <= 40)
+            else if (rand.Next(1, 101) <= 40)
             {
                 weapon.Material = WeaponMaterial.WeaponMaterialSteel;
             }
@@ -48,12 +51,11 @@ namespace AuldShiteburn.ItemData.WeaponData
             #endregion Material Generation
 
             #region Property Generation
-            chance = rand.Next(1, 101);
-            if (chance <= 8)
+            if (rand.Next(1, 101) <= 8)
             {
                 weapon.Property = WeaponProperty.WeaponPropertyRuined;
             }
-            else if (chance <= 15)
+            else if (rand.Next(1, 101) <= 15)
             {
                 weapon.Property = WeaponProperty.WeaponProperties[rand.Next(2, WeaponProperty.WeaponProperties.Count)];
             }
@@ -66,35 +68,41 @@ namespace AuldShiteburn.ItemData.WeaponData
             return weapon;
         }
 
+        /// <summary>
+        /// For a new character, randomly generate a weapon and then ensure
+        /// the type of weapon is one the character class is proficient in.
+        /// </summary>
+        /// <param name="playerClass">The class of the player.</param>
+        /// <returns>A randomly generated weapon with a class-proficient type.</returns>
         public static WeaponItem GenerateSpawnWeapon(ClassType playerClass)
         {
             WeaponItem weapon = GenerateWeapon();
             Random rand = new Random();
             switch (playerClass)
             {
-                case ClassType.Acolyte:
+                case ClassType.Heathen:
                     {
-                        weapon.Category = WeaponCategory.PrimitiveWeapons[rand.Next(WeaponCategory.PrimitiveWeapons.Count)];
+                        weapon.Category = WeaponType.PrimitiveWeaponTypes[rand.Next(WeaponType.PrimitiveWeaponTypes.Count)];
                     }
                     break;
                 case ClassType.Fighter:
                     {
-                        weapon.Category = WeaponCategory.MartialWeapons[rand.Next(WeaponCategory.MartialWeapons.Count)];
+                        weapon.Category = WeaponType.MartialWeaponTypes[rand.Next(WeaponType.MartialWeaponTypes.Count)];
                     }
                     break;
                 case ClassType.Marauder:
                     {
-                        weapon.Category = WeaponCategory.StrengthWeapons[rand.Next(WeaponCategory.StrengthWeapons.Count)];
+                        weapon.Category = WeaponType.StrengthWeaponTypes[rand.Next(WeaponType.StrengthWeaponTypes.Count)];
                     }
                     break;
                 case ClassType.Monk:
                     {
-                        weapon.Category = WeaponCategory.PrimitiveWeapons[rand.Next(WeaponCategory.PrimitiveWeapons.Count)];
+                        weapon.Category = WeaponType.PrimitiveWeaponTypes[rand.Next(WeaponType.PrimitiveWeaponTypes.Count)];
                     }
                     break;
                 case ClassType.Rogue:
                     {
-                        weapon.Category = WeaponCategory.DextrousWeapons[rand.Next(WeaponCategory.DextrousWeapons.Count)];
+                        weapon.Category = WeaponType.DextrousWeaponTypes[rand.Next(WeaponType.DextrousWeaponTypes.Count)];
                     }
                     break;
             }

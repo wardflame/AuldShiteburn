@@ -6,7 +6,7 @@ namespace AuldShiteburn.EntityData.PlayerData
     [Serializable]
     internal struct PlayerGenerationData
     {
-        public static List<string> AcolyteTitles { get; } = new List<string>()
+        public static List<string> HeathenTitles { get; } = new List<string>()
         {
             "Foundling",
             "Apostate",

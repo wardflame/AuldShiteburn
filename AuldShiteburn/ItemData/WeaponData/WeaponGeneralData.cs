@@ -10,11 +10,4 @@ namespace AuldShiteburn.ItemData.WeaponData
         MartialArms,
         StrengthLargeArms
     }
-    enum WeaponMaterialType
-    {
-        Iron,
-        Steel,
-        Moonstone,
-        Hardshite
-    }
 }

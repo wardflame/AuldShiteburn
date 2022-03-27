@@ -13,6 +13,7 @@ namespace AuldShiteburn.CombatData
 
     public enum PropertyDamageType
     {
+        None,
         Damaged,
         Standard,
         Fire,

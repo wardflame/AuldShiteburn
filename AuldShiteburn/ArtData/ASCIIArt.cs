@@ -102,7 +102,8 @@ namespace AuldShiteburn.ArtData
 ╚█████╗░█████╗░░░░░██║░░░░░░██║░░░██║██╔██╗██║██║░░██╗░╚█████╗░
 ░╚═══██╗██╔══╝░░░░░██║░░░░░░██║░░░██║██║╚████║██║░░╚██╗░╚═══██╗
 ██████╔╝███████╗░░░██║░░░░░░██║░░░██║██║░╚███║╚██████╔╝██████╔╝
-╚═════╝░╚══════╝░░░╚═╝░░░░░░╚═╝░░░╚═╝╚═╝░░╚══╝░╚═════╝░╚═════╝░";
+╚═════╝░╚══════╝░░░╚═╝░░░░░░╚═╝░░░╚═╝╚═╝░░╚══╝░╚═════╝░╚═════╝░
+";
 
         public const string MENU_SAVESLOT =
             @"
@@ -120,6 +121,12 @@ namespace AuldShiteburn.ArtData
 ╚═╝░░╚═╝░╚═════╝░╚══════╝╚═════╝░  ╚═════╝░╚═╝░░╚═╝╚═╝░░░╚═╝░░░╚══════╝╚═════╝░░╚═════╝░╚═╝░░╚═╝╚═╝░░╚══╝
 ";
 
+        /// <summary>
+        /// Take a number, turn it into string, get each number as char
+        /// and turn it into its ASCII art equivalent from the list above.
+        /// </summary>
+        /// <param name="number">Number we want broken down to ASCII.</param>
+        /// <returns>Returns ASCII art string form of numbers.</returns>
         public static string NumberToASCII(int number)
         {
             List<string> lines = new List<string>();
@@ -145,6 +152,12 @@ namespace AuldShiteburn.ArtData
             return string.Join(Environment.NewLine, lines.ToArray());
         }
 
+        /// <summary>
+        /// Take ASCII art and append it to the end of another
+        /// series of ASCII characters.
+        /// </summary>
+        /// <param name="word">Word to append.</param>
+        /// <returns>ASCII art appended phrase.</returns>
         public static string ASCIIAppendToEnd(params string[] word)
         {
             List<string> lines = new List<string>();
