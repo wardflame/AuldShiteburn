@@ -1,6 +1,8 @@
 ﻿using AuldShiteburn.CombatData;
+using AuldShiteburn.EntityData;
 using AuldShiteburn.EntityData.PlayerData;
 using System;
+using System.Collections.Generic;
 
 namespace AuldShiteburn.ItemData.WeaponData
 {
@@ -13,17 +15,38 @@ namespace AuldShiteburn.ItemData.WeaponData
             {
                 if (Property.Property == PropertyDamageType.Standard)
                 {
-                    return $"{Material.Name} {Category.Name}";
+                    return $"{Material.Name} {Type.Name}";
                 }
                 else
                 {
-                    return $"{Property.Name} {Material.Name} {Category.Name}";
+                    return $"{Property.Name} {Material.Name} {Type.Name}";
                 }
             }
         }
-        public WeaponType Category { get; set; }
+        public int TotalMinDamage
+        {
+            get { return Type.MinDamage + Material.MinDamage + Property.MinDamage; }
+        }
+        public int TotalMaxDamage
+        {
+            get { return Type.MaxDamage + Material.MaxDamage + Property.MaxDamage; }
+        }
+        public WeaponType Type { get; set; }
         public WeaponMaterial Material { get; set; }
         public WeaponProperty Property { get; set; }
+
+        /// <summary>
+        /// Equip weapon.
+        /// </summary>
+        public override void OnInventoryUse()
+        {
+            WeaponItem equippedWeapon = PlayerEntity.Instance.EquippedWeapon;
+            if (equippedWeapon != null)
+            {
+                PlayerEntity.Instance.Inventory.AddItem(equippedWeapon);
+                PlayerEntity.Instance.EquippedWeapon = this;
+            }
+        }
 
         /// <summary>
         /// Randomly generate a weapon by category, material and property.
@@ -33,7 +56,7 @@ namespace AuldShiteburn.ItemData.WeaponData
         {
             WeaponItem weapon = new WeaponItem();
             Random rand = new Random();
-            weapon.Category = WeaponType.AllWeaponTypes[rand.Next(0, WeaponType.AllWeaponTypes.Count)];
+            weapon.Type = WeaponType.AllWeaponTypes[rand.Next(0, WeaponType.AllWeaponTypes.Count)];
 
             #region Material Generation
             if (rand.Next(1, 101) <= 20)
@@ -82,27 +105,27 @@ namespace AuldShiteburn.ItemData.WeaponData
             {
                 case ClassType.Heathen:
                     {
-                        weapon.Category = WeaponType.PrimitiveWeaponTypes[rand.Next(WeaponType.PrimitiveWeaponTypes.Count)];
+                        weapon.Type = WeaponType.PrimitiveWeaponTypes[rand.Next(WeaponType.PrimitiveWeaponTypes.Count)];
                     }
                     break;
                 case ClassType.Fighter:
                     {
-                        weapon.Category = WeaponType.MartialWeaponTypes[rand.Next(WeaponType.MartialWeaponTypes.Count)];
+                        weapon.Type = WeaponType.MartialWeaponTypes[rand.Next(WeaponType.MartialWeaponTypes.Count)];
                     }
                     break;
                 case ClassType.Marauder:
                     {
-                        weapon.Category = WeaponType.StrengthWeaponTypes[rand.Next(WeaponType.StrengthWeaponTypes.Count)];
+                        weapon.Type = WeaponType.StrengthWeaponTypes[rand.Next(WeaponType.StrengthWeaponTypes.Count)];
                     }
                     break;
                 case ClassType.Monk:
                     {
-                        weapon.Category = WeaponType.PrimitiveWeaponTypes[rand.Next(WeaponType.PrimitiveWeaponTypes.Count)];
+                        weapon.Type = WeaponType.PrimitiveWeaponTypes[rand.Next(WeaponType.PrimitiveWeaponTypes.Count)];
                     }
                     break;
                 case ClassType.Rogue:
                     {
-                        weapon.Category = WeaponType.DextrousWeaponTypes[rand.Next(WeaponType.DextrousWeaponTypes.Count)];
+                        weapon.Type = WeaponType.DextrousWeaponTypes[rand.Next(WeaponType.DextrousWeaponTypes.Count)];
                     }
                     break;
             }

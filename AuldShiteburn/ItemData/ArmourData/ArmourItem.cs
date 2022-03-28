@@ -50,36 +50,60 @@ namespace AuldShiteburn.ItemData.ArmourData
         }
         #endregion Heavy Armours
 
-        public List<ArmourItem> AllArmours { get; } = new List<ArmourItem>()
+        public static List<ArmourItem> AllArmours
         {
-            SackClothRobe,
-            WoolenRags,
-            Gambeson,
-            HideWrappings,
-            FurPadding,
-            Brigandine,
-            Maille,
-            ScaleCoat,
-            Breastplate
-        };
-        public List<ArmourItem> LightArmours { get; } = new List<ArmourItem>()
+            get
+            {
+                return new List<ArmourItem>()
+                    {
+                        SackClothRobe,
+                        WoolenRags,
+                        Gambeson,
+                        HideWrappings,
+                        FurPadding,
+                        Brigandine,
+                        Maille,
+                        ScaleCoat,
+                        Breastplate
+                    };
+            }
+        }
+        public static List<ArmourItem> LightArmours
         {
-            SackClothRobe,
-            WoolenRags,
-            Gambeson
-        };
-        public List<ArmourItem> MediumArmours { get; } = new List<ArmourItem>()
+            get
+            {
+                return new List<ArmourItem>()
+                    {
+                        SackClothRobe,
+                        WoolenRags,
+                        Gambeson
+                    };
+            }
+        }
+        public static List<ArmourItem> MediumArmours
         {
-            HideWrappings,
-            FurPadding,
-            Brigandine
-        };
-        public List<ArmourItem> HeavyArmours { get; } = new List<ArmourItem>()
+            get
+            {
+                return new List<ArmourItem>()
+                    {
+                        HideWrappings,
+                        FurPadding,
+                        Brigandine
+                    };
+            }
+        }
+        public static List<ArmourItem> HeavyArmours
         {
-            Maille,
-            ScaleCoat,
-            Breastplate
-        };
+            get
+            {
+                return new List<ArmourItem>()
+                    {
+                        Maille,
+                        ScaleCoat,
+                        Breastplate
+                    };
+            }
+        }
         public override string Name { get; }
         public ArmourFamily ArmourFamily { get; }
         public int PhysicalMitigation { get; }

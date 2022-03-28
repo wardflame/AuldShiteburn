@@ -245,16 +245,19 @@ namespace AuldShiteburn.MapData
             {
                 for (int x = 0; x < CurrentArea.Width; x++)
                 {
-                    Tile currentTile = CurrentArea.GetTile(x, y);
-                    Console.CursorLeft = x * 2;
-                    Console.CursorTop = y;
-                    Console.ForegroundColor = currentTile.Foreground;
-                    Console.BackgroundColor = currentTile.Background;
-                    Console.Write(currentTile.DisplayChar);
-                    Console.Write(currentTile.DisplayChar);
-                    Console.ResetColor();
+                    PrintTile(x, y);
                 }
             }
+        }
+
+        public void PrintTile(int x, int y)
+        {
+            Tile tile = CurrentArea.GetTile(x, y);
+            Console.SetCursorPosition(x * 2, y);
+            Console.ForegroundColor = tile.Foreground;
+            Console.Write(tile.DisplayChar);
+            Console.Write(tile.DisplayChar);
+            Console.ResetColor();
         }
 
         /// <summary>
@@ -306,12 +309,9 @@ namespace AuldShiteburn.MapData
         public void PrintEntities()
         {
             PrintEntity(PlayerEntity.Instance);
-            if (CurrentArea.entities.Count > 0)
+            foreach (Entity entity in CurrentArea.entities)
             {
-                foreach (Entity entity in CurrentArea.entities)
-                {
-                    PrintEntity(entity);
-                }
+                PrintEntity(entity);
             }
         }
 
@@ -341,9 +341,17 @@ namespace AuldShiteburn.MapData
             }
 
             Utils.SetCursorPlayerStat(offsetY: 3);
-            Console.Write($"Equipped Weapon: {PlayerEntity.Instance.EquippedWeapon.Name}");
+            Console.Write("Equipped Weapon: ");
+            if (PlayerEntity.Instance.EquippedWeapon != null)
+            {
+                Console.Write(PlayerEntity.Instance.EquippedWeapon.Name);
+            }
             Utils.SetCursorPlayerStat(offsetY: 4);
-            Console.Write($"Equipped Armour: {PlayerEntity.Instance.EquippedArmour.Name}");
+            Console.Write("Equipped Armour: ");
+            if (PlayerEntity.Instance.EquippedArmour != null)
+            {
+                Console.Write(PlayerEntity.Instance.EquippedArmour.Name);
+            }
 
             Utils.SetCursorInventory();            
             //Console.Write($"(i) Inventory");
@@ -380,12 +388,7 @@ namespace AuldShiteburn.MapData
 
             if (entity.PosX != entX || entity.PosY != entY)
             {
-                Tile previousTile = CurrentArea.GetTile(entX, entY);
-                Console.SetCursorPosition(entX * 2, entY);
-                Console.ForegroundColor = previousTile.Foreground;
-                Console.Write(previousTile.DisplayChar);
-                Console.Write(previousTile.DisplayChar);
-                Console.ResetColor();
+                PrintTile(entX, entY);
                 PrintEntity(entity);
             }
         }

@@ -69,47 +69,77 @@ namespace AuldShiteburn.ItemData.WeaponData
         }
         #endregion StrengthWeapons
 
-        public static List<WeaponType> AllWeaponTypes { get; } = new List<WeaponType>()
+        public static List<WeaponType> AllWeaponTypes
         {
-            Dagger,
-            Rapier,
-            Shortsword,
-            HandAxe,
-            Cudgel,
-            Spear,
-            Longsword,
-            BattleAxe,
-            Mace,
-            Warhammer,
-            Greatsword,
-            Greataxe,
-            Greathammer
-        };
-        public static List<WeaponType> DextrousWeaponTypes { get; } = new List<WeaponType>()
+            get
+            {
+                return new List<WeaponType>()
+                { 
+                    Dagger,
+                    Rapier,
+                    Shortsword,
+                    HandAxe,
+                    Cudgel,
+                    Spear,
+                    Longsword,
+                    BattleAxe,
+                    Mace,
+                    Warhammer,
+                    Greatsword,
+                    Greataxe,
+                    Greathammer
+                };
+            }
+        }
+        public static List<WeaponType> DextrousWeaponTypes
         {
-            Dagger,
-            Rapier,
-            Shortsword
-        };
-        public static List<WeaponType> PrimitiveWeaponTypes { get; } = new List<WeaponType>()
+            get
+            {
+                return new List<WeaponType>()
+                {
+                    Dagger,
+                    Rapier,
+                    Shortsword
+                };
+            }
+        }
+        public static List<WeaponType> PrimitiveWeaponTypes
         {
-            HandAxe,
-            Cudgel,
-            Spear
-        };
-        public static List<WeaponType> MartialWeaponTypes { get; } = new List<WeaponType>()
+            get
+            {
+                return new List<WeaponType>()
+                {
+                    HandAxe,
+                    Cudgel,
+                    Spear
+                };
+            }
+        }
+        public static List<WeaponType> MartialWeaponTypes
         {
-            Longsword,
-            BattleAxe,
-            Mace,
-            Warhammer
-        };
-        public static List<WeaponType> StrengthWeaponTypes { get; } = new List<WeaponType>()
+            get
+            {
+                return new List<WeaponType>()
+                {
+                    Longsword,
+                    BattleAxe,
+                    Mace,
+                    Warhammer
+                };
+            }
+        }
+        public static List<WeaponType> StrengthWeaponTypes
         {
-            Greatsword,
-            Greataxe,
-            Greathammer
-        };
+            get
+            {
+                return new List<WeaponType>()
+                {
+                    Greatsword,
+                    Greataxe,
+                    Greathammer
+                };
+            }
+        }
         public string Name { get; }
         public WeaponFamily Family { get; }
         public PhysicalDamageType PrimaryAttack { get; }

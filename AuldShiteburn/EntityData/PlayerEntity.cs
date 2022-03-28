@@ -52,6 +52,12 @@ namespace AuldShiteburn.EntityData
                             PosX++;
                         }
                         break;
+                    case ConsoleKey.I:
+                        {
+                            Inventory.ItemInteract();
+                            Instance.PrintInventory();
+                        }
+                        break;
                     case ConsoleKey.Escape:
                         {
                             Menu.Instance = new PauseMenu();
@@ -110,10 +116,8 @@ namespace AuldShiteburn.EntityData
             #endregion Name Generation
 
             #region Loot Assignment
-            Instance.Inventory.ItemList[0, 0] = WeaponItem.GenerateSpawnWeapon(Instance.Class.ClassType);
-            Instance.Inventory.ItemList[0, 1] = new ArmourItem("Plate");
-            Instance.EquippedWeapon = (WeaponItem)Instance.Inventory.ItemList[0, 0];
-            Instance.EquippedArmour = (ArmourItem)Instance.Inventory.ItemList[0, 1];
+            Instance.EquippedWeapon = WeaponItem.GenerateSpawnWeapon(Instance.Class.ClassType);
+            //Instance.Inventory.ItemList[0, 1] = new ArmourItem("Plate");
             #endregion Loot Assignment
 
             return Instance;

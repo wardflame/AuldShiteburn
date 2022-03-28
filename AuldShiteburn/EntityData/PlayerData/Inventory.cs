@@ -34,92 +34,190 @@ namespace AuldShiteburn.EntityData.PlayerData
             Utils.SetCursorInventory(offsetY: -1);
             Utils.WriteColour($"Choose a slot to place {item.Name}.", ConsoleColor.Yellow);
 
+            InventorySortData sortData = NavigateInventory(typeColumn, typeOffset);
+            if (sortData.index < 0)
+            {
+                return false;
+            }
+            if (InputSystem.InputKey == ConsoleKey.Enter)
+            {
+                if (PlayerEntity.Instance.Inventory.ItemList[sortData.index, typeColumn] != null)
+                {
+                    int emptySlot = CheckForEmptySlot(typeColumn);
+                    if (emptySlot > 0)
+                    {
+                        PlayerEntity.Instance.Inventory.ItemList[emptySlot, typeColumn] = item;
+                    }
+                    else
+                    {
+                        Item previousItem = PlayerEntity.Instance.Inventory.ItemList[sortData.index, typeColumn];
+                        Utils.SetCursorInventory(offsetY: -1);
+                        Utils.ClearLine(60);
+                        Utils.SetCursorInventory(offsetY: -1);
+                        Utils.WriteColour($"No empty slots available. Drop {previousItem.Name}? (Y/N)", ConsoleColor.Red);
+                        if (Utils.VerificationQuery(null))
+                        {
+                            if (DropItem(previousItem, sortData))
+                            {
+                                PlayerEntity.Instance.Inventory.ItemList[sortData.index, typeColumn] = item;
+                            }
+                            PlayerEntity.Instance.PrintInventory();
+                            return true;
+                        }
+                        else
+                        {
+                            PlayerEntity.Instance.PrintInventory();
+                            return false;
+                        }
+                    }                        
+                }
+                else
+                {
+                    PlayerEntity.Instance.Inventory.ItemList[sortData.index, typeColumn] = item;
+                }
+                PlayerEntity.Instance.PrintInventory();
+                return true;
+            }
+            PlayerEntity.Instance.PrintInventory();
+            return false;
+        }
+
+        private InventorySortData NavigateInventory(int typeColumn = 0, int typeOffset = WEAPON_OFFSET)
+        {
+            InventorySortData sortData = new InventorySortData();
             int index = 0;
             InventoryHighlight(index, typeColumn, typeOffset);
-            bool choosing = true;
-            while (choosing)
+            do
             {
-                do
+                InputSystem.GetInput();
+                switch (InputSystem.InputKey)
+                {
+                    case ConsoleKey.UpArrow:
+                        {
+                            if (index <= Row - 1 && index > 0)
+                            {
+                                index--;
+                                PlayerEntity.Instance.PrintInventory();
+                                InventoryHighlight(index, typeColumn, typeOffset);
+                            }
+                        }
+                        break;
+                    case ConsoleKey.DownArrow:
+                        {
+                            if (index >= 0 && index < Row - 1)
+                            {
+                                index++;
+                                PlayerEntity.Instance.PrintInventory();
+                                InventoryHighlight(index, typeColumn, typeOffset);
+                            }
+                        }
+                        break;
+                    case ConsoleKey.LeftArrow:
+                        {
+                            if (typeColumn <= Column - 1 && typeColumn > 0)
+                            {
+                                typeColumn--;
+                                typeOffset -= 35;
+                                PlayerEntity.Instance.PrintInventory();
+                                InventoryHighlight(index, typeColumn, typeOffset);
+                            }
+                        }
+                        break;
+                    case ConsoleKey.RightArrow:
+                        {
+                            if (typeColumn >= 0 && typeColumn < Column - 1)
+                            {
+                                typeColumn++;
+                                typeOffset += 35;
+                                PlayerEntity.Instance.PrintInventory();
+                                InventoryHighlight(index, typeColumn, typeOffset);
+                            }
+                        }
+                        break;
+                    case ConsoleKey.Backspace:
+                        {
+                            PlayerEntity.Instance.PrintInventory();
+                            sortData.index = -1;
+                            return sortData;
+                        }
+                        break;
+                }
+            } while (InputSystem.InputKey != ConsoleKey.Enter);
+            sortData.index = index;
+            sortData.typeColumn = typeColumn;
+            sortData.typeOffset = typeOffset;
+            return sortData;
+        }
+
+        public void ItemInteract()
+        {
+            bool interacting = true;
+            while (interacting)
+            {
+                InventorySortData sortData = NavigateInventory();
+                if (sortData.index < 0)
+                {
+                    return;
+                }
+                Item currentItem = PlayerEntity.Instance.Inventory.ItemList[sortData.index, sortData.typeColumn];
+                Utils.SetCursorInteract();
+                Console.WriteLine($"What do you wish to do with {currentItem.Name}?");
+                if (currentItem is WeaponItem)
+                {
+                    Utils.SetCursorInteract(offsetY: 1);
+                    Console.WriteLine("(E) Equip Weapon");
+                }
+                else if (currentItem is ArmourItem)
+                {
+                    Utils.SetCursorInteract(offsetY: 1);
+                    Console.WriteLine("(E) Equip Armour");
+                }
+                else if (currentItem is ConsumableItem)
+                {
+                    Utils.SetCursorInteract(offsetY: 1);
+                    Console.WriteLine("(E) Consume");
+                }
+                Utils.SetCursorInteract(offsetY: 2);
+                Console.WriteLine("(D) Drop Item");
+                bool choosing = true;
+                while (choosing)
                 {
                     InputSystem.GetInput();
                     switch (InputSystem.InputKey)
                     {
-                        case ConsoleKey.UpArrow:
+                        case ConsoleKey.E:
                             {
-                                if (index <= Row - 1 && index > 0)
-                                {
-                                    index--;
-                                    Console.CursorLeft = 0;
-                                    Console.CursorTop = 0;
-                                    PlayerEntity.Instance.PrintInventory();
-                                    InventoryHighlight(index, typeColumn, typeOffset);
-                                }
+                                currentItem.OnInventoryUse();
+                                choosing = false;
+                                interacting = false;
                             }
                             break;
-                        case ConsoleKey.DownArrow:
+                        case ConsoleKey.D:
                             {
-                                if (index >= 0 && index < Row - 1)
-                                {
-                                    index++;
-                                    Console.CursorLeft = 0;
-                                    Console.CursorTop = 0;
-                                    PlayerEntity.Instance.PrintInventory();
-                                    InventoryHighlight(index, typeColumn, typeOffset);
-                                }
+                                PlayerEntity.Instance.Inventory.DropItem(currentItem, sortData);
+                                choosing = false;
+                                interacting = false;
                             }
                             break;
                         case ConsoleKey.Backspace:
                             {
-                                PlayerEntity.Instance.PrintInventory();
-                                return false;
+                                choosing = false;
+                                interacting = false;
                             }
                             break;
                     }
-                } while (InputSystem.InputKey != ConsoleKey.Enter);
-                if (InputSystem.InputKey == ConsoleKey.Enter)
-                {
-                    if (PlayerEntity.Instance.Inventory.ItemList[index, typeColumn] != null)
-                    {
-                        int emptySlot = CheckForEmptySlot(typeColumn);
-                        if (emptySlot > 0)
-                        {
-                            PlayerEntity.Instance.Inventory.ItemList[emptySlot, typeColumn] = item;
-                        }
-                        else
-                        {
-                            Item previousItem = PlayerEntity.Instance.Inventory.ItemList[index, typeColumn];
-                            Utils.SetCursorInventory(offsetY: -1);
-                            Utils.ClearLine(60);
-                            Utils.SetCursorInventory(offsetY: -1);
-                            Utils.WriteColour($"No empty slots available. Drop {previousItem.Name}? (Y/N)", ConsoleColor.Red);
-                            if (Utils.VerificationQuery(null))
-                            {
-                                PlayerEntity.Instance.Inventory.ItemList[index, typeColumn] = item;
-                                DropItem(previousItem);
-                                PlayerEntity.Instance.PrintInventory();
-                                return true;
-                            }
-                            else
-                            {
-                                PlayerEntity.Instance.PrintInventory();
-                                return false;
-                            }
-                        }                        
-                    }
-                    else
-                    {
-                        PlayerEntity.Instance.Inventory.ItemList[index, typeColumn] = item;
-                    }
-                    PlayerEntity.Instance.PrintInventory();
-                    return true;
                 }
-                PlayerEntity.Instance.PrintInventory();
-                choosing = false;
             }
-            return false;
         }
 
-        private void DropItem (Item dropItem)
+        /// <summary>
+        /// Attempt to drop an item. If the tile the player is on is a loot tile,
+        /// add the dropped item to that loot tile. Otherwise, spawn a new loot tile
+        /// at the player's location if there is room to do so.
+        /// </summary>
+        /// <param name="dropItem">Item to be dropped.</param>
+        /// <returns>Returns true if item was dropped, else returns false.</returns>
+        private bool DropItem (Item dropItem, InventorySortData sortData)
         {
             Utils.SetCursorInventory(offsetY: -1);
             Utils.ClearLine(60);
@@ -133,14 +231,48 @@ namespace AuldShiteburn.EntityData.PlayerData
             }
             else
             {
-                Map.Instance.CurrentArea.SetTile(PlayerEntity.Instance.PosX, PlayerEntity.Instance.PosY,
+                int spawnX = PlayerEntity.Instance.PosX;
+                int spawnY = PlayerEntity.Instance.PosY;
+                bool tileFound = false;
+                for (int x = -1; x <= 1; x++)
+                {
+                    for (int y = -1; y <= 1; y++)
+                    {
+                        if (x == 0 && y == 0)
+                        {
+                            continue;
+                        }
+                        int checkX = PlayerEntity.Instance.PosX + x;
+                        int checkY = PlayerEntity.Instance.PosY + y;
+                        Tile emptyTile = Map.Instance.CurrentArea.GetTile(checkX, checkY);
+                        if (emptyTile != null && emptyTile.DisplayChar == Tile.AirTile.DisplayChar)
+                        {
+                            spawnX = checkX;
+                            spawnY = checkY;
+                            tileFound = true;
+                            break;
+                        }
+                    }
+                    if (tileFound)
+                    {
+                        break;
+                    }
+                }
+                if (!tileFound)
+                {
+                    return false;
+                }                
+                Map.Instance.CurrentArea.SetTile(spawnX, spawnY,
                 new LootTile(
                     new List<Item>()
                     {
                         dropItem
                     },
-                    false));
+                    false, true));
+                PlayerEntity.Instance.Inventory.ItemList[sortData.index, sortData.typeColumn] = null;
+                Map.Instance.PrintTile(spawnX, spawnY);
             }
+            return true;
         }
 
         private int GetItemTypeColumn(Item item)

@@ -25,13 +25,19 @@ namespace AuldShiteburn.ItemData.WeaponData
         }
         #endregion Weapon Materials
 
-        public static List<WeaponMaterial> WeaponMaterialList { get; } = new List<WeaponMaterial>()
+        public static List<WeaponMaterial> WeaponMaterialList
         {
-            WeaponMaterialIron,
-            WeaponMaterialSteel,
-            WeaponMaterialMoonstone,
-            WeaponMaterialHardshite
-        };
+            get
+            {
+                return new List<WeaponMaterial>()
+                    {
+                        WeaponMaterialIron,
+                        WeaponMaterialSteel,
+                        WeaponMaterialMoonstone,
+                        WeaponMaterialHardshite
+                    };
+            }
+        }
         public string Name { get; }
         public GeneralMaterials Material { get; }
         public int MinDamage { get; }

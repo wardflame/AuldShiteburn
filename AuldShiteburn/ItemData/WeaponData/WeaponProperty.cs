@@ -36,15 +36,21 @@ namespace AuldShiteburn.ItemData.WeaponData
         }
         #endregion Weapon Properties
 
-        public static List<WeaponProperty> WeaponProperties { get; } = new List<WeaponProperty>()
+        public static List<WeaponProperty> WeaponProperties
         {
-            WeaponPropertyRuined,
-            WeaponPropertyStandard,
-            WeaponPropertyFlaming,
-            WeaponPropertyCold,
-            WeaponPropertyHoly,
-            WeaponPropertyShitty
-        };
+            get
+            {
+                return new List<WeaponProperty>()
+                {
+                    WeaponPropertyRuined,
+                    WeaponPropertyStandard,
+                    WeaponPropertyFlaming,
+                    WeaponPropertyCold,
+                    WeaponPropertyHoly,
+                    WeaponPropertyShitty
+                };
+            }
+        }
         public string Name { get; }
         public PropertyDamageType Property { get; }
         public ClassType ProficientClass { get; }
