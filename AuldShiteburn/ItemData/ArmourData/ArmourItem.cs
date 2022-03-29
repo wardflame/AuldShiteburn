@@ -1,4 +1,6 @@
 ﻿using AuldShiteburn.CombatData;
+using AuldShiteburn.EntityData;
+using AuldShiteburn.EntityData.PlayerData;
 using System;
 using System.Collections.Generic;
 
@@ -106,12 +108,63 @@ namespace AuldShiteburn.ItemData.ArmourData
         }
         public override string Name { get; }
         public ArmourFamily ArmourFamily { get; }
-        public int PhysicalMitigation { get; }
-        public int PropertyMitigation { get; }
+        private int physicalMitigation, propertyMitigation;
+        public int PhysicalMitigation
+        {
+            get
+            {
+                if (IsPhysicalProficient)
+                {
+                    return physicalMitigation += Combat.PROFICIENCY_ARMOUR_MODIFIER;
+                }
+                return physicalMitigation;
+            }
+            private set
+            {
+                physicalMitigation = value;
+            }
+        }
+        public int PropertyMitigation
+        {
+            get
+            {
+                if (HasPropertyAffinity)
+                {
+                    return propertyMitigation += Combat.PROFICIENCY_ARMOUR_MODIFIER_MINOR;
+                }
+                return propertyMitigation;
+            }
+            private set
+            {
+                propertyMitigation = value;
+            }
+        }
         public PhysicalDamageType PrimaryPhysicalResistance { get; }
         public PhysicalDamageType SecondaryPhysicalResistance { get; }
         public PropertyDamageType PrimaryPropertyResistance { get; }
         public PropertyDamageType SecondaryPropertyResistance { get; }
+        public bool IsPhysicalProficient
+        {
+            get
+            {
+                if (PlayerEntity.Instance.Class.Proficiencies.armourProficiency == ArmourFamily)
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
+        public bool HasPropertyAffinity
+        {
+            get
+            {
+                if (PlayerEntity.Instance.Class.Proficiencies.propertyAffinity == PrimaryPropertyResistance)
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
 
         public ArmourItem
             (string name, ArmourFamily armourFamily, int physicalMitigation, int propertyMitigation,
@@ -126,6 +179,13 @@ namespace AuldShiteburn.ItemData.ArmourData
             SecondaryPhysicalResistance = secondaryPhysResist;
             PrimaryPropertyResistance = primaryPropResist;
             SecondaryPhysicalResistance = secondaryPhysResist;
+        }
+
+        public override void OnInventoryUse(InventorySortData sortData)
+        {
+            ArmourItem equippedWeapon = PlayerEntity.Instance.EquippedArmour;
+            PlayerEntity.Instance.Inventory.ItemList[sortData.index, sortData.typeColumn] = equippedWeapon;
+            PlayerEntity.Instance.EquippedArmour = this;
         }
     }
 }

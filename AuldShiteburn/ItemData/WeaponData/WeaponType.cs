@@ -149,7 +149,7 @@ namespace AuldShiteburn.ItemData.WeaponData
         {
             get
             {
-                if (Proficient)
+                if (IsProficient)
                 {
                     return minDamage += Combat.PROFICIENCY_DAMAGE_MODIFIER;
                 }
@@ -164,7 +164,7 @@ namespace AuldShiteburn.ItemData.WeaponData
         {
             get
             {
-                if (Proficient)
+                if (IsProficient)
                 {
                     return maxDamage += Combat.PROFICIENCY_DAMAGE_MODIFIER;
                 }
@@ -175,18 +175,11 @@ namespace AuldShiteburn.ItemData.WeaponData
                 maxDamage = value;
             }
         }
-        public bool Proficient
+        public bool IsProficient
         {
             get
             {
-                if (PlayerEntity.Instance.Class.WeaponProficiency == Family)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                return PlayerEntity.Instance.Class.Proficiencies.weaponProficiency == Family;
             }
         }
 

@@ -38,14 +38,11 @@ namespace AuldShiteburn.ItemData.WeaponData
         /// <summary>
         /// Equip weapon.
         /// </summary>
-        public override void OnInventoryUse()
+        public override void OnInventoryUse(InventorySortData sortData)
         {
             WeaponItem equippedWeapon = PlayerEntity.Instance.EquippedWeapon;
-            if (equippedWeapon != null)
-            {
-                PlayerEntity.Instance.Inventory.AddItem(equippedWeapon);
-                PlayerEntity.Instance.EquippedWeapon = this;
-            }
+            PlayerEntity.Instance.Inventory.ItemList[sortData.index, sortData.typeColumn] = equippedWeapon;            
+            PlayerEntity.Instance.EquippedWeapon = this;
         }
 
         /// <summary>

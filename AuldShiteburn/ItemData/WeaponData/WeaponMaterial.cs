@@ -1,4 +1,7 @@
-﻿using System;
+﻿using AuldShiteburn.CombatData;
+using AuldShiteburn.EntityData;
+using AuldShiteburn.EntityData.PlayerData;
+using System;
 using System.Collections.Generic;
 
 namespace AuldShiteburn.ItemData.WeaponData
@@ -40,8 +43,47 @@ namespace AuldShiteburn.ItemData.WeaponData
         }
         public string Name { get; }
         public GeneralMaterials Material { get; }
-        public int MinDamage { get; }
-        public int MaxDamage { get; }
+        private int minDamage, maxDamage;
+        public int MinDamage
+        {
+            get
+            {
+                if (HasAffinity)
+                {
+                    return minDamage += Combat.PROFICIENCY_DAMAGE_MODIFIER;
+                }
+                else
+                {
+                    return minDamage;
+                }
+            }
+            private set
+            {
+                minDamage = value;
+            }
+        }
+        public int MaxDamage
+        {
+            get
+            {
+                if (HasAffinity)
+                {
+                    return maxDamage += Combat.PROFICIENCY_DAMAGE_MODIFIER;
+                }
+                return maxDamage;
+            }
+            private set
+            {
+                maxDamage = value;
+            }
+        }
+        public bool HasAffinity
+        {
+            get
+            {
+                return PlayerEntity.Instance.Class.Proficiencies.materialAffinity == Material;
+            }
+        }
 
         public WeaponMaterial(string name, GeneralMaterials material, int minDamage, int maxDamage)
         {

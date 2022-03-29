@@ -161,6 +161,11 @@ namespace AuldShiteburn.EntityData.PlayerData
                 }
                 Item currentItem = PlayerEntity.Instance.Inventory.ItemList[sortData.index, sortData.typeColumn];
                 Utils.SetCursorInteract();
+                if (currentItem == null)
+                {
+                    Utils.WriteColour("No item selected.");
+                    return;
+                }
                 Console.WriteLine($"What do you wish to do with {currentItem.Name}?");
                 if (currentItem is WeaponItem)
                 {
@@ -187,7 +192,7 @@ namespace AuldShiteburn.EntityData.PlayerData
                     {
                         case ConsoleKey.E:
                             {
-                                currentItem.OnInventoryUse();
+                                currentItem.OnInventoryUse(sortData);
                                 choosing = false;
                                 interacting = false;
                             }
@@ -331,6 +336,7 @@ namespace AuldShiteburn.EntityData.PlayerData
 
         public static void InventoryHighlight(int index, int typeColumn, int typeOffset)
         {
+            Item highlightItem = PlayerEntity.Instance.Inventory.ItemList[index, typeColumn];
             for (int y = 1; y <= Row; y++)
             {
                 Utils.SetCursorInventory(typeOffset, y);
@@ -341,8 +347,19 @@ namespace AuldShiteburn.EntityData.PlayerData
                         Utils.WriteColour(">>", ConsoleColor.Yellow);
                         Console.ForegroundColor = ConsoleColor.Cyan;
                     }
-                    Console.Write($"{PlayerEntity.Instance.Inventory.ItemList[y - 1, typeColumn].Name}");
-                    Console.ResetColor();
+                    if (highlightItem is WeaponItem)
+                    {
+                        WeaponAffinityCheck(highlightItem);
+                    }
+                    else if (highlightItem is ArmourItem)
+                    {
+                        ArmourAffinityCheck(highlightItem);
+                    }
+                    else
+                    {
+                        Console.Write($"{PlayerEntity.Instance.Inventory.ItemList[y - 1, typeColumn].Name}");
+                        Console.ResetColor();
+                    }                    
                 }
                 else
                 {
@@ -354,6 +371,46 @@ namespace AuldShiteburn.EntityData.PlayerData
                     Console.Write($"--");
                     Console.ResetColor();
                 }
+            }
+        }
+
+        public static void WeaponAffinityCheck(Item item)
+        {
+            if (PlayerEntity.Instance.EquippedWeapon.Property.HasAffinity)
+            {
+                Utils.WriteColour($"{PlayerEntity.Instance.EquippedWeapon.Property.Name} ", ConsoleColor.DarkGreen);
+            }
+            else
+            {
+                Console.Write($"{PlayerEntity.Instance.EquippedWeapon.Property.Name} ");
+            }
+            if (PlayerEntity.Instance.EquippedWeapon.Material.HasAffinity)
+            {
+                Utils.WriteColour($"{PlayerEntity.Instance.EquippedWeapon.Material.Name} ", ConsoleColor.DarkGreen);
+            }
+            else
+            {
+                Console.Write($"{PlayerEntity.Instance.EquippedWeapon.Material.Name} ");
+            }
+            if (PlayerEntity.Instance.EquippedWeapon.Type.IsProficient)
+            {
+                Utils.WriteColour($"{PlayerEntity.Instance.EquippedWeapon.Type.Name} ", ConsoleColor.DarkGreen);
+            }
+            else
+            {
+                Console.Write($"{PlayerEntity.Instance.EquippedWeapon.Type.Name} ");
+            }
+        }
+
+        public static void ArmourAffinityCheck(Item item)
+        {
+            if (PlayerEntity.Instance.EquippedArmour.IsPhysicalProficient && PlayerEntity.Instance.EquippedArmour.HasPropertyAffinity)
+            {
+                Utils.WriteColour($"{PlayerEntity.Instance.EquippedArmour.Name} ", ConsoleColor.DarkGreen);
+            }
+            else
+            {
+                Console.Write($"{PlayerEntity.Instance.EquippedArmour.Name} ");
             }
         }
     }

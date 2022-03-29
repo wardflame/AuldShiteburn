@@ -223,11 +223,12 @@ namespace AuldShiteburn.MapData
         #region Printing
         public void PrintMap()
         {
-            PrintAreaName();
-            PrintPlayerStats();
-            PrintPlayerInventory();
             PrintArea();
+            PrintAreaName();
             PrintEntities();
+            PlayerEntity.Instance.PrintStats();
+            PlayerEntity.Instance.PrintInventory();
+            
         }
 
         /// <summary>
@@ -314,53 +315,6 @@ namespace AuldShiteburn.MapData
                 PrintEntity(entity);
             }
         }
-
-        /// <summary>
-        /// Print the player's name and stats beneath the area map.
-        /// </summary>
-        public void PrintPlayerStats()
-        {
-            Utils.SetCursorPlayerStat();
-            Console.Write($"{PlayerEntity.Instance.Name} the {PlayerEntity.Instance.Class.Name}");
-
-            Utils.SetCursorPlayerStat(offsetY: 1);
-            Console.Write($"Health: ");
-            Utils.WriteColour($"{PlayerEntity.Instance.HP}", ConsoleColor.Red);
-
-            if (PlayerEntity.Instance.UsesStamina)
-            {
-                Utils.SetCursorPlayerStat(offsetY: 2);
-                Console.Write($"Stamina: ");
-                Utils.WriteColour($"{PlayerEntity.Instance.Stamina}", ConsoleColor.Green);
-            }
-            if (PlayerEntity.Instance.UsesMana)
-            {
-                Utils.SetCursorPlayerStat(offsetY: 2);
-                Console.Write($"Mana: ");
-                Utils.WriteColour($"{PlayerEntity.Instance.Mana}", ConsoleColor.Blue);
-            }
-
-            Utils.SetCursorPlayerStat(offsetY: 3);
-            Console.Write("Equipped Weapon: ");
-            if (PlayerEntity.Instance.EquippedWeapon != null)
-            {
-                Console.Write(PlayerEntity.Instance.EquippedWeapon.Name);
-            }
-            Utils.SetCursorPlayerStat(offsetY: 4);
-            Console.Write("Equipped Armour: ");
-            if (PlayerEntity.Instance.EquippedArmour != null)
-            {
-                Console.Write(PlayerEntity.Instance.EquippedArmour.Name);
-            }
-
-            Utils.SetCursorInventory();            
-            //Console.Write($"(i) Inventory");
-        }
-
-        public void PrintPlayerInventory()
-        {
-            PlayerEntity.Instance.PrintInventory();            
-        }
         #endregion Printing
 
         #region Moving Entities
@@ -376,6 +330,11 @@ namespace AuldShiteburn.MapData
             int entX = entity.PosX;
             int entY = entity.PosY;
             entity.Move();
+
+            if (entity is PlayerEntity && PlayerEntity.Instance.QuittingToMenu)
+            {
+                return;
+            }
 
             Tile currentTile = CurrentArea.GetTile(entity.PosX, entity.PosY);
 

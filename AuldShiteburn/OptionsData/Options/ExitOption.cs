@@ -36,6 +36,7 @@ namespace AuldShiteburn.OptionsData.Options
                                 {
                                     Console.Clear();
                                     PlayerEntity.Instance.InMenu = false;
+                                    PlayerEntity.Instance.QuittingToMenu = true;
                                     Playtime.ResetPlaytime();
                                     Game.playing = false;
                                     Game.mainMenu = true;

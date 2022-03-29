@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AuldShiteburn.EntityData.PlayerData;
+using System;
 using System.Collections.Generic;
 
 namespace AuldShiteburn.ItemData
@@ -7,7 +8,7 @@ namespace AuldShiteburn.ItemData
     internal abstract class Item
     {
         public virtual string Name { get; }
-        public virtual void OnInventoryUse()
+        public virtual void OnInventoryUse(InventorySortData sortData)
         {
         }
     }
