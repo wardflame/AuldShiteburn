@@ -19,11 +19,10 @@ namespace AuldShiteburn.EntityData
         public bool QuittingToMenu { get; set; } = false;
         public bool InMenu { get; set; }
         public long Playtime { get; set; }
-        public CharacterClass Class { get; private set; }
         public Inventory Inventory { get; set; } = new Inventory();
+        public CharacterClass Class { get; private set; }
         public WeaponItem EquippedWeapon { get; set; }
         public ArmourItem EquippedArmour { get; set; }
-
 
         public override void Move()
         {
@@ -71,6 +70,11 @@ namespace AuldShiteburn.EntityData
             }
         }
 
+        /// <summary>
+        /// Generate a new player character through randomly generating
+        /// class (which have preset stats), names and loot.
+        /// </summary>
+        /// <returns>New player character.</returns>
         public static PlayerEntity GenerateCharacter()
         {
             Instance = new PlayerEntity();
@@ -117,6 +121,11 @@ namespace AuldShiteburn.EntityData
             #endregion Loot Assignment
 
             return Instance;
+        }
+
+        public override void ReceiveDamage(int incomingDamage)
+        {
+            
         }
 
         /// <summary>

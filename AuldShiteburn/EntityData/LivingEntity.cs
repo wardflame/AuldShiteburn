@@ -58,5 +58,8 @@ namespace AuldShiteburn.EntityData
                 }
             }
         }
+        public virtual void ReceiveDamage()
+        {
+        }
     }
 }

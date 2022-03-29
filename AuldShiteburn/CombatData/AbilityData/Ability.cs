@@ -10,6 +10,6 @@ namespace AuldShiteburn.CombatData.AbilityData
         public abstract int MinDamage { get; }
         public abstract int MaxDamage { get; }
         public abstract int ResourceCost { get; }
-        public abstract void ActivateAbility();
+        public abstract void UseAbility();
     }
 }

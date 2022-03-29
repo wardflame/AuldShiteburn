@@ -1,4 +1,5 @@
 ﻿using AuldShiteburn.CombatData;
+using AuldShiteburn.CombatData.AbilityData;
 using AuldShiteburn.ItemData;
 using AuldShiteburn.ItemData.ArmourData;
 using AuldShiteburn.ItemData.WeaponData;
@@ -87,6 +88,7 @@ namespace AuldShiteburn.EntityData.PlayerData
         public List<string> TitlesFemale { get; set; }
         public ClassStatistics Statistics { get; }
         public ProficiencyData Proficiencies { get; set; }
+        public List<Ability> Abilities { get; }
 
         public CharacterClass(string name, ClassType classType, TitleData titleData, ClassStatistics classStatistics, ProficiencyData proficiencies)
         {

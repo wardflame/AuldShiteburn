@@ -6,10 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="CombatData\AbilityData\Abilities\FighterAbilities\" />
-    <Folder Include="CombatData\AbilityData\Abilities\MarauderAbilities\" />
-    <Folder Include="CombatData\AbilityData\Abilities\MonkAbilities\" />
-    <Folder Include="CombatData\AbilityData\Abilities\RogueAbilities\" />
+    <Folder Include="CombatData\AbilityData\Abilities\ClassAbilities\FighterAbilities\" />
+    <Folder Include="CombatData\AbilityData\Abilities\ClassAbilities\MarauderAbilities\" />
+    <Folder Include="CombatData\AbilityData\Abilities\ClassAbilities\MonkAbilities\" />
+    <Folder Include="CombatData\AbilityData\Abilities\ClassAbilities\RogueAbilities\" />
   </ItemGroup>
 	
 </Project>

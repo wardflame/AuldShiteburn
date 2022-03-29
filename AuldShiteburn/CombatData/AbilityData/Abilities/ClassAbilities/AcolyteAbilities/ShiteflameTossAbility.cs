@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AuldShiteburn.CombatData.AbilityData.Abilities.AcolyteAbilities
+namespace AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.AcolyteAbilities
 {
     [Serializable]
     internal class ShiteflameTossAbility : Ability
@@ -11,7 +11,7 @@ namespace AuldShiteburn.CombatData.AbilityData.Abilities.AcolyteAbilities
         public override int MaxDamage => 8;
         public override int ResourceCost => 6;
 
-        public override void ActivateAbility()
+        public override void UseAbility()
         {
             throw new NotImplementedException();
         }
