@@ -61,6 +61,15 @@ namespace AuldShiteburn.EntityData
                 }
             }
         }
+
+        /// <summary>
+        /// Take a damage payload and calculate it against the enitity's
+        /// resistances (where applicable). Mitigate damage and then
+        /// reduce the enitity's HP by the remaining damage.
+        /// </summary>
+        /// <param name="incomingDamage">Damage payload to process.</param>
+        /// <param name="offsetY">Potentially required for UI placement.</param>
+        /// <returns>Returns true if the entity died.</returns>
         public virtual bool ReceiveDamage(Damage incomingDamage, int offsetY = 0)
         {
             return false;

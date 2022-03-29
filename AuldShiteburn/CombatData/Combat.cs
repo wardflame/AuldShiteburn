@@ -41,6 +41,12 @@ namespace AuldShiteburn.CombatData
             }
         }
 
+        /// <summary>
+        /// Generate a Damage payload from the player's equipped weapon,
+        /// randomising between the min and max physical and property
+        /// damages.
+        /// </summary>
+        /// <returns>Damage payload for enemy to process.</returns>
         private static Damage CalculateWeaponDamage()
         {
             Random rand = new Random();
@@ -50,6 +56,12 @@ namespace AuldShiteburn.CombatData
             return new Damage(physDamage, propDamage, playerWeapon.Type.PrimaryAttack, playerWeapon.Property.Property);
         }
 
+        /// <summary>
+        /// Offer player choice to use weapon or ability, return choice.
+        /// </summary>
+        /// <param name="enemies">List of enemies.</param>
+        /// <param name="index">Index of the enemy in the list.</param>
+        /// <returns>Returns option chosen.</returns>
         private static int AttackChoice(List<EnemyEntity> enemies, int index)
         {
             Utils.SetCursorInteract(enemies.Count + 2);
@@ -82,6 +94,12 @@ namespace AuldShiteburn.CombatData
             return 0;
         }
 
+        /// <summary>
+        /// Get a list of enemies and cycle through them, returning the index
+        /// of the enemy the player's selected.
+        /// </summary>
+        /// <param name="enemies">List of enemies to cycle.</param>
+        /// <returns>Return index of chosen enemy.</returns>
         private static int CycleEnemies(List<EnemyEntity> enemies)
         {
             Utils.SetCursorInteract();
@@ -120,6 +138,12 @@ namespace AuldShiteburn.CombatData
             return index;
         }
 
+        /// <summary>
+        /// For each enemy in a list, print them out,
+        /// highlighting the one at a desired index.
+        /// </summary>
+        /// <param name="enemies">List of enemies to print.</param>
+        /// <param name="index">Index of enemy to highlight.</param>
         private static void PrintEnemies(List<EnemyEntity> enemies, int index)
         {
             for (int i = 0; i < enemies.Count; i++)

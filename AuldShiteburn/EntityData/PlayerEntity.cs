@@ -271,6 +271,10 @@ namespace AuldShiteburn.EntityData
             PrintArmour();
         }
 
+        /// <summary>
+        /// Print the player's weapon with highlights for
+        /// proficiency.
+        /// </summary>
         public void PrintWeapon()
         {
             Console.Write("Equipped Weapon: ");
@@ -303,6 +307,10 @@ namespace AuldShiteburn.EntityData
             }
         }
 
+        /// <summary>
+        /// Print the player's armour with highlights for
+        /// proficiency.
+        /// </summary>
         public void PrintArmour()
         {
             Console.Write("Equipped Armour: ");
