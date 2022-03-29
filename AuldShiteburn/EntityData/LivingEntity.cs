@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AuldShiteburn.CombatData;
+using System;
 
 namespace AuldShiteburn.EntityData
 {
@@ -58,7 +59,7 @@ namespace AuldShiteburn.EntityData
                 }
             }
         }
-        public virtual void ReceiveDamage()
+        public virtual void ReceiveDamage(Damage incomingDamage)
         {
         }
     }

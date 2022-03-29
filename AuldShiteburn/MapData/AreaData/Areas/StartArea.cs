@@ -36,6 +36,7 @@ namespace AuldShiteburn.MapData.AreaData.Areas
                         ArmourItem.Maille
                     },
                     false)));
+            placeData.Add(new TilePlaceData(5, 4, new TrapTile()));
         }
 
         protected override void InitEntities()

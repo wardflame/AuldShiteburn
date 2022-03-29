@@ -349,17 +349,17 @@ namespace AuldShiteburn.EntityData.PlayerData
                     }
                     if (highlightItem is WeaponItem)
                     {
-                        WeaponAffinityCheck(highlightItem);
+                        WeaponAffinityCheck((WeaponItem)highlightItem);
                     }
                     else if (highlightItem is ArmourItem)
                     {
-                        ArmourAffinityCheck(highlightItem);
+                        ArmourAffinityCheck((ArmourItem)highlightItem);
                     }
                     else
                     {
                         Console.Write($"{PlayerEntity.Instance.Inventory.ItemList[y - 1, typeColumn].Name}");
-                        Console.ResetColor();
-                    }                    
+                    }
+                    Console.ResetColor();
                 }
                 else
                 {
@@ -374,43 +374,43 @@ namespace AuldShiteburn.EntityData.PlayerData
             }
         }
 
-        public static void WeaponAffinityCheck(Item item)
+        public static void WeaponAffinityCheck(WeaponItem weapon)
         {
-            if (PlayerEntity.Instance.EquippedWeapon.Property.HasAffinity)
+            if (weapon.Property.HasAffinity)
             {
-                Utils.WriteColour($"{PlayerEntity.Instance.EquippedWeapon.Property.Name} ", ConsoleColor.DarkGreen);
+                Utils.WriteColour($"{weapon.Property.Name} ", ConsoleColor.DarkGreen);
             }
             else
             {
-                Console.Write($"{PlayerEntity.Instance.EquippedWeapon.Property.Name} ");
+                Console.Write($"{weapon.Property.Name} ");
             }
-            if (PlayerEntity.Instance.EquippedWeapon.Material.HasAffinity)
+            if (weapon.Material.HasAffinity)
             {
-                Utils.WriteColour($"{PlayerEntity.Instance.EquippedWeapon.Material.Name} ", ConsoleColor.DarkGreen);
-            }
-            else
-            {
-                Console.Write($"{PlayerEntity.Instance.EquippedWeapon.Material.Name} ");
-            }
-            if (PlayerEntity.Instance.EquippedWeapon.Type.IsProficient)
-            {
-                Utils.WriteColour($"{PlayerEntity.Instance.EquippedWeapon.Type.Name} ", ConsoleColor.DarkGreen);
+                Utils.WriteColour($"{weapon.Material.Name} ", ConsoleColor.DarkGreen);
             }
             else
             {
-                Console.Write($"{PlayerEntity.Instance.EquippedWeapon.Type.Name} ");
+                Console.Write($"{weapon.Material.Name} ");
+            }
+            if (weapon.Type.IsProficient)
+            {
+                Utils.WriteColour($"{weapon.Type.Name} ", ConsoleColor.DarkGreen);
+            }
+            else
+            {
+                Console.Write($"{weapon.Type.Name} ");
             }
         }
 
-        public static void ArmourAffinityCheck(Item item)
+        public static void ArmourAffinityCheck(ArmourItem armour)
         {
-            if (PlayerEntity.Instance.EquippedArmour.IsPhysicalProficient && PlayerEntity.Instance.EquippedArmour.HasPropertyAffinity)
+            if (armour.IsPhysicalProficient && armour.HasPropertyAffinity)
             {
-                Utils.WriteColour($"{PlayerEntity.Instance.EquippedArmour.Name} ", ConsoleColor.DarkGreen);
+                Utils.WriteColour($"{armour.Name} ", ConsoleColor.DarkGreen);
             }
             else
             {
-                Console.Write($"{PlayerEntity.Instance.EquippedArmour.Name} ");
+                Console.Write($"{armour.Name} ");
             }
         }
     }

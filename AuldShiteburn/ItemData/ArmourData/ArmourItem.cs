@@ -175,10 +175,6 @@ namespace AuldShiteburn.ItemData.ArmourData
             ArmourFamily = armourFamily;
             PhysicalMitigation = physicalMitigation;
             PropertyMitigation = propertyMitigation;
-            PrimaryPhysicalResistance = primaryPhysResist;
-            SecondaryPhysicalResistance = secondaryPhysResist;
-            PrimaryPropertyResistance = primaryPropResist;
-            SecondaryPhysicalResistance = secondaryPhysResist;
         }
 
         public override void OnInventoryUse(InventorySortData sortData)

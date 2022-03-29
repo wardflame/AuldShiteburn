@@ -1,4 +1,5 @@
 ﻿using AuldShiteburn.BackendData;
+using AuldShiteburn.CombatData;
 using AuldShiteburn.EntityData.PlayerData;
 using AuldShiteburn.ItemData;
 using AuldShiteburn.ItemData.ArmourData;
@@ -123,9 +124,58 @@ namespace AuldShiteburn.EntityData
             return Instance;
         }
 
-        public override void ReceiveDamage(int incomingDamage)
+        public override void ReceiveDamage(Damage incomingDamage)
         {
-            
+            int initialPhys = incomingDamage.physicalDamage;
+            int initialProp = incomingDamage.propertyDamage;
+            int totalDamage = 0;
+            Utils.SetCursorInteract();
+            if (Instance.EquippedArmour != null)
+            {
+                ArmourItem playerArmour = Instance.EquippedArmour;
+                bool physRes = playerArmour.PrimaryPhysicalResistance == incomingDamage.physDamageType;
+                bool propRes = playerArmour.PrimaryPropertyResistance == incomingDamage.propertyDamageType;
+
+                Console.Write($"{Instance.Name} takes ");
+                int physDamage = incomingDamage.physicalDamage -= playerArmour.PhysicalMitigation;
+                if (physRes)
+                {
+                    physDamage -= Combat.ARMOUR_RESISTANCE_MITIGATION;
+                }
+                if (physDamage < 0) physDamage = 0;
+                Utils.WriteColour($"{physDamage}/{initialPhys} ", ConsoleColor.Red);
+                int propDamage = incomingDamage.propertyDamage -= playerArmour.PropertyMitigation;
+                if (propRes)
+                {
+                    propDamage -= Combat.ARMOUR_RESISTANCE_MITIGATION;
+                }
+                if (propDamage < 0) propDamage = 0;
+                Console.Write("and ");
+                Utils.WriteColour($"{propDamage}/{initialProp} ", ConsoleColor.Red);
+                Console.Write("property damage ");
+                totalDamage = physDamage + propDamage;
+                Console.Write($"for a total of ");
+                Utils.WriteColour($"{totalDamage} ", ConsoleColor.Red);
+                Console.Write($"damage.");
+            }
+            else
+            {
+                Console.Write($"{Instance.Name} takes ");
+                totalDamage += incomingDamage.physicalDamage;
+                Utils.WriteColour($"{incomingDamage.physicalDamage} ", ConsoleColor.Red);
+                Console.Write($"physical damage and ");
+                totalDamage += incomingDamage.propertyDamage;
+                Utils.WriteColour($"{incomingDamage.propertyDamage} ", ConsoleColor.Red);
+                Console.Write($"for a total of ");
+                Utils.WriteColour($"{totalDamage} ", ConsoleColor.Red);
+                Console.Write($"damage.");
+            }
+            Instance.HP -= totalDamage;
+            if (Instance.HP <= 0)
+            {
+                // WE GOT A LOT TO DO!
+            }
+            Instance.PrintStats();
         }
 
         /// <summary>
@@ -192,6 +242,7 @@ namespace AuldShiteburn.EntityData
         /// </summary>
         public void PrintStats()
         {
+            Utils.ClearPlayerStatInterface();
             Utils.SetCursorPlayerStat();
             Console.Write($"{Instance.Name} the {Instance.Class.Name}");
 
