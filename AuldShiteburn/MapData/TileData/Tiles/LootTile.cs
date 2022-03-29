@@ -93,14 +93,14 @@ namespace AuldShiteburn.MapData.TileData.Tiles
 
         private int LootStock()
         {
-            Utils.ClearInteractInterface(offsetY:5);
+            Utils.ClearInteractInterface(5);
             Utils.SetCursorInteract();
             Console.WriteLine("Loot Items: ");
             int lootStock = 0;
             foreach (Item item in items)
             {
                 lootStock++;
-                Utils.SetCursorInteract(offsetY: lootStock);
+                Utils.SetCursorInteract(lootStock);
                 Console.WriteLine($"{lootStock}. {item.Name}");
             }
             return lootStock;

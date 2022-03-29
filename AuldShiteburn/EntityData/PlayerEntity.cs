@@ -85,13 +85,13 @@ namespace AuldShiteburn.EntityData
 
             #region Class Generation and Stat Assignments
             Instance.Class = CharacterClass.Classes[rand.Next(CharacterClass.Classes.Count)];
-            Instance.maxHP = Instance.Class.Statistics.hp;
+            Instance.MaxHP = Instance.Class.Statistics.hp;
             Instance.HP = Instance.Class.Statistics.hp;
             Instance.UsesStamina = Instance.Class.Statistics.usesStamina;
             Instance.UsesMana = Instance.Class.Statistics.usesMana;
-            Instance.maxStamina = Instance.Class.Statistics.stamina;
+            Instance.MaxStamina = Instance.Class.Statistics.stamina;
             Instance.Stamina = Instance.Class.Statistics.stamina;
-            Instance.maxMana = Instance.Class.Statistics.mana;
+            Instance.MaxMana = Instance.Class.Statistics.mana;
             Instance.Mana = Instance.Class.Statistics.mana;
             #endregion Class Generation
 
@@ -124,7 +124,7 @@ namespace AuldShiteburn.EntityData
             return Instance;
         }
 
-        public override void ReceiveDamage(Damage incomingDamage)
+        public override bool ReceiveDamage(Damage incomingDamage, int offsetY = 0)
         {
             int initialPhys = incomingDamage.physicalDamage;
             int initialProp = incomingDamage.propertyDamage;
@@ -173,9 +173,11 @@ namespace AuldShiteburn.EntityData
             Instance.HP -= totalDamage;
             if (Instance.HP <= 0)
             {
+                return true;
                 // WE GOT A LOT TO DO!
             }
             Instance.PrintStats();
+            return false;
         }
 
         /// <summary>
@@ -191,7 +193,7 @@ namespace AuldShiteburn.EntityData
                 if (x == 0)
                 {
                     offset = Inventory.WEAPON_OFFSET;
-                    Utils.SetCursorInventory(Inventory.WEAPON_OFFSET);
+                    Utils.SetCursorInventory(offsetX: Inventory.WEAPON_OFFSET);
                     Console.Write("[");
                     Utils.WriteColour("WEAPONS", ConsoleColor.DarkYellow);
                     Console.Write("]");
@@ -199,7 +201,7 @@ namespace AuldShiteburn.EntityData
                 if (x == 1)
                 {
                     offset = Inventory.ARMOUR_OFFSET;
-                    Utils.SetCursorInventory(Inventory.ARMOUR_OFFSET);
+                    Utils.SetCursorInventory(offsetX: Inventory.ARMOUR_OFFSET);
                     Console.Write("[");
                     Utils.WriteColour("ARMOUR", ConsoleColor.DarkYellow);
                     Console.Write("]");
@@ -207,7 +209,7 @@ namespace AuldShiteburn.EntityData
                 if (x == 2)
                 {
                     offset = Inventory.CONSUMABLE_OFFSET;
-                    Utils.SetCursorInventory(Inventory.CONSUMABLE_OFFSET);
+                    Utils.SetCursorInventory(offsetX: Inventory.CONSUMABLE_OFFSET);
                     Console.Write("[");
                     Utils.WriteColour("CONSUMABLES", ConsoleColor.DarkYellow);
                     Console.Write("]");
@@ -215,14 +217,14 @@ namespace AuldShiteburn.EntityData
                 if (x == 3)
                 {
                     offset = Inventory.KEY_OFFSET;
-                    Utils.SetCursorInventory(Inventory.KEY_OFFSET);
+                    Utils.SetCursorInventory(offsetX: Inventory.KEY_OFFSET);
                     Console.Write("[");
                     Utils.WriteColour("KEY ITEMS", ConsoleColor.DarkYellow);
                     Console.Write("]");
                 }
                 for (int y = 1; y <= Inventory.Row; y++)
                 {
-                    Utils.SetCursorInventory(offset, y);
+                    Utils.SetCursorInventory(y, offset);
                     {
                         if (Inventory.ItemList[y - 1, x] != null)
                         {
@@ -246,61 +248,72 @@ namespace AuldShiteburn.EntityData
             Utils.SetCursorPlayerStat();
             Console.Write($"{Instance.Name} the {Instance.Class.Name}");
 
-            Utils.SetCursorPlayerStat(offsetY: 1);
+            Utils.SetCursorPlayerStat(1);
             Console.Write($"Health: ");
             Utils.WriteColour($"{Instance.HP}", ConsoleColor.Red);
 
             if (Instance.UsesStamina)
             {
-                Utils.SetCursorPlayerStat(offsetY: 2);
+                Utils.SetCursorPlayerStat(2);
                 Console.Write($"Stamina: ");
                 Utils.WriteColour($"{Instance.Stamina}", ConsoleColor.Green);
             }
             if (Instance.UsesMana)
             {
-                Utils.SetCursorPlayerStat(offsetY: 2);
+                Utils.SetCursorPlayerStat(2);
                 Console.Write($"Mana: ");
                 Utils.WriteColour($"{Instance.Mana}", ConsoleColor.Blue);
             }
 
-            Utils.SetCursorPlayerStat(offsetY: 3);
+            Utils.SetCursorPlayerStat(3);
+            PrintWeapon();
+            Utils.SetCursorPlayerStat(4);
+            PrintArmour();
+        }
+
+        public void PrintWeapon()
+        {
             Console.Write("Equipped Weapon: ");
             if (Instance.EquippedWeapon != null)
             {
                 if (Instance.EquippedWeapon.Property.HasAffinity)
                 {
-                    Utils.WriteColour($"{Instance.EquippedWeapon.Property.Name} ", ConsoleColor.DarkGreen);
+                    Console.ForegroundColor = ConsoleColor.DarkGreen;
                 }
-                else
-                {
-                    Console.Write($"{Instance.EquippedWeapon.Property.Name} ");
-                }
+                Console.Write($"{Instance.EquippedWeapon.Property.Name} ");
+                Console.ResetColor();
+
                 if (Instance.EquippedWeapon.Material.HasAffinity)
                 {
-                    Utils.WriteColour($"{Instance.EquippedWeapon.Material.Name} ", ConsoleColor.DarkGreen);
+                    Console.ForegroundColor = ConsoleColor.DarkGreen;
                 }
-                else
-                {
-                    Console.Write($"{Instance.EquippedWeapon.Material.Name} ");
-                }
+                Console.Write($"{Instance.EquippedWeapon.Material.Name} ");
+                Console.ResetColor();
+
                 if (Instance.EquippedWeapon.Type.IsProficient)
                 {
-                    Utils.WriteColour($"{Instance.EquippedWeapon.Type.Name} ", ConsoleColor.DarkGreen);
+                    Console.ForegroundColor = ConsoleColor.DarkGreen;
                 }
-                else
-                {
-                    Console.Write($"{Instance.EquippedWeapon.Type.Name} ");
-                }
+                Console.Write($"{Instance.EquippedWeapon.Type.Name} ");
+                Console.ResetColor();
             }
             else
             {
                 Console.Write("--");
             }
-            Utils.SetCursorPlayerStat(offsetY: 4);
+        }
+
+        public void PrintArmour()
+        {
             Console.Write("Equipped Armour: ");
             if (Instance.EquippedArmour != null)
             {
+                if (Instance.Class.Proficiencies.armourProficiency == Instance.EquippedArmour.ArmourFamily)
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkGreen;
+                }
                 Console.Write(Instance.EquippedArmour.Name);
+                Console.ResetColor();
             }
             else
             {

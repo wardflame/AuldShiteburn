@@ -29,9 +29,9 @@ namespace AuldShiteburn.EntityData.PlayerData
             int typeColumn = GetItemTypeColumn(item);
             int typeOffset = GetItemTypeUIOffset(item);
 
-            Utils.SetCursorInventory(offsetY: -1);
+            Utils.SetCursorInventory(-1);
             Utils.ClearLine(60);
-            Utils.SetCursorInventory(offsetY: -1);
+            Utils.SetCursorInventory(-1);
             Utils.WriteColour($"Choose a slot to place {item.Name}.", ConsoleColor.Yellow);
 
             InventorySortData sortData = NavigateInventory(typeColumn, typeOffset);
@@ -51,9 +51,9 @@ namespace AuldShiteburn.EntityData.PlayerData
                     else
                     {
                         Item previousItem = PlayerEntity.Instance.Inventory.ItemList[sortData.index, typeColumn];
-                        Utils.SetCursorInventory(offsetY: -1);
+                        Utils.SetCursorInventory(-1);
                         Utils.ClearLine(60);
-                        Utils.SetCursorInventory(offsetY: -1);
+                        Utils.SetCursorInventory(-1);
                         Utils.WriteColour($"No empty slots available. Drop {previousItem.Name}? (Y/N)", ConsoleColor.Red);
                         if (Utils.VerificationQuery(null))
                         {
@@ -169,20 +169,20 @@ namespace AuldShiteburn.EntityData.PlayerData
                 Console.WriteLine($"What do you wish to do with {currentItem.Name}?");
                 if (currentItem is WeaponItem)
                 {
-                    Utils.SetCursorInteract(offsetY: 1);
+                    Utils.SetCursorInteract(1);
                     Console.WriteLine("(E) Equip Weapon");
                 }
                 else if (currentItem is ArmourItem)
                 {
-                    Utils.SetCursorInteract(offsetY: 1);
+                    Utils.SetCursorInteract(1);
                     Console.WriteLine("(E) Equip Armour");
                 }
                 else if (currentItem is ConsumableItem)
                 {
-                    Utils.SetCursorInteract(offsetY: 1);
+                    Utils.SetCursorInteract(1);
                     Console.WriteLine("(E) Consume");
                 }
-                Utils.SetCursorInteract(offsetY: 2);
+                Utils.SetCursorInteract(2);
                 Console.WriteLine("(D) Drop Item");
                 bool choosing = true;
                 while (choosing)
@@ -224,9 +224,9 @@ namespace AuldShiteburn.EntityData.PlayerData
         /// <returns>Returns true if item was dropped, else returns false.</returns>
         private bool DropItem (Item dropItem, InventorySortData sortData)
         {
-            Utils.SetCursorInventory(offsetY: -1);
+            Utils.SetCursorInventory(-1);
             Utils.ClearLine(60);
-            Utils.SetCursorInventory(offsetY: -1);
+            Utils.SetCursorInventory(-1);
             Utils.WriteColour($"Dropped {dropItem.Name} on the floor.", ConsoleColor.Red);
             Tile currentTile = Map.Instance.CurrentArea.GetTile(PlayerEntity.Instance.PosX, PlayerEntity.Instance.PosY);
             if (currentTile is LootTile)
@@ -339,7 +339,7 @@ namespace AuldShiteburn.EntityData.PlayerData
             Item highlightItem = PlayerEntity.Instance.Inventory.ItemList[index, typeColumn];
             for (int y = 1; y <= Row; y++)
             {
-                Utils.SetCursorInventory(typeOffset, y);
+                Utils.SetCursorInventory(y, typeOffset);
                 if (PlayerEntity.Instance.Inventory.ItemList[y - 1, typeColumn] != null)
                 {
                     if (y - 1 == index )

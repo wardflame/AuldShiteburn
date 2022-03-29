@@ -14,8 +14,8 @@ namespace AuldShiteburn.MapData
         public abstract int Height { get; }
         private Tile[] area;
         protected List<TilePlaceData> placeData = new List<TilePlaceData>();
-        private bool firstEnter = true;
-        public List<Entity> entities = new List<Entity>();
+        public bool firstEnter = true;
+        public List<EnemyEntity> enemies = new List<EnemyEntity>();
 
         public Area()
         {
@@ -23,11 +23,11 @@ namespace AuldShiteburn.MapData
             AddSpecialTiles();
             TileGeneration();
             PlaceSpecialTiles();
+            InitEnemies();
         }
 
-        protected abstract void OnFirstEnter();
-        protected abstract void InitEntities();
-
+        public abstract void OnFirstEnter();
+        protected abstract void InitEnemies();
         protected abstract void TileGeneration();
 
         private void PlaceSpecialTiles()

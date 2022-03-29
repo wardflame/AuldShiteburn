@@ -165,6 +165,8 @@ namespace AuldShiteburn.MapData
         /// <param name="direction">The cardinal direction we're attempting to traverse.</param>
         public void MoveArea(Direction direction)
         {
+            int previousX = posX;
+            int previousY = posY;
             switch (direction)
             {
                 case Direction.North:
@@ -187,6 +189,17 @@ namespace AuldShiteburn.MapData
                         posX--;
                     }
                     break;
+            }
+            if (CurrentArea.firstEnter && CurrentArea.enemies.Count > 0)
+            {
+                Utils.ClearInteractInterface();
+                Utils.SetCursorInteract();
+                if (!Utils.VerificationQuery("Dark creatures stir ahead. Do you wish to continue? (Y/N)"))
+                {
+                    posX = previousX;
+                    posY = previousY;
+                    return;
+                }
             }
             posX = Math.Clamp(posX, 0, Width - 1);
             posY = Math.Clamp(posY, 0, Height - 1);
@@ -214,9 +227,12 @@ namespace AuldShiteburn.MapData
                     break;
             }
             ClearAreaName();
-            Console.CursorLeft = 0;
-            Console.CursorTop = 0;
+            Console.SetCursorPosition(0, 0);
             PrintMap();
+            if (CurrentArea.firstEnter)
+            {
+                CurrentArea.OnFirstEnter();
+            }
         }
         #endregion Areas
 
@@ -227,8 +243,7 @@ namespace AuldShiteburn.MapData
             PrintAreaName();
             PrintEntities();
             PlayerEntity.Instance.PrintStats();
-            PlayerEntity.Instance.PrintInventory();
-            
+            PlayerEntity.Instance.PrintInventory();            
         }
 
         /// <summary>
@@ -310,7 +325,7 @@ namespace AuldShiteburn.MapData
         public void PrintEntities()
         {
             PrintEntity(PlayerEntity.Instance);
-            foreach (Entity entity in CurrentArea.entities)
+            foreach (Entity entity in CurrentArea.enemies)
             {
                 PrintEntity(entity);
             }
@@ -360,7 +375,7 @@ namespace AuldShiteburn.MapData
         {
             MoveEntity(PlayerEntity.Instance);
             ClearNPCTextQuery();
-            foreach (Entity entity in CurrentArea.entities)
+            foreach (Entity entity in CurrentArea.enemies)
             {
                 MoveEntity(entity);
             }
@@ -399,8 +414,8 @@ namespace AuldShiteburn.MapData
                 !interactionTiles.Exists(text => CheckTileType(PlayerEntity.Instance.PosX, minusY, text)) &&
                 !interactionTiles.Exists(text => CheckTileType(PlayerEntity.Instance.PosX, plusY, text)))
             {
-                Utils.ClearInteractInterface(offsetY: 3);
-                Utils.SetCursorInventory(offsetY: -1);
+                Utils.ClearInteractInterface(3);
+                Utils.SetCursorInventory(-1);
                 Utils.ClearLine(Console.WindowWidth);
             }
         }

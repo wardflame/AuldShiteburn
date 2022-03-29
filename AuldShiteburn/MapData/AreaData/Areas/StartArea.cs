@@ -39,11 +39,11 @@ namespace AuldShiteburn.MapData.AreaData.Areas
             placeData.Add(new TilePlaceData(5, 4, new TrapTile()));
         }
 
-        protected override void InitEntities()
+        protected override void InitEnemies()
         {
         }
 
-        protected override void OnFirstEnter()
+        public override void OnFirstEnter()
         {
         }
 

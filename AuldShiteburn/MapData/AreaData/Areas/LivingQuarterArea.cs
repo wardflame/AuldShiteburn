@@ -1,4 +1,6 @@
-﻿using AuldShiteburn.ItemData.KeyData;
+﻿using AuldShiteburn.CombatData;
+using AuldShiteburn.EntityData.Enemies;
+using AuldShiteburn.ItemData.KeyData;
 using AuldShiteburn.MapData.TileData;
 using AuldShiteburn.MapData.TileData.Tiles;
 using AuldShiteburn.MapData.TileData.Tiles.NPCs;
@@ -19,12 +21,17 @@ namespace AuldShiteburn.MapData.AreaData.Areas
             placeData.Add(new TilePlaceData(4, 4, new DoorTile(true, KeyItem.residentKey)));
         }
 
-        protected override void InitEntities()
+        protected override void InitEnemies()
         {
+            Random rand = new Random();
+            enemies.Add(new ShiteHuskEnemyEntity(rand.Next(6, 13)));
+            enemies.Add(new ShiteHuskEnemyEntity(rand.Next(6, 13)));
+            enemies.Add(new ShiteHuskEnemyEntity(rand.Next(6, 13)));
         }
 
-        protected override void OnFirstEnter()
+        public override void OnFirstEnter()
         {
+            Combat.CombatEncounter(enemies);
         }
 
         protected override void TileGeneration()

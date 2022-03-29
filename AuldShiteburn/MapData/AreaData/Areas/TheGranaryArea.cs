@@ -28,12 +28,12 @@ namespace AuldShiteburn.MapData.AreaData.Areas
             }
         }
 
-        protected override void OnFirstEnter()
+        public override void OnFirstEnter()
         {
 
         }
 
-        protected override void InitEntities()
+        protected override void InitEnemies()
         {
         }
     }

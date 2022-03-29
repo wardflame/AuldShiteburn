@@ -10,9 +10,9 @@ namespace AuldShiteburn.ItemData.WeaponData
     class WeaponProperty
     {
         #region Weapon Properties
-        public static WeaponProperty WeaponPropertyRuined
+        public static WeaponProperty WeaponPropertyDamaged
         {
-            get { return new WeaponProperty("Ruined", PropertyDamageType.Damaged, ClassType.None, -1, -3); }
+            get { return new WeaponProperty("Damaged", PropertyDamageType.Damaged, ClassType.None, -3, -1); }
         }
         public static WeaponProperty WeaponPropertyStandard
         {
@@ -42,7 +42,7 @@ namespace AuldShiteburn.ItemData.WeaponData
             {
                 return new List<WeaponProperty>()
                 {
-                    WeaponPropertyRuined,
+                    WeaponPropertyDamaged,
                     WeaponPropertyStandard,
                     WeaponPropertyFlaming,
                     WeaponPropertyCold,

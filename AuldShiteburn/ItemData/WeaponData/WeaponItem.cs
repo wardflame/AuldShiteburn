@@ -23,13 +23,21 @@ namespace AuldShiteburn.ItemData.WeaponData
                 }
             }
         }
-        public int TotalMinDamage
+        public int MinPhysDamage
         {
-            get { return Type.MinDamage + Material.MinDamage + Property.MinDamage; }
+            get { return Type.MinDamage + Material.MinDamage; }
         }
-        public int TotalMaxDamage
+        public int MaxPhysDamage
         {
-            get { return Type.MaxDamage + Material.MaxDamage + Property.MaxDamage; }
+            get { return Type.MaxDamage + Material.MaxDamage; }
+        }
+        public int MinPropDamage
+        {
+            get { return Property.MinDamage; }
+        }
+        public int MaxPropDamage
+        {
+            get { return Property.MaxDamage; }
         }
         public WeaponType Type { get; set; }
         public WeaponMaterial Material { get; set; }
@@ -73,7 +81,7 @@ namespace AuldShiteburn.ItemData.WeaponData
             #region Property Generation
             if (rand.Next(1, 101) <= 8)
             {
-                weapon.Property = WeaponProperty.WeaponPropertyRuined;
+                weapon.Property = WeaponProperty.WeaponPropertyDamaged;
             }
             else if (rand.Next(1, 101) <= 15)
             {

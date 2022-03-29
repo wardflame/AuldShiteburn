@@ -10,11 +10,11 @@ namespace AuldShiteburn.MapData.AreaData.Areas
         public override int Width => 20;
         public override int Height => 20;
 
-        protected override void InitEntities()
+        protected override void InitEnemies()
         {
         }
 
-        protected override void OnFirstEnter()
+        public override void OnFirstEnter()
         {
         }
 

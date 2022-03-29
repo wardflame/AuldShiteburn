@@ -10,16 +10,18 @@ namespace AuldShiteburn.EntityData
         public bool UsesStamina { get; set; }
         public bool UsesMana { get; set; }
         protected float hp, stamina, mana;
-        protected float maxHP, maxStamina, maxMana;
+        public float MaxHP { get; protected set; }
+        public float MaxStamina { get; protected set; }
+        public float MaxMana { get; protected set; }
         public float HP
         {
             get { return hp; }
             set
             {
                 hp = value;
-                if (value > maxHP)
+                if (value > MaxHP)
                 {
-                    hp = maxHP;
+                    hp = MaxHP;
                 }
                 else if (value < 0)
                 {
@@ -33,9 +35,9 @@ namespace AuldShiteburn.EntityData
             set
             {
                 stamina = value;
-                if (value > maxStamina)
+                if (value > MaxStamina)
                 {
-                    stamina = maxStamina;
+                    stamina = MaxStamina;
                 }
                 else if (value < 0)
                 {
@@ -49,9 +51,9 @@ namespace AuldShiteburn.EntityData
             set
             {
                 mana = value;
-                if (value > maxMana)
+                if (value > MaxMana)
                 {
-                    mana = maxMana;
+                    mana = MaxMana;
                 }
                 else if (value < 0)
                 {
@@ -59,8 +61,9 @@ namespace AuldShiteburn.EntityData
                 }
             }
         }
-        public virtual void ReceiveDamage(Damage incomingDamage)
+        public virtual bool ReceiveDamage(Damage incomingDamage, int offsetY = 0)
         {
+            return false;
         }
     }
 }
