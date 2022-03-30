@@ -12,7 +12,7 @@ namespace AuldShiteburn.ItemData.WeaponData
         #region Weapon Properties
         public static WeaponProperty WeaponPropertyDamaged
         {
-            get { return new WeaponProperty("Damaged", PropertyDamageType.Damaged, ClassType.None, -3, -1); }
+            get { return new WeaponProperty("Damaged", PropertyDamageType.Damaged, ClassType.None, -2, -1); }
         }
         public static WeaponProperty WeaponPropertyStandard
         {
@@ -32,7 +32,7 @@ namespace AuldShiteburn.ItemData.WeaponData
         }
         public static WeaponProperty WeaponPropertyShitty
         {
-            get { return new WeaponProperty("Shitty", PropertyDamageType.Occult, ClassType.Heathen, 4, 6); }
+            get { return new WeaponProperty("Shite-slick", PropertyDamageType.Occult, ClassType.Heathen, 4, 6); }
         }
         #endregion Weapon Properties
 

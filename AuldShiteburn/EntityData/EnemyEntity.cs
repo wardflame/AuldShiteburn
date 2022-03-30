@@ -15,35 +15,32 @@ namespace AuldShiteburn.EntityData
         public GeneralMaterials MaterialWeakness { get; protected set; }
         public PropertyDamageType PropertyWeakness { get; protected set; }
 
-        public override bool ReceiveDamage(Damage incomingDamage, int offsetY)
+        public override bool ReceiveDamage(DamagePayload incomingDamage, int offsetY)
         {
-            int initialPhys = incomingDamage.physicalDamage;
-            int initialProp = incomingDamage.propertyDamage;
-            int totalDamage = 0;
             Utils.SetCursorInteract(offsetY);
             Console.Write($"{Name} ");
             int physDamage = incomingDamage.physicalDamage;
-            if (PhysicalWeakness == incomingDamage.physDamageType)
+            if (PhysicalWeakness == incomingDamage.physicalDamageType)
             {
-                physDamage += Combat.WEAKNESS_BONUS;
+                physDamage += Combat.WEAKNESS_BONUS_MODIFIER;
                 Console.Write($"is weak to ");
-                Utils.WriteColour($"{incomingDamage.physDamageType}", ConsoleColor.DarkCyan);
+                Utils.WriteColour($"{incomingDamage.physicalDamageType}", ConsoleColor.DarkCyan);
                 Console.Write(", taking ");
                 Utils.WriteColour($"{physDamage} ", ConsoleColor.Green);
-                Utils.WriteColour($"{incomingDamage.physDamageType} ", ConsoleColor.DarkCyan);
+                Utils.WriteColour($"{incomingDamage.physicalDamageType} ", ConsoleColor.DarkCyan);
                 Console.Write($"damage, ");
             }
             else
             {
                 Console.Write("takes ");
                 Utils.WriteColour($"{physDamage} ", ConsoleColor.DarkYellow);
-                Console.Write($"{incomingDamage.physDamageType} damage, ");
+                Console.Write($"{incomingDamage.physicalDamageType} damage, ");
             }
             int propDamage = incomingDamage.propertyDamage;
             Utils.SetCursorInteract(offsetY + 1);
             if (PropertyWeakness == incomingDamage.propertyDamageType)
             {
-                propDamage += Combat.WEAKNESS_BONUS;
+                propDamage += Combat.WEAKNESS_BONUS_MODIFIER;
                 Console.Write($"is weak to ");
                 Utils.WriteColour($"{incomingDamage.propertyDamageType}", ConsoleColor.DarkCyan);
                 Console.Write(", taking ");
@@ -67,7 +64,7 @@ namespace AuldShiteburn.EntityData
                 }
             }
             Utils.SetCursorInteract(offsetY + 2);
-            totalDamage = physDamage + propDamage;
+            int totalDamage = physDamage + propDamage;
             if (totalDamage < 0) totalDamage = 0;
             Console.Write($"for a total of ");
             Utils.WriteColour($"{totalDamage} ", ConsoleColor.Red);
@@ -75,6 +72,8 @@ namespace AuldShiteburn.EntityData
             HP -= totalDamage;
             if (HP <= 0)
             {
+                Utils.SetCursorInteract(offsetY + 3);
+                Utils.WriteColour($"{Name} is slain by the blow!", ConsoleColor.Green);
                 return true;
             }
             return false;

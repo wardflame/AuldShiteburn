@@ -8,7 +8,7 @@ namespace AuldShiteburn
         {
             Console.Title = "Auld Shiteburn";
             Console.WindowWidth = 160;
-            Console.WindowHeight = 40;
+            Console.WindowHeight = 42;
             Console.CursorVisible = false;
 
             Game game = new Game();

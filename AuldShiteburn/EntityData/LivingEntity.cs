@@ -70,7 +70,7 @@ namespace AuldShiteburn.EntityData
         /// <param name="incomingDamage">Damage payload to process.</param>
         /// <param name="offsetY">Potentially required for UI placement.</param>
         /// <returns>Returns true if the entity died.</returns>
-        public virtual bool ReceiveDamage(Damage incomingDamage, int offsetY = 0)
+        public virtual bool ReceiveDamage(DamagePayload incomingDamage, int offsetY = 0)
         {
             return false;
         }

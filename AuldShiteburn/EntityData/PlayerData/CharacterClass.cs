@@ -1,5 +1,7 @@
 ﻿using AuldShiteburn.CombatData;
 using AuldShiteburn.CombatData.AbilityData;
+using AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.HeathenAbilities;
+using AuldShiteburn.EntityData.PlayerData.Classes;
 using AuldShiteburn.ItemData;
 using AuldShiteburn.ItemData.ArmourData;
 using AuldShiteburn.ItemData.WeaponData;
@@ -9,95 +11,37 @@ using System.Collections.Generic;
 namespace AuldShiteburn.EntityData.PlayerData
 {
     [Serializable]
-    internal class CharacterClass
+    internal abstract class CharacterClass
     {
-        #region Classes
-        public static CharacterClass Heathen
-        {
-            get
-            { 
-                return new CharacterClass(
-                "Heathen",
-                ClassType.Heathen,
-                new TitleData(PlayerGenerationData.HeathenTitles),
-                new ClassStatistics(12, 0, 30),
-                new ProficiencyData(ArmourFamily.LightArmour, WeaponFamily.PrimitiveArms, PropertyDamageType.Occult, GeneralMaterials.Hardshite));
-            }
-        }
-        public static CharacterClass Fighter
+        public static List<CharacterClass> Classes
         {
             get
             {
-                return new CharacterClass(
-                "Fighter",
-                ClassType.Fighter,
-                new TitleData(PlayerGenerationData.FighterTitlesMale, PlayerGenerationData.FighterTitlesFemale),
-                new ClassStatistics(28, 20, 0),
-                new ProficiencyData(ArmourFamily.HeavyArmour, WeaponFamily.MartialArms, PropertyDamageType.None, GeneralMaterials.None));
+                return new List<CharacterClass>()
+                {
+                    new FighterClass(),
+                    new HeathenClass(),
+                    new MarauderClass(),
+                    new MonkClass(),
+                    new RogueClass(),
+                };
             }
         }
-        public static CharacterClass Marauder
-        {
-            get
-            {
-                return new CharacterClass(
-                "Marauder",
-                ClassType.Marauder,
-                new TitleData(PlayerGenerationData.MarauderTitles),
-                new ClassStatistics(34, 20, 0),
-                new ProficiencyData(ArmourFamily.MediumArmour, WeaponFamily.StrengthLargeArms, PropertyDamageType.Fire, GeneralMaterials.None));
-            }
-        }
-        public static CharacterClass Monk
-        {
-            get
-            {
-                return new CharacterClass(
-                "Monk",
-                ClassType.Monk,
-                new TitleData(PlayerGenerationData.MonkTitlesMale, PlayerGenerationData.MonkTitlesFemale),
-                new ClassStatistics(22, 0, 20),
-                new ProficiencyData(ArmourFamily.LightArmour, WeaponFamily.PrimitiveArms, PropertyDamageType.Holy, GeneralMaterials.Moonstone));
-            }
-        }
-        public static CharacterClass Rogue
-        {
-            get
-            {
-                return new CharacterClass(
-                "Rogue",
-                ClassType.Rogue,
-                new TitleData(PlayerGenerationData.RogueTitles),
-                new ClassStatistics(16, 30, 0),
-                new ProficiencyData(ArmourFamily.LightArmour, WeaponFamily.DextrousSmallArms, PropertyDamageType.Cold, GeneralMaterials.None));
-            }
-        }
-        #endregion Classes
+        public string Name { get; protected set; }
+        public ClassType ClassType { get; protected set; }
+        public TitleData Titles { get; protected set; }
+        public ClassStatistics Statistics { get; protected set; }
+        public ProficiencyData Proficiencies { get; protected set; }
+        public List<Ability> Abilities { get; protected set; }
 
-        public static List<CharacterClass> Classes { get; } = new List<CharacterClass>()
-        {
-            Heathen,
-            Fighter,
-            Marauder,
-            Monk,
-            Rogue
-        };
-        public string Name { get; }
-        public ClassType ClassType { get; }
-        public List<string> TitlesMale { get; set; }
-        public List<string> TitlesFemale { get; set; }
-        public ClassStatistics Statistics { get; }
-        public ProficiencyData Proficiencies { get; set; }
-        public List<Ability> Abilities { get; }
-
-        public CharacterClass(string name, ClassType classType, TitleData titleData, ClassStatistics classStatistics, ProficiencyData proficiencies)
+        public CharacterClass(string name, ClassType classType, TitleData titleData, ClassStatistics classStatistics, ProficiencyData proficiencies, List<Ability> abilities)
         {
             Name = name;
             ClassType = classType;
-            TitlesMale = titleData.titleMale;
-            TitlesFemale = titleData.titleFemale;
+            Titles = titleData;
             Statistics = classStatistics;
             Proficiencies = proficiencies;
+            Abilities = abilities;
         }
     }
 

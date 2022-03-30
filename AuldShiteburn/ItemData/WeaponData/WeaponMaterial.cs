@@ -12,19 +12,19 @@ namespace AuldShiteburn.ItemData.WeaponData
         #region Weapon Materials
         public static WeaponMaterial WeaponMaterialIron
         {
-            get { return new WeaponMaterial("Iron", GeneralMaterials.Iron, 1, 2); }
+            get { return new WeaponMaterial("Iron", GeneralMaterials.Iron, 0, 1); }
         }
         public static WeaponMaterial WeaponMaterialSteel
         {
-            get { return new WeaponMaterial("Steel", GeneralMaterials.Steel, 2, 3); }
+            get { return new WeaponMaterial("Steel", GeneralMaterials.Steel, 1, 2); }
         }
         public static WeaponMaterial WeaponMaterialMoonstone
         {
-            get { return new WeaponMaterial("Moonstone", GeneralMaterials.Moonstone, 4, 6); }
+            get { return new WeaponMaterial("Moonstone", GeneralMaterials.Moonstone, 3, 5); }
         }
         public static WeaponMaterial WeaponMaterialHardshite
         {
-            get { return new WeaponMaterial("Hardshite", GeneralMaterials.Hardshite, 4, 6); }
+            get { return new WeaponMaterial("Hardshite", GeneralMaterials.Hardshite, 3, 5); }
         }
         #endregion Weapon Materials
 

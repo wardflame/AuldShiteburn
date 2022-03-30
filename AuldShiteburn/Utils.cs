@@ -11,7 +11,7 @@ namespace AuldShiteburn
         public static int UIInteractHeight { get; } = 2;
 
         public static int UIInventoryOffset { get; } = 1;
-        public static int UIInventoryHeight => Map.Instance.CurrentArea.Height + 8;
+        public static int UIInventoryHeight => Map.Instance.CurrentArea.Height + 14;
 
         public static int UIPlayerStatOffset { get; } = 1;
         public static int UIPlayerStatHeight => Map.Instance.CurrentArea.Height + 1;
@@ -186,6 +186,22 @@ namespace AuldShiteburn
             Console.CursorLeft = UIInteractOffset;
             Console.CursorTop = UIInteractHeight;
             Console.Write(message);
+        }
+
+        /// <summary>
+        /// Clear area of the screen based on Interact coordinates.
+        /// </summary>
+        /// <param name="offsetY"></param>
+        /// <param name="length"></param>
+        /// <param name="offsetX"></param>
+        public static void ClearAreaInteract(int offsetY = 0, int length = 0, int offsetX = 0)
+        {
+            for (int y = UIInteractHeight + offsetY; y <= UIInteractHeight + offsetY + length; y++)
+            {
+                Console.CursorLeft = UIInteractOffset + offsetX;
+                Console.CursorTop = y;
+                Console.Write(new string(' ', Console.WindowWidth - UIInteractOffset));
+            }
         }
     }
 }

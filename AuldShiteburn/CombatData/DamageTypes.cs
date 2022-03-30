@@ -3,18 +3,19 @@
 namespace AuldShiteburn.CombatData
 {
     [Serializable]
-    public struct Damage
+    public struct DamagePayload
     {
         public int physicalDamage;
         public int propertyDamage;
-        public PhysicalDamageType physDamageType;
+        public PhysicalDamageType physicalDamageType;
         public PropertyDamageType propertyDamageType;
+        public bool IsDamageAttack => physicalDamage + propertyDamage > 0;
 
-        public Damage(int physDamage, int propDamage, PhysicalDamageType physDamageType, PropertyDamageType propertyDamageType = PropertyDamageType.None)
+        public DamagePayload(int physDamage, int propDamage, PhysicalDamageType physDamageType, PropertyDamageType propertyDamageType = PropertyDamageType.None)
         {
             physicalDamage = physDamage;
             propertyDamage = propDamage;
-            this.physDamageType = physDamageType;
+            this.physicalDamageType = physDamageType;
             this.propertyDamageType = propertyDamageType;
         }
     }

@@ -1,6 +1,8 @@
 ﻿using AuldShiteburn.BackendData;
 using AuldShiteburn.CombatData;
+using AuldShiteburn.CombatData.AbilityData;
 using AuldShiteburn.EntityData.PlayerData;
+using AuldShiteburn.EntityData.PlayerData.Classes;
 using AuldShiteburn.ItemData;
 using AuldShiteburn.ItemData.ArmourData;
 using AuldShiteburn.ItemData.WeaponData;
@@ -22,6 +24,7 @@ namespace AuldShiteburn.EntityData
         public long Playtime { get; set; }
         public Inventory Inventory { get; set; } = new Inventory();
         public CharacterClass Class { get; private set; }
+
         public WeaponItem EquippedWeapon { get; set; }
         public ArmourItem EquippedArmour { get; set; }
 
@@ -84,7 +87,8 @@ namespace AuldShiteburn.EntityData
             Random rand = new Random();
 
             #region Class Generation and Stat Assignments
-            Instance.Class = CharacterClass.Classes[rand.Next(CharacterClass.Classes.Count)];
+            //Instance.Class = CharacterClass.Classes[rand.Next(CharacterClass.Classes.Count)];
+            Instance.Class = new HeathenClass();
             Instance.MaxHP = Instance.Class.Statistics.hp;
             Instance.HP = Instance.Class.Statistics.hp;
             Instance.UsesStamina = Instance.Class.Statistics.usesStamina;
@@ -102,16 +106,16 @@ namespace AuldShiteburn.EntityData
             if (sexChance <= GameSettings.Instance.SexRatio)
             {
                 forenameStr = PlayerGenerationData.NamesMale[rand.Next(PlayerGenerationData.NamesMale.Count)];
-                int titleIndex = rand.Next(0, Instance.Class.TitlesMale.Count);
-                titleStr = Instance.Class.TitlesMale[titleIndex];
+                int titleIndex = rand.Next(0, Instance.Class.Titles.titleMale.Count);
+                titleStr = Instance.Class.Titles.titleMale[titleIndex];
                 Instance.Name = $"{titleStr} {forenameStr}";
 
             }
             else
             {
                 forenameStr = PlayerGenerationData.NameFemale[rand.Next(PlayerGenerationData.NameFemale.Count)];
-                int titleIndex = rand.Next(0, Instance.Class.TitlesFemale.Count);
-                titleStr = Instance.Class.TitlesFemale[titleIndex];
+                int titleIndex = rand.Next(0, Instance.Class.Titles.titleFemale.Count);
+                titleStr = Instance.Class.Titles.titleFemale[titleIndex];
                 Instance.Name = $"{titleStr} {forenameStr}";
             }
             #endregion Name Generation
@@ -124,7 +128,7 @@ namespace AuldShiteburn.EntityData
             return Instance;
         }
 
-        public override bool ReceiveDamage(Damage incomingDamage, int offsetY = 0)
+        public override bool ReceiveDamage(DamagePayload incomingDamage, int offsetY = 0)
         {
             int initialPhys = incomingDamage.physicalDamage;
             int initialProp = incomingDamage.propertyDamage;
@@ -133,21 +137,21 @@ namespace AuldShiteburn.EntityData
             if (Instance.EquippedArmour != null)
             {
                 ArmourItem playerArmour = Instance.EquippedArmour;
-                bool physRes = playerArmour.PrimaryPhysicalResistance == incomingDamage.physDamageType;
+                bool physRes = playerArmour.PrimaryPhysicalResistance == incomingDamage.physicalDamageType;
                 bool propRes = playerArmour.PrimaryPropertyResistance == incomingDamage.propertyDamageType;
 
                 Console.Write($"{Instance.Name} takes ");
                 int physDamage = incomingDamage.physicalDamage -= playerArmour.PhysicalMitigation;
                 if (physRes)
                 {
-                    physDamage -= Combat.ARMOUR_RESISTANCE_MITIGATION;
+                    physDamage -= Combat.ARMOUR_RESISTANCE_MITIGATION_MODIFIER;
                 }
                 if (physDamage < 0) physDamage = 0;
                 Utils.WriteColour($"{physDamage}/{initialPhys} ", ConsoleColor.Red);
                 int propDamage = incomingDamage.propertyDamage -= playerArmour.PropertyMitigation;
                 if (propRes)
                 {
-                    propDamage -= Combat.ARMOUR_RESISTANCE_MITIGATION;
+                    propDamage -= Combat.ARMOUR_RESISTANCE_MITIGATION_MODIFIER;
                 }
                 if (propDamage < 0) propDamage = 0;
                 Console.Write("and ");
@@ -249,25 +253,35 @@ namespace AuldShiteburn.EntityData
             Console.Write($"{Instance.Name} the {Instance.Class.Name}");
 
             Utils.SetCursorPlayerStat(1);
+            Console.Write("- - - - - - - -");
+            Utils.SetCursorPlayerStat(2);
             Console.Write($"Health: ");
             Utils.WriteColour($"{Instance.HP}", ConsoleColor.Red);
 
             if (Instance.UsesStamina)
             {
-                Utils.SetCursorPlayerStat(2);
+                Utils.SetCursorPlayerStat(3);
                 Console.Write($"Stamina: ");
                 Utils.WriteColour($"{Instance.Stamina}", ConsoleColor.Green);
             }
             if (Instance.UsesMana)
             {
-                Utils.SetCursorPlayerStat(2);
+                Utils.SetCursorPlayerStat(3);
                 Console.Write($"Mana: ");
                 Utils.WriteColour($"{Instance.Mana}", ConsoleColor.Blue);
             }
+            Utils.SetCursorPlayerStat(5);
+            Console.Write("- - - - - - - -");
 
-            Utils.SetCursorPlayerStat(3);
+            Utils.SetCursorPlayerStat(6);
+            Utils.WriteColour("Equipped Weapon", ConsoleColor.DarkYellow);
+            Utils.SetCursorPlayerStat(7);
+            Console.Write(">> ");
             PrintWeapon();
-            Utils.SetCursorPlayerStat(4);
+            Utils.SetCursorPlayerStat(9);
+            Utils.WriteColour("Equipped Armour", ConsoleColor.DarkYellow);
+            Utils.SetCursorPlayerStat(10);
+            Console.Write(">> ");
             PrintArmour();
         }
 
@@ -277,7 +291,6 @@ namespace AuldShiteburn.EntityData
         /// </summary>
         public void PrintWeapon()
         {
-            Console.Write("Equipped Weapon: ");
             if (Instance.EquippedWeapon != null)
             {
                 if (Instance.EquippedWeapon.Property.HasAffinity)
@@ -313,19 +326,81 @@ namespace AuldShiteburn.EntityData
         /// </summary>
         public void PrintArmour()
         {
-            Console.Write("Equipped Armour: ");
             if (Instance.EquippedArmour != null)
             {
                 if (Instance.Class.Proficiencies.armourProficiency == Instance.EquippedArmour.ArmourFamily)
                 {
                     Console.ForegroundColor = ConsoleColor.DarkGreen;
                 }
-                Console.Write(Instance.EquippedArmour.Name);
+                Console.Write($"{Instance.EquippedArmour.Name}");
                 Console.ResetColor();
             }
             else
             {
                 Console.Write("--");
+            }
+        }
+
+        public int CycleAbilities(int offsetY, int index)
+        {
+            PrintAbilities(offsetY, index);
+            do
+            {
+                InputSystem.GetInput();
+                switch (InputSystem.InputKey)
+                {
+                    case ConsoleKey.UpArrow:
+                        {
+                            if (index <= Instance.Class.Abilities.Count - 1 && index > 0)
+                            {
+                                index--;
+                                Utils.ClearAreaInteract(offsetY, Instance.Class.Abilities.Count + 4);
+                                PrintAbilities(offsetY, index);
+                            }
+                        }
+                        break;
+                    case ConsoleKey.DownArrow:
+                        {
+                            if (index >= 0 && index < Instance.Class.Abilities.Count - 1)
+                            {
+                                index++;
+                                Utils.ClearAreaInteract(offsetY, Instance.Class.Abilities.Count + 4);
+                                PrintAbilities(offsetY, index);
+                            }
+                        }
+                        break;
+                }
+            } while (InputSystem.InputKey != ConsoleKey.Enter);
+            return index;
+        }
+
+        public void PrintAbilities(int offsetY, int index)
+        {
+            Utils.SetCursorInteract(offsetY);
+            Utils.WriteColour("Abilities", ConsoleColor.DarkYellow);
+            for (int i = 0; i < Instance.Class.Abilities.Count; i++)
+            {
+                int offset = offsetY + i + 1;
+                Utils.SetCursorInteract(offset);
+                Ability ability = Instance.Class.Abilities[i];
+                if (ability == Instance.Class.Abilities[index])
+                {
+                    Utils.WriteColour(">>", ConsoleColor.Yellow);
+                    Utils.WriteColour($"{ability.Name}", ConsoleColor.Cyan);
+                    Utils.SetCursorInteract(offsetY + 1, 20);
+                    Console.Write(ability.Description);
+                    Utils.SetCursorInteract(offsetY + 2, 20);
+                    Console.Write($"Cooldown: {ability.Cooldown}");
+                    Utils.SetCursorInteract(offsetY + 3, 20);
+                    Console.Write($"Resource Cost: {ability.ResourceCost}");
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Utils.SetCursorInteract(offset);
+                    Console.Write(ability.Name);
+                    Console.ResetColor();
+                }
             }
         }
     }

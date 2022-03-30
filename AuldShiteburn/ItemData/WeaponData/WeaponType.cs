@@ -11,61 +11,61 @@ namespace AuldShiteburn.ItemData.WeaponData
         #region DextrousWeapons
         public static WeaponType Dagger
         {
-            get { return new WeaponType("Dagger", WeaponFamily.DextrousSmallArms, PhysicalDamageType.Pierce, 3, 5); }
+            get { return new WeaponType("Dagger", WeaponFamily.DextrousSmallArms, PhysicalDamageType.Pierce, 1, 3); }
         }
         public static WeaponType Rapier
         {
-            get { return new WeaponType("Rapier", WeaponFamily.DextrousSmallArms, PhysicalDamageType.Pierce, 3, 5); }
+            get { return new WeaponType("Rapier", WeaponFamily.DextrousSmallArms, PhysicalDamageType.Pierce, 1, 3); }
         }
         public static WeaponType Shortsword
         {
-            get { return new WeaponType("Shortsword", WeaponFamily.DextrousSmallArms, PhysicalDamageType.Slash, 3, 5); }
+            get { return new WeaponType("Shortsword", WeaponFamily.DextrousSmallArms, PhysicalDamageType.Slash, 1, 3); }
         }
         #endregion DextrousWeapons
         #region PrimitiveWeapons
         public static WeaponType HandAxe
         {
-            get { return new WeaponType("Hand Axe", WeaponFamily.PrimitiveArms, PhysicalDamageType.Slash, 4, 6); }
+            get { return new WeaponType("Hand Axe", WeaponFamily.PrimitiveArms, PhysicalDamageType.Slash, 2, 4); }
         }
         public static WeaponType Cudgel
         {
-            get { return new WeaponType("Cudgel", WeaponFamily.PrimitiveArms, PhysicalDamageType.Strike, 4, 6); }
+            get { return new WeaponType("Cudgel", WeaponFamily.PrimitiveArms, PhysicalDamageType.Strike, 2, 4); }
         }
         public static WeaponType Spear
         {
-            get { return new WeaponType("Spear", WeaponFamily.PrimitiveArms, PhysicalDamageType.Pierce, 4, 6); }
+            get { return new WeaponType("Spear", WeaponFamily.PrimitiveArms, PhysicalDamageType.Pierce, 2, 4); }
         }
         #endregion PrimitiveWeapons
         #region MartialWeapons
         public static WeaponType Longsword
         {
-            get { return new WeaponType("Longsword", WeaponFamily.MartialArms, PhysicalDamageType.Slash, 5, 7); }
+            get { return new WeaponType("Longsword", WeaponFamily.MartialArms, PhysicalDamageType.Slash, 3, 5); }
         }
         public static WeaponType BattleAxe
         {
-            get { return new WeaponType("Battle Axe", WeaponFamily.MartialArms, PhysicalDamageType.Slash, 5, 7); }
+            get { return new WeaponType("Battle Axe", WeaponFamily.MartialArms, PhysicalDamageType.Slash, 3, 5); }
         }
         public static WeaponType Mace
         {
-            get { return new WeaponType("Mace", WeaponFamily.MartialArms, PhysicalDamageType.Strike, 5, 7); }
+            get { return new WeaponType("Mace", WeaponFamily.MartialArms, PhysicalDamageType.Strike, 3, 5); }
         }
         public static WeaponType Warhammer
         {
-            get { return new WeaponType("Warhammer", WeaponFamily.MartialArms, PhysicalDamageType.Strike, 5, 7); }
+            get { return new WeaponType("Warhammer", WeaponFamily.MartialArms, PhysicalDamageType.Strike, 3, 5); }
         }
         #endregion MartialWeapons
         #region StrengthWeapons
         public static WeaponType Greatsword
         {
-            get { return new WeaponType("Greatsword", WeaponFamily.StrengthLargeArms, PhysicalDamageType.Slash, 7, 9); }
+            get { return new WeaponType("Greatsword", WeaponFamily.StrengthLargeArms, PhysicalDamageType.Slash, 5, 7); }
         }
         public static WeaponType Greataxe
         {
-            get { return new WeaponType("Greataxe", WeaponFamily.StrengthLargeArms, PhysicalDamageType.Slash, 7, 9); }
+            get { return new WeaponType("Greataxe", WeaponFamily.StrengthLargeArms, PhysicalDamageType.Slash, 5, 7); }
         }
         public static WeaponType Greathammer
         {
-            get { return new WeaponType("Greathammer", WeaponFamily.StrengthLargeArms, PhysicalDamageType.Strike, 7, 9); }
+            get { return new WeaponType("Greathammer", WeaponFamily.StrengthLargeArms, PhysicalDamageType.Strike, 5, 7); }
         }
         #endregion StrengthWeapons
 

@@ -19,7 +19,7 @@ namespace AuldShiteburn.MapData.TileData.Tiles
 
         public override void OnCollision(Entity entity)
         {
-            Damage damage = new Damage(5, 0, PhysicalDamageType.Slash);
+            DamagePayload damage = new DamagePayload(5, 0, PhysicalDamageType.Slash);
             PlayerEntity.Instance.ReceiveDamage(damage);
         }
     }
