@@ -130,7 +130,7 @@ namespace AuldShiteburn.EntityData
             return Instance;
         }
 
-        public override bool ReceiveDamage(AttackPayload attackPayload, int offsetY = 0)
+        public override bool ReceiveDamage(CombatPayload attackPayload, int offsetY = 0)
         {
             int initialPhys = attackPayload.PhysicalDamage;
             int initialProp = attackPayload.PropertyDamage;
@@ -193,56 +193,7 @@ namespace AuldShiteburn.EntityData
         {
             Utils.ClearInventoryInterface();
             Utils.SetCursorInventory();
-            int offset = 0;
-            for (int x = 0; x < Inventory.Column; x++)
-            {
-                if (x == 0)
-                {
-                    offset = Inventory.WEAPON_OFFSET;
-                    Utils.SetCursorInventory(offsetX: Inventory.WEAPON_OFFSET);
-                    Console.Write("[");
-                    Utils.WriteColour("WEAPONS", ConsoleColor.DarkYellow);
-                    Console.Write("]");
-                }
-                if (x == 1)
-                {
-                    offset = Inventory.ARMOUR_OFFSET;
-                    Utils.SetCursorInventory(offsetX: Inventory.ARMOUR_OFFSET);
-                    Console.Write("[");
-                    Utils.WriteColour("ARMOUR", ConsoleColor.DarkYellow);
-                    Console.Write("]");
-                }
-                if (x == 2)
-                {
-                    offset = Inventory.CONSUMABLE_OFFSET;
-                    Utils.SetCursorInventory(offsetX: Inventory.CONSUMABLE_OFFSET);
-                    Console.Write("[");
-                    Utils.WriteColour("CONSUMABLES", ConsoleColor.DarkYellow);
-                    Console.Write("]");
-                }
-                if (x == 3)
-                {
-                    offset = Inventory.KEY_OFFSET;
-                    Utils.SetCursorInventory(offsetX: Inventory.KEY_OFFSET);
-                    Console.Write("[");
-                    Utils.WriteColour("KEY ITEMS", ConsoleColor.DarkYellow);
-                    Console.Write("]");
-                }
-                for (int y = 1; y <= Inventory.Row; y++)
-                {
-                    Utils.SetCursorInventory(y, offset);
-                    {
-                        if (Inventory.ItemList[y - 1, x] != null)
-                        {
-                            Utils.WriteColour($"{Inventory.ItemList[y - 1, x].Name}", ConsoleColor.DarkGray);
-                        }
-                        else
-                        {
-                            Utils.WriteColour("--", ConsoleColor.DarkGray);
-                        }
-                    }                    
-                }
-            }
+            Inventory.PrintInventory(Inventory.PLAYER_WEAPON_OFFSET, Inventory.PLAYER_ARMOUR_OFFSET, Inventory.PLAYER_CONSUMABLE_OFFSET, Inventory.PLAYER_KEY_OFFSET);
         }
 
         /// <summary>

@@ -52,7 +52,7 @@ namespace AuldShiteburn.CombatData.StatusEffectData.StatusEffects
             PropertyNulOrMit = propertyNulOrMit;
         }
 
-        public override void EffectActive(AttackPayload attackPayload)
+        public override void EffectActive(CombatPayload attackPayload)
         {
             if (attackPayload.HasPhysical)
             {

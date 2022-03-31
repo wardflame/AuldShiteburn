@@ -16,7 +16,7 @@ namespace AuldShiteburn.EntityData
         public GeneralMaterials MaterialWeakness { get; protected set; }
         public PropertyDamageType PropertyWeakness { get; protected set; }
 
-        public override bool ReceiveDamage(AttackPayload attackPayload, int offsetY)
+        public override bool ReceiveDamage(CombatPayload attackPayload, int offsetY)
         {
             Utils.SetCursorInteract(offsetY);
             Console.Write($"{Name} ");

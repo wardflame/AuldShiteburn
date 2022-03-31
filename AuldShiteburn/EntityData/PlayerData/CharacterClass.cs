@@ -78,14 +78,16 @@ namespace AuldShiteburn.EntityData.PlayerData
         public bool usesStamina;
         public float stamina;
         public float mana;
+        public int stunCap;
 
-        public ClassStatistics(float hp, float stamina, float mana)
+        public ClassStatistics(float hp, float stamina, float mana, int stunCap)
         {
             usesMana = mana > 0;
             usesStamina = stamina > 0;
             this.hp = hp;
             this.stamina = stamina;
             this.mana = mana;
+            this.stunCap = stunCap;
         }
     }
 

@@ -14,23 +14,23 @@ namespace AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.HeathenA
         public override int MinDamage => 4;
         public override int MaxDamage => 8;
 
-        public override AttackPayload UseAbility()
+        public override CombatPayload UseAbility()
         {
             Utils.SetCursorInteract(Console.CursorTop - 1);
             if (ActiveCooldown > 0)
             {
                 ActiveCooldown--;
                 Utils.WriteColour($"{Name} is on cooldown {ActiveCooldown}/{Cooldown}.", ConsoleColor.DarkRed);
-                return new AttackPayload();
+                return new CombatPayload();
             }
             else if (ActiveCooldown <= 0)
             {
                 Random rand = new Random();
                 int damage = rand.Next(MinDamage, MaxDamage + 1);
                 ActiveCooldown = Cooldown;
-                return new AttackPayload(hasProperty: true, propertyAttackType: PropertyDamageType.Occult, propertyDamage: damage);
+                return new CombatPayload(hasProperty: true, propertyAttackType: PropertyDamageType.Occult, propertyDamage: damage);
             }
-            return new AttackPayload();
+            return new CombatPayload();
         }
     }
 }

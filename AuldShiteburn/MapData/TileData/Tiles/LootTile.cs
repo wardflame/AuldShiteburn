@@ -17,16 +17,16 @@ namespace AuldShiteburn.MapData.TileData.Tiles
         private const float CHANCE_ARMOUR = 0.4f;
         private const float CHANCE_CONSUMABLE = 0.0f;
 
-        public override bool Collidable => false;
+        public override bool Collidable => Looted ? false : true;
         public override ConsoleColor Foreground => Looted ? ConsoleColor.DarkGray : ConsoleColor.Magenta;
 
         public List<Item> items = new List<Item>();
-        public bool PlayerMade { get; set; }
+        public bool Temporary { get; set; }
         public bool Looted { get; set; } = false;
 
-        public LootTile(List<Item> items, bool randomised, bool playerMade = false) : base("?", false)
+        public LootTile(List<Item> items, bool randomised, bool temporary = false) : base("?", false)
         {
-            PlayerMade = playerMade;
+            Temporary = temporary;
             if (!randomised)
             {
                 this.items = items;
@@ -38,16 +38,13 @@ namespace AuldShiteburn.MapData.TileData.Tiles
                 double chance = rand.NextDouble();
                 if (chance >= CHANCE_KEY)
                 {
-                    List<Item> keys = items.FindAll(key => key is KeyItem);
-                    Item keyItem = keys[rand.Next(keys.Count)];
-                    this.items.Add(keyItem);
+                    KeyItem lootKey = KeyItem.AllKeys[rand.Next(KeyItem.AllKeys.Count)];
+                    this.items.Add(lootKey);
                 }
                 chance = rand.NextDouble();
                 if (chance >= CHANCE_WEAPON)
                 {
-                    List<Item> weapons = items.FindAll(weapon => weapon is WeaponItem);
-                    Item weaponItem = weapons[rand.Next(weapons.Count)];
-                    this.items.Add(weaponItem);
+                    this.items.Add(WeaponItem.GenerateWeapon());
                 }
                 chance = rand.NextDouble();
                 if (chance >= CHANCE_ARMOUR)
@@ -78,7 +75,7 @@ namespace AuldShiteburn.MapData.TileData.Tiles
             }
             if (LootStock() == 0)
             {
-                if (PlayerMade)
+                if (Temporary)
                 {
                     Map.Instance.CurrentArea.SetTile(entity.PosX, entity.PosY, AirTile);
                 }

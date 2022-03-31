@@ -15,10 +15,14 @@ namespace AuldShiteburn.EntityData.PlayerData
     [Serializable]
     internal class Inventory
     {
-        public const int WEAPON_OFFSET = 0;
-        public const int ARMOUR_OFFSET = 35;
-        public const int CONSUMABLE_OFFSET = 70;
-        public const int KEY_OFFSET = 105;
+        public int PLAYER_WEAPON_OFFSET = 1;
+        public int PLAYER_ARMOUR_OFFSET = 35;
+        public int PLAYER_CONSUMABLE_OFFSET = 70;
+        public int PLAYER_KEY_OFFSET = 105;
+        public int INTERACT_WEAPON_OFFSET = Utils.UIInteractOffset;
+        public int INTERACT_ARMOUR_OFFSET = Utils.UIInteractOffset + 34;
+        public int INTERACT_CONSUMABLE_OFFSET = Utils.UIInteractOffset + 69;
+        public int INTERACT_KEY_OFFSET = Utils.UIInteractOffset + 104;
 
         public Item[,] ItemList { get; set; } = new Item[Row, Column];
         public static int Row { get; } = 6;
@@ -82,7 +86,62 @@ namespace AuldShiteburn.EntityData.PlayerData
             return false;
         }
 
-        private InventorySortData NavigateInventory(int typeColumn = 0, int typeOffset = WEAPON_OFFSET)
+        public void PrintInventory(int weaponOffset, int armourOffset, int consumableOffset, int keyOffset)
+        {
+            int offset = 0;
+            for (int x = 0; x < Column; x++)
+            {
+                if (x == 0)
+                {
+                    Console.CursorLeft = weaponOffset;
+                    offset = weaponOffset;
+                    Console.Write("[");
+                    Utils.WriteColour("WEAPONS", ConsoleColor.DarkYellow);
+                    Console.Write("]");
+                }
+                if (x == 1)
+                {
+                    Console.CursorLeft = armourOffset;
+                    offset = armourOffset;
+                    Console.Write("[");
+                    Utils.WriteColour("ARMOUR", ConsoleColor.DarkYellow);
+                    Console.Write("]");
+                }
+                if (x == 2)
+                {
+                    Console.CursorLeft = consumableOffset;
+                    offset = consumableOffset;
+                    Console.Write("[");
+                    Utils.WriteColour("CONSUMABLES", ConsoleColor.DarkYellow);
+                    Console.Write("]");
+                }
+                if (x == 3)
+                {
+                    Console.CursorLeft = keyOffset;
+                    offset = keyOffset;
+                    Console.Write("[");
+                    Utils.WriteColour("KEY ITEMS", ConsoleColor.DarkYellow);
+                    Console.Write("]");
+                }
+                for (int y = 1; y <= Row; y++)
+                {
+                    Console.CursorLeft = offset;
+                    Console.CursorTop++;
+                    {
+                        if (ItemList[y - 1, x] != null)
+                        {
+                            Utils.WriteColour($"{ItemList[y - 1, x].Name}", ConsoleColor.DarkGray);
+                        }
+                        else
+                        {
+                            Utils.WriteColour("--", ConsoleColor.DarkGray);
+                        }
+                    }
+                }
+            }
+        }
+
+        private InventorySortData NavigateInventory(int typeColumn = 0, int typeOffset = 0)
         {
             InventorySortData sortData = new InventorySortData();
             int index = 0;
@@ -305,19 +364,19 @@ namespace AuldShiteburn.EntityData.PlayerData
         {
             if (item.GetType() == typeof(WeaponItem))
             {
-                return WEAPON_OFFSET;
+                return INTERACT_WEAPON_OFFSET;
             }
             else if (item.GetType() == typeof(ArmourItem))
             {
-                return ARMOUR_OFFSET;
+                return INTERACT_ARMOUR_OFFSET;
             }
             else if (item.GetType() == typeof(ConsumableItem))
             {
-                return CONSUMABLE_OFFSET;
+                return INTERACT_CONSUMABLE_OFFSET;
             }
             else if (item.GetType() == typeof(KeyItem))
             {
-                return KEY_OFFSET;
+                return INTERACT_KEY_OFFSET;
             }
             return 0;
         }

@@ -1,4 +1,5 @@
-﻿using AuldShiteburn.CombatData.AbilityData;
+﻿using AuldShiteburn.ArtData;
+using AuldShiteburn.CombatData.AbilityData;
 using AuldShiteburn.CombatData.PayloadData;
 using AuldShiteburn.EntityData;
 using AuldShiteburn.ItemData.WeaponData;
@@ -21,12 +22,48 @@ namespace AuldShiteburn.CombatData
         public const int ARMOUR_RESISTANCE_MITIGATION_MODIFIER = 2;
         public const int WEAKNESS_BONUS_MODIFIER = 2;
 
-        public static void CombatEncounter(List<EnemyEntity> enemies)
+        public static bool CombatEncounter(List<EnemyEntity> enemies)
         {
-            while (enemies.Count > 0 || PlayerEntity.Instance.HP > 0)
+            while (enemies.Count > 0 && PlayerEntity.Instance.HP > 0)
             {
-                bool playerTurn = true;
-                while (playerTurn)
+                PlayerCombatTurn(enemies);
+            }
+            if (PlayerEntity.Instance.HP > 0)
+            {
+                Utils.SetCursorInteract();
+                ASCIIArt.PrintASCII(ASCIIArt.VICTORY_MESSAGE, ConsoleColor.DarkGreen);
+                Console.CursorTop += 1;
+                Console.Write("Press any key to continue...");
+                Console.ReadKey();
+                return true;
+            }
+            else
+            {
+                Utils.SetCursorInteract();
+                ASCIIArt.PrintASCII(ASCIIArt.DEATH_MESSAGE, ConsoleColor.DarkRed);
+                Console.CursorTop += 1;
+                Console.Write("Press any key to continue...");
+                Console.ReadKey();
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Present player with combat targets and allow them
+        /// the opportunity to select and attack one in their turn.
+        /// </summary>
+        /// <param name="enemies">List of enemies in the area.</param>
+        private static void PlayerCombatTurn(List<EnemyEntity> enemies)
+        {
+            bool playerTurn = true;
+            while (playerTurn)
+            {
+                if (PlayerEntity.Instance.Stunned)
+                {
+                    PlayerEntity.Instance.StunTimer--;
+                }
+                if (PlayerEntity.Instance.StunTimer <= 0)
                 {
                     int index = CycleEnemies(enemies);
                     int attackChoice = AttackChoice(enemies, index);
@@ -35,12 +72,12 @@ namespace AuldShiteburn.CombatData
                     {
                         if (attackChoice == 1)
                         {
-                            AttackPayload playerAttackPayload = CalculateWeaponDamage();
+                            CombatPayload playerAttackPayload = CalculateWeaponDamage();
                             if (enemy.ReceiveDamage(playerAttackPayload, enemies.Count + 6))
                             {
                                 enemies.Remove(enemy);
-                                playerTurn = false;
                             }
+                            playerTurn = false;
                         }
                         else if (attackChoice == 2)
                         {
@@ -51,10 +88,10 @@ namespace AuldShiteburn.CombatData
                                 (int chosenAbility, bool chosen) = PlayerEntity.Instance.CycleAbilities(enemies.Count + 6, 0);
                                 if (chosen)
                                 {
-                                    AttackPayload playerAttackPayload = PlayerEntity.Instance.Class.Abilities[chosenAbility].UseAbility();
-                                    if (playerAttackPayload.HasPhysical || playerAttackPayload.HasProperty)
+                                    CombatPayload playerCombatPayload = PlayerEntity.Instance.Class.Abilities[chosenAbility].UseAbility();
+                                    if (playerCombatPayload.IsAttack)
                                     {
-                                        if (enemy.ReceiveDamage(playerAttackPayload, Console.CursorTop - 1))
+                                        if (enemy.ReceiveDamage(playerCombatPayload, Console.CursorTop - 1))
                                         {
                                             enemies.Remove(enemy);
                                             firing = false;
@@ -64,9 +101,14 @@ namespace AuldShiteburn.CombatData
                                             firing = false;
                                         }
                                     }
-                                    if (playerAttackPayload.IsStun)
+                                    if (playerCombatPayload.IsStun)
                                     {
-                                        enemy.Stunned = true;
+                                        if (!enemy.Stunned)
+                                        {
+                                            enemy.Stunned = true;
+                                            enemy.StunTimer = enemy.StunCap;
+                                            Utils.WriteColour($"{enemy.Name} stunned for {enemy.StunTimer} turns!", ConsoleColor.DarkBlue);
+                                        }
                                     }
                                     playerTurn = false;
                                 }
@@ -76,16 +118,16 @@ namespace AuldShiteburn.CombatData
                                     Utils.ClearAreaInteract(length: 20);
                                     firing = false;
                                 }
-                            }                            
+                            }
                         }
                     }
-                }
-                Utils.SetCursorInteract(Console.CursorTop);
-                Console.Write("Press any key to progress...");
-                Console.ReadKey();
-                Utils.SetCursorInteract(Console.CursorTop);
-                Utils.ClearInteractInterface(30);
+                }                
             }
+            Utils.SetCursorInteract(Console.CursorTop);
+            Console.Write("Press any key to progress...");
+            Console.ReadKey();
+            Utils.SetCursorInteract(Console.CursorTop);
+            Utils.ClearInteractInterface(30);
         }
 
         /// <summary>
@@ -94,9 +136,9 @@ namespace AuldShiteburn.CombatData
         /// damages.
         /// </summary>
         /// <returns>Damage payload for enemy to process.</returns>
-        private static AttackPayload CalculateWeaponDamage()
+        private static CombatPayload CalculateWeaponDamage()
         {
-            AttackPayload attackPayload = new AttackPayload();
+            CombatPayload attackPayload = new CombatPayload();
             Random rand = new Random();
             WeaponItem playerWeapon = PlayerEntity.Instance.EquippedWeapon;
             attackPayload.PhysicalDamage = rand.Next(playerWeapon.MinPhysDamage, playerWeapon.MaxPhysDamage);

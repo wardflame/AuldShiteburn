@@ -120,6 +120,23 @@ namespace AuldShiteburn.ArtData
 ██║░░██║╚██████╔╝███████╗██████╔╝  ██████╔╝██║░░██║██║░░░██║░░░███████╗██████╦╝╚██████╔╝██║░░██║██║░╚███║
 ╚═╝░░╚═╝░╚═════╝░╚══════╝╚═════╝░  ╚═════╝░╚═╝░░╚═╝╚═╝░░░╚═╝░░░╚══════╝╚═════╝░░╚═════╝░╚═╝░░╚═╝╚═╝░░╚══╝
 ";
+        public const string DEATH_MESSAGE =
+            @"
+██╗░░░██╗░█████╗░██╗░░░██╗  ██████╗░██╗███████╗██████╗░
+╚██╗░██╔╝██╔══██╗██║░░░██║  ██╔══██╗██║██╔════╝██╔══██╗
+░╚████╔╝░██║░░██║██║░░░██║  ██║░░██║██║█████╗░░██║░░██║
+░░╚██╔╝░░██║░░██║██║░░░██║  ██║░░██║██║██╔══╝░░██║░░██║
+░░░██║░░░╚█████╔╝╚██████╔╝  ██████╔╝██║███████╗██████╔╝
+░░░╚═╝░░░░╚════╝░░╚═════╝░  ╚═════╝░╚═╝╚══════╝╚═════╝░";
+
+        public const string VICTORY_MESSAGE =
+            @"
+██╗░░░██╗██╗░█████╗░████████╗░█████╗░██████╗░██╗░░░██╗██╗
+██║░░░██║██║██╔══██╗╚══██╔══╝██╔══██╗██╔══██╗╚██╗░██╔╝██║
+╚██╗░██╔╝██║██║░░╚═╝░░░██║░░░██║░░██║██████╔╝░╚████╔╝░██║
+░╚████╔╝░██║██║░░██╗░░░██║░░░██║░░██║██╔══██╗░░╚██╔╝░░╚═╝
+░░╚██╔╝░░██║╚█████╔╝░░░██║░░░╚█████╔╝██║░░██║░░░██║░░░██╗
+░░░╚═╝░░░╚═╝░╚════╝░░░░╚═╝░░░░╚════╝░╚═╝░░╚═╝░░░╚═╝░░░╚═╝";
 
         /// <summary>
         /// Take a number, turn it into string, get each number as char
@@ -177,6 +194,25 @@ namespace AuldShiteburn.ArtData
                 }
             }
             return string.Join(Environment.NewLine, lines.ToArray());
+        }
+
+        /// <summary>
+        /// Split ASCII art into rows and print bit by bit,
+        /// vertically using Console.CursorTop.
+        /// </summary>
+        /// <param name="ascii">ASCII to print.</param>
+        /// <param name="colour">Colour to print in.</param>
+        public static void PrintASCII(string ascii, ConsoleColor colour = ConsoleColor.Gray)
+        {
+            Console.ForegroundColor = colour;
+            string[] messageArray = ascii.Split(Environment.NewLine);
+            for (int i = 0; i < messageArray.Length; i++)
+            {
+                Console.CursorTop++;
+                Utils.WriteColour(messageArray[i], ConsoleColor.DarkGreen);
+                Console.CursorLeft -= messageArray[i].Length;
+            }
+            Console.ResetColor();
         }
     }
 }

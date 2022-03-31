@@ -14,7 +14,7 @@ namespace AuldShiteburn.EntityData.PlayerData.Classes
         public MarauderClass() : base
             ("Marauder", ClassType.Marauder,
             new TitleData(PlayerGenerationData.MarauderTitles),
-            new ClassStatistics(34, 30, 0),
+            new ClassStatistics(34, 30, 0, 1),
             new ProficiencyData(ArmourFamily.MediumArmour, WeaponFamily.StrengthLargeArms, PropertyDamageType.Fire, GeneralMaterials.None),
             new List<Ability>()
             {

@@ -21,7 +21,7 @@ namespace AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.HeathenA
 
         public override int MaxDamage => 0;
 
-        public override AttackPayload UseAbility()
+        public override CombatPayload UseAbility()
         {
             Utils.SetCursorInteract(Console.CursorTop + 1);
             if (ActiveCooldown > 0)
@@ -38,9 +38,9 @@ namespace AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.HeathenA
                 shiteWard.DisplayColor = ConsoleColor.DarkYellow;
                 PlayerEntity.Instance.StatusEffect = shiteWard;
                 PlayerEntity.Instance.PrintStats();
-                return new AttackPayload();
+                return new CombatPayload();
             }
-            return new AttackPayload();
+            return new CombatPayload();
         }
     }
 }

@@ -1,10 +1,13 @@
 ﻿using AuldShiteburn.CombatData;
+using AuldShiteburn.EntityData;
 using AuldShiteburn.EntityData.Enemies;
+using AuldShiteburn.ItemData;
 using AuldShiteburn.ItemData.KeyData;
 using AuldShiteburn.MapData.TileData;
 using AuldShiteburn.MapData.TileData.Tiles;
 using AuldShiteburn.MapData.TileData.Tiles.NPCs;
 using System;
+using System.Collections.Generic;
 
 namespace AuldShiteburn.MapData.AreaData.Areas
 {
@@ -31,7 +34,10 @@ namespace AuldShiteburn.MapData.AreaData.Areas
 
         public override void OnFirstEnter()
         {
-            Combat.CombatEncounter(enemies);
+            if (Combat.CombatEncounter(enemies))
+            {
+                SetTile(PlayerEntity.Instance.PosX + 1, PlayerEntity.Instance.PosY, new LootTile(new List<Item>(), true, true));
+            }
         }
 
         protected override void TileGeneration()

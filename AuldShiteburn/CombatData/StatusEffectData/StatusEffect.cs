@@ -11,7 +11,7 @@ namespace AuldShiteburn.CombatData.StatusEffectData
         public string Name { get; set; }
         public int Duration { get; set; }
         public ConsoleColor DisplayColor { get; set; }
-        public virtual void EffectActive(AttackPayload attackPayload)
+        public virtual void EffectActive(CombatPayload attackPayload)
         {
         }
     }

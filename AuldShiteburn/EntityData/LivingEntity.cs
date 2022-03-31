@@ -63,6 +63,21 @@ namespace AuldShiteburn.EntityData
             }
         }
         public bool Stunned { get; set; }
+        public int StunCap { get; set; }
+        private int stunTimer;
+        public int StunTimer
+        {
+            get
+            {
+                return stunTimer;
+            }
+            set
+            {
+                stunTimer = value;
+                if (stunTimer < 0) stunTimer = 0;
+                if (stunTimer > StunCap) stunTimer = StunCap;
+            }
+        }
 
         /// <summary>
         /// Take a damage payload and calculate it against the enitity's
@@ -72,7 +87,7 @@ namespace AuldShiteburn.EntityData
         /// <param name="incomingDamage">Damage payload to process.</param>
         /// <param name="offsetY">Potentially required for UI placement.</param>
         /// <returns>Returns true if the entity died.</returns>
-        public virtual bool ReceiveDamage(AttackPayload attackPayload, int offsetY = 0)
+        public virtual bool ReceiveDamage(CombatPayload attackPayload, int offsetY = 0)
         {
             return false;
         }

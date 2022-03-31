@@ -34,6 +34,6 @@ namespace AuldShiteburn.CombatData.AbilityData
         public abstract int MinDamage { get; }
         public abstract int MaxDamage { get; }
 
-        public abstract AttackPayload UseAbility();
+        public abstract CombatPayload UseAbility();
     }
 }
