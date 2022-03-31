@@ -115,7 +115,7 @@ namespace AuldShiteburn.ItemData.ArmourData
             {
                 if (IsPhysicalProficient)
                 {
-                    return physicalMitigation += Combat.PROFICIENCY_ARMOUR_MODIFIER;
+                    return physicalMitigation += Combat.PROFICIENCY_ARMOUR_MITIGATION_MINOR;
                 }
                 return physicalMitigation;
             }
@@ -130,7 +130,7 @@ namespace AuldShiteburn.ItemData.ArmourData
             {
                 if (HasPropertyAffinity)
                 {
-                    return propertyMitigation += Combat.PROFICIENCY_ARMOUR_MODIFIER_MINOR;
+                    return propertyMitigation += Combat.PROFICIENCY_ARMOUR_MITIGATION_MINOR;
                 }
                 return propertyMitigation;
             }

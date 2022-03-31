@@ -1,4 +1,5 @@
 ﻿using AuldShiteburn.CombatData.AbilityData;
+using AuldShiteburn.CombatData.PayloadData;
 using AuldShiteburn.EntityData;
 using AuldShiteburn.ItemData.WeaponData;
 using System;
@@ -8,19 +9,24 @@ namespace AuldShiteburn.CombatData
 {
     internal class Combat
     {
-        public const int PROFICIENCY_DAMAGE_MODIFIER = 2;
-        public const int PROFICIENCY_ARMOUR_MODIFIER_MINOR = 2;
-        public const int PROFICIENCY_ARMOUR_MODIFIER = 4;
-        public const int STATUS_MITIGATION_MODIFIER = 4;
+        public const int PROFICIENCY_DAMAGE_BONUS_MINOR = 2;
+        public const int PROFICIENCY_DAMAGE_BONUS_MODERATE = 4;
+        public const int PROFICIENCY_DAMAGE_BONUS_MAJOR = 6;
+        public const int PROFICIENCY_ARMOUR_MITIGATION_MINOR = 2;
+        public const int PROFICIENCY_ARMOUR_MITIGATION_MODERATE = 4;
+        public const int PROFICIENCY_ARMOUR_MITIGATION_MAJOR = 6;
+        public const int STATUS_MITIGATION_MINOR = 2;
+        public const int STATUS_MITIGATION_MODERATE = 4;
+        public const int STATUS_MITIGATION_MAJOR = 6;
         public const int ARMOUR_RESISTANCE_MITIGATION_MODIFIER = 2;
-        public const int WEAKNESS_BONUS_MODIFIER = 3;
+        public const int WEAKNESS_BONUS_MODIFIER = 2;
 
         public static void CombatEncounter(List<EnemyEntity> enemies)
         {
             while (enemies.Count > 0 || PlayerEntity.Instance.HP > 0)
             {
-                bool playerAttacking = true;
-                while (playerAttacking)
+                bool playerTurn = true;
+                while (playerTurn)
                 {
                     int index = CycleEnemies(enemies);
                     int attackChoice = AttackChoice(enemies, index);
@@ -29,11 +35,11 @@ namespace AuldShiteburn.CombatData
                     {
                         if (attackChoice == 1)
                         {
-                            DamagePayload playerDamagePayload = CalculateWeaponDamage();
-                            if (enemy.ReceiveDamage(playerDamagePayload, enemies.Count + 6))
+                            AttackPayload playerAttackPayload = CalculateWeaponDamage();
+                            if (enemy.ReceiveDamage(playerAttackPayload, enemies.Count + 6))
                             {
                                 enemies.Remove(enemy);
-                                playerAttacking = false;
+                                playerTurn = false;
                             }
                         }
                         else if (attackChoice == 2)
@@ -42,13 +48,13 @@ namespace AuldShiteburn.CombatData
                             while (firing)
                             {
                                 Utils.ClearAreaInteract(enemies.Count + 6, 10);
-                                int chosenAbility = PlayerEntity.Instance.CycleAbilities(enemies.Count + 6, 0);
-                                AbilityPayload ability = PlayerEntity.Instance.Class.Abilities[chosenAbility].UseAbility();
-                                if (ability.Fired)
+                                (int chosenAbility, bool chosen) = PlayerEntity.Instance.CycleAbilities(enemies.Count + 6, 0);
+                                if (chosen)
                                 {
-                                    if (ability.DamagePayload.IsDamageAttack)
+                                    AttackPayload playerAttackPayload = PlayerEntity.Instance.Class.Abilities[chosenAbility].UseAbility();
+                                    if (playerAttackPayload.HasPhysical || playerAttackPayload.HasProperty)
                                     {
-                                        if (enemy.ReceiveDamage(ability.DamagePayload, Console.CursorTop))
+                                        if (enemy.ReceiveDamage(playerAttackPayload, Console.CursorTop - 1))
                                         {
                                             enemies.Remove(enemy);
                                             firing = false;
@@ -58,43 +64,58 @@ namespace AuldShiteburn.CombatData
                                             firing = false;
                                         }
                                     }
-                                    playerAttacking = false;
+                                    if (playerAttackPayload.IsStun)
+                                    {
+                                        enemy.Stunned = true;
+                                    }
+                                    playerTurn = false;
                                 }
                                 else
                                 {
-                                    Utils.SetCursorInteract(Console.CursorTop + 1);
-                                    Console.Write("Press any key to choose different option...");
+                                    Utils.SetCursorInteract(enemies.Count + 2);
+                                    Utils.ClearAreaInteract(length: 20);
                                     firing = false;
                                 }
                             }                            
                         }
                     }
-                    Utils.SetCursorInteract(Console.CursorTop);
-                    Console.Write("Press any key to progress...");
-                    Console.ReadKey();
-                    Utils.SetCursorInteract(Console.CursorTop);
-                    Utils.ClearInteractInterface(20);
                 }
+                Utils.SetCursorInteract(Console.CursorTop);
+                Console.Write("Press any key to progress...");
+                Console.ReadKey();
+                Utils.SetCursorInteract(Console.CursorTop);
+                Utils.ClearInteractInterface(30);
             }
         }
 
         /// <summary>
-        /// Generate a Damage payload from the player's equipped weapon,
+        /// Generate an attack payload from the player's equipped weapon,
         /// randomising between the min and max physical and property
         /// damages.
         /// </summary>
         /// <returns>Damage payload for enemy to process.</returns>
-        private static DamagePayload CalculateWeaponDamage()
+        private static AttackPayload CalculateWeaponDamage()
         {
+            AttackPayload attackPayload = new AttackPayload();
             Random rand = new Random();
             WeaponItem playerWeapon = PlayerEntity.Instance.EquippedWeapon;
-            int physDamage = rand.Next(playerWeapon.MinPhysDamage, playerWeapon.MaxPhysDamage);
-            int propDamage = rand.Next(playerWeapon.MinPropDamage, playerWeapon.MaxPropDamage);
-            return new DamagePayload(physDamage, propDamage, playerWeapon.Type.PrimaryAttack, playerWeapon.Property.Property);
+            attackPayload.PhysicalDamage = rand.Next(playerWeapon.MinPhysDamage, playerWeapon.MaxPhysDamage);
+            if (attackPayload.PhysicalDamage > 0)
+            {
+                attackPayload.PhysicalAttackType = playerWeapon.Type.PrimaryAttack;
+                attackPayload.HasPhysical = true;
+            }
+            attackPayload.PropertyDamage = rand.Next(playerWeapon.MinPropDamage, playerWeapon.MaxPropDamage);
+            if (attackPayload.PropertyDamage > 0 || playerWeapon.Property.Type == PropertyDamageType.Damaged)
+            {
+                attackPayload.PropertyAttackType = playerWeapon.Property.Type;
+                attackPayload.HasProperty = true;
+            }
+            return attackPayload;
         }
 
         /// <summary>
-        /// Offer player choice to use weapon or ability, return choice.
+        /// Offer player choice to use weapon or playerAttackPayload, return choice.
         /// </summary>
         /// <param name="enemies">List of enemies.</param>
         /// <param name="index">Index of the enemy in the list.</param>
@@ -201,5 +222,13 @@ namespace AuldShiteburn.CombatData
                 Console.Write($"HP\n");
             }
         }
+    }
+
+    public enum EffectLevel
+    {
+        None,
+        Minor,
+        Moderate,
+        Major
     }
 }

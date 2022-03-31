@@ -1,4 +1,5 @@
-﻿using AuldShiteburn.EntityData;
+﻿using AuldShiteburn.CombatData.PayloadData;
+using AuldShiteburn.EntityData;
 using System;
 
 namespace AuldShiteburn.CombatData.AbilityData
@@ -33,18 +34,6 @@ namespace AuldShiteburn.CombatData.AbilityData
         public abstract int MinDamage { get; }
         public abstract int MaxDamage { get; }
 
-        public abstract AbilityPayload UseAbility();
-    }
-
-    public struct AbilityPayload
-    {
-        public DamagePayload DamagePayload { get; }
-        public bool Fired { get; }
-
-        public AbilityPayload(DamagePayload damagePayload, bool fired)
-        {
-            DamagePayload = damagePayload;
-            Fired = fired;
-        }
+        public abstract AttackPayload UseAbility();
     }
 }

@@ -1,4 +1,6 @@
-﻿using AuldShiteburn.EntityData;
+﻿using AuldShiteburn.CombatData.PayloadData;
+using AuldShiteburn.CombatData.StatusEffectData.StatusEffects;
+using AuldShiteburn.EntityData;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -19,7 +21,7 @@ namespace AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.HeathenA
 
         public override int MaxDamage => 0;
 
-        public override AbilityPayload UseAbility()
+        public override AttackPayload UseAbility()
         {
             Utils.SetCursorInteract(Console.CursorTop + 1);
             if (ActiveCooldown > 0)
@@ -29,10 +31,16 @@ namespace AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.HeathenA
             }
             else if (ActiveCooldown <= 0)
             {
-
-                
+                ActiveCooldown = Cooldown;
+                DefenseStatusEffect shiteWard = new DefenseStatusEffect(EffectLevel.Moderate, allPhysicalDefense: true, propertyDamageType: PropertyDamageType.Occult, propertyNulOrMit: true);
+                shiteWard.Name = "Shite Ward";
+                shiteWard.Duration = 4;
+                shiteWard.DisplayColor = ConsoleColor.DarkYellow;
+                PlayerEntity.Instance.StatusEffect = shiteWard;
+                PlayerEntity.Instance.PrintStats();
+                return new AttackPayload();
             }
-            return new AbilityPayload(new DamagePayload(), false);
+            return new AttackPayload();
         }
     }
 }

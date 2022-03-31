@@ -1,4 +1,5 @@
 ﻿using AuldShiteburn.CombatData.AbilityData;
+using AuldShiteburn.CombatData.PayloadData;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,52 +11,111 @@ namespace AuldShiteburn.CombatData.StatusEffectData.StatusEffects
     /// </summary>
     internal class DefenseStatusEffect : StatusEffect
     {
-        public PhysicalDamageType PhysicalDamageDefense { get; }
-        public PropertyDamageType PropertyDamageDefense { get; }
+        public EffectLevel PhysicalEffectLevel { get; }
+        public EffectLevel PropertyEffectLevel { get; }
+        public PhysicalDamageType PhysicalTypeDefense { get; }
+        public PropertyDamageType PropertyTypeDefense { get; }
+
         /// <summary>
-        /// If true, Nullify, else Mitigate damage.
+        /// Will this nullification/mitigation apply to all physical types?
+        /// </summary>
+        public bool AllPhysicalDefense { get; }
+
+        /// <summary>
+        /// Will this nullification/mitigation apply to all property types?
+        /// </summary>
+        public bool AllPropertyDefense { get; }
+
+        /// <summary>
+        /// If true, nullify physical damage. If false, mitigate it.
         /// </summary>
         public bool PhysicalNulOrMit { get; }
+
+        /// <summary>
+        /// If true, nullify property damage. If false, mitigate it.
+        /// </summary>
         public bool PropertyNulOrMit { get; }
 
-        public DefenseStatusEffect(PhysicalDamageType physicalDamageType, PropertyDamageType propertyDamageType, bool physicalNulOrMit, bool propertyNulOrMit)
+        public DefenseStatusEffect
+            (EffectLevel physicalEffectLevel = EffectLevel.None, EffectLevel propertyEffectLevel = EffectLevel.None,
+            bool allPhysicalDefense = false, bool allPropertyDefense = false,
+            PhysicalDamageType physicalDamageType = PhysicalDamageType.None, PropertyDamageType propertyDamageType = PropertyDamageType.None,
+            bool physicalNulOrMit = false, bool propertyNulOrMit = false)
         {
-            PhysicalDamageDefense = physicalDamageType;
-            PropertyDamageDefense = propertyDamageType;
+            PhysicalEffectLevel = physicalEffectLevel;
+            PropertyEffectLevel = propertyEffectLevel;
+            AllPhysicalDefense = allPhysicalDefense;
+            AllPropertyDefense = allPropertyDefense;
+            PhysicalTypeDefense = physicalDamageType;
+            PropertyTypeDefense = propertyDamageType;
             PhysicalNulOrMit = physicalNulOrMit;
             PropertyNulOrMit = propertyNulOrMit;
         }
 
-        public override AbilityPayload EffectActive(AbilityPayload abilityPayload = new AbilityPayload())
+        public override void EffectActive(AttackPayload attackPayload)
         {
-            bool payloadFired = abilityPayload.Fired;
-            DamagePayload newPayload = abilityPayload.DamagePayload;
-            if (newPayload.IsDamageAttack)
+            if (attackPayload.HasPhysical)
             {
-                if (newPayload.physicalDamageType == PhysicalDamageDefense)
+                if (attackPayload.PhysicalAttackType == PhysicalTypeDefense || AllPhysicalDefense)
                 {
                     if (PhysicalNulOrMit)
                     {
-                        newPayload.physicalDamage = 0;
+                        attackPayload.PhysicalDamage = 0;
                     }
                     else
                     {
-                        newPayload.physicalDamage -= Combat.STATUS_MITIGATION_MODIFIER;
-                    }
-                }
-                if (newPayload.propertyDamageType == PropertyDamageDefense)
-                {
-                    if (PropertyNulOrMit)
-                    {
-                        newPayload.physicalDamage = 0;
-                    }
-                    else
-                    {
-                        newPayload.physicalDamage -= Combat.STATUS_MITIGATION_MODIFIER;
+                        switch (PhysicalEffectLevel)
+                        {
+                            case EffectLevel.Minor:
+                                {
+                                    attackPayload.PhysicalDamage -= Combat.STATUS_MITIGATION_MINOR;
+                                }
+                                break;
+                            case EffectLevel.Moderate:
+                                {
+                                    attackPayload.PhysicalDamage -= Combat.STATUS_MITIGATION_MODERATE;
+                                }
+                                break;
+                            case EffectLevel.Major:
+                                {
+                                    attackPayload.PhysicalDamage -= Combat.STATUS_MITIGATION_MAJOR;
+                                }
+                                break;
+                        }
                     }
                 }
             }
-            return abilityPayload;
+            if (attackPayload.HasProperty)
+            {
+                if (attackPayload.PropertyAttackType == PropertyTypeDefense || AllPropertyDefense)
+                {
+                    if (PropertyNulOrMit)
+                    {
+                        attackPayload.PropertyDamage = 0;
+                    }
+                    else
+                    {
+                        switch (PropertyEffectLevel)
+                        {
+                            case EffectLevel.Minor:
+                                {
+                                    attackPayload.PhysicalDamage -= Combat.STATUS_MITIGATION_MINOR;
+                                }
+                                break;
+                            case EffectLevel.Moderate:
+                                {
+                                    attackPayload.PhysicalDamage -= Combat.STATUS_MITIGATION_MODERATE;
+                                }
+                                break;
+                            case EffectLevel.Major:
+                                {
+                                    attackPayload.PhysicalDamage -= Combat.STATUS_MITIGATION_MAJOR;
+                                }
+                                break;
+                        }
+                    }
+                }
+            }
         }
     }
 }

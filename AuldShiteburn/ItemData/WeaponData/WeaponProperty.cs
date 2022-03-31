@@ -52,7 +52,7 @@ namespace AuldShiteburn.ItemData.WeaponData
             }
         }
         public string Name { get; }
-        public PropertyDamageType Property { get; }
+        public PropertyDamageType Type { get; }
         private int minDamage, maxDamage;
         public int MinDamage
         {
@@ -60,7 +60,7 @@ namespace AuldShiteburn.ItemData.WeaponData
             {
                 if (HasAffinity)
                 {
-                    return minDamage += Combat.PROFICIENCY_DAMAGE_MODIFIER;
+                    return minDamage += Combat.PROFICIENCY_DAMAGE_BONUS_MINOR;
                 }
                 return minDamage;
             }
@@ -75,7 +75,7 @@ namespace AuldShiteburn.ItemData.WeaponData
             {
                 if (HasAffinity)
                 {
-                    return maxDamage += Combat.PROFICIENCY_DAMAGE_MODIFIER;
+                    return maxDamage += Combat.PROFICIENCY_DAMAGE_BONUS_MINOR;
                 }
                 return maxDamage;
             }
@@ -88,14 +88,14 @@ namespace AuldShiteburn.ItemData.WeaponData
         {
             get
             {
-                return PlayerEntity.Instance.Class.Proficiencies.propertyAffinity == Property;
+                return PlayerEntity.Instance.Class.Proficiencies.propertyAffinity == Type;
             }
         }
 
         public WeaponProperty(string name, PropertyDamageType property, ClassType proficientClass, int minDamage, int maxDamage)
         {
             Name = name;
-            Property = property;
+            Type = property;
             MinDamage = minDamage;
             MaxDamage = maxDamage;
         }

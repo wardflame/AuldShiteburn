@@ -1,4 +1,5 @@
 ﻿using AuldShiteburn.CombatData;
+using AuldShiteburn.CombatData.PayloadData;
 using System;
 
 namespace AuldShiteburn.EntityData
@@ -61,6 +62,7 @@ namespace AuldShiteburn.EntityData
                 }
             }
         }
+        public bool Stunned { get; set; }
 
         /// <summary>
         /// Take a damage payload and calculate it against the enitity's
@@ -70,7 +72,7 @@ namespace AuldShiteburn.EntityData
         /// <param name="incomingDamage">Damage payload to process.</param>
         /// <param name="offsetY">Potentially required for UI placement.</param>
         /// <returns>Returns true if the entity died.</returns>
-        public virtual bool ReceiveDamage(DamagePayload incomingDamage, int offsetY = 0)
+        public virtual bool ReceiveDamage(AttackPayload attackPayload, int offsetY = 0)
         {
             return false;
         }

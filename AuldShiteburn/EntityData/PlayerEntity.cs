@@ -1,6 +1,8 @@
 ﻿using AuldShiteburn.BackendData;
 using AuldShiteburn.CombatData;
 using AuldShiteburn.CombatData.AbilityData;
+using AuldShiteburn.CombatData.PayloadData;
+using AuldShiteburn.CombatData.StatusEffectData;
 using AuldShiteburn.EntityData.PlayerData;
 using AuldShiteburn.EntityData.PlayerData.Classes;
 using AuldShiteburn.ItemData;
@@ -24,7 +26,7 @@ namespace AuldShiteburn.EntityData
         public long Playtime { get; set; }
         public Inventory Inventory { get; set; } = new Inventory();
         public CharacterClass Class { get; private set; }
-
+        public StatusEffect StatusEffect { get; set; }
         public WeaponItem EquippedWeapon { get; set; }
         public ArmourItem EquippedArmour { get; set; }
 
@@ -128,27 +130,27 @@ namespace AuldShiteburn.EntityData
             return Instance;
         }
 
-        public override bool ReceiveDamage(DamagePayload incomingDamage, int offsetY = 0)
+        public override bool ReceiveDamage(AttackPayload attackPayload, int offsetY = 0)
         {
-            int initialPhys = incomingDamage.physicalDamage;
-            int initialProp = incomingDamage.propertyDamage;
+            int initialPhys = attackPayload.PhysicalDamage;
+            int initialProp = attackPayload.PropertyDamage;
             int totalDamage = 0;
             Utils.SetCursorInteract();
             if (Instance.EquippedArmour != null)
             {
                 ArmourItem playerArmour = Instance.EquippedArmour;
-                bool physRes = playerArmour.PrimaryPhysicalResistance == incomingDamage.physicalDamageType;
-                bool propRes = playerArmour.PrimaryPropertyResistance == incomingDamage.propertyDamageType;
+                bool physRes = playerArmour.PrimaryPhysicalResistance == attackPayload.PhysicalAttackType;
+                bool propRes = playerArmour.PrimaryPropertyResistance == attackPayload.PropertyAttackType;
 
                 Console.Write($"{Instance.Name} takes ");
-                int physDamage = incomingDamage.physicalDamage -= playerArmour.PhysicalMitigation;
+                int physDamage = attackPayload.PhysicalDamage -= playerArmour.PhysicalMitigation;
                 if (physRes)
                 {
                     physDamage -= Combat.ARMOUR_RESISTANCE_MITIGATION_MODIFIER;
                 }
                 if (physDamage < 0) physDamage = 0;
                 Utils.WriteColour($"{physDamage}/{initialPhys} ", ConsoleColor.Red);
-                int propDamage = incomingDamage.propertyDamage -= playerArmour.PropertyMitigation;
+                int propDamage = attackPayload.PropertyDamage -= playerArmour.PropertyMitigation;
                 if (propRes)
                 {
                     propDamage -= Combat.ARMOUR_RESISTANCE_MITIGATION_MODIFIER;
@@ -165,11 +167,11 @@ namespace AuldShiteburn.EntityData
             else
             {
                 Console.Write($"{Instance.Name} takes ");
-                totalDamage += incomingDamage.physicalDamage;
-                Utils.WriteColour($"{incomingDamage.physicalDamage} ", ConsoleColor.Red);
+                totalDamage += attackPayload.PhysicalDamage;
+                Utils.WriteColour($"{attackPayload.PhysicalDamage} ", ConsoleColor.Red);
                 Console.Write($"physical damage and ");
-                totalDamage += incomingDamage.propertyDamage;
-                Utils.WriteColour($"{incomingDamage.propertyDamage} ", ConsoleColor.Red);
+                totalDamage += attackPayload.PropertyDamage;
+                Utils.WriteColour($"{attackPayload.PropertyDamage} ", ConsoleColor.Red);
                 Console.Write($"for a total of ");
                 Utils.WriteColour($"{totalDamage} ", ConsoleColor.Red);
                 Console.Write($"damage.");
@@ -270,6 +272,17 @@ namespace AuldShiteburn.EntityData
                 Console.Write($"Mana: ");
                 Utils.WriteColour($"{Instance.Mana}", ConsoleColor.Blue);
             }
+            Utils.SetCursorPlayerStat(4);
+            Console.Write("Status Effect: ");
+            if (Instance.StatusEffect != null)
+            {
+                Utils.WriteColour($"{Instance.StatusEffect.Name}: ", Instance.StatusEffect.DisplayColor);
+                Console.Write($"{Instance.StatusEffect.Duration}");
+            }
+            else
+            {
+                Console.Write("--");
+            }
             Utils.SetCursorPlayerStat(5);
             Console.Write("- - - - - - - -");
 
@@ -341,9 +354,9 @@ namespace AuldShiteburn.EntityData
             }
         }
 
-        public int CycleAbilities(int offsetY, int index)
+        public (int, bool) CycleAbilities(int offsetY, int index)
         {
-            PrintAbilities(offsetY, index);
+            PrintAbilitiesOptions(offsetY, index);
             do
             {
                 InputSystem.GetInput();
@@ -355,7 +368,7 @@ namespace AuldShiteburn.EntityData
                             {
                                 index--;
                                 Utils.ClearAreaInteract(offsetY, Instance.Class.Abilities.Count + 4);
-                                PrintAbilities(offsetY, index);
+                                PrintAbilitiesOptions(offsetY, index);
                             }
                         }
                         break;
@@ -365,22 +378,28 @@ namespace AuldShiteburn.EntityData
                             {
                                 index++;
                                 Utils.ClearAreaInteract(offsetY, Instance.Class.Abilities.Count + 4);
-                                PrintAbilities(offsetY, index);
+                                PrintAbilitiesOptions(offsetY, index);
                             }
+                        }
+                        break;
+                    case ConsoleKey.Backspace:
+                        {
+                            return (0, false);
                         }
                         break;
                 }
             } while (InputSystem.InputKey != ConsoleKey.Enter);
-            return index;
+            return (index, true);
         }
 
-        public void PrintAbilities(int offsetY, int index)
+        public void PrintAbilitiesOptions(int offsetY, int index)
         {
             Utils.SetCursorInteract(offsetY);
             Utils.WriteColour("Abilities", ConsoleColor.DarkYellow);
+            int offset = 0;
             for (int i = 0; i < Instance.Class.Abilities.Count; i++)
             {
-                int offset = offsetY + i + 1;
+                offset = offsetY + i + 1;
                 Utils.SetCursorInteract(offset);
                 Ability ability = Instance.Class.Abilities[i];
                 if (ability == Instance.Class.Abilities[index])
@@ -402,6 +421,10 @@ namespace AuldShiteburn.EntityData
                     Console.ResetColor();
                 }
             }
+            Utils.SetCursorInteract(offset + 1);
+            Console.Write("[");
+            Utils.WriteColour("Backspace", ConsoleColor.DarkGray);
+            Console.Write("] Return");
         }
     }
 }

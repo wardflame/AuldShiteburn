@@ -13,7 +13,7 @@ namespace AuldShiteburn.ItemData.WeaponData
         {
             get
             {
-                if (Property.Property == PropertyDamageType.Standard)
+                if (Property.Type == PropertyDamageType.Standard)
                 {
                     return $"{Material.Name} {Type.Name}";
                 }

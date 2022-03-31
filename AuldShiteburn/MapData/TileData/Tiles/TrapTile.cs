@@ -1,4 +1,5 @@
 ﻿using AuldShiteburn.CombatData;
+using AuldShiteburn.CombatData.PayloadData;
 using AuldShiteburn.EntityData;
 using System;
 using System.Collections.Generic;
@@ -19,8 +20,8 @@ namespace AuldShiteburn.MapData.TileData.Tiles
 
         public override void OnCollision(Entity entity)
         {
-            DamagePayload damage = new DamagePayload(5, 0, PhysicalDamageType.Slash);
-            PlayerEntity.Instance.ReceiveDamage(damage);
+            AttackPayload attackPayload = new AttackPayload(hasPhysical: true, physicalAttackType: PhysicalDamageType.Pierce, physicalDamage: 5);
+            PlayerEntity.Instance.ReceiveDamage(attackPayload);
         }
     }
 }
