@@ -24,7 +24,7 @@ namespace AuldShiteburn.EntityData
         public bool QuittingToMenu { get; set; } = false;
         public bool InMenu { get; set; }
         public long Playtime { get; set; }
-        public Inventory Inventory { get; set; } = new Inventory();
+        public Inventory Inventory { get; set; }
         public CharacterClass Class { get; private set; }
         public StatusEffect StatusEffect { get; set; }
         public WeaponItem EquippedWeapon { get; set; }
@@ -61,7 +61,7 @@ namespace AuldShiteburn.EntityData
                         break;
                     case ConsoleKey.I:
                         {
-                            Inventory.ItemInteract();
+                            Inventory.PlayerItemInteract(true);
                             Instance.PrintStats();
                             Instance.PrintInventory();
                         }
@@ -123,7 +123,12 @@ namespace AuldShiteburn.EntityData
             #endregion Name Generation
 
             #region Loot Assignment
-            Instance.EquippedWeapon = WeaponItem.GenerateSpawnWeapon(Instance.Class.ClassType);
+            Instance.Inventory = new Inventory(6, 4);
+            //Instance.EquippedWeapon = WeaponItem.GenerateSpawnWeapon(Instance.Class.ClassType);
+            Instance.EquippedWeapon = new WeaponItem();
+            Instance.EquippedWeapon.Type = WeaponType.Greathammer;
+            Instance.EquippedWeapon.Material = WeaponMaterial.WeaponMaterialMoonstone;
+            Instance.EquippedWeapon.Property = WeaponProperty.WeaponPropertyDamaged;
             //Instance.Inventory.ItemList[0, 1] = new ArmourItem("Plate");
             #endregion Loot Assignment
 
@@ -193,7 +198,7 @@ namespace AuldShiteburn.EntityData
         {
             Utils.ClearInventoryInterface();
             Utils.SetCursorInventory();
-            Inventory.PrintInventory(Inventory.PLAYER_WEAPON_OFFSET, Inventory.PLAYER_ARMOUR_OFFSET, Inventory.PLAYER_CONSUMABLE_OFFSET, Inventory.PLAYER_KEY_OFFSET);
+            Inventory.PrintInventory(true);
         }
 
         /// <summary>
@@ -257,12 +262,15 @@ namespace AuldShiteburn.EntityData
         {
             if (Instance.EquippedWeapon != null)
             {
-                if (Instance.EquippedWeapon.Property.HasAffinity)
+                if (Instance.EquippedWeapon.Property.Type != PropertyDamageType.Standard)
                 {
-                    Console.ForegroundColor = ConsoleColor.DarkGreen;
+                    if (Instance.EquippedWeapon.Property.HasAffinity)
+                    {
+                        Console.ForegroundColor = ConsoleColor.DarkGreen;
+                    }
+                    Console.Write($"{Instance.EquippedWeapon.Property.Name} ");
+                    Console.ResetColor();
                 }
-                Console.Write($"{Instance.EquippedWeapon.Property.Name} ");
-                Console.ResetColor();
 
                 if (Instance.EquippedWeapon.Material.HasAffinity)
                 {

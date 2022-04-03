@@ -1,4 +1,6 @@
-﻿using AuldShiteburn.ItemData;
+﻿using AuldShiteburn.CombatData;
+using AuldShiteburn.EntityData.PlayerData.Classes;
+using AuldShiteburn.ItemData;
 using AuldShiteburn.ItemData.ArmourData;
 using AuldShiteburn.ItemData.ConsumableData;
 using AuldShiteburn.ItemData.KeyData;
@@ -15,118 +17,172 @@ namespace AuldShiteburn.EntityData.PlayerData
     [Serializable]
     internal class Inventory
     {
-        public int PLAYER_WEAPON_OFFSET = 1;
-        public int PLAYER_ARMOUR_OFFSET = 35;
-        public int PLAYER_CONSUMABLE_OFFSET = 70;
-        public int PLAYER_KEY_OFFSET = 105;
-        public int INTERACT_WEAPON_OFFSET = Utils.UIInteractOffset;
-        public int INTERACT_ARMOUR_OFFSET = Utils.UIInteractOffset + 34;
-        public int INTERACT_CONSUMABLE_OFFSET = Utils.UIInteractOffset + 69;
-        public int INTERACT_KEY_OFFSET = Utils.UIInteractOffset + 104;
+        public static int WeaponOffset { get; } = 0;
+        public static int ArmourOffset { get; } = 34;
+        public static int ConsumableOffset { get; } = 68;
+        public static int KeyOffset { get; } = 102;
 
-        public Item[,] ItemList { get; set; } = new Item[Row, Column];
-        public static int Row { get; } = 6;
-        public static int Column { get; } = 4;
+        public Item[,] ItemList { get; set; }
+        public int Row { get; }
+        public int Column { get; }
 
-        public bool AddItem(Item item)
+        public Inventory(int row, int column)
+        {
+            Row = row;
+            Column = column;
+            ItemList = new Item[Row, Column];
+        }
+
+        public bool AddItem(Item item, bool playerElseInteract)
         {
             int typeColumn = GetItemTypeColumn(item);
             int typeOffset = GetItemTypeUIOffset(item);
-
-            Utils.SetCursorInventory(-1);
-            Utils.ClearLine(60);
-            Utils.SetCursorInventory(-1);
+            if (playerElseInteract)
+            {
+                Utils.SetCursorInventory(-1);
+                Utils.ClearLine(60);
+                Utils.SetCursorInventory(-1);
+            }
+            else
+            {
+                Utils.SetCursorInteract(-1);
+                Utils.ClearLine(40);
+                Utils.SetCursorInteract(-1);
+            }
             Utils.WriteColour($"Choose a slot to place {item.Name}.", ConsoleColor.Yellow);
 
-            InventorySortData sortData = NavigateInventory(typeColumn, typeOffset);
+            InventorySortData sortData = NavigateInventory(playerElseInteract, typeColumn, typeOffset);
             if (sortData.index < 0)
             {
                 return false;
             }
             if (InputSystem.InputKey == ConsoleKey.Enter)
             {
-                if (PlayerEntity.Instance.Inventory.ItemList[sortData.index, typeColumn] != null)
+                if (ItemList[sortData.index, typeColumn] != null)
                 {
                     int emptySlot = CheckForEmptySlot(typeColumn);
                     if (emptySlot > 0)
                     {
-                        PlayerEntity.Instance.Inventory.ItemList[emptySlot, typeColumn] = item;
+                        ItemList[emptySlot, typeColumn] = item;
                     }
                     else
                     {
-                        Item previousItem = PlayerEntity.Instance.Inventory.ItemList[sortData.index, typeColumn];
-                        Utils.SetCursorInventory(-1);
-                        Utils.ClearLine(60);
-                        Utils.SetCursorInventory(-1);
+                        Item previousItem = ItemList[sortData.index, typeColumn];
+                        if (playerElseInteract)
+                        {
+                            Utils.SetCursorInventory(-1);
+                            Utils.ClearLine(60);
+                            Utils.SetCursorInventory(-1);
+                        }
+                        else
+                        {
+                            Utils.SetCursorInteract(-1);
+                            Utils.ClearLine(40);
+                            Utils.SetCursorInteract(-1);
+                        }                        
                         Utils.WriteColour($"No empty slots available. Drop {previousItem.Name}? (Y/N)", ConsoleColor.Red);
                         if (Utils.VerificationQuery(null))
                         {
                             if (DropItem(previousItem, sortData))
                             {
-                                PlayerEntity.Instance.Inventory.ItemList[sortData.index, typeColumn] = item;
+                                ItemList[sortData.index, typeColumn] = item;
                             }
-                            PlayerEntity.Instance.PrintInventory();
+                            PrintInventory(playerElseInteract);
                             return true;
                         }
                         else
                         {
-                            PlayerEntity.Instance.PrintInventory();
+                            PrintInventory(playerElseInteract);
                             return false;
                         }
                     }                        
                 }
                 else
                 {
-                    PlayerEntity.Instance.Inventory.ItemList[sortData.index, typeColumn] = item;
+                    ItemList[sortData.index, typeColumn] = item;
                 }
-                PlayerEntity.Instance.PrintInventory();
+                PrintInventory(playerElseInteract);
                 return true;
             }
-            PlayerEntity.Instance.PrintInventory();
+            PrintInventory(playerElseInteract);
             return false;
         }
 
-        public void PrintInventory(int weaponOffset, int armourOffset, int consumableOffset, int keyOffset)
+        public void PrintInventory(bool playerElseInteract)
         {
             int offset = 0;
             for (int x = 0; x < Column; x++)
             {
                 if (x == 0)
                 {
-                    Console.CursorLeft = weaponOffset;
-                    offset = weaponOffset;
+                    if (playerElseInteract)
+                    {
+                        Utils.SetCursorInventory(offsetX: WeaponOffset);
+                    }
+                    else
+                    {
+                        Utils.SetCursorInteract(offsetX: WeaponOffset);
+                    }
+                    offset = WeaponOffset;
                     Console.Write("[");
                     Utils.WriteColour("WEAPONS", ConsoleColor.DarkYellow);
                     Console.Write("]");
                 }
                 if (x == 1)
                 {
-                    Console.CursorLeft = armourOffset;
-                    offset = armourOffset;
+                    if (playerElseInteract)
+                    {
+                        Utils.SetCursorInventory(offsetX: ArmourOffset);
+                    }
+                    else
+                    {
+                        Utils.SetCursorInteract(offsetX: ArmourOffset);
+                    }
+                    offset = ArmourOffset;
                     Console.Write("[");
                     Utils.WriteColour("ARMOUR", ConsoleColor.DarkYellow);
                     Console.Write("]");
                 }
                 if (x == 2)
                 {
-                    Console.CursorLeft = consumableOffset;
-                    offset = consumableOffset;
+                    if (playerElseInteract)
+                    {
+                        Utils.SetCursorInventory(offsetX: ConsumableOffset);
+                    }
+                    else
+                    {
+                        Utils.SetCursorInteract(offsetX: ConsumableOffset);
+                    }
+                    offset = ConsumableOffset;
                     Console.Write("[");
                     Utils.WriteColour("CONSUMABLES", ConsoleColor.DarkYellow);
                     Console.Write("]");
                 }
                 if (x == 3)
                 {
-                    Console.CursorLeft = keyOffset;
-                    offset = keyOffset;
+                    if (playerElseInteract)
+                    {
+                        Utils.SetCursorInventory(offsetX: KeyOffset);
+                    }
+                    else
+                    {
+                        Utils.SetCursorInteract(offsetX: KeyOffset);
+                    }
+                    offset = KeyOffset;
                     Console.Write("[");
                     Utils.WriteColour("KEY ITEMS", ConsoleColor.DarkYellow);
                     Console.Write("]");
                 }
                 for (int y = 1; y <= Row; y++)
                 {
-                    Console.CursorLeft = offset;
-                    Console.CursorTop++;
+                    if (playerElseInteract)
+                    {
+                        Utils.SetCursorInventory(y, offset);
+                    }
+                    else
+                    {
+                        Utils.SetCursorInteract(y, offset);
+                    }
                     {
                         if (ItemList[y - 1, x] != null)
                         {
@@ -141,11 +197,11 @@ namespace AuldShiteburn.EntityData.PlayerData
             }
         }
 
-        private InventorySortData NavigateInventory(int typeColumn = 0, int typeOffset = 0)
+        public InventorySortData NavigateInventory(bool playerElseInteract, int typeColumn = 0, int typeOffset = 0)
         {
             InventorySortData sortData = new InventorySortData();
             int index = 0;
-            InventoryHighlight(index, typeColumn, typeOffset);
+            InventoryHighlight(playerElseInteract, this, index, typeColumn, typeOffset);
             do
             {
                 InputSystem.GetInput();
@@ -156,8 +212,18 @@ namespace AuldShiteburn.EntityData.PlayerData
                             if (index <= Row - 1 && index > 0)
                             {
                                 index--;
-                                PlayerEntity.Instance.PrintInventory();
-                                InventoryHighlight(index, typeColumn, typeOffset);
+                                if (playerElseInteract)
+                                {
+                                    Utils.ClearInventoryInterface();
+                                    Utils.SetCursorInventory();
+                                }
+                                else
+                                {
+                                    Utils.ClearInteractInterface();
+                                    Utils.SetCursorInteract();
+                                }
+                                PrintInventory(playerElseInteract);
+                                InventoryHighlight(playerElseInteract, this, index, typeColumn, typeOffset);
                             }
                         }
                         break;
@@ -166,8 +232,18 @@ namespace AuldShiteburn.EntityData.PlayerData
                             if (index >= 0 && index < Row - 1)
                             {
                                 index++;
-                                PlayerEntity.Instance.PrintInventory();
-                                InventoryHighlight(index, typeColumn, typeOffset);
+                                if (playerElseInteract)
+                                {
+                                    Utils.ClearInventoryInterface();
+                                    Utils.SetCursorInventory();
+                                }
+                                else
+                                {
+                                    Utils.ClearInteractInterface();
+                                    Utils.SetCursorInteract();
+                                }
+                                PrintInventory(playerElseInteract);
+                                InventoryHighlight(playerElseInteract, this, index, typeColumn, typeOffset);
                             }
                         }
                         break;
@@ -176,9 +252,19 @@ namespace AuldShiteburn.EntityData.PlayerData
                             if (typeColumn <= Column - 1 && typeColumn > 0)
                             {
                                 typeColumn--;
-                                typeOffset -= 35;
-                                PlayerEntity.Instance.PrintInventory();
-                                InventoryHighlight(index, typeColumn, typeOffset);
+                                typeOffset -= 34;
+                                if (playerElseInteract)
+                                {
+                                    Utils.ClearInventoryInterface();
+                                    Utils.SetCursorInventory();
+                                }
+                                else
+                                {
+                                    Utils.ClearInteractInterface();
+                                    Utils.SetCursorInteract();
+                                }
+                                PrintInventory(playerElseInteract);
+                                InventoryHighlight(playerElseInteract, this, index, typeColumn, typeOffset);
                             }
                         }
                         break;
@@ -187,15 +273,25 @@ namespace AuldShiteburn.EntityData.PlayerData
                             if (typeColumn >= 0 && typeColumn < Column - 1)
                             {
                                 typeColumn++;
-                                typeOffset += 35;
-                                PlayerEntity.Instance.PrintInventory();
-                                InventoryHighlight(index, typeColumn, typeOffset);
+                                typeOffset += 34;
+                                if (playerElseInteract)
+                                {
+                                    Utils.ClearInventoryInterface();
+                                    Utils.SetCursorInventory();
+                                }
+                                else
+                                {
+                                    Utils.ClearInteractInterface();
+                                    Utils.SetCursorInteract();
+                                }
+                                PrintInventory(playerElseInteract);
+                                InventoryHighlight(playerElseInteract, this, index, typeColumn, typeOffset);
                             }
                         }
                         break;
                     case ConsoleKey.Backspace:
                         {
-                            PlayerEntity.Instance.PrintInventory();
+                            PrintInventory(playerElseInteract);
                             sortData.index = -1;
                             return sortData;
                         }
@@ -208,17 +304,17 @@ namespace AuldShiteburn.EntityData.PlayerData
             return sortData;
         }
 
-        public void ItemInteract()
+        public void PlayerItemInteract(bool playerElseInteract)
         {
             bool interacting = true;
             while (interacting)
             {
-                InventorySortData sortData = NavigateInventory();
+                InventorySortData sortData = NavigateInventory(playerElseInteract);
                 if (sortData.index < 0)
                 {
                     return;
                 }
-                Item currentItem = PlayerEntity.Instance.Inventory.ItemList[sortData.index, sortData.typeColumn];
+                Item currentItem = ItemList[sortData.index, sortData.typeColumn];
                 Utils.SetCursorInteract();
                 if (currentItem == null)
                 {
@@ -287,7 +383,7 @@ namespace AuldShiteburn.EntityData.PlayerData
             Utils.ClearLine(60);
             Utils.SetCursorInventory(-1);
             Utils.WriteColour($"Dropped {dropItem.Name} on the floor.", ConsoleColor.Red);
-            Tile currentTile = Map.Instance.CurrentArea.GetTile(PlayerEntity.Instance.PosX, PlayerEntity.Instance.PosY);
+            Tile currentTile = Map.Instance.CurrentArea.GetTile(EntityData.PlayerEntity.Instance.PosX, EntityData.PlayerEntity.Instance.PosY);
             if (currentTile is LootTile)
             {
                 LootTile tile = (LootTile)currentTile;
@@ -295,8 +391,8 @@ namespace AuldShiteburn.EntityData.PlayerData
             }
             else
             {
-                int spawnX = PlayerEntity.Instance.PosX;
-                int spawnY = PlayerEntity.Instance.PosY;
+                int spawnX = EntityData.PlayerEntity.Instance.PosX;
+                int spawnY = EntityData.PlayerEntity.Instance.PosY;
                 bool tileFound = false;
                 for (int x = -1; x <= 1; x++)
                 {
@@ -306,8 +402,8 @@ namespace AuldShiteburn.EntityData.PlayerData
                         {
                             continue;
                         }
-                        int checkX = PlayerEntity.Instance.PosX + x;
-                        int checkY = PlayerEntity.Instance.PosY + y;
+                        int checkX = EntityData.PlayerEntity.Instance.PosX + x;
+                        int checkY = EntityData.PlayerEntity.Instance.PosY + y;
                         Tile emptyTile = Map.Instance.CurrentArea.GetTile(checkX, checkY);
                         if (emptyTile != null && emptyTile.DisplayChar == Tile.AirTile.DisplayChar)
                         {
@@ -333,12 +429,19 @@ namespace AuldShiteburn.EntityData.PlayerData
                         dropItem
                     },
                     false, true));
-                PlayerEntity.Instance.Inventory.ItemList[sortData.index, sortData.typeColumn] = null;
+                EntityData.PlayerEntity.Instance.Inventory.ItemList[sortData.index, sortData.typeColumn] = null;
                 Map.Instance.PrintTile(spawnX, spawnY);
             }
             return true;
         }
 
+        /// <summary>
+        /// Get the ItemList[,] column by item type to
+        /// ensure items are divided neatly into their
+        /// respective categories.
+        /// </summary>
+        /// <param name="item">Item to check for type.</param>
+        /// <returns>Column of the ItemList[,] to use.</returns>
         private int GetItemTypeColumn(Item item)
         {
             if (item.GetType() == typeof(WeaponItem))
@@ -364,19 +467,19 @@ namespace AuldShiteburn.EntityData.PlayerData
         {
             if (item.GetType() == typeof(WeaponItem))
             {
-                return INTERACT_WEAPON_OFFSET;
+                return WeaponOffset;
             }
             else if (item.GetType() == typeof(ArmourItem))
             {
-                return INTERACT_ARMOUR_OFFSET;
+                return ArmourOffset;
             }
             else if (item.GetType() == typeof(ConsumableItem))
             {
-                return INTERACT_CONSUMABLE_OFFSET;
+                return ConsumableOffset;
             }
             else if (item.GetType() == typeof(KeyItem))
             {
-                return INTERACT_KEY_OFFSET;
+                return KeyOffset;
             }
             return 0;
         }
@@ -385,7 +488,7 @@ namespace AuldShiteburn.EntityData.PlayerData
         {
             for (int i = 0; i < Row; i++)
             {
-                if (PlayerEntity.Instance.Inventory.ItemList[i, typeColumn] == null)
+                if (EntityData.PlayerEntity.Instance.Inventory.ItemList[i, typeColumn] == null)
                 {
                     return i;
                 }
@@ -393,18 +496,24 @@ namespace AuldShiteburn.EntityData.PlayerData
             return 0;
         }
 
-        public static void InventoryHighlight(int index, int typeColumn, int typeOffset)
+        private void InventoryHighlight(bool playerElseInteract, Inventory inventory, int index, int typeColumn, int typeOffset)
         {
-            Item highlightItem = PlayerEntity.Instance.Inventory.ItemList[index, typeColumn];
+            Item highlightItem = ItemList[index, typeColumn];
             for (int y = 1; y <= Row; y++)
             {
-                Utils.SetCursorInventory(y, typeOffset);
-                if (PlayerEntity.Instance.Inventory.ItemList[y - 1, typeColumn] != null)
+                if (playerElseInteract)
+                {
+                    Utils.SetCursorInventory(y, typeOffset);
+                }
+                else
+                {
+                    Utils.SetCursorInteract(y, typeOffset);
+                }
+                if (ItemList[y - 1, typeColumn] != null)
                 {
                     if (y - 1 == index )
                     {
                         Utils.WriteColour(">>", ConsoleColor.Yellow);
-                        Console.ForegroundColor = ConsoleColor.Cyan;
                     }
                     if (highlightItem is WeaponItem)
                     {
@@ -416,7 +525,7 @@ namespace AuldShiteburn.EntityData.PlayerData
                     }
                     else
                     {
-                        Console.Write($"{PlayerEntity.Instance.Inventory.ItemList[y - 1, typeColumn].Name}");
+                        Console.Write($"{ItemList[y - 1, typeColumn].Name}");
                     }
                     Console.ResetColor();
                 }
@@ -435,30 +544,29 @@ namespace AuldShiteburn.EntityData.PlayerData
 
         public static void WeaponAffinityCheck(WeaponItem weapon)
         {
-            if (weapon.Property.HasAffinity)
+            if (weapon.Property.Type != PropertyDamageType.Standard && PlayerEntity.Instance.Class.GetType() != typeof(FighterClass))
             {
-                Utils.WriteColour($"{weapon.Property.Name} ", ConsoleColor.DarkGreen);
-            }
-            else
-            {
+                if (weapon.Property.HasAffinity)
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkGreen;
+                }
                 Console.Write($"{weapon.Property.Name} ");
+                Console.ResetColor();
             }
+
             if (weapon.Material.HasAffinity)
             {
-                Utils.WriteColour($"{weapon.Material.Name} ", ConsoleColor.DarkGreen);
+                Console.ForegroundColor = ConsoleColor.DarkGreen;
             }
-            else
-            {
-                Console.Write($"{weapon.Material.Name} ");
-            }
+            Console.Write($"{weapon.Material.Name} ");
+            Console.ResetColor();
+
             if (weapon.Type.IsProficient)
             {
-                Utils.WriteColour($"{weapon.Type.Name} ", ConsoleColor.DarkGreen);
+                Console.ForegroundColor = ConsoleColor.DarkGreen;
             }
-            else
-            {
-                Console.Write($"{weapon.Type.Name} ");
-            }
+            Console.Write($"{weapon.Type.Name} ");
+            Console.ResetColor();
         }
 
         public static void ArmourAffinityCheck(ArmourItem armour)

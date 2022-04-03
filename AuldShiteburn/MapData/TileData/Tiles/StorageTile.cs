@@ -11,14 +11,16 @@ namespace AuldShiteburn.MapData.TileData.Tiles
     {
         public Inventory Storage { get; set; }
 
-        public StorageTile(string displayChar, bool collidable, ConsoleColor foreground = ConsoleColor.White, ConsoleColor background = ConsoleColor.Black) : base(displayChar, collidable, foreground, background)
+        public StorageTile() : base("*", true, ConsoleColor.DarkYellow, ConsoleColor.Black)
         {
+            Storage = new Inventory(12, 4);
         }
 
         public override void OnCollision(Entity entity)
         {
             Utils.ClearInteractInterface();
-            Storage.PrintInventory(Inventory.INTERACT_WEAPON_OFFSET, Inventory.INTERACT_ARMOUR_OFFSET, Inventory.INTERACT_CONSUMABLE_OFFSET, Inventory.INTERACT_KEY_OFFSET);
+            Utils.SetCursorInteract();
+            Storage.PrintInventory(false);
         }
     }
 }

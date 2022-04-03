@@ -68,7 +68,7 @@ namespace AuldShiteburn.MapData.TileData.Tiles
             foreach (Item item in items.ToArray())
             {
                 LootStock();
-                if (PlayerEntity.Instance.Inventory.AddItem(item))
+                if (PlayerEntity.Instance.Inventory.AddItem(item, true))
                 {
                     items.Remove(item);
                 }

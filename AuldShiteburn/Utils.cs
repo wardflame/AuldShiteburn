@@ -140,7 +140,7 @@ namespace AuldShiteburn
         /// the area height, go down each row and replace any text with space characters until
         /// the end of the line.
         /// </summary>
-        public static void ClearPlayerStatInterface(int offsetY = 2, int offsetX = 0)
+        public static void ClearPlayerStatInterface(int offsetY = 11, int offsetX = 0)
         {
             for (int y = UIPlayerStatHeight; y <= UIPlayerStatHeight + offsetY; y++)
             {

@@ -23,7 +23,8 @@ namespace AuldShiteburn.MapData
         {
             typeof(InteractionTile),
             typeof(DoorTile),
-            typeof(LootTile)
+            typeof(LootTile),
+            typeof(StorageTile)
         };
 
         public PlayerEntity player;
@@ -374,7 +375,7 @@ namespace AuldShiteburn.MapData
         private void MoveEntities()
         {
             MoveEntity(PlayerEntity.Instance);
-            ClearNPCTextQuery();
+            ClearInteractOnMove();
             foreach (Entity entity in CurrentArea.enemies)
             {
                 MoveEntity(entity);
@@ -402,7 +403,7 @@ namespace AuldShiteburn.MapData
         /// If the player is not within the area of a tile type, remove text from the interaction
         /// region of the screen.
         /// </summary>
-        public void ClearNPCTextQuery()
+        public void ClearInteractOnMove()
         {
             int minusX = PlayerEntity.Instance.PosX - 1;
             int minusY = PlayerEntity.Instance.PosY - 1;
@@ -414,7 +415,7 @@ namespace AuldShiteburn.MapData
                 !interactionTiles.Exists(text => CheckTileType(PlayerEntity.Instance.PosX, minusY, text)) &&
                 !interactionTiles.Exists(text => CheckTileType(PlayerEntity.Instance.PosX, plusY, text)))
             {
-                Utils.ClearInteractInterface(3);
+                Utils.ClearInteractInterface(CurrentArea.Height);
                 Utils.SetCursorInventory(-1);
                 Utils.ClearLine(Console.WindowWidth);
             }
