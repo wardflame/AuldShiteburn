@@ -124,12 +124,8 @@ namespace AuldShiteburn.EntityData
 
             #region Loot Assignment
             Instance.Inventory = new Inventory(6, 4);
-            //Instance.EquippedWeapon = WeaponItem.GenerateSpawnWeapon(Instance.Class.ClassType);
-            Instance.EquippedWeapon = new WeaponItem();
-            Instance.EquippedWeapon.Type = WeaponType.Greathammer;
-            Instance.EquippedWeapon.Material = WeaponMaterial.WeaponMaterialMoonstone;
-            Instance.EquippedWeapon.Property = WeaponProperty.WeaponPropertyDamaged;
-            //Instance.Inventory.ItemList[0, 1] = new ArmourItem("Plate");
+            Instance.EquippedWeapon = WeaponItem.GenerateSpawnWeapon(Instance.Class.ClassType);
+            Instance.EquippedArmour = ArmourItem.GenerateSpawnArmour(Instance.Class.ClassType);
             #endregion Loot Assignment
 
             return Instance;

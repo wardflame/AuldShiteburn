@@ -16,21 +16,24 @@ namespace AuldShiteburn.MapData.TileData.Tiles
 
         public DoorTile(bool locked, KeyItem key = null) : base("", true)
         {
-            this.Locked = locked;
+            Locked = locked;
             this.key = key;
         }
 
         public override void OnCollision(Entity entity)
         {
-            /*if (entity is PlayerEntity)
+            if (entity is PlayerEntity)
             {
                 if (key != null && Locked)
                 {
-                    foreach (Item item in PlayerEntity.Instance.Inventory)
+                    for (int i = 0; i < PlayerEntity.Instance.Inventory.Row; i++)
                     {
-                        if (item == key)
+                        if (PlayerEntity.Instance.Inventory.ItemList[i, 3] != null)
                         {
+                            if (PlayerEntity.Instance.Inventory.ItemList[i, 3].Name == key.Name)
                             Locked = false;
+                            Utils.InteractPrompt($"Unlocked door with {key.Name}. Press any key to continue...");
+                            Console.ReadKey();
                             break;
                         }
                     }
@@ -39,7 +42,7 @@ namespace AuldShiteburn.MapData.TileData.Tiles
                         Utils.InteractPrompt("It's locked.");
                     }
                 }
-            }*/
+            }
         }
     }
 }

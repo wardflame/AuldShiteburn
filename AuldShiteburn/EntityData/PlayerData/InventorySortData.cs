@@ -9,5 +9,7 @@ namespace AuldShiteburn.EntityData.PlayerData
         public int index;
         public int typeColumn;
         public int typeOffset;
+        public bool isPlayerInventory;
+        public bool transferIntended;
     }
 }

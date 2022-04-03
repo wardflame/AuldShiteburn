@@ -19,13 +19,15 @@ namespace AuldShiteburn.MapData.TileData.Tiles
 
         public override bool Collidable => Looted ? false : true;
         public override ConsoleColor Foreground => Looted ? ConsoleColor.DarkGray : ConsoleColor.Magenta;
+        string Message { get; }
 
         public List<Item> items = new List<Item>();
         public bool Temporary { get; set; }
         public bool Looted { get; set; } = false;
 
-        public LootTile(List<Item> items, bool randomised, bool temporary = false) : base("?", false)
+        public LootTile(string message, List<Item> items, bool randomised, bool temporary = false) : base("?", false)
         {
+            Message = message;
             Temporary = temporary;
             if (!randomised)
             {
@@ -92,7 +94,7 @@ namespace AuldShiteburn.MapData.TileData.Tiles
         {
             Utils.ClearInteractInterface(5);
             Utils.SetCursorInteract();
-            Console.WriteLine("Loot Items: ");
+            Utils.WriteColour($"{Message}: ", ConsoleColor.DarkYellow);
             int lootStock = 0;
             foreach (Item item in items)
             {

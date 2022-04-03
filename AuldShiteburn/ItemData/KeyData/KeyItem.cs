@@ -6,6 +6,17 @@ namespace AuldShiteburn.ItemData.KeyData
     [Serializable]
     internal class KeyItem : Item
     {
+        #region Keys
+        public static KeyItem HideawayKey
+        {
+            get { return new KeyItem("Hideaway Key", "Key to the cell in Shitebreach."); }
+        }
+        public static KeyItem ResidenceKey
+        {
+            get { return new KeyItem("Residence Key", "Use in the Living Quarter."); }
+        }
+        #endregion Keys
+
         public override string Name { get; }
         public string Description { get; }
         public static List<KeyItem> AllKeys
@@ -14,7 +25,8 @@ namespace AuldShiteburn.ItemData.KeyData
             {
                 return new List<KeyItem>()
                 {
-                    residentKey
+                    HideawayKey,
+                    ResidenceKey                    
                 };
             }
         }
@@ -24,7 +36,5 @@ namespace AuldShiteburn.ItemData.KeyData
             Name = name;
             Description = description;
         }
-
-        public static KeyItem residentKey = new KeyItem("Residents Key", "Used in the Living Quarter.");
     }
 }

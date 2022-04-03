@@ -1,5 +1,6 @@
 ﻿using AuldShiteburn.ItemData;
 using AuldShiteburn.ItemData.ArmourData;
+using AuldShiteburn.ItemData.KeyData;
 using AuldShiteburn.ItemData.WeaponData;
 using AuldShiteburn.MapData.TileData;
 using AuldShiteburn.MapData.TileData.Tiles;
@@ -27,17 +28,15 @@ namespace AuldShiteburn.MapData.AreaData.Areas
             {
                 placeData.Add(new TilePlaceData(i, 5, Tile.WallTile));
             }
-            placeData.Add(new TilePlaceData(6, 4, new DoorTile(false)));
+            placeData.Add(new TilePlaceData(6, 4, new DoorTile(true, KeyItem.HideawayKey)));
             placeData.Add(new TilePlaceData(7, 1, new StorageTile()));
             placeData.Add(new TilePlaceData(1, 4,
-                new LootTile(
+                new LootTile("The decaying corpse of a long-dead Heathen",
                     new List<Item>()
                     {
-                        WeaponItem.GenerateWeapon(),
-                        ArmourItem.Maille
+                        KeyItem.HideawayKey
                     },
                     false)));
-            placeData.Add(new TilePlaceData(5, 4, new TrapTile()));
         }
 
         protected override void InitEnemies()

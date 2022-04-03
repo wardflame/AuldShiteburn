@@ -183,5 +183,44 @@ namespace AuldShiteburn.ItemData.ArmourData
             PlayerEntity.Instance.Inventory.ItemList[sortData.index, sortData.typeColumn] = equippedWeapon;
             PlayerEntity.Instance.EquippedArmour = this;
         }
+
+        /// <summary>
+        /// For a new character, create an armour that suits the class proficiency.
+        /// </summary>
+        /// <param name="playerClass">The class of the player.</param>
+        /// <returns>An armour of a class-proficient type.</returns>
+        public static ArmourItem GenerateSpawnArmour(ClassType playerClass)
+        {
+            ArmourItem armour = WoolenRags;
+            switch (playerClass)
+            {
+                case ClassType.Heathen:
+                    {
+                        armour = WoolenRags;
+                    }
+                    break;
+                case ClassType.Fighter:
+                    {
+                        armour = Maille;
+                    }
+                    break;
+                case ClassType.Marauder:
+                    {
+                        armour = HideWrappings;
+                    }
+                    break;
+                case ClassType.Monk:
+                    {
+                        armour = SackClothRobe;
+                    }
+                    break;
+                case ClassType.Rogue:
+                    {
+                        armour = WoolenRags;
+                    }
+                    break;
+            }
+            return armour;
+        }
     }
 }

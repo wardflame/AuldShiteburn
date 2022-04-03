@@ -114,7 +114,7 @@ namespace AuldShiteburn
         /// the area height, go down each row and replace any text with space characters until
         /// the end of the line.
         /// </summary>
-        public static void ClearInteractInterface(int offsetY = 2, int offsetX = 0)
+        public static void ClearInteractInterface(int offsetY = 18, int offsetX = 0)
         {
             for (int y = UIInteractHeight; y <= UIInteractHeight + offsetY; y++)
             {

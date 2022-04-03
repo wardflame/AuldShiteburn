@@ -21,7 +21,7 @@ namespace AuldShiteburn.MapData.AreaData.Areas
         protected override void AddSpecialTiles()
         {
             placeData.Add(new TilePlaceData(3, 1, new OrmodNPCTile()));
-            placeData.Add(new TilePlaceData(4, 4, new DoorTile(true, KeyItem.residentKey)));
+            placeData.Add(new TilePlaceData(4, 4, new DoorTile(true, KeyItem.ResidenceKey)));
         }
 
         protected override void InitEnemies()
@@ -36,7 +36,7 @@ namespace AuldShiteburn.MapData.AreaData.Areas
         {
             if (Combat.CombatEncounter(enemies))
             {
-                SetTile(PlayerEntity.Instance.PosX + 1, PlayerEntity.Instance.PosY, new LootTile(new List<Item>(), true, true));
+                SetTile(PlayerEntity.Instance.PosX + 1, PlayerEntity.Instance.PosY, new LootTile("Spoils of War", new List<Item>(), true, true));
             }
         }
 
