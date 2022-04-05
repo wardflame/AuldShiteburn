@@ -1,5 +1,6 @@
 ﻿using AuldShiteburn.CombatData;
 using AuldShiteburn.CombatData.AbilityData;
+using AuldShiteburn.CombatData.AbilityData.Abilities.EnemyAbilities.ShiteHuskAbilities;
 using AuldShiteburn.ItemData;
 using System;
 using System.Collections.Generic;
@@ -17,10 +18,10 @@ namespace AuldShiteburn.EntityData.Enemies
             PhysicalWeakness = PhysicalDamageType.Slash;
             MaterialWeakness = GeneralMaterials.Moonstone;
             PropertyWeakness = PropertyDamageType.Fire;
-            Abilities = new List<Ability>
-                (
-                    
-                );
+            Abilities = new List<Ability>()
+            {
+                new ShiteHuskBiteAbility()
+            };
         }
     }
 }

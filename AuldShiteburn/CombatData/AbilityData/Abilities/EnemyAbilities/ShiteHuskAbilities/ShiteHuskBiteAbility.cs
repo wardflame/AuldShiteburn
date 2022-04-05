@@ -1,4 +1,5 @@
 ﻿using AuldShiteburn.CombatData.PayloadData;
+using AuldShiteburn.EntityData;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,7 +9,7 @@ namespace AuldShiteburn.CombatData.AbilityData.Abilities.EnemyAbilities.ShiteHus
     internal class ShiteHuskBiteAbility : Ability
     {
         public override string Name => "Shitehusk Bite";
-        public override string Description => "A fast bite from the shite-dripping jaws of a husk.";
+        public override string Description => $"bites at {PlayerEntity.Instance.Name} with shite-covered fangs!";
         public override int Cooldown => 0;
         public override int ResourceCost => 0;
         public override PhysicalDamageType PhysicalDamageType => PhysicalDamageType.Pierce;
@@ -20,8 +21,10 @@ namespace AuldShiteburn.CombatData.AbilityData.Abilities.EnemyAbilities.ShiteHus
 
         public override CombatPayload UseAbility()
         {
-            Utils.SetCursorInteract(Console.CursorTop);
-            return new CombatPayload(false);
+            Random rand = new Random();
+            int physDamage = rand.Next(PhysicalMinDamage, PhysicalMaxDamage + 1);
+            int propDamage = rand.Next(PropertyMinDamage, PropertyMaxDamage + 1);
+            return new CombatPayload(true, hasPhysical: true, hasProperty: true, physicalAttackType: PhysicalDamageType, propertyAttackType: PropertyDamageType, physicalDamage: physDamage, propertyDamage: propDamage);
         }
     }
 }

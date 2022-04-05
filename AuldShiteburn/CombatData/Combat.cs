@@ -29,11 +29,12 @@ namespace AuldShiteburn.CombatData
             while (enemies.Count > 0 && PlayerEntity.Instance.HP > 0)
             {
                 PlayerCombatTurn(enemies);
+                EnemyCombatTurn(enemies);
             }
             if (PlayerEntity.Instance.HP > 0)
             {
                 Utils.SetCursorInteract();
-                ASCIIArt.PrintASCII(ASCIIArt.VICTORY_MESSAGE, ConsoleColor.DarkGreen);
+                ASCIIArt.PrintASCII(ASCIIArt.VICTORY_MESSAGE, ConsoleColor.Green);
                 Console.CursorTop += 1;
                 Console.Write("Press any key to continue...");
                 Console.ReadKey();
@@ -42,7 +43,7 @@ namespace AuldShiteburn.CombatData
             else
             {
                 Utils.SetCursorInteract();
-                ASCIIArt.PrintASCII(ASCIIArt.DEATH_MESSAGE, ConsoleColor.DarkRed);
+                ASCIIArt.PrintASCII(ASCIIArt.DEATH_MESSAGE, ConsoleColor.Red);
                 Console.CursorTop += 1;
                 Console.Write("Press any key to continue...");
                 Console.ReadKey();
@@ -60,66 +61,127 @@ namespace AuldShiteburn.CombatData
         {
             bool playerTurn = true;
             bool stunReduction = false;
+            bool statusReduction = false;
+            bool abilityCooldowns = false;
+            int endOffset = 0;
             while (playerTurn)
             {
+                #region Ability Cooldowns
+                if (!abilityCooldowns)
+                {
+                    // Iterate through player abilities. If they have a cooldown active, decrement it.
+                    int i = 1;
+                    int abilitiesCoolingDown = 0;
+                    Utils.SetCursorInteract();
+                    Utils.WriteColour("Cooldowns", ConsoleColor.DarkYellow);
+                    foreach (Ability ability in PlayerEntity.Instance.Class.Abilities)
+                    {
+                        if (ability.ActiveCooldown > 0)
+                        {
+                            ability.ActiveCooldown--;
+                            Utils.SetCursorInteract(i++);
+                            Utils.WriteColour($"{ability.Name} cooling down: {ability.ActiveCooldown}/{ability.Cooldown}", ConsoleColor.Magenta);
+                            abilitiesCoolingDown++;
+                        }
+                    }
+                    if (abilitiesCoolingDown > 0)
+                    {
+                        Console.ReadKey();
+                        Utils.ClearInteractInterface();
+                    }
+                    abilityCooldowns = true;
+                }
+                #endregion Ability Cooldowns
+                #region Status Effect Duration
+                if (PlayerEntity.Instance.StatusEffect != null && !statusReduction)
+                {
+                    PlayerEntity.Instance.StatusEffect.Duration--;
+                    if (PlayerEntity.Instance.StatusEffect.Duration == 0)
+                    {
+                        PlayerEntity.Instance.StatusEffect = null;
+                    }
+                }
+                #endregion Status Effect Duration
+                #region Stun Duration
                 if (PlayerEntity.Instance.Stunned && !stunReduction)
                 {
                     PlayerEntity.Instance.StunTimer--;
-                    PlayerEntity.Instance.PrintStats();
                     stunReduction = true;
                 }
+                #endregion Stun Duration
+
+                PlayerEntity.Instance.PrintStats();
                 if (PlayerEntity.Instance.StunTimer <= 0)
                 {
                     EnemyEntity enemy = ChooseEnemy(enemies);
                     int activity = ChooseActivity();
-                    if (activity == 0)
-                    {                        
-                        CombatPayload playerMeleePayload = ChooseMeleeAttack();
-                        if (playerMeleePayload.IsAttack)
-                        {
-                            if (enemy.ReceiveAttack(playerMeleePayload, enemies.Count + 6))
-                            {
-                                enemies.Remove(enemy);
-                            }
-                            playerTurn = false;
-                        }
-                        else
-                        {
-                            Utils.SetCursorInteract(enemies.Count + 2);
-                            Utils.ClearInteractArea(length: 30);
-                        }
-                    }
-                    else if (activity == 1)
+                    endOffset = Console.CursorTop + 2;
+                    if (activity >= 0)
                     {
-                        Utils.ClearInteractArea(enemies.Count + 5, 20);
-                        Utils.SetCursorInteract(enemies.Count + 4);
-                        CombatPayload playerAbilityPayload = ChooseAbility();
-                        if (playerAbilityPayload.IsAttack)
+                        #region Activity 1: Melee Combat
+                        if (activity == 0)
                         {
-                            if (enemy.ReceiveAttack(playerAbilityPayload, Console.CursorTop - 1))
+                            CombatPayload playerMeleePayload = ChooseMeleeAttack();
+                            if (playerMeleePayload.IsAttack)
                             {
-                                enemies.Remove(enemy);
+                                if (enemy.ReceiveAttack(playerMeleePayload, enemies.Count + 11))
+                                {
+                                    enemies.Remove(enemy);
+                                }
+                                endOffset = Console.CursorTop + 2;
+                                playerTurn = false;
                             }
-                            PlayerEntity.Instance.PrintStats();
-                            playerTurn = false;
+                            else
+                            {
+                                endOffset = Console.CursorTop;
+                                Utils.SetCursorInteract(enemies.Count + 2);
+                                Utils.ClearInteractArea(length: 30);
+                            }
                         }
-                        else if (playerAbilityPayload.IsUtility)
+                        #endregion Activity 1: Melee Combat
+                        #region Activity 2: Ability Combat
+                        else if (activity == 1)
                         {
-                            PlayerEntity.Instance.PrintStats();
-                            playerTurn = false;
+                            Utils.ClearInteractArea(enemies.Count + 5, 20);
+                            Utils.SetCursorInteract(enemies.Count + 4);
+                            CombatPayload playerAbilityPayload = ChooseAbility();
+                            if (playerAbilityPayload.IsAttack)
+                            {
+                                if (enemy.ReceiveAttack(playerAbilityPayload, Console.CursorTop - 1))
+                                {
+                                    enemies.Remove(enemy);
+                                }
+                                endOffset = Console.CursorTop;
+                                PlayerEntity.Instance.PrintStats();
+                                playerTurn = false;
+                            }
+                            else if (playerAbilityPayload.IsUtility)
+                            {
+                                endOffset = Console.CursorTop;
+                                PlayerEntity.Instance.PrintStats();
+                                playerTurn = false;
+                            }
+                            else
+                            {
+                                endOffset = Console.CursorTop;
+                                Utils.SetCursorInteract(enemies.Count + 2);
+                                Utils.ClearInteractArea(length: 30);
+                            }
                         }
-                        else
-                        {
-                            Utils.SetCursorInteract(enemies.Count + 2);
-                            Utils.ClearInteractArea(length: 30);
-                        }
+                        #endregion Activity 2: Ability Combat
                     }
-                }                
+                    else
+                    {
+                        endOffset = Console.CursorTop;
+                        Utils.SetCursorInteract(enemies.Count + 2);
+                        Utils.ClearInteractArea(length: 30);
+                    }
+                }
             }
-            Utils.SetCursorInteract(Console.CursorTop);
-            Console.Write("Press any key to progress...");
+            // Readkey to ensure player has a chance to read the round's report.
+            Console.SetCursorPosition(Utils.UIInteractOffset, endOffset);
+            Console.Write("Press any key to continue...");
             Console.ReadKey();
-            Utils.SetCursorInteract(Console.CursorTop);
             Utils.ClearInteractInterface(30);
         }
 
@@ -131,20 +193,23 @@ namespace AuldShiteburn.CombatData
         /// <param name="enemies">List of enemies in the area.</param>
         private static void EnemyCombatTurn(List<EnemyEntity> enemies)
         {
+            int endOffset;
             bool enemyTurn = true;
             while (enemyTurn)
             {
                 foreach (EnemyEntity enemy in enemies)
                 {
-                    enemy.PerformAttack();
-                    Utils.SetCursorInteract(Console.CursorTop);
-                    Console.Write("Press any key to progress...");
+                    CombatPayload enemyAttack = enemy.PerformAttack();
+                    endOffset = Console.CursorTop + 3;
+                    PlayerEntity.Instance.ReceiveAttack(enemyAttack);
+                    // Readkey to ensure player has a chance to read the round's report.
+                    Console.SetCursorPosition(Utils.UIInteractOffset, endOffset);
+                    Console.Write("Press any key to continue...");
                     Console.ReadKey();
-                    Utils.SetCursorInteract(Console.CursorTop);
                     Utils.ClearInteractInterface(30);
                 }
+                enemyTurn = false;
             }
-            
         }
 
         /// <summary>
@@ -252,9 +317,17 @@ namespace AuldShiteburn.CombatData
                     if (i == index)
                     {
                         Utils.WriteColour(">>", ConsoleColor.Yellow);
+                        Utils.WriteColour(activities[i], ConsoleColor.Cyan);
                     }
-                    Utils.WriteColour(activities[i], ConsoleColor.Cyan);
+                    else
+                    {
+                        Console.Write(activities[i]);
+                    }
                 }
+                Utils.SetCursorInteract(offsetY + activities.Count + 1);
+                Console.Write("[");
+                Utils.WriteColour("BACKSPACE", ConsoleColor.DarkGray);
+                Console.Write("] Return");
                 InputSystem.GetInput();
                 switch (InputSystem.InputKey)
                 {
@@ -274,6 +347,10 @@ namespace AuldShiteburn.CombatData
                             }
                         }
                         break;
+                    case ConsoleKey.Backspace:
+                        {
+                            return -1;
+                        }
                 }
             } while (InputSystem.InputKey != ConsoleKey.Enter);
             return index;
@@ -303,8 +380,12 @@ namespace AuldShiteburn.CombatData
                     if (i == index)
                     {
                         Utils.WriteColour(">>", ConsoleColor.Yellow);
+                        Utils.WriteColour(meleeAttacks[i], ConsoleColor.Cyan);
                     }
-                    Utils.WriteColour(meleeAttacks[i], ConsoleColor.Cyan);
+                    else
+                    {
+                        Console.Write(meleeAttacks[i]);
+                    }
                 }
                 Utils.SetCursorInteract(offsetY + meleeAttacks.Count + 1);
                 Console.Write("[");
@@ -374,13 +455,12 @@ namespace AuldShiteburn.CombatData
                         Console.Write($"Cooldown: {abilities[i].Cooldown}");
                         Utils.SetCursorInteract(offsetY + 3, 20);
                         Console.Write($"Resource Cost: {abilities[i].ResourceCost}");
+                        Console.ResetColor();
                     }
                     else
                     {
-                        Console.ForegroundColor = ConsoleColor.Cyan;
                         Utils.SetCursorInteract(offsetY + 1 + i);
                         Console.Write(abilities[i].Name);
-                        Console.ResetColor();
                     }
                 }
                 Utils.SetCursorInteract(offsetY + abilities.Count + 1);

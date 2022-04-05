@@ -25,11 +25,11 @@ namespace AuldShiteburn.EntityData
             bool coolingDown = true;
             while (coolingDown)
             {
-                foreach (Ability abilToCooldown in Abilities)
+                foreach (Ability abilityToCooldown in Abilities)
                 {
-                    if (abilToCooldown.ActiveCooldown > 0)
+                    if (abilityToCooldown.ActiveCooldown > 0)
                     {
-                        abilToCooldown.ActiveCooldown--;
+                        abilityToCooldown.ActiveCooldown--;
                     }
                 }
                 coolingDown = false;
@@ -38,9 +38,18 @@ namespace AuldShiteburn.EntityData
             bool attacking = true;
             while (attacking)
             {
-                Ability ability = Abilities[rand.Next(Abilities.Count)];
+                Ability ability;
+                if (Abilities.Count < 1)
+                {
+                    break;
+                }
+                ability = Abilities[rand.Next(0, Abilities.Count)];
                 if (ability.ActiveCooldown == 0)
                 {
+                    Utils.SetCursorInteract();
+                    Utils.WriteColour($"{Name} ", ConsoleColor.DarkYellow);
+                    Utils.WriteColour($"{HP}/{MaxHP} ", ConsoleColor.Red);
+                    Utils.WriteColour($"{ability.Description}", ConsoleColor.DarkYellow);
                     return ability.UseAbility();
                 }
             }
@@ -83,7 +92,7 @@ namespace AuldShiteburn.EntityData
                     Console.Write(", taking ");
                     Utils.WriteColour($"{propDamage} ", ConsoleColor.Green);
                     Utils.WriteColour($"{combatPayload.PropertyAttackType} ", ConsoleColor.DarkCyan);
-                    Console.Write($" damage,");
+                    Console.Write($"damage,");
                 }
                 else
                 {

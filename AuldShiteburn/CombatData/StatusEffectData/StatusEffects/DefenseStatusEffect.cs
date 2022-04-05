@@ -52,15 +52,15 @@ namespace AuldShiteburn.CombatData.StatusEffectData.StatusEffects
             PropertyNulOrMit = propertyNulOrMit;
         }
 
-        public override void EffectActive(CombatPayload attackPayload)
-        {
-            if (attackPayload.HasPhysical)
+        public override CombatPayload EffectActive(CombatPayload combatPayload)
+        {            
+            if (combatPayload.HasPhysical)
             {
-                if (attackPayload.PhysicalAttackType == PhysicalTypeDefense || AllPhysicalDefense)
+                if (combatPayload.PhysicalAttackType == PhysicalTypeDefense || AllPhysicalDefense)
                 {
                     if (PhysicalNulOrMit)
                     {
-                        attackPayload.PhysicalDamage = 0;
+                        combatPayload.PhysicalDamage = 0;
                     }
                     else
                     {
@@ -68,30 +68,30 @@ namespace AuldShiteburn.CombatData.StatusEffectData.StatusEffects
                         {
                             case EffectLevel.Minor:
                                 {
-                                    attackPayload.PhysicalDamage -= Combat.STATUS_MITIGATION_MINOR;
+                                    combatPayload.PhysicalDamage -= Combat.STATUS_MITIGATION_MINOR;
                                 }
                                 break;
                             case EffectLevel.Moderate:
                                 {
-                                    attackPayload.PhysicalDamage -= Combat.STATUS_MITIGATION_MODERATE;
+                                    combatPayload.PhysicalDamage -= Combat.STATUS_MITIGATION_MODERATE;
                                 }
                                 break;
                             case EffectLevel.Major:
                                 {
-                                    attackPayload.PhysicalDamage -= Combat.STATUS_MITIGATION_MAJOR;
+                                    combatPayload.PhysicalDamage -= Combat.STATUS_MITIGATION_MAJOR;
                                 }
                                 break;
                         }
                     }
                 }
             }
-            if (attackPayload.HasProperty)
+            if (combatPayload.HasProperty)
             {
-                if (attackPayload.PropertyAttackType == PropertyTypeDefense || AllPropertyDefense)
+                if (combatPayload.PropertyAttackType == PropertyTypeDefense || AllPropertyDefense)
                 {
                     if (PropertyNulOrMit)
                     {
-                        attackPayload.PropertyDamage = 0;
+                        combatPayload.PropertyDamage = 0;
                     }
                     else
                     {
@@ -99,23 +99,24 @@ namespace AuldShiteburn.CombatData.StatusEffectData.StatusEffects
                         {
                             case EffectLevel.Minor:
                                 {
-                                    attackPayload.PhysicalDamage -= Combat.STATUS_MITIGATION_MINOR;
+                                    combatPayload.PropertyDamage -= Combat.STATUS_MITIGATION_MINOR;
                                 }
                                 break;
                             case EffectLevel.Moderate:
                                 {
-                                    attackPayload.PhysicalDamage -= Combat.STATUS_MITIGATION_MODERATE;
+                                    combatPayload.PropertyDamage -= Combat.STATUS_MITIGATION_MODERATE;
                                 }
                                 break;
                             case EffectLevel.Major:
                                 {
-                                    attackPayload.PhysicalDamage -= Combat.STATUS_MITIGATION_MAJOR;
+                                    combatPayload.PropertyDamage -= Combat.STATUS_MITIGATION_MAJOR;
                                 }
                                 break;
                         }
                     }
                 }
             }
+            return combatPayload;
         }
     }
 }
