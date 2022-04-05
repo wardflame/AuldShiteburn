@@ -20,18 +20,17 @@ namespace AuldShiteburn.MapData.TileData.Tiles
         public override bool Collidable => Looted ? false : true;
         public override ConsoleColor Foreground => Looted ? ConsoleColor.DarkGray : ConsoleColor.Magenta;
         string Message { get; }
-
-        public List<Item> items = new List<Item>();
+        public List<Item> Items { get; } = new List<Item>();
         public bool Temporary { get; set; }
         public bool Looted { get; set; } = false;
 
-        public LootTile(string message, List<Item> items, bool randomised, bool temporary = false) : base("?", false)
+        public LootTile(string message, List<Item> itemList, bool randomised, bool temporary = false) : base("?", false)
         {
             Message = message;
             Temporary = temporary;
             if (!randomised)
             {
-                this.items = items;
+                Items = itemList;
             }
             /// If the items in the loot tile aren't fixed, generate them by chance.
             else
@@ -41,38 +40,36 @@ namespace AuldShiteburn.MapData.TileData.Tiles
                 if (chance >= CHANCE_KEY)
                 {
                     KeyItem lootKey = KeyItem.AllKeys[rand.Next(KeyItem.AllKeys.Count)];
-                    this.items.Add(lootKey);
+                    Items.Add(lootKey);
                 }
                 chance = rand.NextDouble();
                 if (chance >= CHANCE_WEAPON)
                 {
-                    this.items.Add(WeaponItem.GenerateWeapon());
+                    Items.Add(WeaponItem.GenerateWeapon());
                 }
                 chance = rand.NextDouble();
                 if (chance >= CHANCE_ARMOUR)
                 {
-                    List<Item> armours = items.FindAll(armour => armour is ArmourItem);
-                    Item armourItem = armours[rand.Next(armours.Count)];
-                    this.items.Add(armourItem);
+                    ArmourItem armour = ArmourItem.AllArmours[rand.Next(ArmourItem.AllArmours.Count)];
+                    Items.Add(armour);
                 }
                 chance = rand.NextDouble();
                 if (chance >= CHANCE_CONSUMABLE)
                 {
-                    List<Item> consumables = items.FindAll(consumable => consumable is ConsumableItem);
-                    Item consumableItem = consumables[rand.Next(consumables.Count)];
-                    this.items.Add(consumableItem);
+                    ConsumableItem consumable = ConsumableItem.AllConsumables[rand.Next(ConsumableItem.AllConsumables.Count)];
+                    Items.Add(consumable);
                 }
             }
         }
 
         public override void OnCollision(Entity entity)
         {
-            foreach (Item item in items.ToArray())
+            foreach (Item item in Items.ToArray())
             {
                 LootStock();
                 if (PlayerEntity.Instance.Inventory.AddItem(item, true))
                 {
-                    items.Remove(item);
+                    Items.Remove(item);
                 }
             }
             if (LootStock() == 0)
@@ -83,7 +80,7 @@ namespace AuldShiteburn.MapData.TileData.Tiles
                 }
                 else
                 {
-                    items.Clear();
+                    Items.Clear();
                     Looted = true;
                 }                
             }
@@ -96,7 +93,7 @@ namespace AuldShiteburn.MapData.TileData.Tiles
             Utils.SetCursorInteract();
             Utils.WriteColour($"{Message}: ", ConsoleColor.DarkYellow);
             int lootStock = 0;
-            foreach (Item item in items)
+            foreach (Item item in Items)
             {
                 lootStock++;
                 Utils.SetCursorInteract(lootStock);

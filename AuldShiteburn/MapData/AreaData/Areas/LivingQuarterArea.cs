@@ -28,8 +28,6 @@ namespace AuldShiteburn.MapData.AreaData.Areas
         {
             Random rand = new Random();
             enemies.Add(new ShiteHuskEnemyEntity(rand.Next(6, 13)));
-            enemies.Add(new ShiteHuskEnemyEntity(rand.Next(6, 13)));
-            enemies.Add(new ShiteHuskEnemyEntity(rand.Next(6, 13)));
         }
 
         public override void OnFirstEnter()

@@ -124,7 +124,7 @@ namespace AuldShiteburn.CombatData
                             CombatPayload playerMeleePayload = ChooseMeleeAttack();
                             if (playerMeleePayload.IsAttack)
                             {
-                                if (enemy.ReceiveAttack(playerMeleePayload, enemies.Count + 11))
+                                if (enemy.ReceiveAttack(playerMeleePayload, enemies.Count + 12))
                                 {
                                     enemies.Remove(enemy);
                                 }
@@ -151,19 +151,19 @@ namespace AuldShiteburn.CombatData
                                 {
                                     enemies.Remove(enemy);
                                 }
-                                endOffset = Console.CursorTop;
+                                endOffset = Console.CursorTop + 2;
                                 PlayerEntity.Instance.PrintStats();
                                 playerTurn = false;
                             }
                             else if (playerAbilityPayload.IsUtility)
                             {
-                                endOffset = Console.CursorTop;
+                                endOffset = Console.CursorTop - 1;
                                 PlayerEntity.Instance.PrintStats();
                                 playerTurn = false;
                             }
                             else
                             {
-                                endOffset = Console.CursorTop;
+                                endOffset = Console.CursorTop - 1;
                                 Utils.SetCursorInteract(enemies.Count + 2);
                                 Utils.ClearInteractArea(length: 30);
                             }

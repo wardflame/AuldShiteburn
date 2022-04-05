@@ -383,6 +383,7 @@ namespace AuldShiteburn.EntityData.PlayerData
             bool interacting = true;
             while (interacting)
             {
+                int offset = 2;
                 InventorySortData sortData = NavigateInventory(playerElseStorage);
                 if (sortData.index < 0)
                 {
@@ -398,13 +399,27 @@ namespace AuldShiteburn.EntityData.PlayerData
                 Console.Write($"What do you wish to do with {currentItem.Name}?");
                 if (currentItem is WeaponItem)
                 {
+                    WeaponItem weapon = (WeaponItem)currentItem;
+                    Console.Write("Physical Damage: ");
+                    Utils.WriteColour($"{weapon.MinPhysDamage} - {weapon.MaxPhysDamage}");
                     Utils.SetCursorInteract(1);
+                    Console.Write("Property Damage: ");
+                    Utils.WriteColour($"{weapon.MinPropDamage} - {weapon.MaxPropDamage}");
+                    Utils.SetCursorInteract(2);
                     Console.Write("(E) Equip Weapon");
+                    offset = 3;
                 }
                 else if (currentItem is ArmourItem)
                 {
+                    ArmourItem armour = (ArmourItem)currentItem;
+                    Console.Write("Physical Mitigation: ");
+                    Utils.WriteColour($"{armour.PhysicalMitigation}");
                     Utils.SetCursorInteract(1);
+                    Console.Write("Property Mitigation: ");
+                    Utils.WriteColour($"{armour.PropertyMitigation}");
+                    Utils.SetCursorInteract(2);
                     Console.Write("(E) Equip Armour");
+                    offset = 3;
                 }
                 else if (currentItem is ConsumableItem)
                 {
@@ -417,9 +432,9 @@ namespace AuldShiteburn.EntityData.PlayerData
                     KeyItem key = (KeyItem)currentItem;
                     Utils.WriteColour($@"'{key.Description}'", ConsoleColor.DarkYellow);
                 }
-                Utils.SetCursorInteract(2);
+                Utils.SetCursorInteract(offset);
                 Console.WriteLine("(D) Drop Item");
-                Utils.SetCursorInteract(3);
+                Utils.SetCursorInteract(offset + 1);
                 Console.WriteLine("(Backspace) Cancel");
                 bool choosing = true;
                 while (choosing)
@@ -452,6 +467,14 @@ namespace AuldShiteburn.EntityData.PlayerData
             }
         }
 
+        /// <summary>
+        /// Take an item and navigate the player or storage tile inventory for a desired
+        /// slot and place the item there. If there are no slots available, offer the
+        /// player to drop the item into a new loot tile.
+        /// </summary>
+        /// <param name="item">Item to add to inventory.</param>
+        /// <param name="playerElseStorage">If true, player inventory, else storage tile inventory.</param>
+        /// <returns>Whether the item was added/moved from the original inventory.</returns>
         public bool AddItem(Item item, bool playerElseStorage)
         {
             int typeColumn = GetItemTypeColumn(item);
@@ -543,7 +566,7 @@ namespace AuldShiteburn.EntityData.PlayerData
             if (currentTile is LootTile)
             {
                 LootTile tile = (LootTile)currentTile;
-                tile.items.Add(dropItem);
+                tile.Items.Add(dropItem);
             }
             else
             {
@@ -626,6 +649,11 @@ namespace AuldShiteburn.EntityData.PlayerData
             return 0;
         }
 
+        /// <summary>
+        /// Check which type the item is and return a CursorLeft offset accordingly.
+        /// </summary>
+        /// <param name="item">Item whose type we want to check.</param>
+        /// <returns>CursorLeft offset we need.</returns>
         private int GetItemTypeUIOffset(Item item)
         {
             if (item.GetType() == typeof(WeaponItem))
@@ -647,6 +675,13 @@ namespace AuldShiteburn.EntityData.PlayerData
             return 0;
         }
 
+        /// <summary>
+        /// Iterate through the player or storage inventory for an empty slot in the
+        /// desired type column. Return an index if there is an empty slot.
+        /// </summary>
+        /// <param name="playerElseStorage">If true, player inventory, else storage tile inventory.</param>
+        /// <param name="typeColumn">Type column of item to find a slot for.</param>
+        /// <returns></returns>
         private int CheckForEmptySlot(bool playerElseStorage, int typeColumn)
         {
             for (int i = 0; i < Row; i++)
@@ -660,7 +695,7 @@ namespace AuldShiteburn.EntityData.PlayerData
                 }
                 else
                 {
-                    if (PlayerEntity.Instance.Inventory.ItemList[i, typeColumn] == null)
+                    if (ItemList[i, typeColumn] == null)
                     {
                         return i;
                     }
@@ -669,6 +704,14 @@ namespace AuldShiteburn.EntityData.PlayerData
             return 0;
         }
 
+        /// <summary>
+        /// When highlighting an item when iterate through the inventory, if it happens to
+        /// meet the index we want, highlight it depending on the item type.
+        /// </summary>
+        /// <param name="playerElseStorage">If true, player inventory, else storage tile inventory.</param>
+        /// <param name="index">Index to highlight.</param>
+        /// <param name="typeColumn">Type column of item.</param>
+        /// <param name="typeOffset">Which CursorLeft offset to print at.</param>
         private void InventoryHighlight(bool playerElseStorage, int index, int typeColumn, int typeOffset)
         {
             Item highlightItem = ItemList[index, typeColumn];
@@ -716,6 +759,11 @@ namespace AuldShiteburn.EntityData.PlayerData
             }
         }
 
+        /// <summary>
+        /// Check the different parts of a weapon and print the part in green
+        /// if the player class is proficient with that part.
+        /// </summary>
+        /// <param name="weapon">Weapon to check affinities on.</param>
         public void WeaponAffinityCheck(WeaponItem weapon)
         {
             if (weapon.Property.Type != PropertyDamageType.Standard && PlayerEntity.Instance.Class.GetType() != typeof(FighterClass))
