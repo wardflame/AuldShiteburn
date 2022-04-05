@@ -23,13 +23,22 @@ namespace AuldShiteburn.CombatData
         public const int ARMOUR_RESISTANCE_MITIGATION_MODIFIER = 2;
         public const int WEAKNESS_BONUS_MODIFIER = 2;
         #endregion Modifier Constants
+        private static int RoundNumber { get; set; } = 0;
 
+        /// <summary>
+        /// Keep player and enemies fighting in a loop until one either they are all dead
+        /// or the player has died.
+        /// </summary>
+        /// <param name="enemies">Enemies for the player to fight.</param>
+        /// <returns>True if the player wins, false if the player dies.</returns>
         public static bool CombatEncounter(List<EnemyEntity> enemies)
         {
+            RoundNumber = 1;
             while (enemies.Count > 0 && PlayerEntity.Instance.HP > 0)
             {
                 PlayerCombatTurn(enemies);
                 EnemyCombatTurn(enemies);
+                RoundNumber++;
             }
             if (PlayerEntity.Instance.HP > 0)
             {
@@ -38,6 +47,17 @@ namespace AuldShiteburn.CombatData
                 Console.CursorTop += 1;
                 Console.Write("Press any key to continue...");
                 Console.ReadKey();
+                Utils.ClearInteractInterface();
+                PlayerEntity.Instance.HP = PlayerEntity.Instance.MaxHP;
+                if (PlayerEntity.Instance.UsesMana)
+                {
+                    PlayerEntity.Instance.Mana = PlayerEntity.Instance.MaxMana;
+                }
+                else if (PlayerEntity.Instance.UsesStamina)
+                {
+                    PlayerEntity.Instance.Stamina = PlayerEntity.Instance.MaxStamina;
+                }
+                PlayerEntity.Instance.PrintStats();
                 return true;
             }
             else
@@ -66,50 +86,60 @@ namespace AuldShiteburn.CombatData
             int endOffset = 0;
             while (playerTurn)
             {
-                #region Ability Cooldowns
-                if (!abilityCooldowns)
+                if (RoundNumber > 1)
                 {
-                    // Iterate through player abilities. If they have a cooldown active, decrement it.
-                    int i = 1;
-                    int abilitiesCoolingDown = 0;
-                    Utils.SetCursorInteract();
-                    Utils.WriteColour("Cooldowns", ConsoleColor.DarkYellow);
-                    foreach (Ability ability in PlayerEntity.Instance.Class.Abilities)
+                    #region Ability Cooldowns
+                    if (!abilityCooldowns)
                     {
-                        if (ability.ActiveCooldown > 0)
+                        // Iterate through player abilities. If they have a cooldown active, decrement it.
+                        int i = 1;
+                        int abilitiesCoolingDown = 0;
+                        Utils.SetCursorInteract();
+                        Utils.WriteColour("Cooldowns", ConsoleColor.DarkYellow);
+                        foreach (Ability ability in PlayerEntity.Instance.Class.Abilities)
                         {
-                            ability.ActiveCooldown--;
-                            Utils.SetCursorInteract(i++);
-                            Utils.WriteColour($"{ability.Name} cooling down: {ability.ActiveCooldown}/{ability.Cooldown}", ConsoleColor.Magenta);
-                            abilitiesCoolingDown++;
+                            if (ability.ActiveCooldown > 0)
+                            {
+                                ability.ActiveCooldown--;
+                                Utils.SetCursorInteract(i++);
+                                Utils.WriteColour($"{ability.Name} cooling down: {ability.ActiveCooldown}/{ability.Cooldown}", ConsoleColor.Magenta);
+                                abilitiesCoolingDown++;
+                            }
+                        }
+                        if (abilitiesCoolingDown > 0)
+                        {
+                            Console.ReadKey();
+                            Utils.ClearInteractInterface();
+                        }
+                        abilityCooldowns = true;
+                    }
+                    #endregion Ability Cooldowns
+                    #region Status Effects Duration
+                    if (PlayerEntity.Instance.AbilityStatusEffect != null && !statusReduction)
+                    {
+                        PlayerEntity.Instance.AbilityStatusEffect.Duration--;
+                        if (PlayerEntity.Instance.AbilityStatusEffect.Duration == 0)
+                        {
+                            PlayerEntity.Instance.AbilityStatusEffect = null;
                         }
                     }
-                    if (abilitiesCoolingDown > 0)
+                    if (PlayerEntity.Instance.PotionStatusEffect != null && !statusReduction)
                     {
-                        Console.ReadKey();
-                        Utils.ClearInteractInterface();
+                        PlayerEntity.Instance.PotionStatusEffect.Duration--;
+                        if (PlayerEntity.Instance.PotionStatusEffect.Duration == 0)
+                        {
+                            PlayerEntity.Instance.PotionStatusEffect = null;
+                        }
                     }
-                    abilityCooldowns = true;
-                }
-                #endregion Ability Cooldowns
-                #region Status Effect Duration
-                if (PlayerEntity.Instance.StatusEffect != null && !statusReduction)
-                {
-                    PlayerEntity.Instance.StatusEffect.Duration--;
-                    if (PlayerEntity.Instance.StatusEffect.Duration == 0)
+                    #endregion Status Effects Duration
+                    #region Stun Duration
+                    if (PlayerEntity.Instance.Stunned && !stunReduction)
                     {
-                        PlayerEntity.Instance.StatusEffect = null;
+                        PlayerEntity.Instance.StunTimer--;
+                        stunReduction = true;
                     }
+                    #endregion Stun Duration
                 }
-                #endregion Status Effect Duration
-                #region Stun Duration
-                if (PlayerEntity.Instance.Stunned && !stunReduction)
-                {
-                    PlayerEntity.Instance.StunTimer--;
-                    stunReduction = true;
-                }
-                #endregion Stun Duration
-
                 PlayerEntity.Instance.PrintStats();
                 if (PlayerEntity.Instance.StunTimer <= 0)
                 {
@@ -193,15 +223,25 @@ namespace AuldShiteburn.CombatData
         /// <param name="enemies">List of enemies in the area.</param>
         private static void EnemyCombatTurn(List<EnemyEntity> enemies)
         {
-            int endOffset;
+            int endOffset = 0;
             bool enemyTurn = true;
             while (enemyTurn)
             {
                 foreach (EnemyEntity enemy in enemies)
                 {
-                    CombatPayload enemyAttack = enemy.PerformAttack();
-                    endOffset = Console.CursorTop + 3;
-                    PlayerEntity.Instance.ReceiveAttack(enemyAttack);
+                    if (enemy.Stunned)
+                    {
+                        Utils.SetCursorInteract();
+                        Utils.WriteColour($"{enemy.Name} is stunned, recovering in {enemy.StunTimer} turns");
+                        endOffset = Console.CursorTop;
+                        enemy.StunTimer--;
+                    }
+                    else
+                    {
+                        CombatPayload enemyAttack = enemy.PerformAttack();
+                        endOffset = Console.CursorTop + 3;
+                        PlayerEntity.Instance.ReceiveAttack(enemyAttack);
+                    }
                     // Readkey to ensure player has a chance to read the round's report.
                     Console.SetCursorPosition(Utils.UIInteractOffset, endOffset);
                     Console.Write("Press any key to continue...");
@@ -303,7 +343,7 @@ namespace AuldShiteburn.CombatData
         /// <returns>Return the activity number.</returns>
         private static int ChooseActivity()
         {
-            List<string> activities = new List<string>() { "Use Equipped Weapon", "Use Ability" };
+            List<string> activities = new List<string>() { "Use Equipped Weapon", "Use Ability"};
             int offsetY = Console.CursorTop;
             Utils.SetCursorInteract(offsetY);
             Utils.WriteColour("Choose an activity.", ConsoleColor.DarkYellow);

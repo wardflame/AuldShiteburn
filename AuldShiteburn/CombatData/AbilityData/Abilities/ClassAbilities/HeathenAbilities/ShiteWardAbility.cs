@@ -10,8 +10,8 @@ namespace AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.HeathenA
     internal class ShiteWardAbility : Ability
     {
         public override string Name => "Shite Ward";
-        public override string Description => "Negates Occult damage for two turns.";
-        public override int Cooldown => 4;
+        public override string Description => "Negates Occult damage for 4 turns.";
+        public override int Cooldown => 6;
         public override int ResourceCost => 4;
 
         public override CombatPayload UseAbility()
@@ -30,11 +30,11 @@ namespace AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.HeathenA
             else if (ActiveCooldown == 0)
             {
                 ActiveCooldown = Cooldown;
-                DefenseStatusEffect shiteWard = new DefenseStatusEffect(EffectLevel.Moderate, allPhysicalDefense: true, propertyDamageType: PropertyDamageType.Occult, propertyNulOrMit: true);
-                shiteWard.Name = "Shite Ward";
-                shiteWard.Duration = 4;
-                shiteWard.DisplayColor = ConsoleColor.DarkYellow;
-                PlayerEntity.Instance.StatusEffect = shiteWard;
+                PlayerEntity.Instance.AbilityStatusEffect = new DefenseStatusEffect
+                    ("Shite Ward", 4, ConsoleColor.DarkYellow,
+                    EffectLevel.Moderate, allPhysicalDefense: true,
+                    propertyDamageType: PropertyDamageType.Occult,
+                    propertyNulOrMit: true);
                 if (PlayerEntity.Instance.UsesStamina)
                 {
                     PlayerEntity.Instance.Stamina -= ResourceCost;

@@ -1,5 +1,6 @@
 ﻿using AuldShiteburn.ItemData;
 using AuldShiteburn.ItemData.ArmourData;
+using AuldShiteburn.ItemData.ConsumableData.Consumables;
 using AuldShiteburn.ItemData.KeyData;
 using AuldShiteburn.ItemData.WeaponData;
 using AuldShiteburn.MapData.TileData;
@@ -34,6 +35,7 @@ namespace AuldShiteburn.MapData.AreaData.Areas
                 new LootTile("The decaying corpse of a long-dead Heathen",
                     new List<Item>()
                     {
+                        new HealthRegenElixirConsumableItem(),
                         KeyItem.HideawayKey
                     },
                     false)));

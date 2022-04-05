@@ -18,6 +18,7 @@ namespace AuldShiteburn.EntityData.Enemies
             PhysicalWeakness = PhysicalDamageType.Slash;
             MaterialWeakness = GeneralMaterials.Moonstone;
             PropertyWeakness = PropertyDamageType.Fire;
+            StunCap = 6;
             Abilities = new List<Ability>()
             {
                 new ShiteHuskBiteAbility()

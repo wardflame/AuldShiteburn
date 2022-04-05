@@ -11,7 +11,7 @@ namespace AuldShiteburn
         public static int UIInteractHeight { get; } = 2;
 
         public static int UIInventoryOffset { get; } = 1;
-        public static int UIInventoryHeight { get; } = Map.Instance.CurrentArea.Height + 14;
+        public static int UIInventoryHeight { get; } = Map.Instance.CurrentArea.Height + 16;
 
         public static int UIPlayerStatOffset { get; } = 1;
         public static int UIPlayerStatHeight { get; } = Map.Instance.CurrentArea.Height + 1;

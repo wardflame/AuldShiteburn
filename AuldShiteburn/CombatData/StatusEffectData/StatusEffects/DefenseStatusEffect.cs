@@ -37,11 +37,14 @@ namespace AuldShiteburn.CombatData.StatusEffectData.StatusEffects
         public bool PropertyNulOrMit { get; }
 
         public DefenseStatusEffect
-            (EffectLevel physicalEffectLevel = EffectLevel.None, EffectLevel propertyEffectLevel = EffectLevel.None,
+            (string name, int duration, ConsoleColor colour, EffectLevel physicalEffectLevel = EffectLevel.None, EffectLevel propertyEffectLevel = EffectLevel.None,
             bool allPhysicalDefense = false, bool allPropertyDefense = false,
             PhysicalDamageType physicalDamageType = PhysicalDamageType.None, PropertyDamageType propertyDamageType = PropertyDamageType.None,
             bool physicalNulOrMit = false, bool propertyNulOrMit = false)
         {
+            Name = name;
+            Duration = duration;
+            DisplayColor = colour;
             PhysicalEffectLevel = physicalEffectLevel;
             PropertyEffectLevel = propertyEffectLevel;
             AllPhysicalDefense = allPhysicalDefense;

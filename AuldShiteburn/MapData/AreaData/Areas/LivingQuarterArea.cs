@@ -2,6 +2,7 @@
 using AuldShiteburn.EntityData;
 using AuldShiteburn.EntityData.Enemies;
 using AuldShiteburn.ItemData;
+using AuldShiteburn.ItemData.ConsumableData.Consumables;
 using AuldShiteburn.ItemData.KeyData;
 using AuldShiteburn.MapData.TileData;
 using AuldShiteburn.MapData.TileData.Tiles;
@@ -17,6 +18,7 @@ namespace AuldShiteburn.MapData.AreaData.Areas
         public override string Name => "Living Quarter";
         public override int Width => 20;
         public override int Height => 20;
+        private bool EnemiesDefeated { get; set; } = false;
 
         protected override void AddSpecialTiles()
         {
@@ -32,9 +34,14 @@ namespace AuldShiteburn.MapData.AreaData.Areas
 
         public override void OnFirstEnter()
         {
-            if (Combat.CombatEncounter(enemies))
+            if (!EnemiesDefeated)
             {
-                SetTile(PlayerEntity.Instance.PosX + 1, PlayerEntity.Instance.PosY, new LootTile("Spoils of War", new List<Item>(), true, true));
+                if (Combat.CombatEncounter(enemies))
+                {
+                    SetTile(PlayerEntity.Instance.PosX + 1, PlayerEntity.Instance.PosY, new LootTile("Spoils of War", new List<Item>() { new HealthRegenElixirConsumableItem() }, false, true));
+                    Map.Instance.PrintTile(PlayerEntity.Instance.PosX + 1, PlayerEntity.Instance.PosY);
+                    EnemiesDefeated = true;
+                }
             }
         }
 

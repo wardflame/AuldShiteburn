@@ -130,7 +130,6 @@ namespace AuldShiteburn.EntityData
                 Utils.SetCursorInteract(Console.CursorTop - 1);
                 if (!Stunned)
                 {
-                    Stunned = true;
                     StunTimer = combatPayload.StunCount;
                     Utils.WriteColour($"{Name} is stunned for {StunTimer} turns!", ConsoleColor.DarkBlue);
                 }

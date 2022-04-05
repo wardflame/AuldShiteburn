@@ -35,6 +35,10 @@ namespace AuldShiteburn.EntityData.PlayerData
             ItemList = new Item[Row, Column];
         }
 
+        /// <summary>
+        /// When interacting with a storage tile, this prints both inventories and allows for
+        /// the navigation of one or the other by pressing TAB and using a switch case.
+        /// </summary>
         public void EngageStorage()
         {
             /// Do we want the player inventory (true), or the non-player inventory (false)?.
@@ -96,6 +100,10 @@ namespace AuldShiteburn.EntityData.PlayerData
             }
         }
 
+        /// <summary>
+        /// Separate the items in ItemList into their type columns and print them down.
+        /// </summary>
+        /// <param name="playerElseStorage">True if we want to print the inventory in the player's area, else in interact.</param>
         public void PrintInventory(bool playerElseStorage)
         {
             int offset = 0;
@@ -190,6 +198,14 @@ namespace AuldShiteburn.EntityData.PlayerData
             }
         }
 
+        /// <summary>
+        /// Print an inventory and allow the player to navigate it, highlighting the item at a player-navigable index.
+        /// If the player presses enter, return the location of the item as sort data to be processed.
+        /// </summary>
+        /// <param name="playerElseStorage">If true, interact with player inventory area of window, else external storage.</param>
+        /// <param name="typeColumn">Type column to highlight.</param>
+        /// <param name="typeOffset">CursorLeft offset to display a highlighted index.</param>
+        /// <returns></returns>
         public InventorySortData NavigateInventory(bool playerElseStorage, int typeColumn = 0, int typeOffset = 0)
         {
             InventorySortData sortData = new InventorySortData();
@@ -315,6 +331,13 @@ namespace AuldShiteburn.EntityData.PlayerData
             return sortData;
         }
 
+        /// <summary>
+        /// After selecting an item from an inventory, prompt player to choose what to do
+        /// with it. Pressing T will allow the player to transfer the item to a slot in
+        /// the other inventory.
+        /// </summary>
+        /// <param name="sortData">Location of the item to move.</param>
+        /// <param name="secondaryInventory">The secondary inventory we're engaging with.</param>
         public void StorageTransfer(InventorySortData sortData, Inventory secondaryInventory)
         {
             bool interacting = true;
@@ -378,6 +401,13 @@ namespace AuldShiteburn.EntityData.PlayerData
             }
         }
 
+        /// <summary>
+        /// Display important characteristics about the item depending on type
+        /// in the interact area and offer the player different prompts to interact
+        /// with the item. Run the OnInventoryUse() method if they choose E, drop the
+        /// item into a LootTile with D or cancel with Backspace.
+        /// </summary>
+        /// <param name="playerElseStorage">True if we want to navigate the player inventory, else storage inventory.</param>
         public void PlayerItemInteract(bool playerElseStorage)
         {
             bool interacting = true;
@@ -396,41 +426,51 @@ namespace AuldShiteburn.EntityData.PlayerData
                     Utils.WriteColour("No item selected.");
                     return;
                 }
-                Console.Write($"What do you wish to do with {currentItem.Name}?");
+                Console.Write($"What do you want to do with {currentItem.Name}?");
                 if (currentItem is WeaponItem)
                 {
+                    Utils.SetCursorInteract(1);
                     WeaponItem weapon = (WeaponItem)currentItem;
                     Console.Write("Physical Damage: ");
                     Utils.WriteColour($"{weapon.MinPhysDamage} - {weapon.MaxPhysDamage}");
-                    Utils.SetCursorInteract(1);
+                    Utils.SetCursorInteract(2);
                     Console.Write("Property Damage: ");
                     Utils.WriteColour($"{weapon.MinPropDamage} - {weapon.MaxPropDamage}");
-                    Utils.SetCursorInteract(2);
+                    Utils.SetCursorInteract(3);
                     Console.Write("(E) Equip Weapon");
-                    offset = 3;
+                    offset = 4;
                 }
                 else if (currentItem is ArmourItem)
                 {
+                    Utils.SetCursorInteract(1);
                     ArmourItem armour = (ArmourItem)currentItem;
                     Console.Write("Physical Mitigation: ");
-                    Utils.WriteColour($"{armour.PhysicalMitigation}");
-                    Utils.SetCursorInteract(1);
-                    Console.Write("Property Mitigation: ");
-                    Utils.WriteColour($"{armour.PropertyMitigation}");
+                    Utils.WriteColour($"{armour.PhysicalMitigation}", ConsoleColor.Yellow);
                     Utils.SetCursorInteract(2);
+                    Console.Write("Property Mitigation: ");
+                    Utils.WriteColour($"{armour.PropertyMitigation}", ConsoleColor.Magenta);
+                    Utils.SetCursorInteract(3);
                     Console.Write("(E) Equip Armour");
-                    offset = 3;
+                    offset = 4;
                 }
-                else if (currentItem is ConsumableItem)
+                else if (currentItem is ConsumableItem || currentItem.GetType().IsSubclassOf(typeof(ConsumableItem)))
                 {
+                    ConsumableItem consumable = (ConsumableItem)currentItem;
                     Utils.SetCursorInteract(1);
+                    Utils.WriteColour($@"'{consumable.Description}'", ConsoleColor.DarkYellow);
+                    Utils.SetCursorInteract(2);
+                    Console.Write("Stock: ");
+                    Utils.WriteColour($"{consumable.Stock}", ConsoleColor.DarkYellow);
+                    Utils.SetCursorInteract(3);
                     Console.Write("(E) Consume");
+                    offset = 4;
                 }
                 else if (currentItem is KeyItem)
                 {
                     Utils.SetCursorInteract(1);
                     KeyItem key = (KeyItem)currentItem;
                     Utils.WriteColour($@"'{key.Description}'", ConsoleColor.DarkYellow);
+                    offset = 2;
                 }
                 Utils.SetCursorInteract(offset);
                 Console.WriteLine("(D) Drop Item");
@@ -445,6 +485,14 @@ namespace AuldShiteburn.EntityData.PlayerData
                         case ConsoleKey.E:
                             {
                                 currentItem.OnInventoryUse(sortData);
+                                if (currentItem.GetType() == typeof(ConsumableItem) || currentItem.GetType().IsSubclassOf(typeof(ConsumableItem)))
+                                {
+                                    ConsumableItem consumable = (ConsumableItem)currentItem;
+                                    if (consumable.Stock <= 0)
+                                    {
+                                        PlayerEntity.Instance.Inventory.ItemList[sortData.index, sortData.typeColumn] = null;
+                                    }
+                                }
                                 choosing = false;
                                 interacting = false;
                             }
@@ -501,6 +549,19 @@ namespace AuldShiteburn.EntityData.PlayerData
             {
                 if (ItemList[sortData.index, typeColumn] != null)
                 {
+                    if (item.GetType() == typeof(ConsumableItem) || item.GetType().IsSubclassOf(typeof(ConsumableItem)))
+                    {
+                        for (int i = 0; i < Row; i++)
+                        {
+                            if (ItemList[i, 2] != null && ItemList[i, 2].Name == item.Name)
+                            {
+                                ConsumableItem itemToAdd = (ConsumableItem)item;
+                                ConsumableItem target = (ConsumableItem)ItemList[i, 2];
+                                target.Stock += itemToAdd.Stock;
+                                return true;
+                            }
+                        }
+                    }
                     int emptySlot = CheckForEmptySlot(playerElseStorage, typeColumn);
                     if (emptySlot > 0)
                     {
@@ -540,11 +601,26 @@ namespace AuldShiteburn.EntityData.PlayerData
                 }
                 else
                 {
+                    if (item.GetType() == typeof(ConsumableItem) || item.GetType().IsSubclassOf(typeof(ConsumableItem)))
+                    {
+                        for (int i = 0; i < Row; i++)
+                        {
+                            if (ItemList[i, 2] != null && ItemList[i, 2].Name == item.Name)
+                            {
+                                ConsumableItem itemToAdd = (ConsumableItem)item;
+                                ConsumableItem target = (ConsumableItem)ItemList[i, 3];
+                                target.Stock += itemToAdd.Stock;
+                                return true;
+                            }
+                        }
+                    }
                     ItemList[sortData.index, typeColumn] = item;
                 }
+                Utils.ClearPlayerInventoryInterface();
                 PrintInventory(playerElseStorage);
                 return true;
             }
+            Utils.ClearPlayerInventoryInterface();
             PrintInventory(playerElseStorage);
             return false;
         }
@@ -638,7 +714,7 @@ namespace AuldShiteburn.EntityData.PlayerData
             {
                 return 1;
             }
-            else if (item.GetType() == typeof(ConsumableItem))
+            else if (item.GetType() == typeof(ConsumableItem) || item.GetType().IsSubclassOf(typeof(ConsumableItem)))
             {
                 return 2;
             }
@@ -664,7 +740,7 @@ namespace AuldShiteburn.EntityData.PlayerData
             {
                 return ArmourOffset;
             }
-            else if (item.GetType() == typeof(ConsumableItem))
+            else if (item.GetType() == typeof(ConsumableItem) || item.GetType().IsSubclassOf(typeof(ConsumableItem)))
             {
                 return ConsumableOffset;
             }

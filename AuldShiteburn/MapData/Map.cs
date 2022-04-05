@@ -19,7 +19,7 @@ namespace AuldShiteburn.MapData
     internal abstract class Map
     {
         public static Map Instance { get; set; }
-        private static List<Type> interactionTiles = new List<Type>()
+        private static List<Type> InteractionTiles { get; } = new List<Type>()
         {
             typeof(InteractionTile),
             typeof(DoorTile),
@@ -410,10 +410,10 @@ namespace AuldShiteburn.MapData
             int plusX = PlayerEntity.Instance.PosX + 1;
             int plusY = PlayerEntity.Instance.PosY + 1;
 
-            if (!interactionTiles.Exists(text => CheckTileType(minusX, PlayerEntity.Instance.PosY, text)) &&
-                !interactionTiles.Exists(text => CheckTileType(plusX, PlayerEntity.Instance.PosY, text)) &&
-                !interactionTiles.Exists(text => CheckTileType(PlayerEntity.Instance.PosX, minusY, text)) &&
-                !interactionTiles.Exists(text => CheckTileType(PlayerEntity.Instance.PosX, plusY, text)))
+            if (!InteractionTiles.Exists(text => CheckTileType(minusX, PlayerEntity.Instance.PosY, text)) &&
+                !InteractionTiles.Exists(text => CheckTileType(plusX, PlayerEntity.Instance.PosY, text)) &&
+                !InteractionTiles.Exists(text => CheckTileType(PlayerEntity.Instance.PosX, minusY, text)) &&
+                !InteractionTiles.Exists(text => CheckTileType(PlayerEntity.Instance.PosX, plusY, text)))
             {
                 Utils.ClearInteractInterface(CurrentArea.Height);
                 Utils.SetCursorInventory(-1);

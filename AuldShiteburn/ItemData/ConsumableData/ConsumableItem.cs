@@ -1,4 +1,5 @@
-﻿using AuldShiteburn.ItemData.ConsumableData.Consumables;
+﻿using AuldShiteburn.EntityData.PlayerData;
+using AuldShiteburn.ItemData.ConsumableData.Consumables;
 using System;
 using System.Collections.Generic;
 
@@ -13,15 +14,24 @@ namespace AuldShiteburn.ItemData.ConsumableData
         {
             get
             {
-                return new List<ConsumableItem>();
+                return new List<ConsumableItem>()
                 {
-                    new HealthElixirConsumableItem();
-                    new StaminaElixirConsumableItem();
-                    new ManaElixirConsumableItem();
-                    new ShiteElixirConsumableItem();
+                    new HealthRegenElixirConsumableItem(),
+                    new StaminaElixirConsumableItem(),
+                    new ManaElixirConsumableItem(),
+                    new ShiteDefenseElixirConsumableItem()
                 };
             }
         }
-        public abstract void OnConsumption();
+
+        public ConsumableItem()
+        {
+            Random rand = new Random();
+            Stock = rand.Next(1, 4);
+        }
+
+        public override void OnInventoryUse(InventorySortData sortData)
+        {
+        }
     }
 }

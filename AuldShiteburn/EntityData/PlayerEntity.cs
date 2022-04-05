@@ -24,7 +24,8 @@ namespace AuldShiteburn.EntityData
         public long Playtime { get; set; }
         public Inventory Inventory { get; set; }
         public CharacterClass Class { get; private set; }
-        public StatusEffect StatusEffect { get; set; }
+        public StatusEffect AbilityStatusEffect { get; set; }
+        public StatusEffect PotionStatusEffect { get; set; }
         public WeaponItem EquippedWeapon { get; set; }
         public ArmourItem EquippedArmour { get; set; }
 
@@ -143,9 +144,9 @@ namespace AuldShiteburn.EntityData
 
             // If the player has an active status effect, run its effect.
             #region Status Effect Application
-            if (Instance.StatusEffect != null)
+            if (Instance.AbilityStatusEffect != null)
             {
-                combatPayload = Instance.StatusEffect.EffectActive(combatPayload);
+                combatPayload = Instance.AbilityStatusEffect.EffectActive(combatPayload);
             }
             #endregion Status Effect Application
 
@@ -214,7 +215,6 @@ namespace AuldShiteburn.EntityData
                 Utils.SetCursorInteract(Console.CursorTop - 1);
                 if (!Stunned)
                 {
-                    Stunned = true;
                     StunTimer = combatPayload.StunCount;
                     Utils.WriteColour($"You are stunned for {StunTimer} turns!", ConsoleColor.DarkBlue);
                 }
@@ -285,17 +285,28 @@ namespace AuldShiteburn.EntityData
                 Utils.WriteColour($"{Instance.Mana}", ConsoleColor.Blue);
             }
             Utils.SetCursorPlayerStat(4);
-            Console.Write("Status Effect: ");
-            if (Instance.StatusEffect != null)
+            Console.Write("Ability Status Effect: ");
+            if (Instance.AbilityStatusEffect != null)
             {
-                Utils.WriteColour($"{Instance.StatusEffect.Name}: ", Instance.StatusEffect.DisplayColor);
-                Console.Write($"{Instance.StatusEffect.Duration}");
+                Utils.WriteColour($"{Instance.AbilityStatusEffect.Name}: ", Instance.AbilityStatusEffect.DisplayColor);
+                Console.Write($"{Instance.AbilityStatusEffect.Duration}");
             }
             else
             {
                 Console.Write("--");
             }
             Utils.SetCursorPlayerStat(5);
+            Console.Write("Potion Status Effect: ");
+            if (Instance.AbilityStatusEffect != null)
+            {
+                Utils.WriteColour($"{Instance.PotionStatusEffect.Name}: ", Instance.PotionStatusEffect.DisplayColor);
+                Console.Write($"{Instance.PotionStatusEffect.Duration}");
+            }
+            else
+            {
+                Console.Write("--");
+            }
+            Utils.SetCursorPlayerStat(6);
             Console.Write("Stun Timer: ");
             if (Instance.StunTimer > 0)
             {
@@ -305,17 +316,17 @@ namespace AuldShiteburn.EntityData
             {
                 Console.Write("--");
             }
-            Utils.SetCursorPlayerStat(6);
+            Utils.SetCursorPlayerStat(7);
             Console.Write("- - - - - - - -");
 
-            Utils.SetCursorPlayerStat(7);
-            Utils.WriteColour("Equipped Weapon", ConsoleColor.DarkYellow);
             Utils.SetCursorPlayerStat(8);
+            Utils.WriteColour("Equipped Weapon", ConsoleColor.DarkYellow);
+            Utils.SetCursorPlayerStat(9);
             Console.Write(">> ");
             PrintWeapon();
-            Utils.SetCursorPlayerStat(10);
-            Utils.WriteColour("Equipped Armour", ConsoleColor.DarkYellow);
             Utils.SetCursorPlayerStat(11);
+            Utils.WriteColour("Equipped Armour", ConsoleColor.DarkYellow);
+            Utils.SetCursorPlayerStat(12);
             Console.Write(">> ");
             PrintArmour();
         }

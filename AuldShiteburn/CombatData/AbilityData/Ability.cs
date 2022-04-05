@@ -30,7 +30,7 @@ namespace AuldShiteburn.CombatData.AbilityData
                 }
             }
         }
-        public virtual int ResourceCost { get; }
+        public abstract int ResourceCost { get; }
         public virtual PhysicalDamageType PhysicalDamageType { get; }
         public virtual PropertyDamageType PropertyDamageType { get; }
         public virtual int PhysicalMinDamage { get; }

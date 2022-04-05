@@ -1,4 +1,5 @@
 ﻿using AuldShiteburn.EntityData;
+using AuldShiteburn.EntityData.PlayerData;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,7 +12,7 @@ namespace AuldShiteburn.ItemData.ConsumableData.Consumables
         public override string Description => "A jade elixir that restores 6-12 Stamina.";
         public int MinStamina { get; } = 6;
         public int MaxStamina { get; } = 12;
-        public override void OnConsumption()
+        public override void OnInventoryUse(InventorySortData sortData)
         {
             Random rand = new Random();
             int staminaRestored = rand.Next(MinStamina, MaxStamina + 1);
@@ -20,6 +21,7 @@ namespace AuldShiteburn.ItemData.ConsumableData.Consumables
             Utils.WriteColour($"{staminaRestored} ", ConsoleColor.Green);
             Utils.WriteColour($"Stamina!");
             PlayerEntity.Instance.HP += staminaRestored;
+            Stock--;
         }
     }
 }

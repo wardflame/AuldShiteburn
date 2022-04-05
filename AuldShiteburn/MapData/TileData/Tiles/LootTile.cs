@@ -85,6 +85,8 @@ namespace AuldShiteburn.MapData.TileData.Tiles
                 }                
             }
             Utils.ClearInteractInterface();
+            Utils.ClearPlayerInventoryInterface();
+            PlayerEntity.Instance.PrintInventory();
         }
 
         private int LootStock()
