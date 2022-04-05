@@ -59,11 +59,14 @@ namespace AuldShiteburn.CombatData
         private static void PlayerCombatTurn(List<EnemyEntity> enemies)
         {
             bool playerTurn = true;
+            bool stunReduction = false;
             while (playerTurn)
             {
-                if (PlayerEntity.Instance.Stunned)
+                if (PlayerEntity.Instance.Stunned && !stunReduction)
                 {
                     PlayerEntity.Instance.StunTimer--;
+                    PlayerEntity.Instance.PrintStats();
+                    stunReduction = true;
                 }
                 if (PlayerEntity.Instance.StunTimer <= 0)
                 {
@@ -72,38 +75,43 @@ namespace AuldShiteburn.CombatData
                     if (activity == 0)
                     {                        
                         CombatPayload playerMeleePayload = ChooseMeleeAttack();
-                        if (enemy.ReceiveAttack(playerMeleePayload, enemies.Count + 6))
+                        if (playerMeleePayload.IsAttack)
                         {
-                            enemies.Remove(enemy);
+                            if (enemy.ReceiveAttack(playerMeleePayload, enemies.Count + 6))
+                            {
+                                enemies.Remove(enemy);
+                            }
+                            playerTurn = false;
                         }
-                        playerTurn = false;
+                        else
+                        {
+                            Utils.SetCursorInteract(enemies.Count + 2);
+                            Utils.ClearInteractArea(length: 30);
+                        }
                     }
                     else if (activity == 1)
                     {
-                        bool firing = true;
-                        while (firing)
+                        Utils.ClearInteractArea(enemies.Count + 5, 20);
+                        Utils.SetCursorInteract(enemies.Count + 4);
+                        CombatPayload playerAbilityPayload = ChooseAbility();
+                        if (playerAbilityPayload.IsAttack)
                         {
-                            Utils.ClearInteractArea(enemies.Count + 6, 10);
-                            int chosenIndex = PlayerEntity.Instance.CycleAbilities(enemies.Count + 6, 0);
-                            if (chosenIndex > -1)
+                            if (enemy.ReceiveAttack(playerAbilityPayload, Console.CursorTop - 1))
                             {
-                                CombatPayload playerAbilityPayload = PlayerEntity.Instance.Class.Abilities[chosenIndex].UseAbility();
-                                if (playerAbilityPayload.IsAttack)
-                                {
-                                    if (enemy.ReceiveAttack(playerAbilityPayload, Console.CursorTop - 1))
-                                    {
-                                        enemies.Remove(enemy);
-                                    }
-                                    firing = false;
-                                }
-                                playerTurn = false;
+                                enemies.Remove(enemy);
                             }
-                            else
-                            {
-                                Utils.SetCursorInteract(enemies.Count + 2);
-                                Utils.ClearInteractArea(length: 20);
-                                firing = false;
-                            }
+                            PlayerEntity.Instance.PrintStats();
+                            playerTurn = false;
+                        }
+                        else if (playerAbilityPayload.IsUtility)
+                        {
+                            PlayerEntity.Instance.PrintStats();
+                            playerTurn = false;
+                        }
+                        else
+                        {
+                            Utils.SetCursorInteract(enemies.Count + 2);
+                            Utils.ClearInteractArea(length: 30);
                         }
                     }
                 }                
@@ -147,7 +155,7 @@ namespace AuldShiteburn.CombatData
         /// <returns>Combat payload for enemy to process.</returns>
         private static CombatPayload CalculateWeaponDamage(bool primaryElseSecondary)
         {
-            CombatPayload attackPayload = new CombatPayload();
+            CombatPayload attackPayload = new CombatPayload(true);
             Random rand = new Random();
             WeaponItem playerWeapon = PlayerEntity.Instance.EquippedWeapon;
             attackPayload.PhysicalDamage = rand.Next(playerWeapon.MinPhysDamage, playerWeapon.MaxPhysDamage);
@@ -271,6 +279,12 @@ namespace AuldShiteburn.CombatData
             return index;
         }
 
+        /// <summary>
+        /// Iterate through a list of weapon attack types the weapon can perform and have the player choose one.
+        /// If, by chance, a weapon's secondary attack is None, the weapon will default to the primary attack type
+        /// in the CalculateWeaponDamage() method.
+        /// </summary>
+        /// <returns>CombatPayload based on the attack type the player chooses.</returns>
         private static CombatPayload ChooseMeleeAttack()
         {
             WeaponItem weapon = PlayerEntity.Instance.EquippedWeapon;
@@ -278,7 +292,7 @@ namespace AuldShiteburn.CombatData
             int offsetY = Console.CursorTop;
             Utils.ClearInteractArea(offsetY, 2);
             Utils.SetCursorInteract(offsetY);
-            Utils.WriteColour("Choose an attack technique from your weapon.", ConsoleColor.DarkYellow);
+            Utils.WriteColour("Choose an attack technique.", ConsoleColor.DarkYellow);
             int index = 0;
             do
             {
@@ -292,6 +306,10 @@ namespace AuldShiteburn.CombatData
                     }
                     Utils.WriteColour(meleeAttacks[i], ConsoleColor.Cyan);
                 }
+                Utils.SetCursorInteract(offsetY + meleeAttacks.Count + 1);
+                Console.Write("[");
+                Utils.WriteColour("BACKSPACE", ConsoleColor.DarkGray);
+                Console.Write("] Return");
                 InputSystem.GetInput();
                 switch (InputSystem.InputKey)
                 {
@@ -311,6 +329,10 @@ namespace AuldShiteburn.CombatData
                             }
                         }
                         break;
+                    case ConsoleKey.Backspace:
+                        {
+                            return new CombatPayload(false);
+                        }
                 }
             } while (InputSystem.InputKey != ConsoleKey.Enter);
             if (index == 0)
@@ -321,6 +343,76 @@ namespace AuldShiteburn.CombatData
             {
                 return CalculateWeaponDamage(false);
             }
+        }
+
+        /// <summary>
+        /// Iterate through a list of the player's class abilities. Provide details to the side
+        /// of them. On pressing enter, activate the ability and return the combat payload.
+        /// </summary>
+        /// <returns>Returns the chosen ability's combat payload.</returns>
+        private static CombatPayload ChooseAbility()
+        {
+            List<Ability> abilities = PlayerEntity.Instance.Class.Abilities;
+            int offsetY = Console.CursorTop;
+            Utils.ClearInteractArea(offsetY, 1);
+            Utils.SetCursorInteract(offsetY);
+            Utils.WriteColour("Choose an ability.", ConsoleColor.DarkYellow);
+            int index = 0;
+            do
+            {
+                Utils.ClearInteractArea(offsetY + 1, abilities.Count);
+                for (int i = 0; i < abilities.Count; i++)
+                {
+                    Utils.SetCursorInteract(offsetY + 1 + i);
+                    if (abilities[i] == abilities[index])
+                    {
+                        Utils.WriteColour(">>", ConsoleColor.Yellow);
+                        Utils.WriteColour($"{abilities[i].Name}", ConsoleColor.Cyan);
+                        Utils.SetCursorInteract(offsetY + 1, 20);
+                        Console.Write(abilities[i].Description);
+                        Utils.SetCursorInteract(offsetY + 2, 20);
+                        Console.Write($"Cooldown: {abilities[i].Cooldown}");
+                        Utils.SetCursorInteract(offsetY + 3, 20);
+                        Console.Write($"Resource Cost: {abilities[i].ResourceCost}");
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Cyan;
+                        Utils.SetCursorInteract(offsetY + 1 + i);
+                        Console.Write(abilities[i].Name);
+                        Console.ResetColor();
+                    }
+                }
+                Utils.SetCursorInteract(offsetY + abilities.Count + 1);
+                Console.Write("[");
+                Utils.WriteColour("BACKSPACE", ConsoleColor.DarkGray);
+                Console.Write("] Return");
+                InputSystem.GetInput();
+                switch (InputSystem.InputKey)
+                {
+                    case ConsoleKey.UpArrow:
+                        {
+                            if (index > 0 && index < abilities.Count)
+                            {
+                                index--;
+                            }
+                        }
+                        break;
+                    case ConsoleKey.DownArrow:
+                        {
+                            if (index >= 0 && index < abilities.Count - 1)
+                            {
+                                index++;
+                            }
+                        }
+                        break;
+                    case ConsoleKey.Backspace:
+                        {
+                            return new CombatPayload(false);
+                        }
+                }
+            } while (InputSystem.InputKey != ConsoleKey.Enter);
+            return PlayerEntity.Instance.Class.Abilities[index].UseAbility();
         }
     }
 

@@ -22,6 +22,11 @@ namespace AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.HeathenA
                 Utils.WriteColour($"{Name} is on cooldown {ActiveCooldown}/{Cooldown}.", ConsoleColor.DarkRed);
                 ActiveCooldown--;
             }
+            else if (!PlayerEntity.Instance.CheckResourceLevel(ResourceCost))
+            {
+                Utils.WriteColour($"You lack the resources to use this ability.", ConsoleColor.DarkRed);
+                return new CombatPayload(false);
+            }
             else if (ActiveCooldown == 0)
             {
                 ActiveCooldown = Cooldown;
@@ -30,10 +35,17 @@ namespace AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.HeathenA
                 shiteWard.Duration = 4;
                 shiteWard.DisplayColor = ConsoleColor.DarkYellow;
                 PlayerEntity.Instance.StatusEffect = shiteWard;
-                PlayerEntity.Instance.PrintStats();
-                return new CombatPayload();
+                if (PlayerEntity.Instance.UsesStamina)
+                {
+                    PlayerEntity.Instance.Stamina -= ResourceCost;
+                }
+                else if (PlayerEntity.Instance.UsesMana)
+                {
+                    PlayerEntity.Instance.Mana -= ResourceCost;
+                }
+                return new CombatPayload(false, true);
             }
-            return new CombatPayload();
+            return new CombatPayload(false);
         }
     }
 }

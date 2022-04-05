@@ -21,16 +21,29 @@ namespace AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.HeathenA
             {
                 ActiveCooldown--;
                 Utils.WriteColour($"{Name} is on cooldown {ActiveCooldown}/{Cooldown}.", ConsoleColor.DarkRed);
-                return new CombatPayload();
+                return new CombatPayload(false);
+            }
+            else if (!PlayerEntity.Instance.CheckResourceLevel(ResourceCost))
+            {
+                Utils.WriteColour($"You lack the resources to use this ability.", ConsoleColor.DarkRed);
+                return new CombatPayload(false);
             }
             else if (ActiveCooldown <= 0)
             {
                 Random rand = new Random();
                 int damage = rand.Next(PhysicalMinDamage, PhysicalMaxDamage + 1);
                 ActiveCooldown = Cooldown;
-                return new CombatPayload(hasProperty: true, propertyAttackType: PropertyDamageType.Occult, propertyDamage: damage);
+                if (PlayerEntity.Instance.UsesStamina)
+                {
+                    PlayerEntity.Instance.Stamina -= ResourceCost;
+                }
+                else if (PlayerEntity.Instance.UsesMana)
+                {
+                    PlayerEntity.Instance.Mana -= ResourceCost;
+                }
+                return new CombatPayload(true, hasProperty: true, propertyAttackType: PropertyDamageType.Occult, propertyDamage: damage);
             }
-            return new CombatPayload();
+            return new CombatPayload(false);
         }
     }
 }

@@ -8,6 +8,7 @@ namespace AuldShiteburn.CombatData.PayloadData
     internal class CombatPayload
     {
         public bool IsAttack { get; set; }
+        public bool IsUtility { get; set; }
         public bool IsStun { get; set; }
         public bool HasPhysical { get; set; }
         public bool HasProperty { get; set; }
@@ -18,10 +19,12 @@ namespace AuldShiteburn.CombatData.PayloadData
         public int PropertyDamage { get; set; }
 
         public CombatPayload
-            (bool isStun = false, bool hasPhysical = false, bool hasProperty = false,
+            (bool isAttack, bool isUtility = false, bool isStun = false, bool hasPhysical = false, bool hasProperty = false,
             PhysicalDamageType physicalAttackType = PhysicalDamageType.None, PropertyDamageType propertyAttackType = PropertyDamageType.None,
             int stunCount = 0, int physicalDamage = 0, int propertyDamage = 0)
         {
+            IsAttack = isAttack;
+            IsUtility = isUtility;
             IsStun = isStun;
             HasPhysical = hasPhysical;
             HasProperty = hasProperty;

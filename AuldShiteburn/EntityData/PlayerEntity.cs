@@ -207,6 +207,23 @@ namespace AuldShiteburn.EntityData
         }
 
         /// <summary>
+        /// Compare current resource to the cost of a task. Return true if resource available, else false.
+        /// </summary>
+        /// <param name="resourceCost">Task resource cost.</param>
+        /// <returns>Whether player has the resource to perform the task.</returns>
+        public bool CheckResourceLevel(int resourceCost)
+        {
+            if ((UsesMana && (Mana < resourceCost)) || (UsesStamina && (Stamina < resourceCost)))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        /// <summary>
         /// Print the player's inventory underneath player stats.
         /// </summary>
         public void PrintInventory()
@@ -255,16 +272,26 @@ namespace AuldShiteburn.EntityData
                 Console.Write("--");
             }
             Utils.SetCursorPlayerStat(5);
+            Console.Write("Stun Timer: ");
+            if (Instance.StunTimer > 0)
+            {
+                Utils.WriteColour($"{Instance.StunTimer}", ConsoleColor.Magenta);
+            }
+            else
+            {
+                Console.Write("--");
+            }
+            Utils.SetCursorPlayerStat(6);
             Console.Write("- - - - - - - -");
 
-            Utils.SetCursorPlayerStat(6);
-            Utils.WriteColour("Equipped Weapon", ConsoleColor.DarkYellow);
             Utils.SetCursorPlayerStat(7);
+            Utils.WriteColour("Equipped Weapon", ConsoleColor.DarkYellow);
+            Utils.SetCursorPlayerStat(8);
             Console.Write(">> ");
             PrintWeapon();
-            Utils.SetCursorPlayerStat(9);
-            Utils.WriteColour("Equipped Armour", ConsoleColor.DarkYellow);
             Utils.SetCursorPlayerStat(10);
+            Utils.WriteColour("Equipped Armour", ConsoleColor.DarkYellow);
+            Utils.SetCursorPlayerStat(11);
             Console.Write(">> ");
             PrintArmour();
         }
@@ -325,92 +352,6 @@ namespace AuldShiteburn.EntityData
             {
                 Console.Write("--");
             }
-        }
-
-        /// <summary>
-        /// Print the player's abilities and allow them to navigate an index.
-        /// When pressing enter, return the index to be looked for in their ability
-        /// list. If pressing backspace, return index -1 to consider choice null.
-        /// </summary>
-        /// <param name="offsetY">How far down the interact screen we are when needing to clear if the player cancels their decision.</param>
-        /// <param name="index">Index to start at in ability list.</param>
-        /// <returns>Returns index of an ability or -1 if cancelling choice.</returns>
-        public int CycleAbilities(int offsetY, int index)
-        {
-            PrintAbilitiesOptions(offsetY, index);
-            do
-            {
-                InputSystem.GetInput();
-                switch (InputSystem.InputKey)
-                {
-                    case ConsoleKey.UpArrow:
-                        {
-                            if (index <= Instance.Class.Abilities.Count - 1 && index > 0)
-                            {
-                                index--;
-                                Utils.ClearInteractArea(offsetY, Instance.Class.Abilities.Count + 4);
-                                PrintAbilitiesOptions(offsetY, index);
-                            }
-                        }
-                        break;
-                    case ConsoleKey.DownArrow:
-                        {
-                            if (index >= 0 && index < Instance.Class.Abilities.Count - 1)
-                            {
-                                index++;
-                                Utils.ClearInteractArea(offsetY, Instance.Class.Abilities.Count + 4);
-                                PrintAbilitiesOptions(offsetY, index);
-                            }
-                        }
-                        break;
-                    case ConsoleKey.Backspace:
-                        {
-                            return -1;
-                        }
-                }
-            } while (InputSystem.InputKey != ConsoleKey.Enter);
-            return index;
-        }
-
-        /// <summary>
-        /// Iterate through and print the player's abilities, highlighting the one at the
-        /// given index and printing its details beside it.
-        /// </summary>
-        /// <param name="offsetY">The offset to place the cursor down the interact area.</param>
-        /// <param name="index">Index of the ability we want to highlight.</param>
-        public void PrintAbilitiesOptions(int offsetY, int index)
-        {
-            Utils.SetCursorInteract(offsetY);
-            Utils.WriteColour("Abilities", ConsoleColor.DarkYellow);
-            int offset = 0;
-            for (int i = 0; i < Instance.Class.Abilities.Count; i++)
-            {
-                offset = offsetY + i + 1;
-                Utils.SetCursorInteract(offset);
-                Ability ability = Instance.Class.Abilities[i];
-                if (ability == Instance.Class.Abilities[index])
-                {
-                    Utils.WriteColour(">>", ConsoleColor.Yellow);
-                    Utils.WriteColour($"{ability.Name}", ConsoleColor.Cyan);
-                    Utils.SetCursorInteract(offsetY + 1, 20);
-                    Console.Write(ability.Description);
-                    Utils.SetCursorInteract(offsetY + 2, 20);
-                    Console.Write($"Cooldown: {ability.Cooldown}");
-                    Utils.SetCursorInteract(offsetY + 3, 20);
-                    Console.Write($"Resource Cost: {ability.ResourceCost}");
-                }
-                else
-                {
-                    Console.ForegroundColor = ConsoleColor.Cyan;
-                    Utils.SetCursorInteract(offset);
-                    Console.Write(ability.Name);
-                    Console.ResetColor();
-                }
-            }
-            Utils.SetCursorInteract(offset + 1);
-            Console.Write("[");
-            Utils.WriteColour("Backspace", ConsoleColor.DarkGray);
-            Console.Write("] Return");
         }
     }
 }

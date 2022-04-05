@@ -44,7 +44,7 @@ namespace AuldShiteburn.EntityData
                     return ability.UseAbility();
                 }
             }
-            return new CombatPayload();
+            return new CombatPayload(false);
         }
 
         public override bool ReceiveAttack(CombatPayload combatPayload, int offsetY)

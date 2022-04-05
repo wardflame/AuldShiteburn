@@ -21,7 +21,7 @@ namespace AuldShiteburn.CombatData.AbilityData.Abilities.EnemyAbilities.ShiteHus
         public override CombatPayload UseAbility()
         {
             Utils.SetCursorInteract(Console.CursorTop);
-            return new CombatPayload();
+            return new CombatPayload(false);
         }
     }
 }
