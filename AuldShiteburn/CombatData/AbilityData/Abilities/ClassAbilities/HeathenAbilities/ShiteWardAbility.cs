@@ -10,16 +10,9 @@ namespace AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.HeathenA
     internal class ShiteWardAbility : Ability
     {
         public override string Name => "Shite Ward";
-
         public override string Description => "Negates Occult damage for two turns.";
-
         public override int Cooldown => 4;
-
         public override int ResourceCost => 4;
-
-        public override int MinDamage => 0;
-
-        public override int MaxDamage => 0;
 
         public override CombatPayload UseAbility()
         {
@@ -29,7 +22,7 @@ namespace AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.HeathenA
                 Utils.WriteColour($"{Name} is on cooldown {ActiveCooldown}/{Cooldown}.", ConsoleColor.DarkRed);
                 ActiveCooldown--;
             }
-            else if (ActiveCooldown <= 0)
+            else if (ActiveCooldown == 0)
             {
                 ActiveCooldown = Cooldown;
                 DefenseStatusEffect shiteWard = new DefenseStatusEffect(EffectLevel.Moderate, allPhysicalDefense: true, propertyDamageType: PropertyDamageType.Occult, propertyNulOrMit: true);

@@ -5,10 +5,8 @@ using AuldShiteburn.CombatData.PayloadData;
 using AuldShiteburn.CombatData.StatusEffectData;
 using AuldShiteburn.EntityData.PlayerData;
 using AuldShiteburn.EntityData.PlayerData.Classes;
-using AuldShiteburn.ItemData;
 using AuldShiteburn.ItemData.ArmourData;
 using AuldShiteburn.ItemData.WeaponData;
-using AuldShiteburn.MapData;
 using AuldShiteburn.MenuData;
 using AuldShiteburn.MenuData.Menus;
 using System;
@@ -91,14 +89,14 @@ namespace AuldShiteburn.EntityData
             #region Class Generation and Stat Assignments
             //Instance.Class = CharacterClass.Classes[rand.Next(CharacterClass.Classes.Count)];
             Instance.Class = new HeathenClass();
-            Instance.MaxHP = Instance.Class.Statistics.hp;
-            Instance.HP = Instance.Class.Statistics.hp;
-            Instance.UsesStamina = Instance.Class.Statistics.usesStamina;
-            Instance.UsesMana = Instance.Class.Statistics.usesMana;
-            Instance.MaxStamina = Instance.Class.Statistics.stamina;
-            Instance.Stamina = Instance.Class.Statistics.stamina;
-            Instance.MaxMana = Instance.Class.Statistics.mana;
-            Instance.Mana = Instance.Class.Statistics.mana;
+            Instance.MaxHP = Instance.Class.Statistics.HP;
+            Instance.HP = Instance.Class.Statistics.HP;
+            Instance.UsesStamina = Instance.Class.Statistics.UsesStamina;
+            Instance.UsesMana = Instance.Class.Statistics.UsesMana;
+            Instance.MaxStamina = Instance.Class.Statistics.Stamina;
+            Instance.Stamina = Instance.Class.Statistics.Stamina;
+            Instance.MaxMana = Instance.Class.Statistics.Mana;
+            Instance.Mana = Instance.Class.Statistics.Mana;
             #endregion Class Generation
 
             #region Name Generation
@@ -108,22 +106,22 @@ namespace AuldShiteburn.EntityData
             if (sexChance <= GameSettings.Instance.SexRatio)
             {
                 forenameStr = PlayerGenerationData.NamesMale[rand.Next(PlayerGenerationData.NamesMale.Count)];
-                int titleIndex = rand.Next(0, Instance.Class.Titles.titleMale.Count);
-                titleStr = Instance.Class.Titles.titleMale[titleIndex];
+                int titleIndex = rand.Next(0, Instance.Class.Titles.TitleMale.Count);
+                titleStr = Instance.Class.Titles.TitleMale[titleIndex];
                 Instance.Name = $"{titleStr} {forenameStr}";
 
             }
             else
             {
                 forenameStr = PlayerGenerationData.NameFemale[rand.Next(PlayerGenerationData.NameFemale.Count)];
-                int titleIndex = rand.Next(0, Instance.Class.Titles.titleFemale.Count);
-                titleStr = Instance.Class.Titles.titleFemale[titleIndex];
+                int titleIndex = rand.Next(0, Instance.Class.Titles.TitleFemale.Count);
+                titleStr = Instance.Class.Titles.TitleFemale[titleIndex];
                 Instance.Name = $"{titleStr} {forenameStr}";
             }
             #endregion Name Generation
 
             #region Loot Assignment
-            Instance.Inventory = new Inventory(6, 4);
+            Instance.Inventory = new Inventory("Player Inventory", 6, 4);
             Instance.EquippedWeapon = WeaponItem.GenerateSpawnWeapon(Instance.Class.ClassType);
             Instance.EquippedArmour = ArmourItem.GenerateSpawnArmour(Instance.Class.ClassType);
             #endregion Loot Assignment
@@ -131,32 +129,44 @@ namespace AuldShiteburn.EntityData
             return Instance;
         }
 
-        public override bool ReceiveDamage(CombatPayload attackPayload, int offsetY = 0)
+        /// <summary>
+        /// Take an incoming combat payload and sort through the damage.
+        /// </summary>
+        /// <param name="combatPayload"></param>
+        /// <param name="offsetY"></param>
+        /// <returns></returns>
+        public override bool ReceiveAttack(CombatPayload combatPayload, int offsetY = 0)
         {
-            int initialPhys = attackPayload.PhysicalDamage;
-            int initialProp = attackPayload.PropertyDamage;
+            int initialPhys = combatPayload.PhysicalDamage;
+            int initialProp = combatPayload.PropertyDamage;
             int totalDamage = 0;
             Utils.SetCursorInteract();
             if (Instance.EquippedArmour != null)
             {
                 ArmourItem playerArmour = Instance.EquippedArmour;
-                bool physRes = playerArmour.PrimaryPhysicalResistance == attackPayload.PhysicalAttackType;
-                bool propRes = playerArmour.PrimaryPropertyResistance == attackPayload.PropertyAttackType;
+                bool physRes = playerArmour.PrimaryPhysicalResistance == combatPayload.PhysicalAttackType;
+                bool propRes = playerArmour.PrimaryPropertyResistance == combatPayload.PropertyAttackType;
 
                 Console.Write($"{Instance.Name} takes ");
-                int physDamage = attackPayload.PhysicalDamage -= playerArmour.PhysicalMitigation;
+                int physDamage = combatPayload.PhysicalDamage -= playerArmour.PhysicalMitigation;
                 if (physRes)
                 {
                     physDamage -= Combat.ARMOUR_RESISTANCE_MITIGATION_MODIFIER;
                 }
-                if (physDamage < 0) physDamage = 0;
+                if (physDamage < 0)
+                {
+                    physDamage = 0;
+                }
                 Utils.WriteColour($"{physDamage}/{initialPhys} ", ConsoleColor.Red);
-                int propDamage = attackPayload.PropertyDamage -= playerArmour.PropertyMitigation;
+                int propDamage = combatPayload.PropertyDamage -= playerArmour.PropertyMitigation;
                 if (propRes)
                 {
                     propDamage -= Combat.ARMOUR_RESISTANCE_MITIGATION_MODIFIER;
                 }
-                if (propDamage < 0) propDamage = 0;
+                if (propDamage < 0)
+                {
+                    propDamage = 0;
+                }
                 Console.Write("and ");
                 Utils.WriteColour($"{propDamage}/{initialProp} ", ConsoleColor.Red);
                 Console.Write("property damage ");
@@ -168,21 +178,30 @@ namespace AuldShiteburn.EntityData
             else
             {
                 Console.Write($"{Instance.Name} takes ");
-                totalDamage += attackPayload.PhysicalDamage;
-                Utils.WriteColour($"{attackPayload.PhysicalDamage} ", ConsoleColor.Red);
+                totalDamage += combatPayload.PhysicalDamage;
+                Utils.WriteColour($"{combatPayload.PhysicalDamage} ", ConsoleColor.Red);
                 Console.Write($"physical damage and ");
-                totalDamage += attackPayload.PropertyDamage;
-                Utils.WriteColour($"{attackPayload.PropertyDamage} ", ConsoleColor.Red);
+                totalDamage += combatPayload.PropertyDamage;
+                Utils.WriteColour($"{combatPayload.PropertyDamage} ", ConsoleColor.Red);
                 Console.Write($"for a total of ");
                 Utils.WriteColour($"{totalDamage} ", ConsoleColor.Red);
                 Console.Write($"damage.");
             }
-            Instance.HP -= totalDamage;
-            if (Instance.HP <= 0)
+            if (combatPayload.IsStun)
             {
-                return true;
-                // WE GOT A LOT TO DO!
+                Utils.SetCursorInteract(Console.CursorTop - 1);
+                if (!Stunned)
+                {
+                    Stunned = true;
+                    StunTimer = combatPayload.StunCount;
+                    Utils.WriteColour($"You are stunned for {StunTimer} turns!", ConsoleColor.DarkBlue);
+                }
+                else
+                {
+                    Utils.WriteColour($"You are already stunned and cannot be again for {StunTimer} turns!", ConsoleColor.DarkYellow);
+                }
             }
+            Instance.HP -= totalDamage;
             Instance.PrintStats();
             return false;
         }
@@ -192,7 +211,7 @@ namespace AuldShiteburn.EntityData
         /// </summary>
         public void PrintInventory()
         {
-            Utils.ClearInventoryInterface();
+            Utils.ClearPlayerInventoryInterface();
             Utils.SetCursorInventory();
             Inventory.PrintInventory(true);
         }
@@ -251,11 +270,11 @@ namespace AuldShiteburn.EntityData
         }
 
         /// <summary>
-        /// Print the player's weapon with highlights for
-        /// proficiency.
+        /// Print the player's weapon with highlights to show proficiency.
         /// </summary>
         public void PrintWeapon()
         {
+            Console.ResetColor();
             if (Instance.EquippedWeapon != null)
             {
                 if (Instance.EquippedWeapon.Property.Type != PropertyDamageType.Standard)
@@ -289,14 +308,13 @@ namespace AuldShiteburn.EntityData
         }
 
         /// <summary>
-        /// Print the player's armour with highlights for
-        /// proficiency.
+        /// Print the player's armour with highlights to show proficiency.
         /// </summary>
         public void PrintArmour()
         {
             if (Instance.EquippedArmour != null)
             {
-                if (Instance.Class.Proficiencies.armourProficiency == Instance.EquippedArmour.ArmourFamily)
+                if (Instance.Class.Proficiencies.ArmourProficiency == Instance.EquippedArmour.ArmourFamily)
                 {
                     Console.ForegroundColor = ConsoleColor.DarkGreen;
                 }
@@ -309,7 +327,15 @@ namespace AuldShiteburn.EntityData
             }
         }
 
-        public (int, bool) CycleAbilities(int offsetY, int index)
+        /// <summary>
+        /// Print the player's abilities and allow them to navigate an index.
+        /// When pressing enter, return the index to be looked for in their ability
+        /// list. If pressing backspace, return index -1 to consider choice null.
+        /// </summary>
+        /// <param name="offsetY">How far down the interact screen we are when needing to clear if the player cancels their decision.</param>
+        /// <param name="index">Index to start at in ability list.</param>
+        /// <returns>Returns index of an ability or -1 if cancelling choice.</returns>
+        public int CycleAbilities(int offsetY, int index)
         {
             PrintAbilitiesOptions(offsetY, index);
             do
@@ -322,7 +348,7 @@ namespace AuldShiteburn.EntityData
                             if (index <= Instance.Class.Abilities.Count - 1 && index > 0)
                             {
                                 index--;
-                                Utils.ClearAreaInteract(offsetY, Instance.Class.Abilities.Count + 4);
+                                Utils.ClearInteractArea(offsetY, Instance.Class.Abilities.Count + 4);
                                 PrintAbilitiesOptions(offsetY, index);
                             }
                         }
@@ -332,21 +358,26 @@ namespace AuldShiteburn.EntityData
                             if (index >= 0 && index < Instance.Class.Abilities.Count - 1)
                             {
                                 index++;
-                                Utils.ClearAreaInteract(offsetY, Instance.Class.Abilities.Count + 4);
+                                Utils.ClearInteractArea(offsetY, Instance.Class.Abilities.Count + 4);
                                 PrintAbilitiesOptions(offsetY, index);
                             }
                         }
                         break;
                     case ConsoleKey.Backspace:
                         {
-                            return (0, false);
+                            return -1;
                         }
-                        break;
                 }
             } while (InputSystem.InputKey != ConsoleKey.Enter);
-            return (index, true);
+            return index;
         }
 
+        /// <summary>
+        /// Iterate through and print the player's abilities, highlighting the one at the
+        /// given index and printing its details beside it.
+        /// </summary>
+        /// <param name="offsetY">The offset to place the cursor down the interact area.</param>
+        /// <param name="index">Index of the ability we want to highlight.</param>
         public void PrintAbilitiesOptions(int offsetY, int index)
         {
             Utils.SetCursorInteract(offsetY);

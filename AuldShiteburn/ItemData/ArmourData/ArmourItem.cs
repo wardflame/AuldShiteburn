@@ -147,7 +147,7 @@ namespace AuldShiteburn.ItemData.ArmourData
         {
             get
             {
-                if (PlayerEntity.Instance.Class.Proficiencies.armourProficiency == ArmourFamily)
+                if (PlayerEntity.Instance.Class.Proficiencies.ArmourProficiency == ArmourFamily)
                 {
                     return true;
                 }
@@ -158,7 +158,7 @@ namespace AuldShiteburn.ItemData.ArmourData
         {
             get
             {
-                if (PlayerEntity.Instance.Class.Proficiencies.propertyAffinity == PrimaryPropertyResistance)
+                if (PlayerEntity.Instance.Class.Proficiencies.PropertyAffinity == PrimaryPropertyResistance)
                 {
                     return true;
                 }

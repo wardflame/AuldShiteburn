@@ -11,10 +11,10 @@ namespace AuldShiteburn
         public static int UIInteractHeight { get; } = 2;
 
         public static int UIInventoryOffset { get; } = 1;
-        public static int UIInventoryHeight => Map.Instance.CurrentArea.Height + 14;
+        public static int UIInventoryHeight { get; } = Map.Instance.CurrentArea.Height + 14;
 
         public static int UIPlayerStatOffset { get; } = 1;
-        public static int UIPlayerStatHeight => Map.Instance.CurrentArea.Height + 1;
+        public static int UIPlayerStatHeight { get; } = Map.Instance.CurrentArea.Height + 1;
         #endregion UI Cursor Offsets
 
 
@@ -66,12 +66,10 @@ namespace AuldShiteburn
                         {
                             return true;
                         }
-                        break;
                     case ConsoleKey.N:
                         {
                             return false;
                         }
-                        break;
                 }
             } while (InputSystem.InputKey != ConsoleKey.Y && InputSystem.InputKey != ConsoleKey.N);
             return false;
@@ -90,7 +88,7 @@ namespace AuldShiteburn
         }
 
         /// <summary>
-        /// Clear an area of the screen.
+        /// Clear a length of characters with empty characters.
         /// </summary>
         /// <param name="clearLength">How far to send the empty characters.</param>
         public static void ClearLine(int clearLength = 0)
@@ -110,17 +108,19 @@ namespace AuldShiteburn
         }
 
         /// <summary>
-        /// Place the cursor 1 row down in final column of area width. Then, until reaching
-        /// the area height, go down each row and replace any text with space characters until
-        /// the end of the line.
+        /// Position the cursor at a static value (interact interface) and iterate
+        /// down for a length of Y at an offset of X (Cursor.Left), clearing the line with
+        /// empty characters.
         /// </summary>
-        public static void ClearInteractInterface(int offsetY = 18, int offsetX = 0)
+        /// <param name="lengthY">The number of lines to clear downwards.</param>
+        /// <param name="offsetX">The offset across to start clearing from.</param>
+        public static void ClearInteractInterface(int lengthY = 18, int offsetX = 0)
         {
-            for (int y = UIInteractHeight; y <= UIInteractHeight + offsetY; y++)
+            for (int y = UIInteractHeight; y <= UIInteractHeight + lengthY; y++)
             {
                 Console.CursorLeft = UIInteractOffset + offsetX;
                 Console.CursorTop = y;
-                Console.Write(new string(' ', Console.WindowWidth - UIInteractOffset));
+                Console.Write(new string(' ', Console.WindowWidth - (UIInteractOffset + offsetX)));
             }
         }
 
@@ -136,17 +136,19 @@ namespace AuldShiteburn
         }
 
         /// <summary>
-        /// Place the cursor 1 row down in final column of area width. Then, until reaching
-        /// the area height, go down each row and replace any text with space characters until
-        /// the end of the line.
+        /// Position the cursor at a static value (player stat interface) and iterate
+        /// down for a length of Y at an offset of X (Cursor.Left), clearing the line with
+        /// empty characters.
         /// </summary>
-        public static void ClearPlayerStatInterface(int offsetY = 11, int offsetX = 0)
+        /// <param name="lengthY">The number of lines to clear downwards.</param>
+        /// <param name="offsetX">The offset across to start clearing from.</param>
+        public static void ClearPlayerStatInterface(int lengthY = 11, int offsetX = 0)
         {
-            for (int y = UIPlayerStatHeight; y <= UIPlayerStatHeight + offsetY; y++)
+            for (int y = UIPlayerStatHeight; y <= UIPlayerStatHeight + lengthY; y++)
             {
                 Console.CursorLeft = UIPlayerStatOffset + offsetX;
                 Console.CursorTop = y;
-                Console.Write(new string(' ', Console.WindowWidth - UIPlayerStatOffset));
+                Console.Write(new string(' ', Console.WindowWidth - (UIPlayerStatOffset + offsetX)));
             }
         }
 
@@ -162,45 +164,36 @@ namespace AuldShiteburn
         }
 
         /// <summary>
-        /// Place the cursor 1 row down in final column of area width. Then, until reaching
-        /// the area height, go down each row and replace any text with space characters until
-        /// the end of the line.
+        /// Position the cursor at a static value (player inventory interface) and iterate
+        /// down for a length of Y at an offset of X (Cursor.Left), clearing the line with
+        /// empty characters.
         /// </summary>
-        public static void ClearInventoryInterface(int offsetY = 6, int offsetX = 0)
+        /// <param name="lengthY">The number of lines to clear downwards.</param>
+        /// <param name="offsetX">The offset across to start clearing from.</param>
+        public static void ClearPlayerInventoryInterface(int lengthY = 6, int offsetX = 0)
         {
-            for (int y = UIInventoryHeight; y <= UIInventoryHeight + offsetY; y++)
+            for (int y = UIInventoryHeight; y <= UIInventoryHeight + lengthY; y++)
             {
                 Console.CursorLeft = UIInventoryOffset + offsetX;
                 Console.CursorTop = y;
-                Console.Write(new string(' ', Console.WindowWidth - UIInventoryOffset));
+                Console.Write(new string(' ', Console.WindowWidth - (UIInventoryOffset + offsetX)));
             }
         }
 
         /// <summary>
-        /// Clear the interact area and print a prompt message.
-        /// </summary>
-        /// <param name="message">String to print as prompt.</param>
-        public static void InteractPrompt(string message)
-        {
-            ClearInteractInterface();
-            Console.CursorLeft = UIInteractOffset;
-            Console.CursorTop = UIInteractHeight;
-            Console.Write(message);
-        }
-
-        /// <summary>
-        /// Clear area of the screen based on Interact coordinates.
+        /// Target a cursor location with the interact coordinates as an origin point, then clear.
+        /// This is used when we don't want to clear the whole interface, only a specific region.
         /// </summary>
         /// <param name="offsetY"></param>
         /// <param name="length"></param>
         /// <param name="offsetX"></param>
-        public static void ClearAreaInteract(int offsetY = 0, int length = 0, int offsetX = 0)
+        public static void ClearInteractArea(int offsetY = 0, int length = 0, int offsetX = 0)
         {
             for (int y = UIInteractHeight + offsetY; y <= UIInteractHeight + offsetY + length; y++)
             {
                 Console.CursorLeft = UIInteractOffset + offsetX;
                 Console.CursorTop = y;
-                Console.Write(new string(' ', Console.WindowWidth - UIInteractOffset));
+                Console.Write(new string(' ', Console.WindowWidth - (UIInteractOffset + offsetX)));
             }
         }
     }

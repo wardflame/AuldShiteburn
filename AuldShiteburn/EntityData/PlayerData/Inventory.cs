@@ -22,12 +22,14 @@ namespace AuldShiteburn.EntityData.PlayerData
         public static int ConsumableOffset { get; } = 68;
         public static int KeyOffset { get; } = 102;
 
+        public string Name { get; }
         public Item[,] ItemList { get; set; }
         public int Row { get; set; }
         public int Column { get; set; }
 
-        public Inventory(int row, int column)
+        public Inventory(string name, int row, int column)
         {
+            Name = name;
             Row = row;
             Column = column;
             ItemList = new Item[Row, Column];
@@ -63,7 +65,7 @@ namespace AuldShiteburn.EntityData.PlayerData
                                     StorageTransfer(sortData, this);
                                 }
                             }
-                            Utils.ClearInventoryInterface();
+                            Utils.ClearPlayerInventoryInterface();
                             PlayerEntity.Instance.Inventory.PrintInventory(playerElseStorage);
                             playerElseStorage = sortData.isPlayerInventory;
                         }
@@ -90,13 +92,18 @@ namespace AuldShiteburn.EntityData.PlayerData
                         }
                         break;
                 }
-                Utils.ClearAreaInteract(-1, 31);
+                Utils.ClearInteractArea(-1, 31);
             }
         }
 
         public void PrintInventory(bool playerElseStorage)
         {
             int offset = 0;
+            if (!playerElseStorage)
+            {
+                Utils.SetCursorInteract();
+                Utils.WriteColour(Name, ConsoleColor.DarkYellow);
+            }
             for (int x = 0; x < Column; x++)
             {
                 if (x == 0)
@@ -107,7 +114,7 @@ namespace AuldShiteburn.EntityData.PlayerData
                     }
                     else
                     {
-                        Utils.SetCursorInteract(offsetX: WeaponOffset);
+                        Utils.SetCursorInteract(1, offsetX: WeaponOffset);
                     }
                     offset = WeaponOffset;
                     Console.Write("[");
@@ -122,7 +129,7 @@ namespace AuldShiteburn.EntityData.PlayerData
                     }
                     else
                     {
-                        Utils.SetCursorInteract(offsetX: ArmourOffset);
+                        Utils.SetCursorInteract(1, offsetX: ArmourOffset);
                     }
                     offset = ArmourOffset;
                     Console.Write("[");
@@ -137,7 +144,7 @@ namespace AuldShiteburn.EntityData.PlayerData
                     }
                     else
                     {
-                        Utils.SetCursorInteract(offsetX: ConsumableOffset);
+                        Utils.SetCursorInteract(1, offsetX: ConsumableOffset);
                     }
                     offset = ConsumableOffset;
                     Console.Write("[");
@@ -152,7 +159,7 @@ namespace AuldShiteburn.EntityData.PlayerData
                     }
                     else
                     {
-                        Utils.SetCursorInteract(offsetX: KeyOffset);
+                        Utils.SetCursorInteract(1, offsetX: KeyOffset);
                     }
                     offset = KeyOffset;
                     Console.Write("[");
@@ -167,7 +174,7 @@ namespace AuldShiteburn.EntityData.PlayerData
                     }
                     else
                     {
-                        Utils.SetCursorInteract(y, offset);
+                        Utils.SetCursorInteract(y + 1, offset);
                     }
                     {
                         if (ItemList[y - 1, x] != null)
@@ -200,13 +207,13 @@ namespace AuldShiteburn.EntityData.PlayerData
                                 index--;
                                 if (playerElseStorage)
                                 {
-                                    Utils.ClearInventoryInterface();
+                                    Utils.ClearPlayerInventoryInterface();
                                     Utils.SetCursorInventory();
                                 }
                                 else
                                 {
                                     Utils.ClearInteractInterface();
-                                    Utils.SetCursorInteract();
+                                    Utils.SetCursorInteract(1);
                                 }
                                 PrintInventory(playerElseStorage);
                                 InventoryHighlight(playerElseStorage, index, typeColumn, typeOffset);
@@ -220,13 +227,13 @@ namespace AuldShiteburn.EntityData.PlayerData
                                 index++;
                                 if (playerElseStorage)
                                 {
-                                    Utils.ClearInventoryInterface();
+                                    Utils.ClearPlayerInventoryInterface();
                                     Utils.SetCursorInventory();
                                 }
                                 else
                                 {
                                     Utils.ClearInteractInterface();
-                                    Utils.SetCursorInteract();
+                                    Utils.SetCursorInteract(1);
                                 }
                                 PrintInventory(playerElseStorage);
                                 InventoryHighlight(playerElseStorage, index, typeColumn, typeOffset);
@@ -241,13 +248,13 @@ namespace AuldShiteburn.EntityData.PlayerData
                                 typeOffset -= 34;
                                 if (playerElseStorage)
                                 {
-                                    Utils.ClearInventoryInterface();
+                                    Utils.ClearPlayerInventoryInterface();
                                     Utils.SetCursorInventory();
                                 }
                                 else
                                 {
                                     Utils.ClearInteractInterface();
-                                    Utils.SetCursorInteract();
+                                    Utils.SetCursorInteract(1);
                                 }
                                 PrintInventory(playerElseStorage);
                                 InventoryHighlight(playerElseStorage, index, typeColumn, typeOffset);
@@ -262,13 +269,13 @@ namespace AuldShiteburn.EntityData.PlayerData
                                 typeOffset += 34;
                                 if (playerElseStorage)
                                 {
-                                    Utils.ClearInventoryInterface();
+                                    Utils.ClearPlayerInventoryInterface();
                                     Utils.SetCursorInventory();
                                 }
                                 else
                                 {
                                     Utils.ClearInteractInterface();
-                                    Utils.SetCursorInteract();
+                                    Utils.SetCursorInteract(1);
                                 }
                                 PrintInventory(playerElseStorage);
                                 InventoryHighlight(playerElseStorage, index, typeColumn, typeOffset);
@@ -277,12 +284,11 @@ namespace AuldShiteburn.EntityData.PlayerData
                         break;
                     case ConsoleKey.Backspace:
                         {
-                            Utils.ClearInventoryInterface();
+                            Utils.ClearPlayerInventoryInterface();
                             PrintInventory(playerElseStorage);
                             sortData.index = -1;
                             return sortData;
                         }
-                        break;
                     case ConsoleKey.Tab:
                         {
                             if (playerElseStorage)
@@ -299,7 +305,6 @@ namespace AuldShiteburn.EntityData.PlayerData
                             sortData.transferIntended = false;
                             return sortData;
                         }
-                        break;
                 }
             } while (InputSystem.InputKey != ConsoleKey.Enter);
             sortData.index = index;
@@ -675,7 +680,7 @@ namespace AuldShiteburn.EntityData.PlayerData
                 }
                 else
                 {
-                    Utils.SetCursorInteract(y, typeOffset);
+                    Utils.SetCursorInteract(y + 1, typeOffset);
                 }
                 if (ItemList[y - 1, typeColumn] != null)
                 {
@@ -693,6 +698,7 @@ namespace AuldShiteburn.EntityData.PlayerData
                     }
                     else
                     {
+                        Console.ForegroundColor = ConsoleColor.Cyan;
                         Console.Write($"{ItemList[y - 1, typeColumn].Name}");
                     }
                     Console.ResetColor();
@@ -737,6 +743,10 @@ namespace AuldShiteburn.EntityData.PlayerData
             Console.ResetColor();
         }
 
+        /// <summary>
+        /// If the player character is fully proficient with the armour, print it green.
+        /// </summary>
+        /// <param name="armour">Armour in question.</param>
         public void ArmourAffinityCheck(ArmourItem armour)
         {
             if (armour.IsPhysicalProficient && armour.HasPropertyAffinity)

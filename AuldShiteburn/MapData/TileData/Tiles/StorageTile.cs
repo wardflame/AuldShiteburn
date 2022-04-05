@@ -11,9 +11,9 @@ namespace AuldShiteburn.MapData.TileData.Tiles
     {
         public Inventory Storage { get; set; }
 
-        public StorageTile() : base("!", true, ConsoleColor.Cyan, ConsoleColor.Black)
+        public StorageTile(string name) : base("!", true, ConsoleColor.Cyan, ConsoleColor.Black)
         {
-            Storage = new Inventory(16, 4);
+            Storage = new Inventory(name, 16, 4);
         }
 
         public override void OnCollision(Entity entity)

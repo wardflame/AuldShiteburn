@@ -26,20 +26,23 @@ namespace AuldShiteburn.MapData.TileData.Tiles
             {
                 if (key != null && Locked)
                 {
+                    Utils.ClearInteractInterface();
+                    Utils.SetCursorInteract();
                     for (int i = 0; i < PlayerEntity.Instance.Inventory.Row; i++)
                     {
                         if (PlayerEntity.Instance.Inventory.ItemList[i, 3] != null)
                         {
                             if (PlayerEntity.Instance.Inventory.ItemList[i, 3].Name == key.Name)
                             Locked = false;
-                            Utils.InteractPrompt($"Unlocked door with {key.Name}. Press any key to continue...");
+                            Utils.WriteColour($"Unlocked door with {key.Name}.", ConsoleColor.DarkYellow);
+                            Console.Write(" Press any key to continue...");
                             Console.ReadKey();
                             break;
                         }
                     }
                     if (Locked)
                     {
-                        Utils.InteractPrompt("It's locked.");
+                        Utils.WriteColour($"It's locked.", ConsoleColor.DarkRed);
                     }
                 }
             }

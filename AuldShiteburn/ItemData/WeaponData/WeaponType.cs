@@ -179,7 +179,7 @@ namespace AuldShiteburn.ItemData.WeaponData
         {
             get
             {
-                return PlayerEntity.Instance.Class.Proficiencies.weaponProficiency == Family;
+                return PlayerEntity.Instance.Class.Proficiencies.WeaponProficiency == Family;
             }
         }
 

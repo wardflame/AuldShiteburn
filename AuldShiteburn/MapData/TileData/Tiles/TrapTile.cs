@@ -21,7 +21,7 @@ namespace AuldShiteburn.MapData.TileData.Tiles
         public override void OnCollision(Entity entity)
         {
             CombatPayload attackPayload = new CombatPayload(hasPhysical: true, physicalAttackType: PhysicalDamageType.Pierce, physicalDamage: 5);
-            PlayerEntity.Instance.ReceiveDamage(attackPayload);
+            PlayerEntity.Instance.ReceiveAttack(attackPayload);
             Used = false;
         }
     }

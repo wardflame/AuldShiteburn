@@ -30,9 +30,13 @@ namespace AuldShiteburn.CombatData.AbilityData
                 }
             }
         }
-        public abstract int ResourceCost { get; }
-        public abstract int MinDamage { get; }
-        public abstract int MaxDamage { get; }
+        public virtual int ResourceCost { get; }
+        public virtual PhysicalDamageType PhysicalDamageType { get; }
+        public virtual PropertyDamageType PropertyDamageType { get; }
+        public virtual int PhysicalMinDamage { get; }
+        public virtual int PhysicalMaxDamage { get; }
+        public virtual int PropertyMinDamage { get; }
+        public virtual int PropertyMaxDamage { get; }
 
         public abstract CombatPayload UseAbility();
     }

@@ -29,7 +29,7 @@ namespace AuldShiteburn.MapData.AreaData.Areas
                 placeData.Add(new TilePlaceData(i, 5, Tile.WallTile));
             }
             placeData.Add(new TilePlaceData(6, 4, new DoorTile(true, KeyItem.HideawayKey)));
-            placeData.Add(new TilePlaceData(7, 1, new StorageTile()));
+            placeData.Add(new TilePlaceData(7, 1, new StorageTile("Rotting Chest")));
             placeData.Add(new TilePlaceData(1, 4,
                 new LootTile("The decaying corpse of a long-dead Heathen",
                     new List<Item>()

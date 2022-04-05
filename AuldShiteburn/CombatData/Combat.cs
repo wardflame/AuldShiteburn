@@ -10,6 +10,7 @@ namespace AuldShiteburn.CombatData
 {
     internal class Combat
     {
+        #region Modifier Constants
         public const int PROFICIENCY_DAMAGE_BONUS_MINOR = 2;
         public const int PROFICIENCY_DAMAGE_BONUS_MODERATE = 4;
         public const int PROFICIENCY_DAMAGE_BONUS_MAJOR = 6;
@@ -21,6 +22,7 @@ namespace AuldShiteburn.CombatData
         public const int STATUS_MITIGATION_MAJOR = 6;
         public const int ARMOUR_RESISTANCE_MITIGATION_MODIFIER = 2;
         public const int WEAKNESS_BONUS_MODIFIER = 2;
+        #endregion Modifier Constants
 
         public static bool CombatEncounter(List<EnemyEntity> enemies)
         {
@@ -46,12 +48,12 @@ namespace AuldShiteburn.CombatData
                 Console.ReadKey();
                 return false;
             }
-            return true;
         }
 
         /// <summary>
-        /// Present player with combat targets and allow them
-        /// the opportunity to select and attack one in their turn.
+        /// Present the player with combat targets and have them iterate through
+        /// the list and choose a target. Then, present them with their combat options
+        /// and deliver a combat payload to the chosen enemy.
         /// </summary>
         /// <param name="enemies">List of enemies in the area.</param>
         private static void PlayerCombatTurn(List<EnemyEntity> enemies)
@@ -65,59 +67,42 @@ namespace AuldShiteburn.CombatData
                 }
                 if (PlayerEntity.Instance.StunTimer <= 0)
                 {
-                    int index = CycleEnemies(enemies);
-                    int attackChoice = AttackChoice(enemies, index);
-                    EnemyEntity enemy = enemies[index];
-                    if (attackChoice > 0)
-                    {
-                        if (attackChoice == 1)
+                    EnemyEntity enemy = ChooseEnemy(enemies);
+                    int activity = ChooseActivity();
+                    if (activity == 0)
+                    {                        
+                        CombatPayload playerMeleePayload = ChooseMeleeAttack();
+                        if (enemy.ReceiveAttack(playerMeleePayload, enemies.Count + 6))
                         {
-                            CombatPayload playerAttackPayload = CalculateWeaponDamage();
-                            if (enemy.ReceiveDamage(playerAttackPayload, enemies.Count + 6))
-                            {
-                                enemies.Remove(enemy);
-                            }
-                            playerTurn = false;
+                            enemies.Remove(enemy);
                         }
-                        else if (attackChoice == 2)
+                        playerTurn = false;
+                    }
+                    else if (activity == 1)
+                    {
+                        bool firing = true;
+                        while (firing)
                         {
-                            bool firing = true;
-                            while (firing)
+                            Utils.ClearInteractArea(enemies.Count + 6, 10);
+                            int chosenIndex = PlayerEntity.Instance.CycleAbilities(enemies.Count + 6, 0);
+                            if (chosenIndex > -1)
                             {
-                                Utils.ClearAreaInteract(enemies.Count + 6, 10);
-                                (int chosenAbility, bool chosen) = PlayerEntity.Instance.CycleAbilities(enemies.Count + 6, 0);
-                                if (chosen)
+                                CombatPayload playerAbilityPayload = PlayerEntity.Instance.Class.Abilities[chosenIndex].UseAbility();
+                                if (playerAbilityPayload.IsAttack)
                                 {
-                                    CombatPayload playerCombatPayload = PlayerEntity.Instance.Class.Abilities[chosenAbility].UseAbility();
-                                    if (playerCombatPayload.IsAttack)
+                                    if (enemy.ReceiveAttack(playerAbilityPayload, Console.CursorTop - 1))
                                     {
-                                        if (enemy.ReceiveDamage(playerCombatPayload, Console.CursorTop - 1))
-                                        {
-                                            enemies.Remove(enemy);
-                                            firing = false;
-                                        }
-                                        else
-                                        {
-                                            firing = false;
-                                        }
+                                        enemies.Remove(enemy);
                                     }
-                                    if (playerCombatPayload.IsStun)
-                                    {
-                                        if (!enemy.Stunned)
-                                        {
-                                            enemy.Stunned = true;
-                                            enemy.StunTimer = enemy.StunCap;
-                                            Utils.WriteColour($"{enemy.Name} stunned for {enemy.StunTimer} turns!", ConsoleColor.DarkBlue);
-                                        }
-                                    }
-                                    playerTurn = false;
-                                }
-                                else
-                                {
-                                    Utils.SetCursorInteract(enemies.Count + 2);
-                                    Utils.ClearAreaInteract(length: 20);
                                     firing = false;
                                 }
+                                playerTurn = false;
+                            }
+                            else
+                            {
+                                Utils.SetCursorInteract(enemies.Count + 2);
+                                Utils.ClearInteractArea(length: 20);
+                                firing = false;
                             }
                         }
                     }
@@ -131,12 +116,36 @@ namespace AuldShiteburn.CombatData
         }
 
         /// <summary>
-        /// Generate an attack payload from the player's equipped weapon,
+        /// Present the player with combat targets and have them iterate through
+        /// the list and choose a target. Then, present them with their combat options
+        /// and deliver a combat payload to the chosen enemy.
+        /// </summary>
+        /// <param name="enemies">List of enemies in the area.</param>
+        private static void EnemyCombatTurn(List<EnemyEntity> enemies)
+        {
+            bool enemyTurn = true;
+            while (enemyTurn)
+            {
+                foreach (EnemyEntity enemy in enemies)
+                {
+                    enemy.PerformAttack();
+                    Utils.SetCursorInteract(Console.CursorTop);
+                    Console.Write("Press any key to progress...");
+                    Console.ReadKey();
+                    Utils.SetCursorInteract(Console.CursorTop);
+                    Utils.ClearInteractInterface(30);
+                }
+            }
+            
+        }
+
+        /// <summary>
+        /// Generate a combat payload from the player's equipped weapon,
         /// randomising between the min and max physical and property
         /// damages.
         /// </summary>
-        /// <returns>Damage payload for enemy to process.</returns>
-        private static CombatPayload CalculateWeaponDamage()
+        /// <returns>Combat payload for enemy to process.</returns>
+        private static CombatPayload CalculateWeaponDamage(bool primaryElseSecondary)
         {
             CombatPayload attackPayload = new CombatPayload();
             Random rand = new Random();
@@ -145,6 +154,10 @@ namespace AuldShiteburn.CombatData
             if (attackPayload.PhysicalDamage > 0)
             {
                 attackPayload.PhysicalAttackType = playerWeapon.Type.PrimaryAttack;
+                if (!primaryElseSecondary && playerWeapon.Type.SecondaryAttack != PhysicalDamageType.None)
+                {
+                    attackPayload.PhysicalAttackType = playerWeapon.Type.SecondaryAttack;
+                }
                 attackPayload.HasPhysical = true;
             }
             attackPayload.PropertyDamage = rand.Next(playerWeapon.MinPropDamage, playerWeapon.MaxPropDamage);
@@ -157,70 +170,41 @@ namespace AuldShiteburn.CombatData
         }
 
         /// <summary>
-        /// Offer player choice to use weapon or playerAttackPayload, return choice.
+        /// Iterate through a list of enemies and highlight one at an int index.
+        /// The player moves the index with the up/down arrow keys. Pressing enter
+        /// returns the enemy at that index.
         /// </summary>
-        /// <param name="enemies">List of enemies.</param>
-        /// <param name="index">Index of the enemy in the list.</param>
-        /// <returns>Returns option chosen.</returns>
-        private static int AttackChoice(List<EnemyEntity> enemies, int index)
-        {
-            Utils.SetCursorInteract(enemies.Count + 2);
-            Console.Write($"What do you want to use against ");
-            Utils.WriteColour($"{enemies[index].Name} ", ConsoleColor.Cyan);
-            Utils.WriteColour($"{enemies[index].HP}/{enemies[index].MaxHP}", ConsoleColor.Red);
-            Console.Write("? (1/2)");
-            Utils.SetCursorInteract(enemies.Count + 3);
-            Console.Write("1. ");
-            Utils.WriteColour("Equipped Weapon: ", ConsoleColor.DarkYellow);
-            PlayerEntity.Instance.PrintWeapon();
-            Utils.SetCursorInteract(enemies.Count + 4);
-            Console.Write("2. ");
-            Utils.WriteColour("Ability ", ConsoleColor.DarkYellow);
-            do
-            {
-                InputSystem.GetInput();
-                switch (InputSystem.InputKey)
-                {
-                    case ConsoleKey.D1:
-                        {
-                            return 1;
-                        }
-                        break;
-                    case ConsoleKey.D2:
-                        {
-                            return 2;
-                        }
-                        break;
-                }
-            } while (InputSystem.InputKey != ConsoleKey.D1 && InputSystem.InputKey != ConsoleKey.D2);
-            return 0;
-        }
-
-        /// <summary>
-        /// Get a list of enemies and cycle through them, returning the index
-        /// of the enemy the player's selected.
-        /// </summary>
-        /// <param name="enemies">List of enemies to cycle.</param>
-        /// <returns>Return index of chosen enemy.</returns>
-        private static int CycleEnemies(List<EnemyEntity> enemies)
+        /// <param name="enemies">List of enemies to navigate.</param>
+        /// <returns>Returns the chosen enemy.</returns>
+        private static EnemyEntity ChooseEnemy(List<EnemyEntity> enemies)
         {
             Utils.SetCursorInteract();
             Utils.WriteColour("Choose an enemy to attack.", ConsoleColor.DarkYellow);
             int index = 0;
-            PrintEnemies(enemies, index);
             do
             {
+                Utils.ClearInteractArea(1, enemies.Count);
+                for (int i = 0; i < enemies.Count; i++)
+                {
+                    Utils.SetCursorInteract(i + 1);
+                    if (enemies[i] == enemies[index])
+                    {
+                        Utils.WriteColour(">>", ConsoleColor.Yellow);
+                        Console.ForegroundColor = ConsoleColor.Cyan;
+                    }
+                    Console.Write($"{enemies[i].Name} ");
+                    Console.ResetColor();
+                    Utils.WriteColour($"{enemies[i].HP}/{enemies[i].MaxHP} ", ConsoleColor.Red);
+                    Console.Write($"HP");
+                }
                 InputSystem.GetInput();
                 switch (InputSystem.InputKey)
                 {
                     case ConsoleKey.UpArrow:
                         {
-                            if (index <= enemies.Count - 1 && index > 0)
+                            if (index <= enemies.Count && index > 0)
                             {
                                 index--;
-                                Console.CursorLeft = 0;
-                                Console.CursorTop = 0;
-                                PrintEnemies(enemies, index);
                             }
                         }
                         break;
@@ -229,9 +213,56 @@ namespace AuldShiteburn.CombatData
                             if (index >= 0 && index < enemies.Count - 1)
                             {
                                 index++;
-                                Console.CursorLeft = 0;
-                                Console.CursorTop = 0;
-                                PrintEnemies(enemies, index);
+                            }
+                        }
+                        break;
+                }
+            } while (InputSystem.InputKey != ConsoleKey.Enter);
+            return enemies[index];
+        }
+
+        /// <summary>
+        /// Iterate through a list of string options and highlight one at an int index.
+        /// The player moves the index with the up/down arrow keys. Pressing enter
+        /// returns the index for an activity.
+        /// </summary>
+        /// <param name="offsetY">Offset for SetCursorInteract() first parameter.</param>
+        /// <returns>Return the activity number.</returns>
+        private static int ChooseActivity()
+        {
+            List<string> activities = new List<string>() { "Use Equipped Weapon", "Use Ability" };
+            int offsetY = Console.CursorTop;
+            Utils.SetCursorInteract(offsetY);
+            Utils.WriteColour("Choose an activity.", ConsoleColor.DarkYellow);
+            int index = 0;
+            do
+            {
+                Utils.ClearInteractArea(offsetY + 1, 2);
+                for (int i = 0; i < activities.Count; i++)
+                {
+                    Utils.SetCursorInteract(offsetY + 1 + i);
+                    if (i == index)
+                    {
+                        Utils.WriteColour(">>", ConsoleColor.Yellow);
+                    }
+                    Utils.WriteColour(activities[i], ConsoleColor.Cyan);
+                }
+                InputSystem.GetInput();
+                switch (InputSystem.InputKey)
+                {
+                    case ConsoleKey.UpArrow:
+                        {
+                            if (index > 0 && index < activities.Count)
+                            {
+                                index--;
+                            }
+                        }
+                        break;
+                    case ConsoleKey.DownArrow:
+                        {
+                            if (index >= 0 && index < activities.Count - 1)
+                            {
+                                index++;
                             }
                         }
                         break;
@@ -240,28 +271,55 @@ namespace AuldShiteburn.CombatData
             return index;
         }
 
-        /// <summary>
-        /// For each enemy in a list, print them out,
-        /// highlighting the one at a desired index.
-        /// </summary>
-        /// <param name="enemies">List of enemies to print.</param>
-        /// <param name="index">Index of enemy to highlight.</param>
-        private static void PrintEnemies(List<EnemyEntity> enemies, int index)
+        private static CombatPayload ChooseMeleeAttack()
         {
-            for (int i = 0; i < enemies.Count; i++)
+            WeaponItem weapon = PlayerEntity.Instance.EquippedWeapon;
+            List<string> meleeAttacks = new List<string>() { weapon.Type.PrimaryAttack.ToString(), weapon.Type.SecondaryAttack.ToString()};
+            int offsetY = Console.CursorTop;
+            Utils.ClearInteractArea(offsetY, 2);
+            Utils.SetCursorInteract(offsetY);
+            Utils.WriteColour("Choose an attack technique from your weapon.", ConsoleColor.DarkYellow);
+            int index = 0;
+            do
             {
-                Utils.SetCursorInteract(i + 1);
-                Utils.ClearLine(30);
-                Utils.SetCursorInteract(i + 1);
-                if (enemies[i] == enemies[index])
+                Utils.ClearInteractArea(offsetY + 1, 2);
+                for (int i = 0; i < meleeAttacks.Count; i++)
                 {
-                    Utils.WriteColour(">>", ConsoleColor.Yellow);
-                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Utils.SetCursorInteract(offsetY + 1 + i);
+                    if (i == index)
+                    {
+                        Utils.WriteColour(">>", ConsoleColor.Yellow);
+                    }
+                    Utils.WriteColour(meleeAttacks[i], ConsoleColor.Cyan);
                 }
-                Console.Write($"{enemies[i].Name} ");
-                Console.ResetColor();
-                Utils.WriteColour($"{enemies[i].HP}/{enemies[i].MaxHP} ", ConsoleColor.Red);
-                Console.Write($"HP\n");
+                InputSystem.GetInput();
+                switch (InputSystem.InputKey)
+                {
+                    case ConsoleKey.UpArrow:
+                        {
+                            if (index > 0 && index < meleeAttacks.Count)
+                            {
+                                index--;
+                            }
+                        }
+                        break;
+                    case ConsoleKey.DownArrow:
+                        {
+                            if (index >= 0 && index < meleeAttacks.Count - 1)
+                            {
+                                index++;
+                            }
+                        }
+                        break;
+                }
+            } while (InputSystem.InputKey != ConsoleKey.Enter);
+            if (index == 0)
+            {
+                return CalculateWeaponDamage(true);
+            }
+            else
+            {
+                return CalculateWeaponDamage(false);
             }
         }
     }

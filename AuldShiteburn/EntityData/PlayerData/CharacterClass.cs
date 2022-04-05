@@ -57,13 +57,13 @@ namespace AuldShiteburn.EntityData.PlayerData
 
     struct TitleData
     {
-        public List<string> titleMale;
-        public List<string> titleFemale;
+        public List<string> TitleMale { get; }
+        public List<string> TitleFemale { get; }
 
         public TitleData(List<string> titleMale, List<string> titleFemale)
         {
-            this.titleMale = titleMale;
-            this.titleFemale = titleFemale;
+            TitleMale = titleMale;
+            TitleFemale = titleFemale;
         }
 
         public TitleData(List<string> unisexTitles) : this(unisexTitles, unisexTitles)
@@ -73,37 +73,37 @@ namespace AuldShiteburn.EntityData.PlayerData
 
     struct ClassStatistics
     {
-        public float hp;
-        public bool usesMana;
-        public bool usesStamina;
-        public float stamina;
-        public float mana;
-        public int stunCap;
+        public float HP { get; }
+        public bool UsesMana { get; }
+        public bool UsesStamina { get; }
+        public float Stamina { get; }
+        public float Mana { get; }
+        public int StunCap { get; }
 
         public ClassStatistics(float hp, float stamina, float mana, int stunCap)
         {
-            usesMana = mana > 0;
-            usesStamina = stamina > 0;
-            this.hp = hp;
-            this.stamina = stamina;
-            this.mana = mana;
-            this.stunCap = stunCap;
+            UsesMana = mana > 0;
+            UsesStamina = stamina > 0;
+            HP = hp;
+            Stamina = stamina;
+            Mana = mana;
+            StunCap = stunCap;
         }
     }
 
     struct ProficiencyData
     {
-        public ArmourFamily armourProficiency;
-        public WeaponFamily weaponProficiency;
-        public PropertyDamageType propertyAffinity;
-        public GeneralMaterials materialAffinity;
+        public ArmourFamily ArmourProficiency { get; }
+        public WeaponFamily WeaponProficiency { get; }
+        public PropertyDamageType PropertyAffinity { get; }
+        public GeneralMaterials MaterialAffinity { get; }
 
         public ProficiencyData(ArmourFamily armourProficiency, WeaponFamily weaponProficiency, PropertyDamageType propertyAffinity, GeneralMaterials materialAffinity)
         {
-            this.armourProficiency = armourProficiency;
-            this.weaponProficiency = weaponProficiency;
-            this.propertyAffinity = propertyAffinity;
-            this.materialAffinity = materialAffinity;
+            ArmourProficiency = armourProficiency;
+            WeaponProficiency = weaponProficiency;
+            PropertyAffinity = propertyAffinity;
+            MaterialAffinity = materialAffinity;
         }
     }
 }

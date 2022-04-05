@@ -88,7 +88,7 @@ namespace AuldShiteburn.ItemData.WeaponData
         {
             get
             {
-                return PlayerEntity.Instance.Class.Proficiencies.propertyAffinity == Type;
+                return PlayerEntity.Instance.Class.Proficiencies.PropertyAffinity == Type;
             }
         }
 
