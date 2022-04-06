@@ -68,13 +68,11 @@ namespace AuldShiteburn.OptionData
             {
                 if (options.IndexOf(option) == index)
                 {
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine(option.DisplayString);
-                    Console.ResetColor();
+                    Utils.WriteColour($"{option.DisplayString}\n", ConsoleColor.Yellow);
                 }
                 else
                 {
-                    Console.WriteLine(option.DisplayString);
+                    Utils.WriteColour($"{option.DisplayString}\n");
                 }
             }
         }

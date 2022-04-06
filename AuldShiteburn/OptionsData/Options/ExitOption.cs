@@ -16,11 +16,11 @@ namespace AuldShiteburn.OptionsData.Options
             bool mainMenu = Menu.Instance.GetType() == typeof(MainMenu);
             if (mainMenu)
             {
-                Console.WriteLine("\nExit to Desktop? (E)\nCancel (C)");
+                Utils.WriteColour("\nExit to Desktop? (E)\nCancel (C)");
             }
             else
             {
-                Console.WriteLine("\nExit to Main Menu? (M)\nExit to Desktop? (E)\nCancel (C)");
+                Utils.WriteColour("\nExit to Main Menu? (M)\nExit to Desktop? (E)\nCancel (C)");
             }
             bool choosing = true;
             while (choosing)

@@ -45,9 +45,9 @@ namespace AuldShiteburn.CombatData
             {
                 Utils.SetCursorInteract();
                 ASCIIArt.PrintASCII(ASCIIArt.VICTORY_MESSAGE, ConsoleColor.Green);
-                Console.CursorTop += 1;
-                Console.Write("Press any key to continue...");
-                Console.ReadKey();
+                Console.CursorTop += 2;
+                Utils.WriteColour("Press any key to continue...");
+                Console.ReadKey(true);
                 Utils.ClearInteractInterface();
                 PlayerEntity.Instance.HP = PlayerEntity.Instance.MaxHP;
                 if (PlayerEntity.Instance.UsesMana)
@@ -65,9 +65,11 @@ namespace AuldShiteburn.CombatData
             {
                 Utils.SetCursorInteract();
                 ASCIIArt.PrintASCII(ASCIIArt.DEATH_MESSAGE, ConsoleColor.Red);
-                Console.CursorTop += 1;
-                Console.Write("Press any key to continue...");
-                Console.ReadKey();
+                Console.CursorTop += 2;
+                Utils.WriteColour("Press any key to continue...");
+                Console.ReadKey(true);
+                Game.playing = false;
+                Game.mainMenu = true;
                 return false;
             }
         }
@@ -109,7 +111,7 @@ namespace AuldShiteburn.CombatData
                         }
                         if (abilitiesCoolingDown > 0)
                         {
-                            Console.ReadKey();
+                            Console.ReadKey(true);
                             Utils.ClearInteractInterface();
                         }
                         abilityCooldowns = true;
@@ -175,7 +177,7 @@ namespace AuldShiteburn.CombatData
                         {
                             Utils.ClearInteractArea(enemies.Count + 5, 20);
                             Utils.SetCursorInteract(enemies.Count + 4);
-                            CombatPayload playerAbilityPayload = ChooseAbility();
+                            CombatPayload playerAbilityPayload = ChooseAbility(enemies);
                             if (playerAbilityPayload.IsAttack)
                             {
                                 if (enemy.ReceiveAttack(playerAbilityPayload, Console.CursorTop - 1))
@@ -188,7 +190,7 @@ namespace AuldShiteburn.CombatData
                             }
                             else if (playerAbilityPayload.IsUtility)
                             {
-                                endOffset = Console.CursorTop - 1;
+                                endOffset = Console.CursorTop + 2;
                                 PlayerEntity.Instance.PrintStats();
                                 playerTurn = false;
                             }
@@ -219,8 +221,8 @@ namespace AuldShiteburn.CombatData
             }
             // Readkey to ensure player has a chance to read the round's report.
             Console.SetCursorPosition(Utils.UIInteractOffset, endOffset);
-            Console.Write("Press any key to continue...");
-            Console.ReadKey();
+            Utils.WriteColour("Press any key to continue...");
+            Console.ReadKey(true);
             Utils.ClearInteractInterface(30);
         }
 
@@ -241,20 +243,24 @@ namespace AuldShiteburn.CombatData
                     if (enemy.Stunned)
                     {
                         Utils.SetCursorInteract();
-                        Utils.WriteColour($"{enemy.Name} is stunned, recovering in {enemy.StunTimer} turns.", ConsoleColor.DarkBlue);
+                        Utils.WriteColour($"{enemy.Name} ");
+                        Utils.WriteColour($"{enemy.HP}/{enemy.MaxHP} ", ConsoleColor.Red);
+                        Utils.WriteColour($"is stunned, recovering in ");
+                        Utils.WriteColour($"{enemy.StunTimer} ", ConsoleColor.Blue);
+                        Utils.WriteColour($"turns.");
                         endOffset = Console.CursorTop + 2;
                         enemy.StunTimer--;
                     }
                     else
                     {
-                        CombatPayload enemyAttack = enemy.PerformAttack();
+                        CombatPayload enemyAttack = enemy.PerformAttack(enemies);
                         endOffset = Console.CursorTop + 3;
                         PlayerEntity.Instance.ReceiveAttack(enemyAttack);
                     }
                     // Readkey to ensure player has a chance to read the round's report.
                     Console.SetCursorPosition(Utils.UIInteractOffset, endOffset);
-                    Console.Write("Press any key to continue...");
-                    Console.ReadKey();
+                    Utils.WriteColour("Press any key to continue...");
+                    Console.ReadKey(true);
                     Utils.ClearInteractInterface(30);
                 }
                 enemyTurn = false;
@@ -312,12 +318,10 @@ namespace AuldShiteburn.CombatData
                     if (enemies[i] == enemies[index])
                     {
                         Utils.WriteColour(">>", ConsoleColor.Yellow);
-                        Console.ForegroundColor = ConsoleColor.Cyan;
                     }
-                    Console.Write($"{enemies[i].Name} ");
-                    Console.ResetColor();
+                    Utils.WriteColour($"{enemies[i].Name} ", ConsoleColor.Cyan);
                     Utils.WriteColour($"{enemies[i].HP}/{enemies[i].MaxHP} ", ConsoleColor.Red);
-                    Console.Write($"HP");
+                    Utils.WriteColour($"HP");
                 }
                 InputSystem.GetInput();
                 switch (InputSystem.InputKey)
@@ -370,13 +374,13 @@ namespace AuldShiteburn.CombatData
                     }
                     else
                     {
-                        Console.Write(activities[i]);
+                        Utils.WriteColour(activities[i]);
                     }
                 }
                 Utils.SetCursorInteract(offsetY + activities.Count + 1);
-                Console.Write("[");
+                Utils.WriteColour("[");
                 Utils.WriteColour("BACKSPACE", ConsoleColor.DarkGray);
-                Console.Write("] Return");
+                Utils.WriteColour("] Return");
                 InputSystem.GetInput();
                 switch (InputSystem.InputKey)
                 {
@@ -433,13 +437,13 @@ namespace AuldShiteburn.CombatData
                     }
                     else
                     {
-                        Console.Write(meleeAttacks[i]);
+                        Utils.WriteColour(meleeAttacks[i]);
                     }
                 }
                 Utils.SetCursorInteract(offsetY + meleeAttacks.Count + 1);
-                Console.Write("[");
+                Utils.WriteColour("[");
                 Utils.WriteColour("BACKSPACE", ConsoleColor.DarkGray);
-                Console.Write("] Return");
+                Utils.WriteColour("] Return");
                 InputSystem.GetInput();
                 switch (InputSystem.InputKey)
                 {
@@ -480,7 +484,7 @@ namespace AuldShiteburn.CombatData
         /// of them. On pressing enter, activate the ability and return the combat payload.
         /// </summary>
         /// <returns>Returns the chosen ability's combat payload.</returns>
-        private static CombatPayload ChooseAbility()
+        private static CombatPayload ChooseAbility(List<EnemyEntity> enemies)
         {
             List<Ability> abilities = PlayerEntity.Instance.Class.Abilities;
             int offsetY = Console.CursorTop;
@@ -498,24 +502,23 @@ namespace AuldShiteburn.CombatData
                     {
                         Utils.WriteColour(">>", ConsoleColor.Yellow);
                         Utils.WriteColour($"{abilities[i].Name}", ConsoleColor.Cyan);
-                        Utils.SetCursorInteract(offsetY + 1, 20);
-                        Console.Write(abilities[i].Description);
-                        Utils.SetCursorInteract(offsetY + 2, 20);
-                        Console.Write($"Cooldown: {abilities[i].Cooldown}");
-                        Utils.SetCursorInteract(offsetY + 3, 20);
-                        Console.Write($"Resource Cost: {abilities[i].ResourceCost}");
-                        Console.ResetColor();
+                        Utils.SetCursorInteract(offsetY + 1, 25);
+                        Utils.WriteColour(abilities[i].Description);
+                        Utils.SetCursorInteract(offsetY + 2, 25);
+                        Utils.WriteColour($"Cooldown: {abilities[i].Cooldown}");
+                        Utils.SetCursorInteract(offsetY + 3, 25);
+                        Utils.WriteColour($"Resource Cost: {abilities[i].ResourceCost}");
                     }
                     else
                     {
                         Utils.SetCursorInteract(offsetY + 1 + i);
-                        Console.Write(abilities[i].Name);
+                        Utils.WriteColour(abilities[i].Name);
                     }
                 }
                 Utils.SetCursorInteract(offsetY + abilities.Count + 1);
-                Console.Write("[");
+                Utils.WriteColour("[");
                 Utils.WriteColour("BACKSPACE", ConsoleColor.DarkGray);
-                Console.Write("] Return");
+                Utils.WriteColour("] Return");
                 InputSystem.GetInput();
                 switch (InputSystem.InputKey)
                 {
@@ -541,7 +544,7 @@ namespace AuldShiteburn.CombatData
                         }
                 }
             } while (InputSystem.InputKey != ConsoleKey.Enter);
-            return PlayerEntity.Instance.Class.Abilities[index].UseAbility();
+            return PlayerEntity.Instance.Class.Abilities[index].UseAbility(enemies);
         }
     }
 

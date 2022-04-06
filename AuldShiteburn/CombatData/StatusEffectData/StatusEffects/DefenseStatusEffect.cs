@@ -6,6 +6,7 @@ using System.Text;
 
 namespace AuldShiteburn.CombatData.StatusEffectData.StatusEffects
 {
+    [Serializable]
     /// <summary>
     /// Defensive status which either nullifies or mitigates incoming damage.
     /// </summary>

@@ -17,7 +17,7 @@ namespace AuldShiteburn.ItemData.ConsumableData.Consumables
         public override void OnInventoryUse(InventorySortData sortData)
         {
             Utils.SetCursorInteract(Console.CursorTop);
-            if (PlayerEntity.Instance.UsesMana)
+            if (PlayerEntity.Instance.UsesStamina)
             {
                 Utils.WriteColour($"You feel renewed.", ConsoleColor.Green);
                 PlayerEntity.Instance.PotionStatusEffect = new ReplenishStatusEffect
@@ -26,12 +26,12 @@ namespace AuldShiteburn.ItemData.ConsumableData.Consumables
             }
             else
             {
-                Utils.WriteColour($"Moonlight waters, a pleasant reprieve in this horrid place.", ConsoleColor.DarkYellow);
+                Utils.WriteColour($"A tangy and uplifting beverage.", ConsoleColor.DarkYellow);
             }
             Stock--;
             Utils.SetCursorInteract(Console.CursorTop - 1);
-            Console.Write("Press any key to continue...");
-            Console.ReadKey();
+            Utils.WriteColour("Press any key to continue...");
+            Console.ReadKey(true);
         }
     }
 }

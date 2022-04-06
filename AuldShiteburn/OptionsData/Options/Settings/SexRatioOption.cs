@@ -13,7 +13,7 @@ namespace AuldShiteburn.OptionsData.Options.Settings
 
         public override void OnUse()
         {
-            Console.WriteLine(@"SEX RATIO - Determines the frequency of getting male/female characters. At 0, all names will be female.
+            Utils.WriteColour(@"SEX RATIO - Determines the frequency of getting male/female characters. At 0, all names will be female.
 At 100, all names will be male. E.g. At 70, there's a 70% chance to get a male name and a 30% to get a female name.
 
 Use the Up and Down arrow keys to increase/decrease the ratio.
@@ -31,20 +31,20 @@ Ratio: " + GameSettings.Instance.SexRatio);
                         {
                             Console.CursorLeft = 7;
                             Console.CursorTop = 17;
-                            Console.Write("   ");
+                            Utils.WriteColour("   ");
                             Console.CursorLeft = 0;
                             GameSettings.Instance.SexRatio++;
-                            Console.Write("Ratio: " + GameSettings.Instance.SexRatio);
+                            Utils.WriteColour("Ratio: " + GameSettings.Instance.SexRatio);
                         }
                         break;
                     case ConsoleKey.DownArrow:
                         {
                             Console.CursorLeft = 7;
                             Console.CursorTop = 17;
-                            Console.Write("   ");
+                            Utils.WriteColour("   ");
                             Console.CursorLeft = 0;
                             GameSettings.Instance.SexRatio--;
-                            Console.Write("Ratio: " + GameSettings.Instance.SexRatio);
+                            Utils.WriteColour("Ratio: " + GameSettings.Instance.SexRatio);
                         }
                         break;
                     case ConsoleKey.Backspace:

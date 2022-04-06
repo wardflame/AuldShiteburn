@@ -61,7 +61,7 @@ namespace AuldShiteburn.MapData.TileData.Tiles
         /// <returns></returns>
         protected bool Decision(string promptYes = "Accept", string promptNo = "Refuse")
         {
-            Console.Write(Description($"{promptYes} (Y) {promptNo} (N)"));
+            Utils.WriteColour(Description($"{promptYes} (Y) {promptNo} (N)"));
             do
             {
                 InputSystem.GetInput();
@@ -146,7 +146,7 @@ namespace AuldShiteburn.MapData.TileData.Tiles
                                     Utils.SetCursorInteract();
                                     Utils.ClearInteractInterface();
                                     PrintInteraction(interactions[index]);
-                                    Utils.SetCursorInteract(1);
+                                    Utils.SetCursorInteract(2);
                                     if (Decision())
                                     {
                                         index++;
@@ -159,9 +159,9 @@ namespace AuldShiteburn.MapData.TileData.Tiles
                                     {
                                         Utils.ClearInteractInterface(2);
                                         Utils.SetCursorInteract();
-                                        Console.Write(Dialogue(decisionRefusal));
+                                        Utils.WriteColour(Dialogue(decisionRefusal));
                                         Utils.SetCursorInteract(3);
-                                        Console.Write(new string(' ', Console.WindowWidth - Utils.UIInteractOffset));
+                                        Utils.WriteColour(new string(' ', Console.WindowWidth - Utils.UIInteractOffset));
                                         quit = true;
                                     }
                                 }
@@ -193,8 +193,8 @@ namespace AuldShiteburn.MapData.TileData.Tiles
                         {
                             if (index == interactions.Count - 1)
                             {
-                                Utils.SetCursorInteract(3);
-                                Console.Write(new string(' ', Console.WindowWidth - Utils.UIInteractOffset));
+                                Utils.SetCursorInteract(2);
+                                Utils.WriteColour(new string(' ', Console.WindowWidth - Utils.UIInteractOffset));
                                 return true;
                             }
                         }
@@ -216,18 +216,18 @@ namespace AuldShiteburn.MapData.TileData.Tiles
         {
             if (start)
             {
-                Utils.SetCursorInteract(3);
-                Console.Write("Next -->");
+                Utils.SetCursorInteract(2);
+                Utils.WriteColour("Next -->");
             }
             else if (end)
             {
-                Utils.SetCursorInteract(3);
-                Console.Write("<-- Previous . Press Backspace to Leave");
+                Utils.SetCursorInteract(2);
+                Utils.WriteColour("<-- Previous . Press Backspace to Leave");
             }
             else
             {
-                Utils.SetCursorInteract(3);
-                Console.Write("<-- Previous . Next -->");
+                Utils.SetCursorInteract(2);
+                Utils.WriteColour("<-- Previous . Next -->");
             }
 
         }
@@ -242,7 +242,7 @@ namespace AuldShiteburn.MapData.TileData.Tiles
             Utils.SetCursorInteract();
             Console.ForegroundColor = interaction.foreground;
             Console.BackgroundColor = interaction.background;
-            Console.Write(interaction.line);
+            Utils.WriteColour(interaction.line);
             Console.ResetColor();
         }
     }

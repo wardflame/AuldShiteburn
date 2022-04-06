@@ -125,9 +125,9 @@ namespace AuldShiteburn.EntityData.PlayerData
                         Utils.SetCursorInteract(1, offsetX: WeaponOffset);
                     }
                     offset = WeaponOffset;
-                    Console.Write("[");
+                    Utils.WriteColour("[");
                     Utils.WriteColour("WEAPONS", ConsoleColor.DarkYellow);
-                    Console.Write("]");
+                    Utils.WriteColour("]");
                 }
                 if (x == 1)
                 {
@@ -140,9 +140,9 @@ namespace AuldShiteburn.EntityData.PlayerData
                         Utils.SetCursorInteract(1, offsetX: ArmourOffset);
                     }
                     offset = ArmourOffset;
-                    Console.Write("[");
+                    Utils.WriteColour("[");
                     Utils.WriteColour("ARMOUR", ConsoleColor.DarkYellow);
-                    Console.Write("]");
+                    Utils.WriteColour("]");
                 }
                 if (x == 2)
                 {
@@ -155,9 +155,9 @@ namespace AuldShiteburn.EntityData.PlayerData
                         Utils.SetCursorInteract(1, offsetX: ConsumableOffset);
                     }
                     offset = ConsumableOffset;
-                    Console.Write("[");
+                    Utils.WriteColour("[");
                     Utils.WriteColour("CONSUMABLES", ConsoleColor.DarkYellow);
-                    Console.Write("]");
+                    Utils.WriteColour("]");
                 }
                 if (x == 3)
                 {
@@ -170,9 +170,9 @@ namespace AuldShiteburn.EntityData.PlayerData
                         Utils.SetCursorInteract(1, offsetX: KeyOffset);
                     }
                     offset = KeyOffset;
-                    Console.Write("[");
+                    Utils.WriteColour("[");
                     Utils.WriteColour("KEY ITEMS", ConsoleColor.DarkYellow);
-                    Console.Write("]");
+                    Utils.WriteColour("]");
                 }
                 for (int y = 1; y <= Row; y++)
                 {
@@ -361,9 +361,9 @@ namespace AuldShiteburn.EntityData.PlayerData
                 }
                 Utils.WriteColour($"What do you want to do with {currentItem.Name}?", ConsoleColor.DarkYellow);
                 Utils.SetCursorInventory(-4, 50);
-                Console.WriteLine("(T) Transfer to Inventory");
+                Utils.WriteColour("(T) Transfer to Inventory");
                 Utils.SetCursorInventory(-2, 50);
-                Console.WriteLine("(Backspace) Cancel");
+                Utils.WriteColour("(Backspace) Cancel");
                 bool choosing = true;
                 while (choosing)
                 {
@@ -427,31 +427,31 @@ namespace AuldShiteburn.EntityData.PlayerData
                     Utils.WriteColour("No item selected.");
                     return;
                 }
-                Console.Write($"What do you want to do with {currentItem.Name}?");
+                Utils.WriteColour($"What do you want to do with {currentItem.Name}?");
                 if (currentItem is WeaponItem)
                 {
                     Utils.SetCursorInteract(1);
                     WeaponItem weapon = (WeaponItem)currentItem;
-                    Console.Write("Physical Damage: ");
+                    Utils.WriteColour("Physical Damage: ");
                     Utils.WriteColour($"{weapon.MinPhysDamage} - {weapon.MaxPhysDamage}");
                     Utils.SetCursorInteract(2);
-                    Console.Write("Property Damage: ");
+                    Utils.WriteColour("Property Damage: ");
                     Utils.WriteColour($"{weapon.MinPropDamage} - {weapon.MaxPropDamage}");
                     Utils.SetCursorInteract(3);
-                    Console.Write("(E) Equip Weapon");
+                    Utils.WriteColour("(E) Equip Weapon");
                     offset = 4;
                 }
                 else if (currentItem is ArmourItem)
                 {
                     Utils.SetCursorInteract(1);
                     ArmourItem armour = (ArmourItem)currentItem;
-                    Console.Write("Physical Mitigation: ");
+                    Utils.WriteColour("Physical Mitigation: ");
                     Utils.WriteColour($"{armour.PhysicalMitigation}", ConsoleColor.Yellow);
                     Utils.SetCursorInteract(2);
-                    Console.Write("Property Mitigation: ");
+                    Utils.WriteColour("Property Mitigation: ");
                     Utils.WriteColour($"{armour.PropertyMitigation}", ConsoleColor.Magenta);
                     Utils.SetCursorInteract(3);
-                    Console.Write("(E) Equip Armour");
+                    Utils.WriteColour("(E) Equip Armour");
                     offset = 4;
                 }
                 else if (currentItem is ConsumableItem || currentItem.GetType().IsSubclassOf(typeof(ConsumableItem)))
@@ -460,10 +460,10 @@ namespace AuldShiteburn.EntityData.PlayerData
                     Utils.SetCursorInteract(1);
                     Utils.WriteColour($@"'{consumable.Description}'", ConsoleColor.DarkYellow);
                     Utils.SetCursorInteract(2);
-                    Console.Write("Stock: ");
+                    Utils.WriteColour("Stock: ");
                     Utils.WriteColour($"{consumable.Stock}", ConsoleColor.DarkYellow);
                     Utils.SetCursorInteract(3);
-                    Console.Write("(E) Consume");
+                    Utils.WriteColour("(E) Consume");
                     offset = 4;
                 }
                 else if (currentItem is KeyItem)
@@ -474,9 +474,9 @@ namespace AuldShiteburn.EntityData.PlayerData
                     offset = 2;
                 }
                 Utils.SetCursorInteract(offset);
-                Console.WriteLine("(D) Drop Item");
+                Utils.WriteColour("(D) Drop Item");
                 Utils.SetCursorInteract(offset + 1);
-                Console.WriteLine("(Backspace) Cancel");
+                Utils.WriteColour("(Backspace) Cancel");
                 bool choosing = true;
                 while (choosing)
                 {
@@ -804,34 +804,34 @@ namespace AuldShiteburn.EntityData.PlayerData
                 }
                 if (ItemList[y - 1, typeColumn] != null)
                 {
-                    if (y - 1 == index )
+                    if (y - 1 == index)
                     {
                         Utils.WriteColour(">>", ConsoleColor.Yellow);
-                    }
-                    if (ItemList[y - 1, typeColumn] is WeaponItem)
-                    {
-                        WeaponAffinityCheck((WeaponItem)ItemList[y - 1, typeColumn]);
-                    }
-                    else if (ItemList[y - 1, typeColumn] is ArmourItem)
-                    {
-                        ArmourAffinityCheck((ArmourItem)ItemList[y - 1, typeColumn]);
-                    }
+                        if (ItemList[y - 1, typeColumn] is WeaponItem)
+                        {
+                            WeaponAffinityCheck((WeaponItem)ItemList[y - 1, typeColumn]);
+                        }
+                        else if (ItemList[y - 1, typeColumn] is ArmourItem)
+                        {
+                            ArmourAffinityCheck((ArmourItem)ItemList[y - 1, typeColumn]);
+                        }
+                        else
+                        {
+                            Utils.WriteColour($"{ItemList[y - 1, typeColumn].Name}", ConsoleColor.Cyan);
+                        }
+                    }                    
                     else
                     {
-                        Console.ForegroundColor = ConsoleColor.Cyan;
-                        Console.Write($"{ItemList[y - 1, typeColumn].Name}");
+                        Utils.WriteColour($"{ItemList[y - 1, typeColumn].Name}");
                     }
-                    Console.ResetColor();
                 }
                 else
                 {
                     if (y - 1 == index )
                     {
                         Utils.WriteColour(">>", ConsoleColor.Yellow);
-                        Console.ForegroundColor = ConsoleColor.Cyan;
                     }
-                    Console.Write($"--");
-                    Console.ResetColor();
+                    Utils.WriteColour($"--");
                 }
             }
         }
@@ -843,29 +843,36 @@ namespace AuldShiteburn.EntityData.PlayerData
         /// <param name="weapon">Weapon to check affinities on.</param>
         public void WeaponAffinityCheck(WeaponItem weapon)
         {
-            if (weapon.Property.Type != PropertyDamageType.Standard && PlayerEntity.Instance.Class.GetType() != typeof(FighterClass))
+            if (weapon != null)
             {
-                if (weapon.Property.HasAffinity)
+                ConsoleColor proficient = ConsoleColor.Gray;
+                if (weapon.Property.Type != PropertyDamageType.Standard && PlayerEntity.Instance.Class.GetType() != typeof(FighterClass))
                 {
-                    Console.ForegroundColor = ConsoleColor.DarkGreen;
+                    if (weapon.Property.HasAffinity)
+                    {
+                        proficient = ConsoleColor.DarkGreen;
+                    }
+                    Utils.WriteColour($"{weapon.Property.Name} ", proficient);
+                    proficient = ConsoleColor.Gray;
                 }
-                Console.Write($"{weapon.Property.Name} ");
-                Console.ResetColor();
-            }
 
-            if (weapon.Material.HasAffinity)
-            {
-                Console.ForegroundColor = ConsoleColor.DarkGreen;
-            }
-            Console.Write($"{weapon.Material.Name} ");
-            Console.ResetColor();
+                if (weapon.Material.HasAffinity)
+                {
+                    proficient = ConsoleColor.DarkGreen;
+                }
+                Utils.WriteColour($"{weapon.Material.Name} ", proficient);
+                proficient = ConsoleColor.Gray;
 
-            if (weapon.Type.IsProficient)
-            {
-                Console.ForegroundColor = ConsoleColor.DarkGreen;
+                if (weapon.Type.IsProficient)
+                {
+                    proficient = ConsoleColor.DarkGreen;
+                }
+                Utils.WriteColour($"{weapon.Type.Name} ", proficient);
             }
-            Console.Write($"{weapon.Type.Name} ");
-            Console.ResetColor();
+            else
+            {
+                Utils.WriteColour("--", ConsoleColor.DarkGray);
+            }
         }
 
         /// <summary>
@@ -874,13 +881,20 @@ namespace AuldShiteburn.EntityData.PlayerData
         /// <param name="armour">Armour in question.</param>
         public void ArmourAffinityCheck(ArmourItem armour)
         {
-            if (armour.IsProficient)
+            if (armour != null)
             {
-                Utils.WriteColour($"{armour.Name} ", ConsoleColor.DarkGreen);
+                if (armour.IsProficient)
+                {
+                    Utils.WriteColour($"{armour.Name} ", ConsoleColor.DarkGreen);
+                }
+                else
+                {
+                    Utils.WriteColour($"{armour.Name} ");
+                }
             }
             else
             {
-                Console.Write($"{armour.Name} ");
+                Utils.WriteColour("--", ConsoleColor.DarkGray);
             }
         }
     }

@@ -90,7 +90,7 @@ namespace AuldShiteburn.EntityData
 
             #region Class Generation and Stat Assignments
             //Instance.Class = CharacterClass.Classes[rand.Next(CharacterClass.Classes.Count)];
-            Instance.Class = new HeathenClass();
+            Instance.Class = new MonkClass();
             Instance.MaxHP = Instance.Class.Statistics.HP;
             Instance.HP = Instance.Class.Statistics.HP;
             Instance.UsesStamina = Instance.Class.Statistics.UsesStamina;
@@ -163,14 +163,14 @@ namespace AuldShiteburn.EntityData
                 ArmourItem playerArmour = Instance.EquippedArmour;
 
                 #region Physical Damage Mitigation
-                Console.Write($"{Instance.Name} takes ");
+                Utils.WriteColour($"{Instance.Name} takes ");
                 int physDamage = combatPayload.PhysicalDamage -= playerArmour.PhysicalMitigation;
                 if (physDamage < 0)
                 {
                     physDamage = 0;
                 }
                 Utils.WriteColour($"{physDamage}/{initialPhys} ", ConsoleColor.Red);
-                Console.Write($"{combatPayload.PhysicalAttackType} damage ");
+                Utils.WriteColour($"{combatPayload.PhysicalAttackType} damage ");
                 #endregion Physical Damage Mitigation
 
                 #region Property Damage Mitigation
@@ -179,27 +179,27 @@ namespace AuldShiteburn.EntityData
                 {
                     propDamage = 0;
                 }
-                Console.Write("and ");
+                Utils.WriteColour("and ");
                 Utils.WriteColour($"{propDamage}/{initialProp} ", ConsoleColor.Red);
-                Console.Write($"{combatPayload.PropertyAttackType} damage ");
+                Utils.WriteColour($"{combatPayload.PropertyAttackType} damage ");
                 #endregion Property Damage Mitigation
 
                 totalDamage = physDamage + propDamage;
-                Console.Write($"for a total of ");
+                Utils.WriteColour($"for a total of ");
                 Utils.WriteColour($"{totalDamage} ", ConsoleColor.Red);
-                Console.Write($"damage.");
+                Utils.WriteColour($"damage.");
             }
             else
             {
-                Console.Write($"{Instance.Name} takes ");
+                Utils.WriteColour($"{Instance.Name} takes ");
                 totalDamage += combatPayload.PhysicalDamage;
                 Utils.WriteColour($"{combatPayload.PhysicalDamage} ", ConsoleColor.Red);
-                Console.Write($"physical damage and ");
+                Utils.WriteColour($"physical damage and ");
                 totalDamage += combatPayload.PropertyDamage;
                 Utils.WriteColour($"{combatPayload.PropertyDamage} ", ConsoleColor.Red);
-                Console.Write($"for a total of ");
+                Utils.WriteColour($"for a total of ");
                 Utils.WriteColour($"{totalDamage} ", ConsoleColor.Red);
-                Console.Write($"damage.");
+                Utils.WriteColour($"damage.");
             }
             #endregion Damage Application
 
@@ -260,131 +260,73 @@ namespace AuldShiteburn.EntityData
             int cursorTop = Console.CursorTop;
             Utils.ClearPlayerStatInterface();
             Utils.SetCursorPlayerStat();
-            Console.Write($"{Instance.Name} the {Instance.Class.Name}");
+            Utils.WriteColour($"{Instance.Name} the {Instance.Class.Name}");
 
             Utils.SetCursorPlayerStat(1);
-            Console.Write("- - - - - - - -");
+            Utils.WriteColour("- - - - - - - -");
             Utils.SetCursorPlayerStat(2);
-            Console.Write($"Health: ");
+            Utils.WriteColour($"Health: ");
             Utils.WriteColour($"{Instance.HP}", ConsoleColor.Red);
 
             if (Instance.UsesStamina)
             {
                 Utils.SetCursorPlayerStat(3);
-                Console.Write($"Stamina: ");
+                Utils.WriteColour($"Stamina: ");
                 Utils.WriteColour($"{Instance.Stamina}", ConsoleColor.Green);
             }
             if (Instance.UsesMana)
             {
                 Utils.SetCursorPlayerStat(3);
-                Console.Write($"Mana: ");
+                Utils.WriteColour($"Mana: ");
                 Utils.WriteColour($"{Instance.Mana}", ConsoleColor.Blue);
             }
             Utils.SetCursorPlayerStat(4);
-            Console.Write("Ability Status Effect: ");
+            Utils.WriteColour("Ability Status Effect: ");
             if (Instance.AbilityStatusEffect != null)
             {
                 Utils.WriteColour($"{Instance.AbilityStatusEffect.Name}: ", Instance.AbilityStatusEffect.DisplayColor);
-                Console.Write($"{Instance.AbilityStatusEffect.Duration}");
+                Utils.WriteColour($"{Instance.AbilityStatusEffect.Duration}");
             }
             else
             {
-                Console.Write("--");
+                Utils.WriteColour("--");
             }
             Utils.SetCursorPlayerStat(5);
-            Console.Write("Potion Status Effect: ");
+            Utils.WriteColour("Potion Status Effect: ");
             if (Instance.PotionStatusEffect != null)
             {
                 Utils.WriteColour($"{Instance.PotionStatusEffect.Name}: ", Instance.PotionStatusEffect.DisplayColor);
-                Console.Write($"{Instance.PotionStatusEffect.Duration}");
+                Utils.WriteColour($"{Instance.PotionStatusEffect.Duration}");
             }
             else
             {
-                Console.Write("--");
+                Utils.WriteColour("--");
             }
             Utils.SetCursorPlayerStat(6);
-            Console.Write("Stun Timer: ");
+            Utils.WriteColour("Stun Timer: ");
             if (Instance.StunTimer > 0)
             {
                 Utils.WriteColour($"{Instance.StunTimer}", ConsoleColor.Magenta);
             }
             else
             {
-                Console.Write("--");
+                Utils.WriteColour("--");
             }
             Utils.SetCursorPlayerStat(7);
-            Console.Write("- - - - - - - -");
+            Utils.WriteColour("- - - - - - - -");
 
             Utils.SetCursorPlayerStat(8);
             Utils.WriteColour("Equipped Weapon", ConsoleColor.DarkYellow);
             Utils.SetCursorPlayerStat(9);
-            Console.Write(">> ");
-            PrintWeapon();
+            Utils.WriteColour(">> ", ConsoleColor.Yellow);
+            Inventory.WeaponAffinityCheck(EquippedWeapon);
             Utils.SetCursorPlayerStat(11);
             Utils.WriteColour("Equipped Armour", ConsoleColor.DarkYellow);
             Utils.SetCursorPlayerStat(12);
-            Console.Write(">> ");
-            PrintArmour();
+            Utils.WriteColour(">> ", ConsoleColor.Yellow);
+            Inventory.ArmourAffinityCheck(EquippedArmour);
 
             Console.CursorTop = cursorTop;
-        }
-
-        /// <summary>
-        /// Print the player's weapon with highlights to show proficiency.
-        /// </summary>
-        public void PrintWeapon()
-        {
-            Console.ResetColor();
-            if (Instance.EquippedWeapon != null)
-            {
-                if (Instance.EquippedWeapon.Property.Type != PropertyDamageType.Standard)
-                {
-                    if (Instance.EquippedWeapon.Property.HasAffinity)
-                    {
-                        Console.ForegroundColor = ConsoleColor.DarkGreen;
-                    }
-                    Console.Write($"{Instance.EquippedWeapon.Property.Name} ");
-                    Console.ResetColor();
-                }
-
-                if (Instance.EquippedWeapon.Material.HasAffinity)
-                {
-                    Console.ForegroundColor = ConsoleColor.DarkGreen;
-                }
-                Console.Write($"{Instance.EquippedWeapon.Material.Name} ");
-                Console.ResetColor();
-
-                if (Instance.EquippedWeapon.Type.IsProficient)
-                {
-                    Console.ForegroundColor = ConsoleColor.DarkGreen;
-                }
-                Console.Write($"{Instance.EquippedWeapon.Type.Name} ");
-                Console.ResetColor();
-            }
-            else
-            {
-                Console.Write("--");
-            }
-        }
-
-        /// <summary>
-        /// Print the player's armour with highlights to show proficiency.
-        /// </summary>
-        public void PrintArmour()
-        {
-            if (Instance.EquippedArmour != null)
-            {
-                if (Instance.Class.Proficiencies.ArmourProficiency == Instance.EquippedArmour.ArmourFamily)
-                {
-                    Console.ForegroundColor = ConsoleColor.DarkGreen;
-                }
-                Console.Write($"{Instance.EquippedArmour.Name}");
-                Console.ResetColor();
-            }
-            else
-            {
-                Console.Write("--");
-            }
         }
     }
 }

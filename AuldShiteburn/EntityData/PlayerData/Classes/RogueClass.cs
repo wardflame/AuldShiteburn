@@ -9,6 +9,7 @@ using System.Text;
 
 namespace AuldShiteburn.EntityData.PlayerData.Classes
 {
+    [Serializable]
     internal class RogueClass : CharacterClass
     {
         public RogueClass() : base

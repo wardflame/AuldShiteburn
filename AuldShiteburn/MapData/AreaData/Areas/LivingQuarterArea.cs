@@ -29,9 +29,9 @@ namespace AuldShiteburn.MapData.AreaData.Areas
         protected override void InitEnemies()
         {
             Random rand = new Random();
-            enemies.Add(new ShiteHuskEnemyEntity(rand.Next(8, 15)));
-            enemies.Add(new ShiteHuskEnemyEntity(rand.Next(8, 15)));
-            enemies.Add(new ShiteHuskEnemyEntity(rand.Next(8, 15)));
+            enemies.Add(new ShiteHuskEnemyEntity(rand.Next(8, 13)));
+            enemies.Add(new ShiteHuskEnemyEntity(rand.Next(8, 13)));
+            enemies.Add(new ShiteHuskEnemyEntity(rand.Next(8, 13)));
         }
 
         public override void OnFirstEnter()

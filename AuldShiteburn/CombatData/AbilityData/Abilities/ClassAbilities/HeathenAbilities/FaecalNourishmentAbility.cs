@@ -14,18 +14,18 @@ namespace AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.HeathenA
         public override int Cooldown => 3;
         public override int ResourceCost => 4;
 
-        public override CombatPayload UseAbility()
+        public override CombatPayload UseAbility(List<EnemyEntity> enemies)
         {
             Utils.SetCursorInteract(Console.CursorTop - 1);
             if (ActiveCooldown > 0)
             {
                 ActiveCooldown--;
-                Utils.WriteColour($"{Name} is on cooldown {ActiveCooldown}/{Cooldown}.", ConsoleColor.DarkRed);
+                Utils.WriteColour($"{Name} is on cooldown {ActiveCooldown}/{Cooldown}.", ConsoleColor.Red);
                 return new CombatPayload(false);
             }
             else if (!PlayerEntity.Instance.CheckResourceLevel(ResourceCost))
             {
-                Utils.WriteColour($"You lack the resources to use this ability.", ConsoleColor.DarkRed);
+                Utils.WriteColour($"You lack the resources to use this ability.", ConsoleColor.Red);
                 return new CombatPayload(false);
             }
             else if (ActiveCooldown <= 0)

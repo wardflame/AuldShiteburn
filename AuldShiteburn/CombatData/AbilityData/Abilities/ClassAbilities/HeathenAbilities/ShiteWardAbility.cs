@@ -11,21 +11,21 @@ namespace AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.HeathenA
     internal class ShiteWardAbility : Ability
     {
         public override string Name => "Shite Ward";
-        public override string Description => "Negates Occult damage for 4 turns.";
+        public override string Description => "Negates Occult damage and provides Minor Mitigation to all physical damage for 4 turns.";
         public override int Cooldown => 6;
         public override int ResourceCost => 4;
 
-        public override CombatPayload UseAbility()
+        public override CombatPayload UseAbility(List<EnemyEntity> enemies)
         {
             Utils.SetCursorInteract(Console.CursorTop + 1);
             if (ActiveCooldown > 0)
             {
-                Utils.WriteColour($"{Name} is on cooldown {ActiveCooldown}/{Cooldown}.", ConsoleColor.DarkRed);
+                Utils.WriteColour($"{Name} is on cooldown {ActiveCooldown}/{Cooldown}.", ConsoleColor.Red);
                 ActiveCooldown--;
             }
             else if (!PlayerEntity.Instance.CheckResourceLevel(ResourceCost))
             {
-                Utils.WriteColour($"You lack the resources to use this ability.", ConsoleColor.DarkRed);
+                Utils.WriteColour($"You lack the resources to use this ability.", ConsoleColor.Red);
                 return new CombatPayload(false);
             }
             else if (ActiveCooldown == 0)
@@ -33,7 +33,7 @@ namespace AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.HeathenA
                 ActiveCooldown = Cooldown;
                 PlayerEntity.Instance.AbilityStatusEffect = new DefenseStatusEffect
                     ("Shite Ward", 4, ConsoleColor.DarkYellow,
-                    EffectLevel.Moderate, allPhysicalDefense: true,
+                    EffectLevel.Minor, allPhysicalDefense: true,
                     propertyDamageType: PropertyDamageType.Occult,
                     propertyNulOrMit: true);
                 if (PlayerEntity.Instance.UsesStamina)

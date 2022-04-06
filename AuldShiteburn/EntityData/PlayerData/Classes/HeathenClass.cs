@@ -10,6 +10,7 @@ using System.Text;
 
 namespace AuldShiteburn.EntityData.PlayerData.Classes
 {
+    [Serializable]
     internal class HeathenClass : CharacterClass
     {
         public HeathenClass() : base
@@ -19,8 +20,9 @@ namespace AuldShiteburn.EntityData.PlayerData.Classes
             new ProficiencyData(ArmourFamily.LightArmour, WeaponFamily.PrimitiveArms, PropertyDamageType.Occult, GeneralMaterials.Hardshite),
             new List<Ability>()
             {
-                new ShiteflameTossAbility(),
-                new ShiteWardAbility()
+                new HardshiteBoltAbility(),
+                new ShiteWardAbility(),
+                new FaecalNourishmentAbility()
             }
             )
         { }

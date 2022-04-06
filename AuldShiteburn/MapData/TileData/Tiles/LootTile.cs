@@ -99,7 +99,7 @@ namespace AuldShiteburn.MapData.TileData.Tiles
             {
                 lootStock++;
                 Utils.SetCursorInteract(lootStock);
-                Console.WriteLine($"{lootStock}. {item.Name}");
+                Utils.WriteColour($"{lootStock}. {item.Name}");
             }
             return lootStock;
         }

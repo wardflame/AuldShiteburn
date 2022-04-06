@@ -34,14 +34,12 @@ namespace AuldShiteburn
                 {
                     if (list.IndexOf(item) == index)
                     {
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.WriteLine(item);
-                        Console.ResetColor();
+                        WriteColour($"{item}", ConsoleColor.Yellow);
                     }
                 }
                 else
                 {
-                    Console.Write(item + "\n");
+                    Utils.WriteColour(item + "\n");
                 }
             }
         }
@@ -55,7 +53,7 @@ namespace AuldShiteburn
         {
             if (query != null)
             {
-                Console.WriteLine(query);
+                Utils.WriteColour(query);
             }
             do
             {
@@ -93,7 +91,7 @@ namespace AuldShiteburn
         /// <param name="clearLength">How far to send the empty characters.</param>
         public static void ClearLine(int clearLength = 0)
         {
-            Console.Write(new string(' ', clearLength));
+            Utils.WriteColour(new string(' ', clearLength));
         }
 
         /// <summary>
@@ -120,7 +118,7 @@ namespace AuldShiteburn
             {
                 Console.CursorLeft = UIInteractOffset + offsetX;
                 Console.CursorTop = y;
-                Console.Write(new string(' ', Console.WindowWidth - (UIInteractOffset + offsetX)));
+                Utils.WriteColour(new string(' ', Console.WindowWidth - (UIInteractOffset + offsetX)));
             }
         }
 
@@ -148,7 +146,7 @@ namespace AuldShiteburn
             {
                 Console.CursorLeft = UIPlayerStatOffset + offsetX;
                 Console.CursorTop = y;
-                Console.Write(new string(' ', Console.WindowWidth - (UIPlayerStatOffset + offsetX)));
+                Utils.WriteColour(new string(' ', Console.WindowWidth - (UIPlayerStatOffset + offsetX)));
             }
         }
 
@@ -176,7 +174,7 @@ namespace AuldShiteburn
             {
                 Console.CursorLeft = UIInventoryOffset + offsetX;
                 Console.CursorTop = y;
-                Console.Write(new string(' ', Console.WindowWidth - (UIInventoryOffset + offsetX)));
+                Utils.WriteColour(new string(' ', Console.WindowWidth - (UIInventoryOffset + offsetX)));
             }
         }
 
@@ -193,7 +191,7 @@ namespace AuldShiteburn
             {
                 Console.CursorLeft = UIInteractOffset + offsetX;
                 Console.CursorTop = y;
-                Console.Write(new string(' ', Console.WindowWidth - (UIInteractOffset + offsetX)));
+                Utils.WriteColour(new string(' ', Console.WindowWidth - (UIInteractOffset + offsetX)));
             }
         }
     }

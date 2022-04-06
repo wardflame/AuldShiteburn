@@ -6,6 +6,7 @@ using System.Text;
 
 namespace AuldShiteburn.CombatData.StatusEffectData
 {
+    [Serializable]
     internal abstract class StatusEffect
     {
         public string Name { get; set; }

@@ -1,5 +1,6 @@
 ﻿using AuldShiteburn.CombatData;
 using AuldShiteburn.CombatData.AbilityData;
+using AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.MonkAbilities;
 using AuldShiteburn.ItemData;
 using AuldShiteburn.ItemData.ArmourData;
 using AuldShiteburn.ItemData.WeaponData;
@@ -9,6 +10,7 @@ using System.Text;
 
 namespace AuldShiteburn.EntityData.PlayerData.Classes
 {
+    [Serializable]
     internal class MonkClass : CharacterClass
     {
         public MonkClass() : base
@@ -18,6 +20,7 @@ namespace AuldShiteburn.EntityData.PlayerData.Classes
             new ProficiencyData(ArmourFamily.LightArmour, WeaponFamily.PrimitiveArms, PropertyDamageType.Holy, GeneralMaterials.Moonstone),
             new List<Ability>()
             {
+                new MoonlightBurstAbility()
             }
             )
         { }

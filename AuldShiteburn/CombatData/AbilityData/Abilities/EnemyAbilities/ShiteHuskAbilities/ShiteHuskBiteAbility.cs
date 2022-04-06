@@ -6,6 +6,7 @@ using System.Text;
 
 namespace AuldShiteburn.CombatData.AbilityData.Abilities.EnemyAbilities.ShiteHuskAbilities
 {
+    [Serializable]
     internal class ShiteHuskBiteAbility : Ability
     {
         public override string Name => "Shitehusk Bite";
@@ -14,12 +15,12 @@ namespace AuldShiteburn.CombatData.AbilityData.Abilities.EnemyAbilities.ShiteHus
         public override int ResourceCost => 0;
         public override PhysicalDamageType PhysicalDamageType => PhysicalDamageType.Pierce;
         public override PropertyDamageType PropertyDamageType => PropertyDamageType.Occult;
-        public override int PhysicalMinDamage => 1;
-        public override int PhysicalMaxDamage => 2;
+        public override int PhysicalMinDamage => 2;
+        public override int PhysicalMaxDamage => 4;
         public override int PropertyMinDamage => 1;
         public override int PropertyMaxDamage => 2;
 
-        public override CombatPayload UseAbility()
+        public override CombatPayload UseAbility(List<EnemyEntity> enemies)
         {
             Random rand = new Random();
             int physDamage = rand.Next(PhysicalMinDamage, PhysicalMaxDamage + 1);

@@ -1,4 +1,5 @@
-﻿using AuldShiteburn.MapData;
+﻿using AuldShiteburn.ArtData;
+using AuldShiteburn.MapData;
 using AuldShiteburn.MenuData;
 using AuldShiteburn.MenuData.Menus;
 using AuldShiteburn.SaveData;
@@ -16,10 +17,11 @@ namespace AuldShiteburn
         {
             Directories.SaveDirectoryInit();
             Load.LoadGameSettings();
-            Console.WriteLine("Use the Arrow Up and Arrow Down keys to navigate menus." +
-                "\nUse the Enter and Backspace keys to enter/exit menus." +
-                "\nPress any key to continue...");
-            Console.ReadKey();
+            Utils.WriteColour(ASCIIArt.INTRO_PAGE1);
+            Console.ReadKey(true);
+            Utils.WriteColour(ASCIIArt.INTRO_PAGE2);
+            Console.ReadKey(true);
+            Console.Clear();
             while (running)
             {
                 while (mainMenu)

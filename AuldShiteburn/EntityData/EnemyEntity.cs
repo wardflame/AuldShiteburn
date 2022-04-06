@@ -20,7 +20,7 @@ namespace AuldShiteburn.EntityData
         /// Reduce all active cooldowns by one and then filter through abilities
         /// and pick one at random to use. If the ability is on cooldown, try again.
         /// </summary>
-        public CombatPayload PerformAttack()
+        public CombatPayload PerformAttack(List<EnemyEntity> enemies)
         {
             bool coolingDown = true;
             while (coolingDown)
@@ -50,7 +50,7 @@ namespace AuldShiteburn.EntityData
                     Utils.WriteColour($"{Name} ", ConsoleColor.DarkYellow);
                     Utils.WriteColour($"{HP}/{MaxHP} ", ConsoleColor.Red);
                     Utils.WriteColour($"{ability.Description}", ConsoleColor.DarkYellow);
-                    return ability.UseAbility();
+                    return ability.UseAbility(enemies);
                 }
             }
             return new CombatPayload(false);
@@ -59,25 +59,26 @@ namespace AuldShiteburn.EntityData
         public override bool ReceiveAttack(CombatPayload combatPayload, int offsetY)
         {
             Utils.SetCursorInteract(offsetY);
-            Console.Write($"{Name} ");
+            Utils.WriteColour($"{Name} ");
+            Utils.WriteColour($"{HP}/{MaxHP} ", ConsoleColor.Red);
             int physDamage = combatPayload.PhysicalDamage;
             if (combatPayload.HasPhysical)
             {
                 if (PhysicalWeakness == combatPayload.PhysicalAttackType)
                 {
                     physDamage += Combat.WEAKNESS_BONUS_MODIFIER;
-                    Console.Write($"is weak to ");
+                    Utils.WriteColour($"is weak to ");
                     Utils.WriteColour($"{combatPayload.PhysicalAttackType}", ConsoleColor.DarkCyan);
-                    Console.Write(", taking ");
+                    Utils.WriteColour(", taking ");
                     Utils.WriteColour($"{physDamage} ", ConsoleColor.Green);
                     Utils.WriteColour($"{combatPayload.PhysicalAttackType} ", ConsoleColor.DarkCyan);
-                    Console.Write($"damage, ");
+                    Utils.WriteColour($"damage, ");
                 }
                 else
                 {
-                    Console.Write("takes ");
+                    Utils.WriteColour("takes ");
                     Utils.WriteColour($"{physDamage} ", ConsoleColor.DarkYellow);
-                    Console.Write($"{combatPayload.PhysicalAttackType} damage, ");
+                    Utils.WriteColour($"{combatPayload.PhysicalAttackType} damage, ");
                 }
                 Utils.SetCursorInteract(Console.CursorTop - 1);
             }
@@ -87,34 +88,34 @@ namespace AuldShiteburn.EntityData
                 if (PropertyWeakness == combatPayload.PropertyAttackType)
                 {
                     propDamage += Combat.WEAKNESS_BONUS_MODIFIER;
-                    Console.Write($"is weak to ");
+                    Utils.WriteColour($"is weak to ");
                     Utils.WriteColour($"{combatPayload.PropertyAttackType}", ConsoleColor.DarkCyan);
-                    Console.Write(", taking ");
+                    Utils.WriteColour(", taking ");
                     Utils.WriteColour($"{propDamage} ", ConsoleColor.Green);
                     Utils.WriteColour($"{combatPayload.PropertyAttackType} ", ConsoleColor.DarkCyan);
-                    Console.Write($"damage,");
+                    Utils.WriteColour($"damage,");
                 }
                 else
                 {
                     if (combatPayload.PropertyAttackType == PropertyDamageType.Damaged)
                     {
-                        Console.Write("but ");
+                        Utils.WriteColour("but ");
                         Utils.WriteColour($"{propDamage} ", ConsoleColor.DarkYellow);
-                        Console.Write($"due to weapon being {combatPayload.PropertyAttackType}, ");
+                        Utils.WriteColour($"due to weapon being {combatPayload.PropertyAttackType}, ");
                     }
                     else
                     {
                         if (combatPayload.HasPhysical)
                         {
-                            Console.Write("and ");
+                            Utils.WriteColour("and ");
                             Utils.WriteColour($"{propDamage} ", ConsoleColor.DarkYellow);
-                            Console.Write($"{combatPayload.PropertyAttackType} damage, ");
+                            Utils.WriteColour($"{combatPayload.PropertyAttackType} damage, ");
                         }
                         else
                         {
-                            Console.Write("takes ");
+                            Utils.WriteColour("takes ");
                             Utils.WriteColour($"{propDamage} ", ConsoleColor.DarkYellow);
-                            Console.Write($"{combatPayload.PropertyAttackType} damage, ");
+                            Utils.WriteColour($"{combatPayload.PropertyAttackType} damage, ");
                         }                        
                     }
                 }
@@ -122,20 +123,28 @@ namespace AuldShiteburn.EntityData
             }
             int totalDamage = physDamage + propDamage;
             if (totalDamage < 0) totalDamage = 0;
-            Console.Write($"for a total of ");
+            Utils.WriteColour($"for a total of ");
             Utils.WriteColour($"{totalDamage} ", ConsoleColor.Red);
-            Console.Write($"damage.");
+            Utils.WriteColour($"damage.");
             if (combatPayload.IsStun)
             {
                 Utils.SetCursorInteract(Console.CursorTop - 1);
                 if (!Stunned)
                 {
                     StunTimer = combatPayload.StunCount;
-                    Utils.WriteColour($"{Name} is stunned for {StunTimer} turns!", ConsoleColor.DarkBlue);
+                    Utils.WriteColour($"{Name} ");
+                    Utils.WriteColour($"{HP}/{MaxHP} ", ConsoleColor.Red);
+                    Utils.WriteColour($"is stunned for ");
+                    Utils.WriteColour($"{StunTimer} ", ConsoleColor.Blue);
+                    Utils.WriteColour($"turns!");
                 }
                 else
                 {
-                    Utils.WriteColour($"{Name} is already stunned and cannot be again for {StunTimer} turns!", ConsoleColor.DarkYellow);
+                    Utils.WriteColour($"{Name} ", ConsoleColor.DarkYellow);
+                    Utils.WriteColour($"{HP}/{MaxHP} ", ConsoleColor.Red);
+                    Utils.WriteColour($"is already stunned and cannot be again for ", ConsoleColor.DarkYellow);
+                    Utils.WriteColour($"{StunTimer} ", ConsoleColor.Blue);
+                    Utils.WriteColour($"turns!", ConsoleColor.DarkYellow);
                 }
             }
             HP -= totalDamage;

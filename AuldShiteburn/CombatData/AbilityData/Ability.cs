@@ -1,6 +1,7 @@
 ﻿using AuldShiteburn.CombatData.PayloadData;
 using AuldShiteburn.EntityData;
 using System;
+using System.Collections.Generic;
 
 namespace AuldShiteburn.CombatData.AbilityData
 {
@@ -38,6 +39,6 @@ namespace AuldShiteburn.CombatData.AbilityData
         public virtual int PropertyMinDamage { get; }
         public virtual int PropertyMaxDamage { get; }
 
-        public abstract CombatPayload UseAbility();
+        public abstract CombatPayload UseAbility(List<EnemyEntity> enemies);
     }
 }

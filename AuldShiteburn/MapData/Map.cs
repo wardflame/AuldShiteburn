@@ -271,10 +271,8 @@ namespace AuldShiteburn.MapData
         {
             Tile tile = CurrentArea.GetTile(x, y);
             Console.SetCursorPosition(x * 2, y);
-            Console.ForegroundColor = tile.Foreground;
-            Console.Write(tile.DisplayChar);
-            Console.Write(tile.DisplayChar);
-            Console.ResetColor();
+            Utils.WriteColour(tile.DisplayChar, tile.Foreground);
+            Utils.WriteColour(tile.DisplayChar, tile.Foreground);
         }
 
         /// <summary>
@@ -285,7 +283,7 @@ namespace AuldShiteburn.MapData
         {
             Console.CursorLeft = CurrentArea.Width * 2 + 1;
             Console.CursorTop = 0;
-            Console.Write("Area: " + CurrentArea.Name);
+            Utils.WriteColour("Area: " + CurrentArea.Name);
         }
 
         /// <summary>
@@ -317,7 +315,7 @@ namespace AuldShiteburn.MapData
             Console.CursorLeft = entity.PosX * 2;
             Console.CursorTop = entity.PosY;
 
-            Console.Write(entity.EntityChar);
+            Utils.WriteColour(entity.EntityChar);
         }
 
         /// <summary>
@@ -395,7 +393,7 @@ namespace AuldShiteburn.MapData
             Console.CursorTop = 0;
             for (int x = CurrentArea.Width * 2; x < Console.WindowWidth; x++)
             {
-                Console.Write(new string(' ', Console.WindowWidth - CurrentArea.Width * 2));
+                Utils.WriteColour(new string(' ', Console.WindowWidth - CurrentArea.Width * 2));
             }
         }
 

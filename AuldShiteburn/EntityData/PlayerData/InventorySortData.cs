@@ -4,6 +4,7 @@ using System.Text;
 
 namespace AuldShiteburn.EntityData.PlayerData
 {
+    [Serializable]
     internal struct InventorySortData
     {
         public int index;

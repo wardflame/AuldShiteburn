@@ -35,14 +35,15 @@ namespace AuldShiteburn.MapData.TileData.Tiles
                             if (PlayerEntity.Instance.Inventory.ItemList[i, 3].Name == key.Name)
                             Locked = false;
                             Utils.WriteColour($"Unlocked door with {key.Name}.", ConsoleColor.DarkYellow);
-                            Console.Write(" Press any key to continue...");
-                            Console.ReadKey();
+                            Utils.SetCursorInteract(2);
+                            Utils.WriteColour(" Press any key to continue...");
+                            Console.ReadKey(true);
                             break;
                         }
                     }
                     if (Locked)
                     {
-                        Utils.WriteColour($"It's locked.", ConsoleColor.DarkRed);
+                        Utils.WriteColour($"It's locked.", ConsoleColor.Red);
                     }
                 }
             }

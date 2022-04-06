@@ -1,37 +1,38 @@
 ﻿using AuldShiteburn.CombatData.PayloadData;
 using AuldShiteburn.EntityData;
 using System;
+using System.Collections.Generic;
 
 namespace AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.HeathenAbilities
 {
     [Serializable]
-    internal class ShiteflameTossAbility : Ability
+    internal class HardshiteBoltAbility : Ability
     {
-        public override string Name => "Shiteflame Toss";
-        public override string Description => $"Hurls a pungent ball of burning shite at the target for {PhysicalMinDamage} to {PhysicalMaxDamage} Occult damage.";
+        public override string Name => "Hardshite Bolt";
+        public override string Description => $"Shoots a bolt of hardshite at the target for {PropertyMinDamage} - {PropertyMaxDamage} Occult damage and stuns them for 2 rounds.";
         public override int Cooldown => 4;
-        public override int ResourceCost => 6;
-        public override int PhysicalMinDamage => 4;
-        public override int PhysicalMaxDamage => 8;
+        public override int ResourceCost => 4;
+        public override int PropertyMinDamage => 8;
+        public override int PropertyMaxDamage => 12;
 
-        public override CombatPayload UseAbility()
+        public override CombatPayload UseAbility(List<EnemyEntity> enemies)
         {
             Utils.SetCursorInteract(Console.CursorTop - 1);
             if (ActiveCooldown > 0)
             {
                 ActiveCooldown--;
-                Utils.WriteColour($"{Name} is on cooldown {ActiveCooldown}/{Cooldown}.", ConsoleColor.DarkRed);
+                Utils.WriteColour($"{Name} is on cooldown {ActiveCooldown}/{Cooldown}.", ConsoleColor.Red);
                 return new CombatPayload(false);
             }
             else if (!PlayerEntity.Instance.CheckResourceLevel(ResourceCost))
             {
-                Utils.WriteColour($"You lack the resources to use this ability.", ConsoleColor.DarkRed);
+                Utils.WriteColour($"You lack the resources to use this ability.", ConsoleColor.Red);
                 return new CombatPayload(false);
             }
             else if (ActiveCooldown <= 0)
             {
                 Random rand = new Random();
-                int damage = rand.Next(PhysicalMinDamage, PhysicalMaxDamage + 1);
+                int damage = rand.Next(PropertyMinDamage, PropertyMaxDamage + 1);
                 ActiveCooldown = Cooldown;
                 if (PlayerEntity.Instance.UsesStamina)
                 {
@@ -41,7 +42,7 @@ namespace AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.HeathenA
                 {
                     PlayerEntity.Instance.Mana -= ResourceCost;
                 }
-                return new CombatPayload(true, isStun: true, hasProperty: true, propertyAttackType: PropertyDamageType.Occult, stunCount: 3, propertyDamage: damage);
+                return new CombatPayload(true, isStun: true, hasProperty: true, propertyAttackType: PropertyDamageType.Occult, propertyDamage: damage, stunCount: 2);
             }
             return new CombatPayload(false);
         }

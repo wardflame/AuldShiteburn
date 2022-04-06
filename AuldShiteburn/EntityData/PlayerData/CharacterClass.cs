@@ -45,6 +45,7 @@ namespace AuldShiteburn.EntityData.PlayerData
         }
     }
 
+    [Serializable]
     enum ClassType
     {
         None,
@@ -55,6 +56,7 @@ namespace AuldShiteburn.EntityData.PlayerData
         Rogue
     }
 
+    [Serializable]
     struct TitleData
     {
         public List<string> TitleMale { get; }
@@ -71,6 +73,7 @@ namespace AuldShiteburn.EntityData.PlayerData
         }
     }
 
+    [Serializable]
     struct ClassStatistics
     {
         public float HP { get; }
@@ -91,6 +94,7 @@ namespace AuldShiteburn.EntityData.PlayerData
         }
     }
 
+    [Serializable]
     struct ProficiencyData
     {
         public ArmourFamily ArmourProficiency { get; }

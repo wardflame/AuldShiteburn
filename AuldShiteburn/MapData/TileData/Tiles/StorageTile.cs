@@ -7,6 +7,7 @@ using System.Text;
 
 namespace AuldShiteburn.MapData.TileData.Tiles
 {
+    [Serializable]
     internal class StorageTile : Tile
     {
         public Inventory Storage { get; set; }

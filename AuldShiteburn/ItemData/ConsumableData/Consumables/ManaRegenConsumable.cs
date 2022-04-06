@@ -30,8 +30,8 @@ namespace AuldShiteburn.ItemData.ConsumableData.Consumables
             }
             Stock--;
             Utils.SetCursorInteract(Console.CursorTop - 1);
-            Console.Write("Press any key to continue...");
-            Console.ReadKey();
+            Utils.WriteColour("Press any key to continue...");
+            Console.ReadKey(true);
         }
     }
 }
