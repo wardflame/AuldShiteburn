@@ -22,14 +22,16 @@ namespace AuldShiteburn.MapData.AreaData.Areas
 
         protected override void AddSpecialTiles()
         {
-            placeData.Add(new TilePlaceData(3, 1, new OrmodNPCTile()));
+            placeData.Add(new TilePlaceData(3, 1, new EarhNPCTile()));
             placeData.Add(new TilePlaceData(4, 4, new DoorTile(true, KeyItem.ResidenceKey)));
         }
 
         protected override void InitEnemies()
         {
             Random rand = new Random();
-            enemies.Add(new ShiteHuskEnemyEntity(rand.Next(6, 13)));
+            enemies.Add(new ShiteHuskEnemyEntity(rand.Next(8, 15)));
+            enemies.Add(new ShiteHuskEnemyEntity(rand.Next(8, 15)));
+            enemies.Add(new ShiteHuskEnemyEntity(rand.Next(8, 15)));
         }
 
         public override void OnFirstEnter()
@@ -38,10 +40,12 @@ namespace AuldShiteburn.MapData.AreaData.Areas
             {
                 if (Combat.CombatEncounter(enemies))
                 {
-                    SetTile(PlayerEntity.Instance.PosX + 1, PlayerEntity.Instance.PosY, new LootTile("Spoils of War", new List<Item>() { new HealthRegenElixirConsumableItem() }, false, true));
+                    SetTile(PlayerEntity.Instance.PosX + 1, PlayerEntity.Instance.PosY, new LootTile("Spoils of War", new List<Item>(), true, true));
                     Map.Instance.PrintTile(PlayerEntity.Instance.PosX + 1, PlayerEntity.Instance.PosY);
                     EnemiesDefeated = true;
                 }
+                EarhNPCTile earh = GetTile(3, 1) as EarhNPCTile;
+                earh.Interaction();
             }
         }
 

@@ -6,6 +6,7 @@ using System.Text;
 
 namespace AuldShiteburn.CombatData.StatusEffectData.StatusEffects
 {
+    [Serializable]
     internal class ReplenishStatusEffect : StatusEffect
     {
         public int MinReplenish { get; }
@@ -30,11 +31,11 @@ namespace AuldShiteburn.CombatData.StatusEffectData.StatusEffects
         public override CombatPayload EffectActive(CombatPayload combatPayload)
         {
             Random rand = new Random();
-
+            Console.CursorLeft = Utils.UIInteractOffset;
+            Console.CursorTop += 4;
             if (RepHealth)
             {
                 int hpRestored = rand.Next(MinReplenish, MaxReplenish + 1);
-                Utils.SetCursorInteract(Console.CursorTop);
                 Utils.WriteColour($"{Name} restores ");
                 Utils.WriteColour($"{hpRestored} ", ConsoleColor.Red);
                 Utils.WriteColour($"HP!");
@@ -43,7 +44,6 @@ namespace AuldShiteburn.CombatData.StatusEffectData.StatusEffects
             else if (RepMana)
             {
                 int manaRestored = rand.Next(MinReplenish, MaxReplenish + 1);
-                Utils.SetCursorInteract(Console.CursorTop);
                 Utils.WriteColour($"{Name} restores ");
                 Utils.WriteColour($"{manaRestored} ", ConsoleColor.Red);
                 Utils.WriteColour($"Mana!");
@@ -52,7 +52,6 @@ namespace AuldShiteburn.CombatData.StatusEffectData.StatusEffects
             else if (RepStamina)
             {
                 int staminaRestored = rand.Next(MinReplenish, MaxReplenish + 1);
-                Utils.SetCursorInteract(Console.CursorTop);
                 Utils.WriteColour($"{Name} restores ");
                 Utils.WriteColour($"{staminaRestored} ", ConsoleColor.Red);
                 Utils.WriteColour($"Stamina!");

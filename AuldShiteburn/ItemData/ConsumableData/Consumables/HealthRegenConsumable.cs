@@ -7,7 +7,8 @@ using System.Text;
 
 namespace AuldShiteburn.ItemData.ConsumableData.Consumables
 {
-    internal class HealthRegenElixirConsumableItem : ConsumableItem
+    [Serializable]
+    internal class HealthRegenConsumable : ConsumableItem
     {
         public override string Name => "Fury Elixir";
         public override string Description => "Applies the potion status effect Fury, restoring 3-5 HP each round for 3 rounds.";
@@ -15,7 +16,15 @@ namespace AuldShiteburn.ItemData.ConsumableData.Consumables
         public int MaxHeal { get; } = 5;
         public override void OnInventoryUse(InventorySortData sortData)
         {
-            PlayerEntity.Instance.PotionStatusEffect = new ReplenishStatusEffect("Fury", 3, ConsoleColor.DarkRed, 3, 5, true, false, false);
+            Utils.SetCursorInteract(Console.CursorTop);
+            Utils.WriteColour($"You feel the unfettered rage of a thousand lamenting souls.", ConsoleColor.DarkYellow);
+            PlayerEntity.Instance.PotionStatusEffect = new ReplenishStatusEffect
+                ("Fury", 3, ConsoleColor.Red,
+                3, 5, true, false, false);
+            Stock--;
+            Utils.SetCursorInteract(Console.CursorTop - 1);
+            Console.Write("Press any key to continue...");
+            Console.ReadKey();
         }
     }
 }

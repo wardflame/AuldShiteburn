@@ -6,6 +6,7 @@ using System.Text;
 
 namespace AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.HeathenAbilities
 {
+    [Serializable]
     internal class FaecalNourishmentAbility : Ability
     {
         public override string Name => "Faecal Nourishment";

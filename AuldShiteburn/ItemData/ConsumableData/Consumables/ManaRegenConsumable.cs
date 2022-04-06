@@ -7,7 +7,8 @@ using System.Text;
 
 namespace AuldShiteburn.ItemData.ConsumableData.Consumables
 {
-    internal class ManaElixirConsumableItem : ConsumableItem
+    [Serializable]
+    internal class ManaRegenConsumable : ConsumableItem
     {
         public override string Name => "Moonlight Elixir";
         public override string Description => "Applies the potion status effect Moonlight to Mana users, restoring 3-5 Mana each round for 3 rounds.";
@@ -15,18 +16,22 @@ namespace AuldShiteburn.ItemData.ConsumableData.Consumables
         public int MaxMana { get; } = 12;
         public override void OnInventoryUse(InventorySortData sortData)
         {
+            Utils.SetCursorInteract(Console.CursorTop);
             if (PlayerEntity.Instance.UsesMana)
             {
-                Utils.SetCursorInteract();
                 Utils.WriteColour($"The Moonlight waters embolden your mind.", ConsoleColor.DarkYellow);
-                PlayerEntity.Instance.PotionStatusEffect = new ReplenishStatusEffect("Moonlight", 3, ConsoleColor.DarkRed, 3, 5, true, false, false);
+                PlayerEntity.Instance.PotionStatusEffect = new ReplenishStatusEffect
+                    ("Moonlight", 3, ConsoleColor.Cyan,
+                    3, 5, false, true, false);
             }
             else
             {
-                Utils.SetCursorInteract();
                 Utils.WriteColour($"Moonlight waters, a pleasant reprieve in this horrid place.", ConsoleColor.DarkYellow);
             }
-            
+            Stock--;
+            Utils.SetCursorInteract(Console.CursorTop - 1);
+            Console.Write("Press any key to continue...");
+            Console.ReadKey();
         }
     }
 }

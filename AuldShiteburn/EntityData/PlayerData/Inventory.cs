@@ -96,7 +96,7 @@ namespace AuldShiteburn.EntityData.PlayerData
                         }
                         break;
                 }
-                Utils.ClearInteractArea(-1, 31);
+                Utils.ClearInteractArea(-1, 33);
             }
         }
 
@@ -413,6 +413,7 @@ namespace AuldShiteburn.EntityData.PlayerData
             bool interacting = true;
             while (interacting)
             {
+                Utils.ClearInteractInterface();
                 int offset = 2;
                 InventorySortData sortData = NavigateInventory(playerElseStorage);
                 if (sortData.index < 0)
@@ -493,6 +494,7 @@ namespace AuldShiteburn.EntityData.PlayerData
                                         PlayerEntity.Instance.Inventory.ItemList[sortData.index, sortData.typeColumn] = null;
                                     }
                                 }
+                                PlayerEntity.Instance.PrintStats();
                                 choosing = false;
                                 interacting = false;
                             }
@@ -790,7 +792,6 @@ namespace AuldShiteburn.EntityData.PlayerData
         /// <param name="typeOffset">Which CursorLeft offset to print at.</param>
         private void InventoryHighlight(bool playerElseStorage, int index, int typeColumn, int typeOffset)
         {
-            Item highlightItem = ItemList[index, typeColumn];
             for (int y = 1; y <= Row; y++)
             {
                 if (playerElseStorage)
@@ -807,13 +808,13 @@ namespace AuldShiteburn.EntityData.PlayerData
                     {
                         Utils.WriteColour(">>", ConsoleColor.Yellow);
                     }
-                    if (highlightItem is WeaponItem)
+                    if (ItemList[y - 1, typeColumn] is WeaponItem)
                     {
-                        WeaponAffinityCheck((WeaponItem)highlightItem);
+                        WeaponAffinityCheck((WeaponItem)ItemList[y - 1, typeColumn]);
                     }
-                    else if (highlightItem is ArmourItem)
+                    else if (ItemList[y - 1, typeColumn] is ArmourItem)
                     {
-                        ArmourAffinityCheck((ArmourItem)highlightItem);
+                        ArmourAffinityCheck((ArmourItem)ItemList[y - 1, typeColumn]);
                     }
                     else
                     {

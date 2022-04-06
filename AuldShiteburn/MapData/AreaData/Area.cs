@@ -26,10 +26,25 @@ namespace AuldShiteburn.MapData
             InitEnemies();
         }
 
+        /// <summary>
+        /// Experience generated on first entry.
+        /// </summary>
         public abstract void OnFirstEnter();
+
+        /// <summary>
+        /// Generate enemies for first entry.
+        /// </summary>
         protected abstract void InitEnemies();
+
+        /// <summary>
+        /// Generate tiles for area.
+        /// </summary>
         protected abstract void TileGeneration();
 
+        /// <summary>
+        /// Read a struct of tiles and their coordinates and place tiles
+        /// accordingly.
+        /// </summary>
         private void PlaceSpecialTiles()
         {
             foreach (TilePlaceData specialTile in placeData)
@@ -38,15 +53,31 @@ namespace AuldShiteburn.MapData
             }
         }
 
+        /// <summary>
+        /// Add special tiles to a list so that they can be placed by
+        /// the method above.
+        /// </summary>
         protected virtual void AddSpecialTiles()
         {
         }
 
+        /// <summary>
+        /// Get an index in the array based on int coordinates.
+        /// </summary>
+        /// <param name="posX">X coordinate.</param>
+        /// <param name="posY">Y coordinate.</param>
+        /// <returns></returns>
         protected int GetIndex(int posX, int posY)
         {
             return posX + Width * posY;
         }
 
+        /// <summary>
+        /// Set the tile at a coordinate in the area.
+        /// </summary>
+        /// <param name="posX"></param>
+        /// <param name="posY"></param>
+        /// <param name="tile"></param>
         public void SetTile(int posX, int posY, Tile tile)
         {
             if (posX < 0 || posY < 0 || posX >= Width || posY >= Height)
@@ -56,6 +87,12 @@ namespace AuldShiteburn.MapData
             area[GetIndex(posX, posY)] = tile.Clone();
         }
 
+        /// <summary>
+        /// Get the tile at a coordinate in the area.
+        /// </summary>
+        /// <param name="posX">X coordinate.</param>
+        /// <param name="posY">Y coordinate.</param>
+        /// <returns>Tile at coordinate.</returns>
         public Tile GetTile(int posX, int posY)
         {
             if (posX < 0 || posY < 0 || posX >= Width || posY >= Height)
@@ -70,6 +107,10 @@ namespace AuldShiteburn.MapData
             return area;
         }
 
+        /// <summary>
+        /// Connect areas to each other based on cardinal directions.
+        /// </summary>
+        /// <param name="direction"></param>
         public void ConnectInDirection(Direction direction)
         {
             PassageTile pTile = new PassageTile();

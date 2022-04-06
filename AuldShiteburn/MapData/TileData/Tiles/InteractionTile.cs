@@ -14,7 +14,7 @@ namespace AuldShiteburn.MapData.TileData.Tiles
         }
 
         protected abstract void InitLines();
-        protected abstract void Interaction();
+        public abstract void Interaction();
 
         /// Put player in menu, unable to move, and run the interaction method.
         public override void OnCollision(Entity entity)
@@ -186,12 +186,9 @@ namespace AuldShiteburn.MapData.TileData.Tiles
                         break;
                     case ConsoleKey.Backspace:
                         {
-                            if (index >= interactions.Count - 1)
-                            {
-                                Utils.SetCursorInteract(3);
-                                Console.Write(new string(' ', Console.WindowWidth - Utils.UIInteractOffset));
-                                return true;
-                            }
+                            Utils.SetCursorInteract(3);
+                            Console.Write(new string(' ', Console.WindowWidth - Utils.UIInteractOffset));
+                            return true;
                         }
                         break;
                 }

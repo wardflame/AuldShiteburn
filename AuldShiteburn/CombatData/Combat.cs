@@ -1,6 +1,7 @@
 ﻿using AuldShiteburn.ArtData;
 using AuldShiteburn.CombatData.AbilityData;
 using AuldShiteburn.CombatData.PayloadData;
+using AuldShiteburn.CombatData.StatusEffectData.StatusEffects;
 using AuldShiteburn.EntityData;
 using AuldShiteburn.ItemData.WeaponData;
 using System;
@@ -206,7 +207,15 @@ namespace AuldShiteburn.CombatData
                         Utils.SetCursorInteract(enemies.Count + 2);
                         Utils.ClearInteractArea(length: 30);
                     }
-                }
+                }                
+            }
+            if (PlayerEntity.Instance.AbilityStatusEffect != null && PlayerEntity.Instance.AbilityStatusEffect.GetType() == typeof(ReplenishStatusEffect))
+            {
+                PlayerEntity.Instance.AbilityStatusEffect.EffectActive(new CombatPayload(false));
+            }
+            if (PlayerEntity.Instance.PotionStatusEffect != null && PlayerEntity.Instance.PotionStatusEffect.GetType() == typeof(ReplenishStatusEffect))
+            {
+                PlayerEntity.Instance.PotionStatusEffect.EffectActive(new CombatPayload(false));
             }
             // Readkey to ensure player has a chance to read the round's report.
             Console.SetCursorPosition(Utils.UIInteractOffset, endOffset);
@@ -223,7 +232,7 @@ namespace AuldShiteburn.CombatData
         /// <param name="enemies">List of enemies in the area.</param>
         private static void EnemyCombatTurn(List<EnemyEntity> enemies)
         {
-            int endOffset = 0;
+            int endOffset;
             bool enemyTurn = true;
             while (enemyTurn)
             {
@@ -232,8 +241,8 @@ namespace AuldShiteburn.CombatData
                     if (enemy.Stunned)
                     {
                         Utils.SetCursorInteract();
-                        Utils.WriteColour($"{enemy.Name} is stunned, recovering in {enemy.StunTimer} turns");
-                        endOffset = Console.CursorTop;
+                        Utils.WriteColour($"{enemy.Name} is stunned, recovering in {enemy.StunTimer} turns.", ConsoleColor.DarkBlue);
+                        endOffset = Console.CursorTop + 2;
                         enemy.StunTimer--;
                     }
                     else

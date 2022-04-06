@@ -16,10 +16,10 @@ namespace AuldShiteburn.ItemData.ConsumableData
             {
                 return new List<ConsumableItem>()
                 {
-                    new HealthRegenElixirConsumableItem(),
-                    new StaminaElixirConsumableItem(),
-                    new ManaElixirConsumableItem(),
-                    new ShiteDefenseElixirConsumableItem()
+                    new HealthRegenConsumable(),
+                    new StaminaRegenConsumable(),
+                    new ManaRegenConsumable(),
+                    new ShiteDefenseConsumable()
                 };
             }
         }

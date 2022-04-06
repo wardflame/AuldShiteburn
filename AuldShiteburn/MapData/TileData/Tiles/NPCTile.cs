@@ -13,7 +13,7 @@ namespace AuldShiteburn.MapData.TileData.Tiles
         {
         }
 
-        protected override void Interaction()
+        public override void Interaction()
         {
         }
     }

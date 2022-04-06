@@ -7,6 +7,7 @@ using System.Text;
 
 namespace AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.HeathenAbilities
 {
+    [Serializable]
     internal class ShiteWardAbility : Ability
     {
         public override string Name => "Shite Ward";

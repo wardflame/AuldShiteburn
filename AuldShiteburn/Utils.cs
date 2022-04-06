@@ -142,7 +142,7 @@ namespace AuldShiteburn
         /// </summary>
         /// <param name="lengthY">The number of lines to clear downwards.</param>
         /// <param name="offsetX">The offset across to start clearing from.</param>
-        public static void ClearPlayerStatInterface(int lengthY = 11, int offsetX = 0)
+        public static void ClearPlayerStatInterface(int lengthY = 13, int offsetX = 0)
         {
             for (int y = UIPlayerStatHeight; y <= UIPlayerStatHeight + lengthY; y++)
             {

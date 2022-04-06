@@ -3,6 +3,7 @@ using AuldShiteburn.CombatData;
 using AuldShiteburn.CombatData.AbilityData;
 using AuldShiteburn.CombatData.PayloadData;
 using AuldShiteburn.CombatData.StatusEffectData;
+using AuldShiteburn.CombatData.StatusEffectData.StatusEffects;
 using AuldShiteburn.EntityData.PlayerData;
 using AuldShiteburn.EntityData.PlayerData.Classes;
 using AuldShiteburn.ItemData.ArmourData;
@@ -144,9 +145,13 @@ namespace AuldShiteburn.EntityData
 
             // If the player has an active status effect, run its effect.
             #region Status Effect Application
-            if (Instance.AbilityStatusEffect != null)
+            if (Instance.AbilityStatusEffect != null && Instance.AbilityStatusEffect.GetType() == typeof(DefenseStatusEffect))
             {
                 combatPayload = Instance.AbilityStatusEffect.EffectActive(combatPayload);
+            }
+            if (Instance.PotionStatusEffect != null && Instance.PotionStatusEffect.GetType() == typeof(DefenseStatusEffect))
+            {
+                combatPayload = Instance.PotionStatusEffect.EffectActive(combatPayload);
             }
             #endregion Status Effect Application
 
@@ -262,6 +267,7 @@ namespace AuldShiteburn.EntityData
         /// </summary>
         public void PrintStats()
         {
+            int cursorTop = Console.CursorTop;
             Utils.ClearPlayerStatInterface();
             Utils.SetCursorPlayerStat();
             Console.Write($"{Instance.Name} the {Instance.Class.Name}");
@@ -297,7 +303,7 @@ namespace AuldShiteburn.EntityData
             }
             Utils.SetCursorPlayerStat(5);
             Console.Write("Potion Status Effect: ");
-            if (Instance.AbilityStatusEffect != null)
+            if (Instance.PotionStatusEffect != null)
             {
                 Utils.WriteColour($"{Instance.PotionStatusEffect.Name}: ", Instance.PotionStatusEffect.DisplayColor);
                 Console.Write($"{Instance.PotionStatusEffect.Duration}");
@@ -329,6 +335,8 @@ namespace AuldShiteburn.EntityData
             Utils.SetCursorPlayerStat(12);
             Console.Write(">> ");
             PrintArmour();
+
+            Console.CursorTop = cursorTop;
         }
 
         /// <summary>

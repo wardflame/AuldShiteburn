@@ -91,7 +91,7 @@ namespace AuldShiteburn.MapData.TileData.Tiles
 
         private int LootStock()
         {
-            Utils.ClearInteractInterface(5);
+            Utils.ClearInteractInterface();
             Utils.SetCursorInteract();
             Utils.WriteColour($"{Message}: ", ConsoleColor.DarkYellow);
             int lootStock = 0;

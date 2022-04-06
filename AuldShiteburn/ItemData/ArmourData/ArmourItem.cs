@@ -52,6 +52,7 @@ namespace AuldShiteburn.ItemData.ArmourData
         }
         #endregion Heavy Armours
 
+        #region Armour Lists
         public static List<ArmourItem> AllArmours
         {
             get
@@ -106,6 +107,7 @@ namespace AuldShiteburn.ItemData.ArmourData
                     };
             }
         }
+        #endregion Armour Lists
         public override string Name { get; }
         public ArmourFamily ArmourFamily { get; }
         private int physicalMitigation, propertyMitigation;
@@ -115,7 +117,7 @@ namespace AuldShiteburn.ItemData.ArmourData
             {
                 if (IsPhysicalProficient)
                 {
-                    return physicalMitigation += Combat.PROFICIENCY_ARMOUR_MITIGATION_MINOR;
+                    return physicalMitigation + Combat.PROFICIENCY_ARMOUR_MITIGATION_MINOR;
                 }
                 return physicalMitigation;
             }
@@ -130,7 +132,7 @@ namespace AuldShiteburn.ItemData.ArmourData
             {
                 if (HasPropertyAffinity)
                 {
-                    return propertyMitigation += Combat.PROFICIENCY_ARMOUR_MITIGATION_MINOR;
+                    return propertyMitigation + Combat.PROFICIENCY_ARMOUR_MITIGATION_MINOR;
                 }
                 return propertyMitigation;
             }
@@ -139,10 +141,6 @@ namespace AuldShiteburn.ItemData.ArmourData
                 propertyMitigation = value;
             }
         }
-        public PhysicalDamageType PrimaryPhysicalResistance { get; }
-        public PhysicalDamageType SecondaryPhysicalResistance { get; }
-        public PropertyDamageType PrimaryPropertyResistance { get; }
-        public PropertyDamageType SecondaryPropertyResistance { get; }
         public bool IsPhysicalProficient
         {
             get
@@ -166,10 +164,7 @@ namespace AuldShiteburn.ItemData.ArmourData
             }
         }
 
-        public ArmourItem
-            (string name, ArmourFamily armourFamily, int physicalMitigation, int propertyMitigation,
-            PhysicalDamageType primaryPhysResist, PropertyDamageType primaryPropResist,
-            PhysicalDamageType secondaryPhysResist = PhysicalDamageType.None, PropertyDamageType secondaryPropResist = PropertyDamageType.None)
+        public ArmourItem(string name, ArmourFamily armourFamily, int physicalMitigation, int propertyMitigation)
         {
             Name = name;
             ArmourFamily = armourFamily;
@@ -177,6 +172,10 @@ namespace AuldShiteburn.ItemData.ArmourData
             PropertyMitigation = propertyMitigation;
         }
 
+        /// <summary>
+        /// Replace currently equipped player armour with new armour.
+        /// </summary>
+        /// <param name="sortData"></param>
         public override void OnInventoryUse(InventorySortData sortData)
         {
             ArmourItem equippedWeapon = PlayerEntity.Instance.EquippedArmour;
