@@ -24,7 +24,7 @@ namespace AuldShiteburn.MapData.TileData.Tiles.NPCs
             Utils.ClearInteractInterface();
             if (!stage1)
             {
-                stage1 = CycleInteraction(stage1BeatEnemies, "Hmph. All right.");
+                stage1 = CycleInteraction(stage1BeatEnemies);
             }
             else if (!stage2)
             {

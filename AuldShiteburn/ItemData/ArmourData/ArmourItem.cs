@@ -12,43 +12,43 @@ namespace AuldShiteburn.ItemData.ArmourData
         #region Light Armours
         public static ArmourItem SackClothRobe
         {
-            get { return new ArmourItem("Sack Cloth Robe", ArmourFamily.LightArmour, 2, 1, PhysicalDamageType.None, PropertyDamageType.None); }
+            get { return new ArmourItem("Sack Cloth Robe", ArmourFamily.LightArmour, 2, 1); }
         }
         public static ArmourItem WoolenRags
         {
-            get { return new ArmourItem("Woolen Rags", ArmourFamily.LightArmour, 2, 1, PhysicalDamageType.None, PropertyDamageType.None); }
+            get { return new ArmourItem("Woolen Rags", ArmourFamily.LightArmour, 2, 1); }
         }
         public static ArmourItem Gambeson
         {
-            get { return new ArmourItem("Gambeson", ArmourFamily.LightArmour, 4, 1, PhysicalDamageType.None, PropertyDamageType.None); }
+            get { return new ArmourItem("Gambeson", ArmourFamily.LightArmour, 4, 1); }
         }
         #endregion Light Armours
         #region Medium Armours
         public static ArmourItem HideWrappings
         {
-            get { return new ArmourItem("Hide Wrappings", ArmourFamily.MediumArmour, 4, 2, PhysicalDamageType.None, PropertyDamageType.None); }
+            get { return new ArmourItem("Hide Wrappings", ArmourFamily.MediumArmour, 4, 2); }
         }
         public static ArmourItem FurPadding
         {
-            get { return new ArmourItem("Fur Padding", ArmourFamily.MediumArmour, 4, 2, PhysicalDamageType.None, PropertyDamageType.None); }
+            get { return new ArmourItem("Fur Padding", ArmourFamily.MediumArmour, 4, 2); }
         }
         public static ArmourItem Brigandine
         {
-            get { return new ArmourItem("Brigandine", ArmourFamily.MediumArmour, 6, 2, PhysicalDamageType.None, PropertyDamageType.None); }
+            get { return new ArmourItem("Brigandine", ArmourFamily.MediumArmour, 6, 2); }
         }
         #endregion Medium Armours
         #region Heavy Armours
         public static ArmourItem Maille
         {
-            get { return new ArmourItem("Maille", ArmourFamily.HeavyArmour, 6, 3, PhysicalDamageType.None, PropertyDamageType.None); }
+            get { return new ArmourItem("Maille", ArmourFamily.HeavyArmour, 6, 3); }
         }
         public static ArmourItem ScaleCoat
         {
-            get { return new ArmourItem("Scale Coat", ArmourFamily.HeavyArmour, 6, 3, PhysicalDamageType.None, PropertyDamageType.None); }
+            get { return new ArmourItem("Scale Coat", ArmourFamily.HeavyArmour, 6, 3); }
         }
         public static ArmourItem Breastplate
         {
-            get { return new ArmourItem("Breastplate", ArmourFamily.HeavyArmour, 8, 3, PhysicalDamageType.None, PropertyDamageType.None); }
+            get { return new ArmourItem("Breastplate", ArmourFamily.HeavyArmour, 8, 3); }
         }
         #endregion Heavy Armours
 
@@ -115,7 +115,7 @@ namespace AuldShiteburn.ItemData.ArmourData
         {
             get
             {
-                if (IsPhysicalProficient)
+                if (IsProficient)
                 {
                     return physicalMitigation + Combat.PROFICIENCY_ARMOUR_MITIGATION_MINOR;
                 }
@@ -130,10 +130,6 @@ namespace AuldShiteburn.ItemData.ArmourData
         {
             get
             {
-                if (HasPropertyAffinity)
-                {
-                    return propertyMitigation + Combat.PROFICIENCY_ARMOUR_MITIGATION_MINOR;
-                }
                 return propertyMitigation;
             }
             private set
@@ -141,22 +137,11 @@ namespace AuldShiteburn.ItemData.ArmourData
                 propertyMitigation = value;
             }
         }
-        public bool IsPhysicalProficient
+        public bool IsProficient
         {
             get
             {
                 if (PlayerEntity.Instance.Class.Proficiencies.ArmourProficiency == ArmourFamily)
-                {
-                    return true;
-                }
-                return false;
-            }
-        }
-        public bool HasPropertyAffinity
-        {
-            get
-            {
-                if (PlayerEntity.Instance.Class.Proficiencies.PropertyAffinity == PrimaryPropertyResistance)
                 {
                     return true;
                 }

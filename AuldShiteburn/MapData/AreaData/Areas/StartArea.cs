@@ -35,11 +35,9 @@ namespace AuldShiteburn.MapData.AreaData.Areas
                 new LootTile("The decaying corpse of a long-dead Heathen",
                     new List<Item>()
                     {
-                        WeaponItem.GenerateWeapon(),
-                        WeaponItem.GenerateWeapon(),
-                        ArmourItem.Gambeson,
-                        ArmourItem.Brigandine,
                         new HealthRegenConsumable(),
+                        new ManaRegenConsumable(),
+                        new StaminaRegenConsumable(),
                         KeyItem.HideawayKey
                     },
                     false)));

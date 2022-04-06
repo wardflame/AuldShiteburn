@@ -874,7 +874,7 @@ namespace AuldShiteburn.EntityData.PlayerData
         /// <param name="armour">Armour in question.</param>
         public void ArmourAffinityCheck(ArmourItem armour)
         {
-            if (armour.IsPhysicalProficient && armour.HasPropertyAffinity)
+            if (armour.IsProficient)
             {
                 Utils.WriteColour($"{armour.Name} ", ConsoleColor.DarkGreen);
             }

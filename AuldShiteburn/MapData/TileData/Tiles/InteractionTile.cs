@@ -91,6 +91,10 @@ namespace AuldShiteburn.MapData.TileData.Tiles
         /// <returns></returns>
         protected bool CycleInteraction(List<InteractionData> interactions, string decisionRefusal = null)
         {
+            if (interactions == null || interactions.Count <= 0)
+            {
+                return false;
+            }
             int index = 0;
             PrintBrowseUI(true);
             PrintInteraction(interactions[index]);
@@ -102,14 +106,14 @@ namespace AuldShiteburn.MapData.TileData.Tiles
                 {
                     case ConsoleKey.LeftArrow:
                         {
-                            if (index <= interactions.Count - 1 && index > 0)
+                            if (index > 0 && index <= interactions.Count - 1)
                             {
                                 index--;
                                 if (interactions[index].decision)
                                 {
                                     index++;
                                 }
-                                if (index <= 0)
+                                if (index <= 0 || interactions[index - 1].decision)
                                 {
                                     Utils.ClearInteractInterface(3);
                                     PrintBrowseUI(true);
@@ -149,6 +153,7 @@ namespace AuldShiteburn.MapData.TileData.Tiles
                                         Utils.ClearInteractInterface();
                                         Utils.SetCursorInteract();
                                         PrintInteraction(interactions[index]);
+                                        PrintBrowseUI(true);
                                     }
                                     else
                                     {
@@ -186,9 +191,12 @@ namespace AuldShiteburn.MapData.TileData.Tiles
                         break;
                     case ConsoleKey.Backspace:
                         {
-                            Utils.SetCursorInteract(3);
-                            Console.Write(new string(' ', Console.WindowWidth - Utils.UIInteractOffset));
-                            return true;
+                            if (index == interactions.Count - 1)
+                            {
+                                Utils.SetCursorInteract(3);
+                                Console.Write(new string(' ', Console.WindowWidth - Utils.UIInteractOffset));
+                                return true;
+                            }
                         }
                         break;
                 }

@@ -161,16 +161,10 @@ namespace AuldShiteburn.EntityData
             if (Instance.EquippedArmour != null)
             {
                 ArmourItem playerArmour = Instance.EquippedArmour;
-                bool physRes = playerArmour.PrimaryPhysicalResistance == combatPayload.PhysicalAttackType;
-                bool propRes = playerArmour.PrimaryPropertyResistance == combatPayload.PropertyAttackType;
 
                 #region Physical Damage Mitigation
                 Console.Write($"{Instance.Name} takes ");
                 int physDamage = combatPayload.PhysicalDamage -= playerArmour.PhysicalMitigation;
-                if (physRes)
-                {
-                    physDamage -= Combat.ARMOUR_RESISTANCE_MITIGATION_MODIFIER;
-                }
                 if (physDamage < 0)
                 {
                     physDamage = 0;
@@ -181,10 +175,6 @@ namespace AuldShiteburn.EntityData
 
                 #region Property Damage Mitigation
                 int propDamage = combatPayload.PropertyDamage -= playerArmour.PropertyMitigation;
-                if (propRes)
-                {
-                    propDamage -= Combat.ARMOUR_RESISTANCE_MITIGATION_MODIFIER;
-                }
                 if (propDamage < 0)
                 {
                     propDamage = 0;
