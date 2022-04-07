@@ -62,6 +62,45 @@ namespace AuldShiteburn.MapData.TileData.Tiles
             }
         }
 
+        public static bool GenerateLootTile()
+        {
+            int spawnX = PlayerEntity.Instance.PosX;
+            int spawnY = PlayerEntity.Instance.PosY;
+            bool tileFound = false;
+            for (int x = -1; x <= 1; x++)
+            {
+                for (int y = -1; y <= 1; y++)
+                {
+                    if (x == 0 && y == 0)
+                    {
+                        continue;
+                    }
+                    int checkX = PlayerEntity.Instance.PosX + x;
+                    int checkY = PlayerEntity.Instance.PosY + y;
+                    Tile emptyTile = Map.Instance.CurrentArea.GetTile(checkX, checkY);
+                    if (emptyTile != null && emptyTile.DisplayChar == Tile.AirTile.DisplayChar)
+                    {
+                        spawnX = checkX;
+                        spawnY = checkY;
+                        tileFound = true;
+                        break;
+                    }
+                }
+                if (tileFound)
+                {
+                    break;
+                }
+            }
+            if (!tileFound)
+            {
+                return false;
+            }
+            Map.Instance.CurrentArea.SetTile(spawnX, spawnY,
+                new LootTile("Loot Pile", new List<Item>(), true, true));
+            Map.Instance.PrintTile(spawnX, spawnY);
+            return true;
+        }
+
         public override void OnCollision(Entity entity)
         {
             foreach (Item item in Items.ToArray())

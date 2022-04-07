@@ -29,16 +29,18 @@ namespace AuldShiteburn.MapData
         public abstract string Name { get; }
         public abstract int Width { get; }
         public abstract int Height { get; }
+        public bool NewGame { get; private set; } = true;
+
         private int posX;
         private int posY;
 
         protected List<Area> AvailableAreas { get; } = new List<Area>();
-        private Area[] areas;
-        public Area CurrentArea => areas[GetIndex(posX, posY)];
+        public Area[] ActiveAreas { get; set; }
+        public Area CurrentArea => ActiveAreas[GetIndex(posX, posY)];
 
         public Map()
         {
-            areas = new Area[Width * Height];
+            ActiveAreas = new Area[Width * Height];
         }
 
         /// <summary>
@@ -70,28 +72,52 @@ namespace AuldShiteburn.MapData
         /// create passage tiles in area 0, 0, in the east and area 0, 1,
         /// in the west.
         /// </summary>
-        private void ConnectAreas()
+        public void ConnectAreas()
         {
             for (int y = 0; y < Height; y++)
             {
                 for (int x = 0; x < Width; x++)
                 {
+                    #region West Connection
                     if (x > 0)
                     {
-                        areas[GetIndex(x, y)].ConnectInDirection(Direction.West);
+                        ActiveAreas[GetIndex(x, y)].ConnectInDirection(Direction.West, true);
                     }
+                    else
+                    {
+                        ActiveAreas[GetIndex(x, y)].ConnectInDirection(Direction.West, false);
+                    }
+                    #endregion West Connection
+                    #region North Connection
                     if (y > 0)
                     {
-                        areas[GetIndex(x, y)].ConnectInDirection(Direction.North);
+                        ActiveAreas[GetIndex(x, y)].ConnectInDirection(Direction.North, true);
                     }
+                    else
+                    {
+                        ActiveAreas[GetIndex(x, y)].ConnectInDirection(Direction.North, false);
+                    }
+                    #endregion North Connection
+                    #region East Connection
                     if (x < Width - 1)
                     {
-                        areas[GetIndex(x, y)].ConnectInDirection(Direction.East);
+                        ActiveAreas[GetIndex(x, y)].ConnectInDirection(Direction.East, true);
                     }
+                    else
+                    {
+                        ActiveAreas[GetIndex(x, y)].ConnectInDirection(Direction.East, false);
+                    }
+                    #endregion East Connection
+                    #region South Connection
                     if (y < Height - 1)
                     {
-                        areas[GetIndex(x, y)].ConnectInDirection(Direction.South);
+                        ActiveAreas[GetIndex(x, y)].ConnectInDirection(Direction.South, true);
                     }
+                    else
+                    {
+                        ActiveAreas[GetIndex(x, y)].ConnectInDirection(Direction.South, false);
+                    }
+                    #endregion South Connection
                 }
             }
         }
@@ -109,7 +135,7 @@ namespace AuldShiteburn.MapData
             {
                 return;
             }
-            areas[GetIndex(posX, posY)] = area;
+            ActiveAreas[GetIndex(posX, posY)] = area;
         }
 
         /// <summary>
@@ -125,12 +151,16 @@ namespace AuldShiteburn.MapData
         /// </summary>
         public void RandomiseAreas()
         {
-            SetFixedAreas();
+            if (NewGame)
+            {
+                SetFixedAreas();
+                NewGame = false;
+            }
             Random rand = new Random();
             List<string> fixedNames = new List<string>();
             for (int i = 0; i < Width * Height; i++)
             {
-                Area targetFixed = areas[i];
+                Area targetFixed = ActiveAreas[i];
                 if (targetFixed != null)
                 {
                     fixedNames.Add(targetFixed.Name);
@@ -141,7 +171,7 @@ namespace AuldShiteburn.MapData
             {
                 for (int x = 0; x < Width; x++)
                 {
-                    if (areas[GetIndex(x, y)] == null)
+                    if (ActiveAreas[GetIndex(x, y)] == null)
                     {
                         int index;
                         Area randomArea;
@@ -162,7 +192,7 @@ namespace AuldShiteburn.MapData
                                 break;
                             }
                         }
-                        areas[GetIndex(x, y)] = randomArea;
+                        ActiveAreas[GetIndex(x, y)] = randomArea;
                         fixedNames.Add(randomArea.Name);
                     }
                 }
@@ -211,11 +241,11 @@ namespace AuldShiteburn.MapData
                     }
                     break;
             }
-            if (CurrentArea.Enemies.Count > 0)
+            if (CurrentArea.CombatEncounter && CurrentArea.Enemies.Count > 0)
             {
                 Utils.ClearInteractInterface();
                 Utils.SetCursorInteract();
-                if (CurrentArea.BossRoom)
+                if (CurrentArea.BossArea)
                 {
                     if (!Utils.VerificationQuery("Something terrible lies ahead. Do you wish to continue? (Y/N)"))
                     {
@@ -296,6 +326,11 @@ namespace AuldShiteburn.MapData
             }
         }
 
+        /// <summary>
+        /// Get tile at coordinate in ActiveAreas, check its colours and print.
+        /// </summary>
+        /// <param name="x">X coordinate in ActiveAreas.</param>
+        /// <param name="y">Y coordinate in ActiveAreas.</param>
         public void PrintTile(int x, int y)
         {
             Tile tile = CurrentArea.GetTile(x, y);

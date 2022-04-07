@@ -163,9 +163,20 @@ namespace AuldShiteburn.ItemData.ArmourData
         /// <param name="sortData"></param>
         public override void OnInventoryUse(InventorySortData sortData)
         {
-            ArmourItem equippedWeapon = PlayerEntity.Instance.EquippedArmour;
-            PlayerEntity.Instance.Inventory.ItemList[sortData.index, sortData.typeColumn] = equippedWeapon;
-            PlayerEntity.Instance.EquippedArmour = this;
+            if (IsProficient)
+            {
+                ArmourItem equippedWeapon = PlayerEntity.Instance.EquippedArmour;
+                PlayerEntity.Instance.Inventory.ItemList[sortData.index, sortData.typeColumn] = equippedWeapon;
+                PlayerEntity.Instance.EquippedArmour = this;
+            }
+            else
+            {
+                Utils.SetCursorInteract(Console.CursorTop);
+                Utils.WriteColour("You are not proficient with this type of armour.", ConsoleColor.Red);
+                Utils.SetCursorInteract(Console.CursorTop);
+                Utils.WriteColour("Press any key to continue.");
+                Console.ReadKey(true);
+            }
         }
 
         /// <summary>

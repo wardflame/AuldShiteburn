@@ -9,7 +9,6 @@ namespace AuldShiteburn.MapData.Maps
         public override string Name => "Auld Shiteburn";
         public override int Width => 3;
         public override int Height => 3;
-        private bool newGame = true;
 
         public AuldShiteburnMap()
         {
@@ -21,22 +20,17 @@ namespace AuldShiteburn.MapData.Maps
             AvailableAreas.Add(new ShiterootGardenArea());
             AvailableAreas.Add(new StablesArea());
             AvailableAreas.Add(new TheDrainArea());
-            AvailableAreas.Add(new TheGranaryArea());
+            AvailableAreas.Add(new TheMillHouseArea());
         }
 
         protected override void SetFixedAreas()
         {
             SetArea(0, 0, new StartArea());
             SetArea(2, 2, new EndArea());
-
-            if (newGame)
-            {
-                SetArea(1, 0, new LivingQuarterArea());
-                SetArea(1, 1, new ShitepileArea());
-                SetArea(2, 0, new ShiterootGardenArea());
-                SetArea(2, 1, new TheDrainArea());
-                newGame = false;
-            }
+            SetArea(1, 0, new LivingQuarterArea());
+            SetArea(1, 1, new ShitepileArea());
+            SetArea(2, 0, new ShiterootGardenArea());
+            SetArea(2, 1, new TheDrainArea());           
         }
     }
 }

@@ -1,14 +1,27 @@
-﻿using AuldShiteburn.MapData.TileData;
+﻿using AuldShiteburn.ItemData;
+using AuldShiteburn.ItemData.ConsumableData.Consumables;
+using AuldShiteburn.ItemData.KeyData;
+using AuldShiteburn.MapData.TileData;
+using AuldShiteburn.MapData.TileData.Tiles;
+using AuldShiteburn.MapData.TileData.Tiles.NPCs;
 using System;
+using System.Collections.Generic;
 
 namespace AuldShiteburn.MapData.AreaData.Areas
 {
     [Serializable]
-    class TheGranaryArea : Area
+    class TheMillHouseArea : Area
     {
-        public override string Name => "The Granary";
+        public override string Name => "The Mill House";
         public override int Width => 20;
         public override int Height => 20;
+        public override bool CombatEncounter => true;
+        public override bool BossArea => false;
+
+        protected override void AddSpecialTiles()
+        {
+            
+        }
 
         protected override void TileGeneration()
         {
@@ -33,7 +46,7 @@ namespace AuldShiteburn.MapData.AreaData.Areas
 
         }
 
-        protected override void InitEnemies()
+        public override void InitEnemies()
         {
         }
     }

@@ -17,15 +17,28 @@ namespace AuldShiteburn.MapData.AreaData.Areas
         public override string Name => "Living Quarter";
         public override int Width => 20;
         public override int Height => 20;
+        public override bool CombatEncounter => true;
+        public override bool BossArea => false;
         private bool EnemiesDefeated { get; set; } = false;
 
         protected override void AddSpecialTiles()
         {
-            placeData.Add(new TilePlaceData(3, 1, new EarhNPCTile()));
-            placeData.Add(new TilePlaceData(4, 4, new DoorTile(true, KeyItem.ResidenceKey)));
+            placeData.Add(new TilePlaceData(1, 6, new EarhNPCTile()));
+            #region Earh House
+            for (int x = 1; x <= 5; x++)
+            {
+                placeData.Add(new TilePlaceData(x, 7, Tile.WallTile));
+            }
+            for (int y = 2; y <= 6; y++)
+            {
+                placeData.Add(new TilePlaceData(5, y, Tile.WallTile));
+
+            }
+            placeData.Add(new TilePlaceData(5, 1, new DoorTile(true, KeyItem.ResidenceKey)));
+            #endregion Earh House
         }
 
-        protected override void InitEnemies()
+        public override void InitEnemies()
         {
             Enemies.Add(new ShiteHuskEnemyEntity());
             Enemies.Add(new ShiteHuskEnemyEntity());
@@ -42,7 +55,7 @@ namespace AuldShiteburn.MapData.AreaData.Areas
                     Map.Instance.PrintTile(PlayerEntity.Instance.PosX + 1, PlayerEntity.Instance.PosY);
                     EnemiesDefeated = true;
                 }
-                EarhNPCTile earh = GetTile(3, 1) as EarhNPCTile;
+                EarhNPCTile earh = GetTile(1, 6) as EarhNPCTile;
                 earh.Interaction();
                 FirstEnter = false;
             }

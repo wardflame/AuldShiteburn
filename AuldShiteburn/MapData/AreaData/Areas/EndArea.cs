@@ -1,4 +1,5 @@
-﻿using AuldShiteburn.MapData.TileData;
+﻿using AuldShiteburn.CombatData;
+using AuldShiteburn.MapData.TileData;
 using AuldShiteburn.MapData.TileData.Tiles.NPCs;
 using System;
 
@@ -10,13 +11,20 @@ namespace AuldShiteburn.MapData.AreaData.Areas
         public override string Name => "Foulstench, Heart of the Shite";
         public override int Width => 20;
         public override int Height => 20;
+        public override bool CombatEncounter => true;
+        public override bool BossArea => true;
+        public override bool BossDefeated => false;
 
-        protected override void InitEnemies()
+        public override void InitEnemies()
         {
         }
 
         public override void OnFirstEnter()
         {
+            if (Combat.CombatEncounter(Enemies))
+            {
+                BossDefeated = true;
+            }
         }
 
         protected override void TileGeneration()

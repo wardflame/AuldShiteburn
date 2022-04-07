@@ -52,7 +52,7 @@ namespace AuldShiteburn.CombatData
                 Utils.SetCursorInteract();
                 ASCIIArt.PrintASCII(ASCIIArt.VICTORY_MESSAGE, ConsoleColor.Green);
                 Console.CursorTop += 2;
-                Utils.WriteColour("Press any key to continue...");
+                Utils.WriteColour("Press any key to continue.");
                 Console.ReadKey(true);
                 Utils.ClearInteractInterface();
                 PlayerEntity.Instance.HP = PlayerEntity.Instance.MaxHP;
@@ -72,7 +72,7 @@ namespace AuldShiteburn.CombatData
                 Utils.SetCursorInteract();
                 ASCIIArt.PrintASCII(ASCIIArt.DEATH_MESSAGE, ConsoleColor.Red);
                 Console.CursorTop += 2;
-                Utils.WriteColour("Press any key to continue...");
+                Utils.WriteColour("Press any key to continue.");
                 Console.ReadKey(true);
                 Game.playing = false;
                 Game.mainMenu = true;
@@ -227,7 +227,7 @@ namespace AuldShiteburn.CombatData
             }
             // Readkey to ensure player has a chance to read the round's report.
             Console.SetCursorPosition(Utils.UIInteractOffset, endOffset);
-            Utils.WriteColour("Press any key to continue...");
+            Utils.WriteColour("Press any key to continue.");
             Console.ReadKey(true);
             Utils.ClearInteractInterface(30);
         }
@@ -273,7 +273,7 @@ namespace AuldShiteburn.CombatData
                     }
                     // Readkey to ensure player has a chance to read the round's report.
                     Console.SetCursorPosition(Utils.UIInteractOffset, endOffset);
-                    Utils.WriteColour("Press any key to continue...");
+                    Utils.WriteColour("Press any key to continue.");
                     Console.ReadKey(true);
                     Utils.ClearInteractInterface(30);
                 }

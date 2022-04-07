@@ -1,4 +1,5 @@
 ﻿using AuldShiteburn.ItemData;
+using AuldShiteburn.ItemData.ArmourData;
 using AuldShiteburn.ItemData.ConsumableData.Consumables;
 using AuldShiteburn.ItemData.KeyData;
 using AuldShiteburn.MapData.TileData;
@@ -15,6 +16,8 @@ namespace AuldShiteburn.MapData.AreaData.Areas
         public override string Name => "Shitebreach";
         public override int Width => 20;
         public override int Height => 20;
+        public override bool CombatEncounter => false;
+        public override bool BossArea => false;
 
         protected override void AddSpecialTiles()
         {
@@ -34,14 +37,13 @@ namespace AuldShiteburn.MapData.AreaData.Areas
                     new List<Item>()
                     {
                         new HealthRegenConsumable(),
-                        new ManaRegenConsumable(),
-                        new StaminaRegenConsumable(),
                         KeyItem.HideawayKey
                     },
                     false)));
+            placeData.Add(new TilePlaceData(6, 6, new ShitefireNPCTile()));
         }
 
-        protected override void InitEnemies()
+        public override void InitEnemies()
         {
         }
 

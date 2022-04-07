@@ -47,9 +47,20 @@ namespace AuldShiteburn.ItemData.WeaponData
         /// </summary>
         public override void OnInventoryUse(InventorySortData sortData)
         {
-            WeaponItem equippedWeapon = PlayerEntity.Instance.EquippedWeapon;
-            PlayerEntity.Instance.Inventory.ItemList[sortData.index, sortData.typeColumn] = equippedWeapon;
-            PlayerEntity.Instance.EquippedWeapon = this;
+            if (Type.IsProficient)
+            {
+                WeaponItem equippedWeapon = PlayerEntity.Instance.EquippedWeapon;
+                PlayerEntity.Instance.Inventory.ItemList[sortData.index, sortData.typeColumn] = equippedWeapon;
+                PlayerEntity.Instance.EquippedWeapon = this;
+            }
+            else
+            {
+                Utils.SetCursorInteract(Console.CursorTop);
+                Utils.WriteColour("You are not proficient with this type of weapon.", ConsoleColor.Red);
+                Utils.SetCursorInteract(Console.CursorTop);
+                Utils.WriteColour("Press any key to continue.");
+                Console.ReadKey(true);
+            }
         }
 
         /// <summary>
@@ -63,11 +74,11 @@ namespace AuldShiteburn.ItemData.WeaponData
             weapon.Type = WeaponType.AllWeaponTypes[rand.Next(0, WeaponType.AllWeaponTypes.Count)];
 
             #region Material Generation
-            if (rand.Next(1, 101) <= 20)
+            if (rand.NextDouble() <= 0.2)
             {
                 weapon.Material = WeaponMaterial.WeaponMaterialList[rand.Next(3, WeaponMaterial.WeaponMaterialList.Count)];
             }
-            else if (rand.Next(1, 101) <= 40)
+            else if (rand.NextDouble() <= 0.4)
             {
                 weapon.Material = WeaponMaterial.WeaponMaterialSteel;
             }

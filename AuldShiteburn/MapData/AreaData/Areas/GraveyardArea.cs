@@ -9,8 +9,10 @@ namespace AuldShiteburn.MapData.AreaData.Areas
         public override string Name => "The Graveyard";
         public override int Width => 20;
         public override int Height => 20;
+        public override bool CombatEncounter => true;
+        public override bool BossArea => false;
 
-        protected override void InitEnemies()
+        public override void InitEnemies()
         {
         }
 

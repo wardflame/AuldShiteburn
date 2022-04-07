@@ -9,8 +9,10 @@ namespace AuldShiteburn.MapData.AreaData.Areas
         public override string Name => "Guild Hall";
         public override int Width => 20;
         public override int Height => 20;
+        public override bool CombatEncounter => false;
+        public override bool BossArea => false;
 
-        protected override void InitEnemies()
+        public override void InitEnemies()
         {
         }
 

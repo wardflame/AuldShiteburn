@@ -12,8 +12,10 @@ namespace AuldShiteburn.MapData
         public abstract string Name { get; }
         public abstract int Width { get; }
         public abstract int Height { get; }
-        public virtual bool BossRoom { get; }
-        public bool FirstEnter { get; set; } = false;
+        public abstract bool CombatEncounter { get; }
+        public abstract bool BossArea { get; }
+        public virtual bool BossDefeated { get; protected set; }
+        public bool FirstEnter { get; set; } = true;
         private Tile[] area;
         protected List<TilePlaceData> placeData = new List<TilePlaceData>();
         public List<EnemyEntity> Enemies { get; set; } = new List<EnemyEntity>();
@@ -35,7 +37,7 @@ namespace AuldShiteburn.MapData
         /// <summary>
         /// Generate enemies for first entry.
         /// </summary>
-        protected abstract void InitEnemies();
+        public abstract void InitEnemies();
 
         /// <summary>
         /// Generate tiles for area.
@@ -112,10 +114,20 @@ namespace AuldShiteburn.MapData
         /// Connect areas to each other based on cardinal directions.
         /// </summary>
         /// <param name="direction"></param>
-        public void ConnectInDirection(Direction direction)
+        public void ConnectInDirection(Direction direction, bool valid)
         {
-            PassageTile pTile = new PassageTile();
-            pTile.Direction = direction;
+            Tile tile;
+            if (valid)
+            {
+                PassageTile pTile = new PassageTile();
+                pTile.Direction = direction;
+                tile = pTile;
+            }
+            else
+            {
+                BasicTile wTile = Tile.WallTile;
+                tile = wTile;
+            }
             switch (direction)
             {
                 case Direction.North:
@@ -123,13 +135,13 @@ namespace AuldShiteburn.MapData
                         float middle = Width / 2f;
                         if (Width % 2 == 0)
                         {
-                            SetTile((int)middle, 0, pTile);
-                            SetTile((int)middle - 1, 0, pTile);
+                            SetTile((int)middle, 0, tile);
+                            SetTile((int)middle - 1, 0, tile);
                         }
                         else
                         {
                             middle = MathF.Floor(middle);
-                            SetTile((int)middle, 0, pTile);
+                            SetTile((int)middle, 0, tile);
                         }
                     }
                     break;
@@ -138,13 +150,13 @@ namespace AuldShiteburn.MapData
                         float middle = Width / 2f;
                         if (Width % 2 == 0)
                         {
-                            SetTile((int)middle, Height - 1, pTile);
-                            SetTile((int)middle - 1, Height - 1, pTile);
+                            SetTile((int)middle, Height - 1, tile);
+                            SetTile((int)middle - 1, Height - 1, tile);
                         }
                         else
                         {
                             middle = MathF.Floor(middle);
-                            SetTile((int)middle, Height - 1, pTile);
+                            SetTile((int)middle, Height - 1, tile);
                         }
                     }
                     break;
@@ -153,13 +165,13 @@ namespace AuldShiteburn.MapData
                         float middle = Height / 2f;
                         if (Height % 2 == 0)
                         {
-                            SetTile(Width - 1, (int)middle, pTile);
-                            SetTile(Width - 1, (int)middle - 1, pTile);
+                            SetTile(Width - 1, (int)middle, tile);
+                            SetTile(Width - 1, (int)middle - 1, tile);
                         }
                         else
                         {
                             middle = MathF.Floor(middle);
-                            SetTile(Width - 1, (int)middle, pTile);
+                            SetTile(Width - 1, (int)middle, tile);
                         }
                     }
                     break;
@@ -168,13 +180,13 @@ namespace AuldShiteburn.MapData
                         float middle = Height / 2f;
                         if (Height % 2 == 0)
                         {
-                            SetTile(0, (int)middle, pTile);
-                            SetTile(0, (int)middle - 1, pTile);
+                            SetTile(0, (int)middle, tile);
+                            SetTile(0, (int)middle - 1, tile);
                         }
                         else
                         {
                             middle = MathF.Floor(middle);
-                            SetTile(0, (int)middle, pTile);
+                            SetTile(0, (int)middle, tile);
                         }
                     }
                     break;

@@ -89,7 +89,7 @@ namespace AuldShiteburn.MapData.TileData.Tiles
         /// <param name="interactions">List of interactions to cycle through.</param>
         /// <param name="decisionRefusal">If they is a decision prompt, provide a string to display if the player refuses.</param>
         /// <returns></returns>
-        protected bool CycleInteraction(List<InteractionData> interactions, string decisionRefusal = null)
+        protected bool CycleInteraction(List<InteractionData> interactions, string decisionRefusal = null, bool shitefire = false)
         {
             if (interactions == null || interactions.Count <= 0)
             {
@@ -149,6 +149,10 @@ namespace AuldShiteburn.MapData.TileData.Tiles
                                     Utils.SetCursorInteract(2);
                                     if (Decision())
                                     {
+                                        if (shitefire)
+                                        {
+                                            return true;
+                                        }
                                         index++;
                                         Utils.ClearInteractInterface();
                                         Utils.SetCursorInteract();

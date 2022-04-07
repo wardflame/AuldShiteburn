@@ -28,7 +28,7 @@ namespace AuldShiteburn.ItemData.ConsumableData.Consumables
             }
             Stock--;
             Utils.SetCursorInteract(Console.CursorTop - 1);
-            Utils.WriteColour("Press any key to continue...");
+            Utils.WriteColour("Press any key to continue.");
             Console.ReadKey(true);
         }
     }

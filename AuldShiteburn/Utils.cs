@@ -78,9 +78,10 @@ namespace AuldShiteburn
         /// </summary>
         /// <param name="colour">Colour for string.</param>
         /// <param name="message">String to print.</param>
-        public static void WriteColour(string message, ConsoleColor colour = ConsoleColor.Gray)
+        public static void WriteColour(string message, ConsoleColor foreground = ConsoleColor.Gray, ConsoleColor background = ConsoleColor.Black)
         {
-            Console.ForegroundColor = colour;
+            Console.ForegroundColor = foreground;
+            Console.BackgroundColor = background;
             Console.Write(message);
             Console.ResetColor();
         }
