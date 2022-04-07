@@ -9,11 +9,15 @@ namespace AuldShiteburn.ItemData.KeyData
         #region Keys
         public static KeyItem HideawayKey
         {
-            get { return new KeyItem("Hideaway Key", "Key to Ormod's hideaway in Shitebreach."); }
+            get { return new KeyItem("Hideaway Key", "Unlocks Ormod's hideaway in Shitebreach."); }
         }
-        public static KeyItem ResidenceKey
+        public static KeyItem EastResidenceKey
         {
-            get { return new KeyItem("Residence Key", "Use in the Living Quarter."); }
+            get { return new KeyItem("East Residence Key", "Unlocks the East residence in Living Quarters."); }
+        }
+        public static KeyItem WestResidenceKey
+        {
+            get { return new KeyItem("West Residence Key", "Unlocks the West residence in Living Quarters."); }
         }
         public static KeyItem ShitebreachSouthKey
         {
@@ -30,7 +34,8 @@ namespace AuldShiteburn.ItemData.KeyData
                 return new List<KeyItem>()
                 {
                     HideawayKey,
-                    ResidenceKey,
+                    EastResidenceKey,
+                    WestResidenceKey,
                     ShitebreachSouthKey,
                 };
             }

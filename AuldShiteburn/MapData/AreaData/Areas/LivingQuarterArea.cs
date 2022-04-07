@@ -34,8 +34,36 @@ namespace AuldShiteburn.MapData.AreaData.Areas
                 placeData.Add(new TilePlaceData(5, y, Tile.WallTile));
 
             }
-            placeData.Add(new TilePlaceData(5, 1, new DoorTile(true, KeyItem.ResidenceKey)));
+            placeData.Add(new TilePlaceData(5, 1, new DoorTile(true, KeyItem.WestResidenceKey)));
             #endregion Earh House
+            #region East House
+            for (int x = 16; x <= 19; x++)
+            {
+                if (x == 16)
+                {
+                    placeData.Add(new TilePlaceData(x, 13, new DoorTile(true, KeyItem.EastResidenceKey)));
+                }
+                else
+                {
+                    placeData.Add(new TilePlaceData(x, 13, Tile.WallTile));
+                }
+            }
+            for (int x = 10; x <= 15; x++)
+            {
+                placeData.Add(new TilePlaceData(x, 6, Tile.WallTile));
+            }
+            for (int y = 1; y <= 6; y++)
+            {
+                placeData.Add(new TilePlaceData(10, y, Tile.WallTile));
+            }
+            for (int y = 6; y <= 13; y++)
+            {
+                placeData.Add(new TilePlaceData(15, y, Tile.WallTile));
+            }
+            #endregion East House
+            #region South-West House
+            
+            #endregion South-West House
         }
 
         public override void InitEnemies()
