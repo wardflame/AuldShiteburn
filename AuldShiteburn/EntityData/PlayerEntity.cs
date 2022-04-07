@@ -298,7 +298,7 @@ namespace AuldShiteburn.EntityData
                 Utils.WriteColour($"{Instance.Mana}", ConsoleColor.Blue);
             }
             Utils.SetCursorPlayerStat(4);
-            Utils.WriteColour("Ability Status Effect: ");
+            Utils.WriteColour("Ability Effect: ");
             if (Instance.AbilityStatusEffect != null)
             {
                 Utils.WriteColour($"{Instance.AbilityStatusEffect.Name}: ", Instance.AbilityStatusEffect.DisplayColor);
@@ -309,7 +309,7 @@ namespace AuldShiteburn.EntityData
                 Utils.WriteColour("--");
             }
             Utils.SetCursorPlayerStat(5);
-            Utils.WriteColour("Potion Status Effect: ");
+            Utils.WriteColour("Potion Effect: ");
             if (Instance.PotionStatusEffect != null)
             {
                 Utils.WriteColour($"{Instance.PotionStatusEffect.Name}: ", Instance.PotionStatusEffect.DisplayColor);

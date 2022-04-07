@@ -158,6 +158,8 @@ Backspace - Menu back/cancel.
 
 [LEGEND]
 >> Interactables (Walking into any of these will begin an interaction.)
+$$ - Shitefire
+(( - Obelisk
 %% - NPC
 !! - Storage Container
 ?? - Loot Pile
@@ -175,17 +177,20 @@ become the heart of a great omen; if not stopped, the rotting shite may spread. 
 you've pledged to investigate the place and rid it of its foul curse. Save the unfortunate and purify
 the land.
 
-[GAMEPLAY]
->> Classes
-Each notable figure has a class, providing 1-3 unique abilities, with offensive, defensive or utility
-potential. Some classes will be stronger against certain foes. Your character is given a random class on
-new game or death.
+[INVENTORY]
+Using the I key to navigate your inventory, select items to see more details about them.
 
 [PAGE 1] Press any key to print Page 2.
 ";
 
         public const string INTRO_PAGE2 =
             @"
+[GAMEPLAY]
+>> Classes
+Each notable figure has a class, providing 1-3 unique abilities, with offensive, defensive or utility
+potential. Some classes will be stronger against certain foes. Your character is given a random class on
+new game or death.
+
 >> Abilities
 Abilities provide offensive, defensive, utility, or a combination, advantages to a class in combat. For
 example, the Heathen class has the ability Shite Ward, which provides nullification to Occult damage for

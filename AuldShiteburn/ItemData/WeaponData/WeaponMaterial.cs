@@ -49,7 +49,7 @@ namespace AuldShiteburn.ItemData.WeaponData
             {
                 if (HasAffinity)
                 {
-                    return minDamage += Combat.PROFICIENCY_DAMAGE_BONUS_MINOR;
+                    return minDamage + Combat.PROFICIENCY_DAMAGE_BONUS_MINOR;
                 }
                 else
                 {
@@ -67,7 +67,7 @@ namespace AuldShiteburn.ItemData.WeaponData
             {
                 if (HasAffinity)
                 {
-                    return maxDamage += Combat.PROFICIENCY_DAMAGE_BONUS_MINOR;
+                    return maxDamage + Combat.PROFICIENCY_DAMAGE_BONUS_MINOR;
                 }
                 return maxDamage;
             }

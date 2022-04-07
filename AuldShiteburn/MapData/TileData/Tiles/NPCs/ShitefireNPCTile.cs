@@ -7,11 +7,11 @@ namespace AuldShiteburn.MapData.TileData.Tiles.NPCs
     internal class ShitefireNPCTile : NPCTile
     {
         public override string NPCName => "Shitefire";
+        public override ConsoleColor Foreground => ConsoleColor.DarkRed;
         private List<InteractionData> randomiseAreas = new List<InteractionData>();
 
-        public ShitefireNPCTile() : base(@"$")
+        public ShitefireNPCTile() : base("$")
         {
-            Foreground = ConsoleColor.DarkYellow;
         }
 
         public override void Interaction()
@@ -51,7 +51,7 @@ namespace AuldShiteburn.MapData.TileData.Tiles.NPCs
         protected override void InitLines()
         {
             randomiseAreas.Add(new InteractionData(Description($"A lowly burning pile of shite. Take in its fumes and see the world anew.")));
-            randomiseAreas.Add(new InteractionData(Description($"Enemies will be refreshed and some areas will randomise. Continue?"), true));
+            randomiseAreas.Add(new InteractionData(Description($"Enemies will be refreshed and some areas will randomised. Continue?"), true));
         }
     }
 }

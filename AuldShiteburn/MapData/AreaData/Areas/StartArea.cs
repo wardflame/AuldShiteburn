@@ -23,16 +23,26 @@ namespace AuldShiteburn.MapData.AreaData.Areas
         protected override void AddSpecialTiles()
         {
             #region Ormod House
-            placeData.Add(new TilePlaceData(5, 1, new OrmodNPCTile()));
-            for (int i = 1; i < 4; i++)
+            placeData.Add(new TilePlaceData(3, 1, new OrmodNPCTile()));
+            /// South wall.
+            for (int x = 1; x <= 6; x++)
             {
-                placeData.Add(new TilePlaceData(6, i, Tile.WallTile));
+                placeData.Add(new TilePlaceData(x, 5, Tile.WallTile));
             }
-            for (int i = 1; i < 7; i++)
+            /// South porch wall.
+            placeData.Add(new TilePlaceData(7, 7, Tile.WallTile));
+            /// West porch wall.
+            for (int y = 5; y <= 7; y++)
             {
-                placeData.Add(new TilePlaceData(i, 5, Tile.WallTile));
+                placeData.Add(new TilePlaceData(6, y, Tile.WallTile));
             }
-            placeData.Add(new TilePlaceData(1, 4,
+            /// East wall.
+            for (int y = 1; y <= 7; y++)
+            {
+                placeData.Add(new TilePlaceData(9, y, Tile.WallTile));
+            }
+            /// Loot.
+            placeData.Add(new TilePlaceData(6, 4,
                 new LootTile("The decaying corpse of a long-dead Heathen",
                 new List<Item>()
                 {
@@ -40,19 +50,22 @@ namespace AuldShiteburn.MapData.AreaData.Areas
                             KeyItem.HideawayKey
                 },
                 false)));
-            placeData.Add(new TilePlaceData(6, 4, new DoorTile(true, KeyItem.HideawayKey)));
+            /// Door.
+            placeData.Add(new TilePlaceData(8, 7, new DoorTile(true, KeyItem.HideawayKey)));
             #endregion Ormod House
+            placeData.Add(new TilePlaceData(5, 6, new StorageTile("Rotting Chest")));
+            placeData.Add(new TilePlaceData(7, 8, new CrestfallenGrimrNPCTile()));
             #region Moonlight Shrine
-            placeData.Add(new TilePlaceData(2, 9, new GameStatusObeliskNPCTile()));
+            placeData.Add(new TilePlaceData(2, 10, new GameStatusObeliskNPCTile()));
             placeData.Add(new TilePlaceData(1, 9, Tile.MoonlightStoneTile));
-            for (int y = 7; y <= 11; y++)
+            for (int y = 8; y <= 12; y++)
             {
                 int check = 1;
-                if (y == 7) check = 1;
-                else if (y == 8) check = 2;
-                else if (y == 9) check = 1;
-                else if (y == 10) check = 2;
-                else if (y == 11) check = 1;
+                if (y == 8) check = 1;
+                else if (y == 9) check = 2;
+                else if (y == 10) check = 1;
+                else if (y == 11) check = 2;
+                else if (y == 12) check = 1;
                 for (int x = 1; x <= check; x++)
                 {
                     placeData.Add(new TilePlaceData(x, y, Tile.MoonlightStoneTile));
@@ -81,9 +94,9 @@ namespace AuldShiteburn.MapData.AreaData.Areas
                 }
             }
             #endregion Barred South Door
-
-            placeData.Add(new TilePlaceData(7, 1, new StorageTile("Rotting Chest")));
-            placeData.Add(new TilePlaceData(6, 6, new ShitefireNPCTile()));
+            placeData.Add(new TilePlaceData(7, 15, new ShitefireNPCTile()));
+            
+            
         }
 
         public override void InitEnemies()

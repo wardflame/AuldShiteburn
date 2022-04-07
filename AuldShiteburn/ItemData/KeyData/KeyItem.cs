@@ -9,7 +9,7 @@ namespace AuldShiteburn.ItemData.KeyData
         #region Keys
         public static KeyItem HideawayKey
         {
-            get { return new KeyItem("Hideaway Key", "Key to the cell in Shitebreach."); }
+            get { return new KeyItem("Hideaway Key", "Key to Ormod's hideaway in Shitebreach."); }
         }
         public static KeyItem ResidenceKey
         {
@@ -30,7 +30,8 @@ namespace AuldShiteburn.ItemData.KeyData
                 return new List<KeyItem>()
                 {
                     HideawayKey,
-                    ResidenceKey
+                    ResidenceKey,
+                    ShitebreachSouthKey,
                 };
             }
         }

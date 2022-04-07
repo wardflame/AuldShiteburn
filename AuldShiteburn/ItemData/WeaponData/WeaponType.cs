@@ -151,7 +151,7 @@ namespace AuldShiteburn.ItemData.WeaponData
             {
                 if (IsProficient)
                 {
-                    return minDamage += Combat.PROFICIENCY_DAMAGE_BONUS_MINOR;
+                    return minDamage + Combat.PROFICIENCY_DAMAGE_BONUS_MINOR;
                 }
                 return minDamage;
             }
@@ -166,7 +166,7 @@ namespace AuldShiteburn.ItemData.WeaponData
             {
                 if (IsProficient)
                 {
-                    return maxDamage += Combat.PROFICIENCY_DAMAGE_BONUS_MINOR;
+                    return maxDamage + Combat.PROFICIENCY_DAMAGE_BONUS_MINOR;
                 }
                 return maxDamage;
             }

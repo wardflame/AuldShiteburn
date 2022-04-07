@@ -9,7 +9,7 @@ namespace AuldShiteburn.MapData.TileData.Tiles
     {
         public Inventory Storage { get; set; }
 
-        public StorageTile(string name) : base("!", true, ConsoleColor.Cyan, ConsoleColor.Black)
+        public StorageTile(string name) : base("!", true, ConsoleColor.DarkGreen, ConsoleColor.Black)
         {
             Storage = new Inventory(name, 16, 4);
         }

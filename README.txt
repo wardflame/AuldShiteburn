@@ -1,6 +1,6 @@
-▒█░░▒█ █▀▀ █░░ █▀▀ █▀▀█ █▀▄▀█ █▀▀ 　 ▀▀█▀▀ █▀▀█ 　 ▒█▀▀▀█ █░░█ ░▀░ ▀▀█▀▀ █▀▀ █▀▀▄ █░░█ █▀▀█ █▀▀▄ 
-▒█▒█▒█ █▀▀ █░░ █░░ █░░█ █░▀░█ █▀▀ 　 ░░█░░ █░░█ 　 ░▀▀▀▄▄ █▀▀█ ▀█▀ ░░█░░ █▀▀ █▀▀▄ █░░█ █▄▄▀ █░░█ 
-▒█▄▀▄█ ▀▀▀ ▀▀▀ ▀▀▀ ▀▀▀▀ ▀░░░▀ ▀▀▀ 　 ░░▀░░ ▀▀▀▀ 　 ▒█▄▄▄█ ▀░░▀ ▀▀▀ ░░▀░░ ▀▀▀ ▀▀▀░ ░▀▀▀ ▀░▀▀ ▀░░▀
+
+█░█░█ █▀▀ █░░ █▀▀ █▀█ █▀▄▀█ █▀▀   ▀█▀ █▀█   █▀ █░█ █ ▀█▀ █▀▀ █▄▄ █░█ █▀█ █▄░█
+▀▄▀▄▀ ██▄ █▄▄ █▄▄ █▄█ █░▀░█ ██▄   ░█░ █▄█   ▄█ █▀█ █ ░█░ ██▄ █▄█ █▄█ █▀▄ █░▀█
 
 [CONTROLS]
 W - Move up.
@@ -24,7 +24,6 @@ Backspace - Menu back/cancel.
 XX - Locked Door
 -- - Passage Tile (leads to new room.)
 
-
 >> Non-Interactables
 ## - Wall
 .. - Open Door
@@ -35,6 +34,9 @@ Once a normal village where shite was burned, something terrible took hold of th
 become the heart of a great omen; if not stopped, the rotting shite may spread. On behalf of the people,
 you've pledged to investigate the place and rid it of its foul curse. Save the unfortunate and purify
 the land.
+
+[INVENTORY]
+Using the I key to navigate your inventory, select items to see more details about them.
 
 [GAMEPLAY]
 >> Classes

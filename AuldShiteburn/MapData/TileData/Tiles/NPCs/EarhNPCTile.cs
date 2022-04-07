@@ -7,14 +7,13 @@ namespace AuldShiteburn.MapData.TileData.Tiles.NPCs
     internal class EarhNPCTile : NPCTile
     {
         public override string NPCName => "Earh";
-        public override ConsoleColor Foreground => ConsoleColor.Cyan;
         private List<InteractionData> stage1BeatEnemies = new List<InteractionData>();
         private List<InteractionData> stage1Interim = new List<InteractionData>();
         private List<InteractionData> stage2Freed = new List<InteractionData>();
         private bool stage1 = false;
         private bool stage2 = false;
 
-        public EarhNPCTile() : base("%%")
+        public EarhNPCTile() : base("%")
         {
         }
 

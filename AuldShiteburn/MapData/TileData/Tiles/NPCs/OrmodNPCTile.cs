@@ -7,12 +7,11 @@ namespace AuldShiteburn.MapData.TileData.Tiles.NPCs
     class OrmodNPCTile : NPCTile
     {
         public override string NPCName => "Ormod";
-        public override ConsoleColor Foreground => ConsoleColor.Cyan;
         private List<InteractionData> stage1EarhRequest = new List<InteractionData>();
         private List<InteractionData> stage1Interim = new List<InteractionData>();
         private bool stage1 = false;
 
-        public OrmodNPCTile() : base("%%")
+        public OrmodNPCTile() : base("%")
         {
         }
 
