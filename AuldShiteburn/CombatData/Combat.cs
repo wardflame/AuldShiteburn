@@ -13,21 +13,21 @@ namespace AuldShiteburn.CombatData
     internal class Combat
     {
         #region Modifier Constants
-            #region Proficiency Modifiers
-            public const int PROFICIENCY_DAMAGE_BONUS_MINOR = 2;
-            public const int PROFICIENCY_DAMAGE_BONUS_MODERATE = 4;
-            public const int PROFICIENCY_DAMAGE_BONUS_MAJOR = 6;
-            public const int PROFICIENCY_ARMOUR_MITIGATION_MINOR = 2;
-            public const int PROFICIENCY_ARMOUR_MITIGATION_MODERATE = 4;
-            public const int PROFICIENCY_ARMOUR_MITIGATION_MAJOR = 6;
+        #region Proficiency Modifiers
+        public const int PROFICIENCY_DAMAGE_BONUS_MINOR = 2;
+        public const int PROFICIENCY_DAMAGE_BONUS_MODERATE = 4;
+        public const int PROFICIENCY_DAMAGE_BONUS_MAJOR = 6;
+        public const int PROFICIENCY_ARMOUR_MITIGATION_MINOR = 2;
+        public const int PROFICIENCY_ARMOUR_MITIGATION_MODERATE = 4;
+        public const int PROFICIENCY_ARMOUR_MITIGATION_MAJOR = 6;
         #endregion Proficiency Modifiers
-            #region Status Modifiers
-            public const int STATUS_MITIGATION_MINOR = 2;
-            public const int STATUS_MITIGATION_MODERATE = 4;
-            public const int STATUS_MITIGATION_MAJOR = 6;
-            #endregion Status Modifiers
-            public const int ARMOUR_RESISTANCE_MITIGATION_MODIFIER = 2;
-            public const int WEAKNESS_BONUS_MODIFIER = 2;
+        #region Status Modifiers
+        public const int STATUS_MITIGATION_MINOR = 2;
+        public const int STATUS_MITIGATION_MODERATE = 4;
+        public const int STATUS_MITIGATION_MAJOR = 6;
+        #endregion Status Modifiers
+        public const int ARMOUR_RESISTANCE_MITIGATION_MODIFIER = 2;
+        public const int WEAKNESS_BONUS_MODIFIER = 2;
         #endregion Modifier Constants
 
         private static int RoundNumber { get; set; } = 0;
@@ -578,7 +578,7 @@ namespace AuldShiteburn.CombatData
             return PlayerEntity.Instance.Class.Abilities[index].UseAbility(enemies);
         }
     }
-    
+
     [Serializable]
     public enum EffectLevel
     {

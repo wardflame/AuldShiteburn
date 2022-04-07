@@ -1,6 +1,5 @@
 ﻿using AuldShiteburn.BackendData;
 using AuldShiteburn.CombatData;
-using AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.FighterAbilities;
 using AuldShiteburn.CombatData.PayloadData;
 using AuldShiteburn.CombatData.StatusEffectData;
 using AuldShiteburn.CombatData.StatusEffectData.StatusEffects;
@@ -60,6 +59,7 @@ namespace AuldShiteburn.EntityData
                         break;
                     case ConsoleKey.I:
                         {
+                            Instance.PrintInventory();
                             Inventory.PlayerItemInteract(true);
                             Instance.PrintStats();
                             Instance.PrintInventory();

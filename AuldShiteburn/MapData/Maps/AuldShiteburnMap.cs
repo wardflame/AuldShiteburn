@@ -30,7 +30,7 @@ namespace AuldShiteburn.MapData.Maps
             SetArea(1, 0, new LivingQuarterArea());
             SetArea(1, 1, new ShitepileArea());
             SetArea(2, 0, new ShiterootGardenArea());
-            SetArea(2, 1, new TheDrainArea());           
+            SetArea(2, 1, new TheDrainArea());
         }
     }
 }

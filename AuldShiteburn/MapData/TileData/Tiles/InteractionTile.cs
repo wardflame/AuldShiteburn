@@ -47,7 +47,7 @@ namespace AuldShiteburn.MapData.TileData.Tiles
         /// <returns></returns>
         protected string Dialogue(string dialogue)
         {
-            return Description($"{NPCName}: {dialogue}");
+            return Description($@"'{dialogue}'");
         }
 
         /// <summary>
@@ -61,6 +61,7 @@ namespace AuldShiteburn.MapData.TileData.Tiles
         /// <returns></returns>
         protected bool Decision(string promptYes = "Accept", string promptNo = "Refuse")
         {
+            Utils.SetCursorInteract(3);
             Utils.WriteColour(Description($"{promptYes} (Y) {promptNo} (N)"));
             do
             {
@@ -91,6 +92,11 @@ namespace AuldShiteburn.MapData.TileData.Tiles
         /// <returns></returns>
         protected bool CycleInteraction(List<InteractionData> interactions, string decisionRefusal = null, bool shitefire = false)
         {
+            if (NPCName != null)
+            {
+                Utils.SetCursorInteract();
+                Utils.WriteColour(NPCName, ConsoleColor.DarkYellow);
+            }
             if (interactions == null || interactions.Count <= 0)
             {
                 return false;
@@ -115,22 +121,19 @@ namespace AuldShiteburn.MapData.TileData.Tiles
                                 }
                                 if (index <= 0 || interactions[index - 1].decision)
                                 {
-                                    Utils.ClearInteractInterface(3);
+                                    Utils.ClearInteractArea(1, 3);
                                     PrintBrowseUI(true);
-                                    Utils.SetCursorInteract();
                                     PrintInteraction(interactions[index]);
                                 }
                                 else if (index <= interactions.Count - 1 && index > 0)
                                 {
-                                    Utils.ClearInteractInterface(3);
+                                    Utils.ClearInteractArea(1, 3);
                                     PrintBrowseUI();
-                                    Utils.SetCursorInteract();
                                     PrintInteraction(interactions[index]);
                                 }
                                 else
                                 {
-                                    Utils.ClearInteractInterface();
-                                    Utils.SetCursorInteract();
+                                    Utils.ClearInteractArea(1, 3);
                                     PrintInteraction(interactions[index]);
                                 }
                             }
@@ -143,10 +146,8 @@ namespace AuldShiteburn.MapData.TileData.Tiles
                                 index++;
                                 if (interactions[index].decision)
                                 {
-                                    Utils.SetCursorInteract();
-                                    Utils.ClearInteractInterface();
+                                    Utils.ClearInteractArea(1, 3);
                                     PrintInteraction(interactions[index]);
-                                    Utils.SetCursorInteract(2);
                                     if (Decision())
                                     {
                                         if (shitefire)
@@ -154,18 +155,15 @@ namespace AuldShiteburn.MapData.TileData.Tiles
                                             return true;
                                         }
                                         index++;
-                                        Utils.ClearInteractInterface();
-                                        Utils.SetCursorInteract();
+                                        Utils.ClearInteractArea(2, 2);
                                         PrintInteraction(interactions[index]);
                                         PrintBrowseUI(true);
                                     }
                                     else
                                     {
-                                        Utils.ClearInteractInterface(2);
-                                        Utils.SetCursorInteract();
+                                        Utils.ClearInteractArea(1, 3);
+                                        Utils.SetCursorInteract(1);
                                         Utils.WriteColour(Dialogue(decisionRefusal));
-                                        Utils.SetCursorInteract(3);
-                                        Utils.WriteColour(new string(' ', Console.WindowWidth - Utils.UIInteractOffset));
                                         quit = true;
                                     }
                                 }
@@ -173,16 +171,14 @@ namespace AuldShiteburn.MapData.TileData.Tiles
                                 {
                                     if (index >= interactions.Count - 1)
                                     {
-                                        Utils.ClearInteractInterface(3);
+                                        Utils.ClearInteractArea(1, 3);
                                         PrintBrowseUI(end: true);
-                                        Utils.SetCursorInteract();
                                         PrintInteraction(interactions[index]);
                                     }
                                     else
                                     {
-                                        Utils.ClearInteractInterface(3);
+                                        Utils.ClearInteractArea(1, 3);
                                         PrintBrowseUI();
-                                        Utils.SetCursorInteract();
                                         PrintInteraction(interactions[index]);
                                     }
                                 }
@@ -197,7 +193,7 @@ namespace AuldShiteburn.MapData.TileData.Tiles
                         {
                             if (index == interactions.Count - 1)
                             {
-                                Utils.SetCursorInteract(2);
+                                Utils.SetCursorInteract(3);
                                 Utils.WriteColour(new string(' ', Console.WindowWidth - Utils.UIInteractOffset));
                                 return true;
                             }
@@ -220,17 +216,17 @@ namespace AuldShiteburn.MapData.TileData.Tiles
         {
             if (start)
             {
-                Utils.SetCursorInteract(2);
+                Utils.SetCursorInteract(3);
                 Utils.WriteColour("Next -->");
             }
             else if (end)
             {
-                Utils.SetCursorInteract(2);
+                Utils.SetCursorInteract(3);
                 Utils.WriteColour("<-- Previous . Press Backspace to Leave");
             }
             else
             {
-                Utils.SetCursorInteract(2);
+                Utils.SetCursorInteract(3);
                 Utils.WriteColour("<-- Previous . Next -->");
             }
 
@@ -243,7 +239,7 @@ namespace AuldShiteburn.MapData.TileData.Tiles
         /// <param name="interaction"></param>
         protected void PrintInteraction(InteractionData interaction)
         {
-            Utils.SetCursorInteract();
+            Utils.SetCursorInteract(1);
             Console.ForegroundColor = interaction.foreground;
             Console.BackgroundColor = interaction.background;
             Utils.WriteColour(interaction.line);

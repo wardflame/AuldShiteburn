@@ -782,6 +782,27 @@ namespace AuldShiteburn.EntityData.PlayerData
         }
 
         /// <summary>
+        /// Iterate through key items in this inventory and return true if the key
+        /// passed in has the same name.
+        /// </summary>
+        /// <param name="requiredKey">Key we wanted to look for.</param>
+        /// <returns>Returns true if requiredKey matches a key in this inventory.</returns>
+        public bool CheckForKey(KeyItem requiredKey)
+        {
+            for (int i = 0; i < Row; i++)
+            {
+                if (ItemList[i, 3] != null)
+                {
+                    if (ItemList[i, 3].Name == requiredKey.Name)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
         /// When highlighting an item when iterate through the inventory, if it happens to
         /// meet the index we want, highlight it depending on the item type.
         /// </summary>

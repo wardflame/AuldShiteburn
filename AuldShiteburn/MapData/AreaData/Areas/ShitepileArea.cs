@@ -1,14 +1,5 @@
-﻿using AuldShiteburn.EntityData.Enemies;
-using AuldShiteburn.ItemData;
-using AuldShiteburn.ItemData.ConsumableData.Consumables;
-using AuldShiteburn.ItemData.KeyData;
-using AuldShiteburn.MapData.TileData;
-using AuldShiteburn.MapData.TileData.Tiles;
-using AuldShiteburn.MapData.TileData.Tiles.NPCs;
+﻿using AuldShiteburn.MapData.TileData;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace AuldShiteburn.MapData.AreaData.Areas
 {

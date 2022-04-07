@@ -11,34 +11,29 @@ namespace AuldShiteburn.MapData.TileData.Tiles
         public override bool Collidable => Locked;
         public override ConsoleColor Foreground => ConsoleColor.DarkYellow;
         public bool Locked { get; set; }
-        public KeyItem key;
+        public KeyItem Key { get; }
 
         public DoorTile(bool locked, KeyItem key = null) : base("", true)
         {
             Locked = locked;
-            this.key = key;
+            this.Key = key;
         }
 
         public override void OnCollision(Entity entity)
         {
             if (entity is PlayerEntity)
             {
-                if (key != null && Locked)
+                if (Key != null && Locked)
                 {
                     Utils.ClearInteractInterface();
                     Utils.SetCursorInteract();
-                    for (int i = 0; i < PlayerEntity.Instance.Inventory.Row; i++)
+                    if (PlayerEntity.Instance.Inventory.CheckForKey(Key))
                     {
-                        if (PlayerEntity.Instance.Inventory.ItemList[i, 3] != null)
-                        {
-                            if (PlayerEntity.Instance.Inventory.ItemList[i, 3].Name == key.Name)
-                                Locked = false;
-                            Utils.WriteColour($"Unlocked door with {key.Name}.", ConsoleColor.DarkYellow);
-                            Utils.SetCursorInteract(2);
-                            Utils.WriteColour(" Press any key to continue.");
-                            Console.ReadKey(true);
-                            break;
-                        }
+                        Utils.WriteColour($"Unlocked door with {Key.Name}.", ConsoleColor.DarkYellow);
+                        Utils.SetCursorInteract(2);
+                        Utils.WriteColour(" Press any key to continue.");
+                        Console.ReadKey(true);
+                        Locked = false;
                     }
                     if (Locked)
                     {

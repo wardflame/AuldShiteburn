@@ -15,6 +15,10 @@ namespace AuldShiteburn.ItemData.KeyData
         {
             get { return new KeyItem("Residence Key", "Use in the Living Quarter."); }
         }
+        public static KeyItem ShitebreachSouthKey
+        {
+            get { return new KeyItem("Shitebreach South Key", "Unlocks the door in the South of Shitebreach."); }
+        }
         #endregion Keys
 
         public override string Name { get; }

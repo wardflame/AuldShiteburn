@@ -4,7 +4,6 @@ using AuldShiteburn.CombatData.AbilityData.Abilities.EnemyAbilities.MadHunterAbi
 using AuldShiteburn.ItemData;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace AuldShiteburn.EntityData.Enemies
 {

@@ -53,7 +53,7 @@ namespace AuldShiteburn
         {
             if (query != null)
             {
-                Utils.WriteColour(query);
+                WriteColour(query);
             }
             do
             {

@@ -1,11 +1,5 @@
-﻿using AuldShiteburn.ItemData;
-using AuldShiteburn.ItemData.ConsumableData.Consumables;
-using AuldShiteburn.ItemData.KeyData;
-using AuldShiteburn.MapData.TileData;
-using AuldShiteburn.MapData.TileData.Tiles;
-using AuldShiteburn.MapData.TileData.Tiles.NPCs;
+﻿using AuldShiteburn.MapData.TileData;
 using System;
-using System.Collections.Generic;
 
 namespace AuldShiteburn.MapData.AreaData.Areas
 {
@@ -20,7 +14,7 @@ namespace AuldShiteburn.MapData.AreaData.Areas
 
         protected override void AddSpecialTiles()
         {
-            
+
         }
 
         protected override void TileGeneration()
