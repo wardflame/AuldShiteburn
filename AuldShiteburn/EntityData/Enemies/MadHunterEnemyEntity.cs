@@ -1,20 +1,21 @@
 ﻿using AuldShiteburn.CombatData;
 using AuldShiteburn.CombatData.AbilityData;
-using AuldShiteburn.CombatData.AbilityData.Abilities.EnemyAbilities.ShiteHuskAbilities;
+using AuldShiteburn.CombatData.AbilityData.Abilities.EnemyAbilities.MadHunterAbilities;
 using AuldShiteburn.ItemData;
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace AuldShiteburn.EntityData.Enemies
 {
     [Serializable]
-    internal class ShiteHuskEnemyEntity : EnemyEntity
+    internal class MadHunterEnemyEntity : EnemyEntity
     {
-        public ShiteHuskEnemyEntity()
+        public MadHunterEnemyEntity()
         {
             Random rand = new Random();
-            int health = rand.Next(6, 11);
-            Name = "Shite Husk";
+            int health = rand.Next(9, 16);
+            Name = "Mad Hunter";
             MaxHP = health;
             HP = health;
             PhysicalWeakness = PhysicalDamageType.Slash;
@@ -23,7 +24,7 @@ namespace AuldShiteburn.EntityData.Enemies
             StunCap = 6;
             Abilities = new List<Ability>()
             {
-                new ShiteHuskBiteAbility()
+                new MadSlashAbility()
             };
         }
     }

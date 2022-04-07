@@ -1,6 +1,7 @@
 ﻿using AuldShiteburn.CombatData;
 using AuldShiteburn.CombatData.AbilityData;
 using AuldShiteburn.CombatData.PayloadData;
+using AuldShiteburn.CombatData.StatusEffectData;
 using AuldShiteburn.ItemData;
 using System;
 using System.Collections.Generic;
@@ -12,10 +13,11 @@ namespace AuldShiteburn.EntityData
     {
         public override string EntityChar => "";
         public List<Ability> Abilities { get; protected set; }
+        public StatusEffect StatusEffect { get; set; }
         public PhysicalDamageType PhysicalWeakness { get; protected set; }
         public GeneralMaterials MaterialWeakness { get; protected set; }
         public PropertyDamageType PropertyWeakness { get; protected set; }
-        
+
         /// <summary>
         /// Reduce all active cooldowns by one and then filter through abilities
         /// and pick one at random to use. If the ability is on cooldown, try again.
@@ -43,7 +45,7 @@ namespace AuldShiteburn.EntityData
                 {
                     break;
                 }
-                ability = Abilities[rand.Next(0, Abilities.Count)];
+                ability = Abilities[rand.Next(Abilities.Count)];
                 if (ability.ActiveCooldown == 0)
                 {
                     Utils.SetCursorInteract();
@@ -56,11 +58,17 @@ namespace AuldShiteburn.EntityData
             return new CombatPayload(false);
         }
 
-        public override bool ReceiveAttack(CombatPayload combatPayload, int offsetY)
+        public override bool ReceiveAttack(CombatPayload combatPayload, int offsetY, LivingEntity aggressor = null)
         {
             Utils.SetCursorInteract(offsetY);
             Utils.WriteColour($"{Name} ");
             Utils.WriteColour($"{HP}/{MaxHP} ", ConsoleColor.Red);
+
+            if (StatusEffect != null)
+            {
+                combatPayload = StatusEffect.EffectActive(combatPayload);
+            }
+
             int physDamage = combatPayload.PhysicalDamage;
             if (combatPayload.HasPhysical)
             {
@@ -116,7 +124,7 @@ namespace AuldShiteburn.EntityData
                             Utils.WriteColour("takes ");
                             Utils.WriteColour($"{propDamage} ", ConsoleColor.DarkYellow);
                             Utils.WriteColour($"{combatPayload.PropertyAttackType} damage, ");
-                        }                        
+                        }
                     }
                 }
                 Utils.SetCursorInteract(Console.CursorTop - 1);

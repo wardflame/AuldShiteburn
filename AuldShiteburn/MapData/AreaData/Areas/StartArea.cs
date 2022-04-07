@@ -1,8 +1,6 @@
 ﻿using AuldShiteburn.ItemData;
-using AuldShiteburn.ItemData.ArmourData;
 using AuldShiteburn.ItemData.ConsumableData.Consumables;
 using AuldShiteburn.ItemData.KeyData;
-using AuldShiteburn.ItemData.WeaponData;
 using AuldShiteburn.MapData.TileData;
 using AuldShiteburn.MapData.TileData.Tiles;
 using AuldShiteburn.MapData.TileData.Tiles.NPCs;

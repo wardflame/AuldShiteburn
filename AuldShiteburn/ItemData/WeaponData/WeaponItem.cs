@@ -2,7 +2,6 @@
 using AuldShiteburn.EntityData;
 using AuldShiteburn.EntityData.PlayerData;
 using System;
-using System.Collections.Generic;
 
 namespace AuldShiteburn.ItemData.WeaponData
 {
@@ -49,7 +48,7 @@ namespace AuldShiteburn.ItemData.WeaponData
         public override void OnInventoryUse(InventorySortData sortData)
         {
             WeaponItem equippedWeapon = PlayerEntity.Instance.EquippedWeapon;
-            PlayerEntity.Instance.Inventory.ItemList[sortData.index, sortData.typeColumn] = equippedWeapon;            
+            PlayerEntity.Instance.Inventory.ItemList[sortData.index, sortData.typeColumn] = equippedWeapon;
             PlayerEntity.Instance.EquippedWeapon = this;
         }
 

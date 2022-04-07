@@ -1,5 +1,4 @@
 ﻿using AuldShiteburn.EntityData;
-using AuldShiteburn.ItemData;
 using AuldShiteburn.ItemData.KeyData;
 using System;
 
@@ -33,7 +32,7 @@ namespace AuldShiteburn.MapData.TileData.Tiles
                         if (PlayerEntity.Instance.Inventory.ItemList[i, 3] != null)
                         {
                             if (PlayerEntity.Instance.Inventory.ItemList[i, 3].Name == key.Name)
-                            Locked = false;
+                                Locked = false;
                             Utils.WriteColour($"Unlocked door with {key.Name}.", ConsoleColor.DarkYellow);
                             Utils.SetCursorInteract(2);
                             Utils.WriteColour(" Press any key to continue...");

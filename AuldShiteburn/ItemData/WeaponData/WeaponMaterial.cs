@@ -1,6 +1,5 @@
 ﻿using AuldShiteburn.CombatData;
 using AuldShiteburn.EntityData;
-using AuldShiteburn.EntityData.PlayerData;
 using System;
 using System.Collections.Generic;
 

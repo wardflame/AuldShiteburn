@@ -13,7 +13,7 @@ namespace AuldShiteburn.CombatData.AbilityData
         public abstract int Cooldown { get; }
         private int activeCooldown;
         public int ActiveCooldown
-        { 
+        {
             get
             {
                 return activeCooldown;

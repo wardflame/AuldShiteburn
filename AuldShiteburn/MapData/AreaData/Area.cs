@@ -12,10 +12,11 @@ namespace AuldShiteburn.MapData
         public abstract string Name { get; }
         public abstract int Width { get; }
         public abstract int Height { get; }
+        public virtual bool BossRoom { get; }
+        public bool FirstEnter { get; set; } = false;
         private Tile[] area;
         protected List<TilePlaceData> placeData = new List<TilePlaceData>();
-        public bool firstEnter = true;
-        public List<EnemyEntity> enemies = new List<EnemyEntity>();
+        public List<EnemyEntity> Enemies { get; set; } = new List<EnemyEntity>();
 
         public Area()
         {

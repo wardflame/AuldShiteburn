@@ -6,7 +6,6 @@ using AuldShiteburn.ItemData.ArmourData;
 using AuldShiteburn.ItemData.WeaponData;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace AuldShiteburn.EntityData.PlayerData.Classes
 {

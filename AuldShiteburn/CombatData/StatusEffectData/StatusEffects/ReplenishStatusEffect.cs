@@ -1,8 +1,6 @@
 ﻿using AuldShiteburn.CombatData.PayloadData;
 using AuldShiteburn.EntityData;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace AuldShiteburn.CombatData.StatusEffectData.StatusEffects
 {
@@ -57,7 +55,7 @@ namespace AuldShiteburn.CombatData.StatusEffectData.StatusEffects
                 Utils.WriteColour($"Stamina!");
                 PlayerEntity.Instance.Stamina += staminaRestored;
             }
-            
+
             return combatPayload;
         }
     }

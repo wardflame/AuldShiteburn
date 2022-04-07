@@ -82,7 +82,7 @@ namespace AuldShiteburn.MapData.TileData.Tiles
                 {
                     Items.Clear();
                     Looted = true;
-                }                
+                }
             }
             Utils.ClearInteractInterface();
             Utils.ClearPlayerInventoryInterface();

@@ -1,6 +1,6 @@
 ﻿using AuldShiteburn.BackendData;
 using AuldShiteburn.CombatData;
-using AuldShiteburn.CombatData.AbilityData;
+using AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.FighterAbilities;
 using AuldShiteburn.CombatData.PayloadData;
 using AuldShiteburn.CombatData.StatusEffectData;
 using AuldShiteburn.CombatData.StatusEffectData.StatusEffects;
@@ -11,7 +11,6 @@ using AuldShiteburn.ItemData.WeaponData;
 using AuldShiteburn.MenuData;
 using AuldShiteburn.MenuData.Menus;
 using System;
-using System.Collections.Generic;
 
 namespace AuldShiteburn.EntityData
 {
@@ -90,7 +89,7 @@ namespace AuldShiteburn.EntityData
 
             #region Class Generation and Stat Assignments
             //Instance.Class = CharacterClass.Classes[rand.Next(CharacterClass.Classes.Count)];
-            Instance.Class = new MonkClass();
+            Instance.Class = new FighterClass();
             Instance.MaxHP = Instance.Class.Statistics.HP;
             Instance.HP = Instance.Class.Statistics.HP;
             Instance.UsesStamina = Instance.Class.Statistics.UsesStamina;
@@ -137,12 +136,17 @@ namespace AuldShiteburn.EntityData
         /// <param name="combatPayload"></param>
         /// <param name="offsetY"></param>
         /// <returns></returns>
-        public override bool ReceiveAttack(CombatPayload combatPayload, int offsetY = 0)
+        public override bool ReceiveAttack(CombatPayload combatPayload, int offsetY = 0, LivingEntity aggressor = null)
         {
+            EnemyEntity enemy = new EnemyEntity();
+            if (aggressor != null)
+            {
+                enemy = (EnemyEntity)aggressor;
+            }
+
             int initialPhys = combatPayload.PhysicalDamage;
             int initialProp = combatPayload.PropertyDamage;
             int totalDamage = 0;
-
             // If the player has an active status effect, run its effect.
             #region Status Effect Application
             if (Instance.AbilityStatusEffect != null && Instance.AbilityStatusEffect.GetType() == typeof(DefenseStatusEffect))
@@ -219,6 +223,19 @@ namespace AuldShiteburn.EntityData
                 }
             }
             #endregion Stun Application
+
+            // If player has riposte status effect, apply debuff to enemy.
+            #region Riposte Status
+            if (totalDamage <= 0 && AbilityStatusEffect != null)
+            {
+                if (AbilityStatusEffect.Name == "Defensive Stance")
+                {
+                    enemy.StatusEffect = new DefenseStatusEffect
+                        ("Staggered", 1, ConsoleColor.Magenta, EffectType.Debuff, EffectLevel.Major, EffectLevel.Major,
+                        true, true);
+                }
+            }
+            #endregion Riposte Status
 
             Instance.HP -= totalDamage;
             Instance.PrintStats();

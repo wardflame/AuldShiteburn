@@ -10,7 +10,6 @@ using AuldShiteburn.MapData.TileData;
 using AuldShiteburn.MapData.TileData.Tiles;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace AuldShiteburn.EntityData.PlayerData
 {
@@ -634,7 +633,7 @@ namespace AuldShiteburn.EntityData.PlayerData
         /// </summary>
         /// <param name="dropItem">Item to be dropped.</param>
         /// <returns>Returns true if item was dropped, else returns false.</returns>
-        private bool DropItem (Item dropItem, InventorySortData sortData)
+        private bool DropItem(Item dropItem, InventorySortData sortData)
         {
             Utils.SetCursorInventory(-1);
             Utils.ClearLine(60);
@@ -678,7 +677,7 @@ namespace AuldShiteburn.EntityData.PlayerData
                 if (!tileFound)
                 {
                     return false;
-                }                
+                }
                 Map.Instance.CurrentArea.SetTile(spawnX, spawnY,
                 new LootTile("Loot Pile",
                     new List<Item>()
@@ -819,7 +818,7 @@ namespace AuldShiteburn.EntityData.PlayerData
                         {
                             Utils.WriteColour($"{ItemList[y - 1, typeColumn].Name}", ConsoleColor.Cyan);
                         }
-                    }                    
+                    }
                     else
                     {
                         Utils.WriteColour($"{ItemList[y - 1, typeColumn].Name}");
@@ -827,7 +826,7 @@ namespace AuldShiteburn.EntityData.PlayerData
                 }
                 else
                 {
-                    if (y - 1 == index )
+                    if (y - 1 == index)
                     {
                         Utils.WriteColour(">>", ConsoleColor.Yellow);
                     }

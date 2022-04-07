@@ -32,6 +32,9 @@ namespace AuldShiteburn.MapData.Maps
             if (newGame)
             {
                 SetArea(1, 0, new LivingQuarterArea());
+                SetArea(1, 1, new ShitepileArea());
+                SetArea(2, 0, new ShiterootGardenArea());
+                SetArea(2, 1, new TheDrainArea());
                 newGame = false;
             }
         }

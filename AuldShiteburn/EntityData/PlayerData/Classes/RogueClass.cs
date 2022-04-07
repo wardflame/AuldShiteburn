@@ -1,11 +1,11 @@
 ﻿using AuldShiteburn.CombatData;
 using AuldShiteburn.CombatData.AbilityData;
+using AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.RogueAbilities;
 using AuldShiteburn.ItemData;
 using AuldShiteburn.ItemData.ArmourData;
 using AuldShiteburn.ItemData.WeaponData;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace AuldShiteburn.EntityData.PlayerData.Classes
 {
@@ -19,6 +19,7 @@ namespace AuldShiteburn.EntityData.PlayerData.Classes
             new ProficiencyData(ArmourFamily.LightArmour, WeaponFamily.DextrousSmallArms, PropertyDamageType.Cold, GeneralMaterials.None),
             new List<Ability>()
             {
+                new DirtDishonourAbility()
             }
             )
         { }

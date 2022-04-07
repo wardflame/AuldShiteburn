@@ -1,8 +1,5 @@
-﻿using AuldShiteburn.CombatData.AbilityData;
-using AuldShiteburn.CombatData.PayloadData;
+﻿using AuldShiteburn.CombatData.PayloadData;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace AuldShiteburn.CombatData.StatusEffectData
 {
@@ -11,10 +8,20 @@ namespace AuldShiteburn.CombatData.StatusEffectData
     {
         public string Name { get; set; }
         public int Duration { get; set; }
+        public EffectType Type { get; set; }
         public ConsoleColor DisplayColor { get; set; }
         public virtual CombatPayload EffectActive(CombatPayload combatPayload)
         {
             return combatPayload;
         }
+    }
+
+    [Serializable]
+    public enum EffectType
+    {
+        None,
+        Buff,
+        Debuff,
+        Replenishment
     }
 }

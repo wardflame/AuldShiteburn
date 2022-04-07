@@ -1,6 +1,4 @@
 ﻿using AuldShiteburn.EntityData;
-using AuldShiteburn.EntityData.PlayerData;
-using AuldShiteburn.ItemData.WeaponData;
 using AuldShiteburn.MapData.TileData;
 using AuldShiteburn.MapData.TileData.Tiles;
 using System;
@@ -94,7 +92,6 @@ namespace AuldShiteburn.MapData
                     {
                         areas[GetIndex(x, y)].ConnectInDirection(Direction.South);
                     }
-
                 }
             }
         }
@@ -128,25 +125,48 @@ namespace AuldShiteburn.MapData
         /// </summary>
         public void RandomiseAreas()
         {
+            SetFixedAreas();
             Random rand = new Random();
-            List<int> uniqueIndexes = new List<int>();
+            List<string> fixedNames = new List<string>();
             for (int i = 0; i < Width * Height; i++)
             {
-                int index;
-                do
+                Area targetFixed = areas[i];
+                if (targetFixed != null)
                 {
-                    index = rand.Next(0, AvailableAreas.Count);
-                } while (uniqueIndexes.Contains(index));
-                uniqueIndexes.Add(index);
+                    fixedNames.Add(targetFixed.Name);
+                }
             }
+
             for (int y = 0; y < Height; y++)
             {
                 for (int x = 0; x < Width; x++)
                 {
-                    areas[GetIndex(x, y)] = AvailableAreas[uniqueIndexes[GetIndex(x, y)]];
+                    if (areas[GetIndex(x, y)] == null)
+                    {
+                        int index;
+                        Area randomArea;
+                        while (true)
+                        {
+                            index = rand.Next(AvailableAreas.Count);
+                            randomArea = AvailableAreas[index];
+                            int tally = 0;
+                            for (int i = 0; i < fixedNames.Count; i++)
+                            {
+                                if (randomArea.Name == fixedNames[i])
+                                {
+                                    tally++;
+                                }
+                            }
+                            if (tally == 0)
+                            {
+                                break;
+                            }
+                        }
+                        areas[GetIndex(x, y)] = randomArea;
+                        fixedNames.Add(randomArea.Name);
+                    }
                 }
             }
-            SetFixedAreas();
             ConnectAreas();
         }
 
@@ -191,11 +211,20 @@ namespace AuldShiteburn.MapData
                     }
                     break;
             }
-            if (CurrentArea.firstEnter && CurrentArea.enemies.Count > 0)
+            if (CurrentArea.Enemies.Count > 0)
             {
                 Utils.ClearInteractInterface();
                 Utils.SetCursorInteract();
-                if (!Utils.VerificationQuery("Dark creatures stir ahead. Do you wish to continue? (Y/N)"))
+                if (CurrentArea.BossRoom)
+                {
+                    if (!Utils.VerificationQuery("Something terrible lies ahead. Do you wish to continue? (Y/N)"))
+                    {
+                        posX = previousX;
+                        posY = previousY;
+                        return;
+                    }
+                }
+                else if (!Utils.VerificationQuery("Dark creatures stir ahead. Do you wish to continue? (Y/N)"))
                 {
                     posX = previousX;
                     posY = previousY;
@@ -230,7 +259,7 @@ namespace AuldShiteburn.MapData
             ClearAreaName();
             Console.SetCursorPosition(0, 0);
             PrintMap();
-            if (CurrentArea.firstEnter)
+            if (CurrentArea.FirstEnter)
             {
                 CurrentArea.OnFirstEnter();
             }
@@ -244,7 +273,7 @@ namespace AuldShiteburn.MapData
             PrintAreaName();
             PrintEntities();
             PlayerEntity.Instance.PrintStats();
-            PlayerEntity.Instance.PrintInventory();            
+            PlayerEntity.Instance.PrintInventory();
         }
 
         /// <summary>
@@ -324,7 +353,7 @@ namespace AuldShiteburn.MapData
         public void PrintEntities()
         {
             PrintEntity(PlayerEntity.Instance);
-            foreach (Entity entity in CurrentArea.enemies)
+            foreach (Entity entity in CurrentArea.Enemies)
             {
                 PrintEntity(entity);
             }
@@ -374,7 +403,7 @@ namespace AuldShiteburn.MapData
         {
             MoveEntity(PlayerEntity.Instance);
             ClearInteractOnMove();
-            foreach (Entity entity in CurrentArea.enemies)
+            foreach (Entity entity in CurrentArea.Enemies)
             {
                 MoveEntity(entity);
             }

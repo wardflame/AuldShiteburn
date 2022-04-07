@@ -1,9 +1,6 @@
 ﻿using AuldShiteburn.EntityData;
 using AuldShiteburn.EntityData.PlayerData;
-using AuldShiteburn.ItemData;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace AuldShiteburn.MapData.TileData.Tiles
 {

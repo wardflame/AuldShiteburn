@@ -2,7 +2,6 @@
 using AuldShiteburn.EntityData;
 using AuldShiteburn.EntityData.Enemies;
 using AuldShiteburn.ItemData;
-using AuldShiteburn.ItemData.ConsumableData.Consumables;
 using AuldShiteburn.ItemData.KeyData;
 using AuldShiteburn.MapData.TileData;
 using AuldShiteburn.MapData.TileData.Tiles;
@@ -28,17 +27,16 @@ namespace AuldShiteburn.MapData.AreaData.Areas
 
         protected override void InitEnemies()
         {
-            Random rand = new Random();
-            enemies.Add(new ShiteHuskEnemyEntity(rand.Next(8, 13)));
-            enemies.Add(new ShiteHuskEnemyEntity(rand.Next(8, 13)));
-            enemies.Add(new ShiteHuskEnemyEntity(rand.Next(8, 13)));
+            Enemies.Add(new ShiteHuskEnemyEntity());
+            Enemies.Add(new ShiteHuskEnemyEntity());
+            Enemies.Add(new ShiteHuskEnemyEntity());
         }
 
         public override void OnFirstEnter()
         {
             if (!EnemiesDefeated)
             {
-                if (Combat.CombatEncounter(enemies))
+                if (Combat.CombatEncounter(Enemies))
                 {
                     SetTile(PlayerEntity.Instance.PosX + 1, PlayerEntity.Instance.PosY, new LootTile("Spoils of War", new List<Item>(), true, true));
                     Map.Instance.PrintTile(PlayerEntity.Instance.PosX + 1, PlayerEntity.Instance.PosY);
@@ -46,6 +44,7 @@ namespace AuldShiteburn.MapData.AreaData.Areas
                 }
                 EarhNPCTile earh = GetTile(3, 1) as EarhNPCTile;
                 earh.Interaction();
+                FirstEnter = false;
             }
         }
 

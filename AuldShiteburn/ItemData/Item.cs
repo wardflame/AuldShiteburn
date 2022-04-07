@@ -1,6 +1,5 @@
 ﻿using AuldShiteburn.EntityData.PlayerData;
 using System;
-using System.Collections.Generic;
 
 namespace AuldShiteburn.ItemData
 {

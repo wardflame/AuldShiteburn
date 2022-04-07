@@ -2,8 +2,6 @@
 using AuldShiteburn.EntityData;
 using AuldShiteburn.EntityData.PlayerData;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace AuldShiteburn.ItemData.ConsumableData.Consumables
 {

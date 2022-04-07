@@ -171,8 +171,9 @@ XX - Locked Door
 [THE PREMISE]
 You are one of many notable figure in the realm. The name 'Auld Shiteburn' has long been in your memory.
 Once a normal village where shite was burned, something terrible took hold of the place, and now it has
-become the heart of a great omen; if not stopped, the rotting shite may spread. On behalf of your monarch,
-you've pledged yourself, in secret, to investigate the place and rid it of its foul curse.
+become the heart of a great omen; if not stopped, the rotting shite may spread. On behalf of the people,
+you've pledged to investigate the place and rid it of its foul curse. Save the unfortunate and purify
+the land.
 
 [GAMEPLAY]
 >> Classes
@@ -217,7 +218,8 @@ a combat encounter begins. You will fight to the death against your enemies in t
 melee weapon and abilities. Should you win the encounter by killing all the enemies, you will have your health and
 resource restored.
 
-[PAGE 2] Press any key to go to Main Menu.";
+[PAGE 2] Press any key to go to Main Menu.
+";
 
         /// <summary>
         /// Take a number, turn it into string, get each number as char

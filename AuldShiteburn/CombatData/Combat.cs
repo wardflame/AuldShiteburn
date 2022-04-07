@@ -9,21 +9,27 @@ using System.Collections.Generic;
 
 namespace AuldShiteburn.CombatData
 {
+    [Serializable]
     internal class Combat
     {
         #region Modifier Constants
-        public const int PROFICIENCY_DAMAGE_BONUS_MINOR = 2;
-        public const int PROFICIENCY_DAMAGE_BONUS_MODERATE = 4;
-        public const int PROFICIENCY_DAMAGE_BONUS_MAJOR = 6;
-        public const int PROFICIENCY_ARMOUR_MITIGATION_MINOR = 2;
-        public const int PROFICIENCY_ARMOUR_MITIGATION_MODERATE = 4;
-        public const int PROFICIENCY_ARMOUR_MITIGATION_MAJOR = 6;
-        public const int STATUS_MITIGATION_MINOR = 2;
-        public const int STATUS_MITIGATION_MODERATE = 4;
-        public const int STATUS_MITIGATION_MAJOR = 6;
-        public const int ARMOUR_RESISTANCE_MITIGATION_MODIFIER = 2;
-        public const int WEAKNESS_BONUS_MODIFIER = 2;
+            #region Proficiency Modifiers
+            public const int PROFICIENCY_DAMAGE_BONUS_MINOR = 2;
+            public const int PROFICIENCY_DAMAGE_BONUS_MODERATE = 4;
+            public const int PROFICIENCY_DAMAGE_BONUS_MAJOR = 6;
+            public const int PROFICIENCY_ARMOUR_MITIGATION_MINOR = 2;
+            public const int PROFICIENCY_ARMOUR_MITIGATION_MODERATE = 4;
+            public const int PROFICIENCY_ARMOUR_MITIGATION_MAJOR = 6;
+        #endregion Proficiency Modifiers
+            #region Status Modifiers
+            public const int STATUS_MITIGATION_MINOR = 2;
+            public const int STATUS_MITIGATION_MODERATE = 4;
+            public const int STATUS_MITIGATION_MAJOR = 6;
+            #endregion Status Modifiers
+            public const int ARMOUR_RESISTANCE_MITIGATION_MODIFIER = 2;
+            public const int WEAKNESS_BONUS_MODIFIER = 2;
         #endregion Modifier Constants
+
         private static int RoundNumber { get; set; } = 0;
 
         /// <summary>
@@ -209,13 +215,13 @@ namespace AuldShiteburn.CombatData
                         Utils.SetCursorInteract(enemies.Count + 2);
                         Utils.ClearInteractArea(length: 30);
                     }
-                }                
+                }
             }
-            if (PlayerEntity.Instance.AbilityStatusEffect != null && PlayerEntity.Instance.AbilityStatusEffect.GetType() == typeof(ReplenishStatusEffect))
+            if (PlayerEntity.Instance.AbilityStatusEffect != null && PlayerEntity.Instance.AbilityStatusEffect.GetType() == typeof(ReplenishStatusEffect) && RoundNumber > 1)
             {
                 PlayerEntity.Instance.AbilityStatusEffect.EffectActive(new CombatPayload(false));
             }
-            if (PlayerEntity.Instance.PotionStatusEffect != null && PlayerEntity.Instance.PotionStatusEffect.GetType() == typeof(ReplenishStatusEffect))
+            if (PlayerEntity.Instance.PotionStatusEffect != null && PlayerEntity.Instance.PotionStatusEffect.GetType() == typeof(ReplenishStatusEffect) && RoundNumber > 1)
             {
                 PlayerEntity.Instance.PotionStatusEffect.EffectActive(new CombatPayload(false));
             }
@@ -234,7 +240,7 @@ namespace AuldShiteburn.CombatData
         /// <param name="enemies">List of enemies in the area.</param>
         private static void EnemyCombatTurn(List<EnemyEntity> enemies)
         {
-            int endOffset;
+            int endOffset = 0;
             bool enemyTurn = true;
             while (enemyTurn)
             {
@@ -251,11 +257,19 @@ namespace AuldShiteburn.CombatData
                         endOffset = Console.CursorTop + 2;
                         enemy.StunTimer--;
                     }
-                    else
+                    if (enemy.StatusEffect != null && enemy.StatusEffect.Duration > 0)
+                    {
+                        enemy.StatusEffect.Duration--;
+                        if (enemy.StatusEffect.Duration == 0)
+                        {
+                            enemy.StatusEffect = null;
+                        }
+                    }
+                    if (!enemy.Stunned)
                     {
                         CombatPayload enemyAttack = enemy.PerformAttack(enemies);
                         endOffset = Console.CursorTop + 3;
-                        PlayerEntity.Instance.ReceiveAttack(enemyAttack);
+                        PlayerEntity.Instance.ReceiveAttack(enemyAttack, aggressor: enemy);
                     }
                     // Readkey to ensure player has a chance to read the round's report.
                     Console.SetCursorPosition(Utils.UIInteractOffset, endOffset);
@@ -321,7 +335,11 @@ namespace AuldShiteburn.CombatData
                     }
                     Utils.WriteColour($"{enemies[i].Name} ", ConsoleColor.Cyan);
                     Utils.WriteColour($"{enemies[i].HP}/{enemies[i].MaxHP} ", ConsoleColor.Red);
-                    Utils.WriteColour($"HP");
+                    Utils.WriteColour($"HP ");
+                    if (enemies[i].StatusEffect != null)
+                    {
+                        Utils.WriteColour($"{enemies[i].StatusEffect.Name}", enemies[i].StatusEffect.DisplayColor);
+                    }
                 }
                 InputSystem.GetInput();
                 switch (InputSystem.InputKey)
@@ -356,7 +374,7 @@ namespace AuldShiteburn.CombatData
         /// <returns>Return the activity number.</returns>
         private static int ChooseActivity()
         {
-            List<string> activities = new List<string>() { "Use Equipped Weapon", "Use Ability"};
+            List<string> activities = new List<string>() { "Use Equipped Weapon", "Use Ability" };
             int offsetY = Console.CursorTop;
             Utils.SetCursorInteract(offsetY);
             Utils.WriteColour("Choose an activity.", ConsoleColor.DarkYellow);
@@ -418,7 +436,7 @@ namespace AuldShiteburn.CombatData
         private static CombatPayload ChooseMeleeAttack()
         {
             WeaponItem weapon = PlayerEntity.Instance.EquippedWeapon;
-            List<string> meleeAttacks = new List<string>() { weapon.Type.PrimaryAttack.ToString(), weapon.Type.SecondaryAttack.ToString()};
+            List<string> meleeAttacks = new List<string>() { weapon.Type.PrimaryAttack.ToString(), weapon.Type.SecondaryAttack.ToString() };
             int offsetY = Console.CursorTop;
             Utils.ClearInteractArea(offsetY, 2);
             Utils.SetCursorInteract(offsetY);
@@ -544,10 +562,24 @@ namespace AuldShiteburn.CombatData
                         }
                 }
             } while (InputSystem.InputKey != ConsoleKey.Enter);
+            Ability chosenAbility = PlayerEntity.Instance.Class.Abilities[index];
+            if (chosenAbility.ActiveCooldown > 0)
+            {
+                Utils.WriteColour($"{chosenAbility.Name} is on cooldown {chosenAbility.ActiveCooldown}/{chosenAbility.Cooldown}.", ConsoleColor.Red);
+                Console.ReadKey(true);
+                return new CombatPayload(false);
+            }
+            else if (!PlayerEntity.Instance.CheckResourceLevel(chosenAbility.ResourceCost))
+            {
+                Utils.WriteColour($"You lack the resources to use this ability.", ConsoleColor.Red);
+                Console.ReadKey(true);
+                return new CombatPayload(false);
+            }
             return PlayerEntity.Instance.Class.Abilities[index].UseAbility(enemies);
         }
     }
-
+    
+    [Serializable]
     public enum EffectLevel
     {
         None,

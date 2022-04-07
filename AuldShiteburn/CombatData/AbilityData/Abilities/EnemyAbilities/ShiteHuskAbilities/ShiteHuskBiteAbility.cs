@@ -2,7 +2,6 @@
 using AuldShiteburn.EntityData;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace AuldShiteburn.CombatData.AbilityData.Abilities.EnemyAbilities.ShiteHuskAbilities
 {
@@ -15,8 +14,8 @@ namespace AuldShiteburn.CombatData.AbilityData.Abilities.EnemyAbilities.ShiteHus
         public override int ResourceCost => 0;
         public override PhysicalDamageType PhysicalDamageType => PhysicalDamageType.Pierce;
         public override PropertyDamageType PropertyDamageType => PropertyDamageType.Occult;
-        public override int PhysicalMinDamage => 2;
-        public override int PhysicalMaxDamage => 4;
+        public override int PhysicalMinDamage => 3;
+        public override int PhysicalMaxDamage => 5;
         public override int PropertyMinDamage => 1;
         public override int PropertyMaxDamage => 2;
 

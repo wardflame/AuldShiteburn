@@ -74,7 +74,7 @@ namespace AuldShiteburn.ItemData.WeaponData
             get
             {
                 return new List<WeaponType>()
-                { 
+                {
                     Dagger,
                     Rapier,
                     Shortsword,

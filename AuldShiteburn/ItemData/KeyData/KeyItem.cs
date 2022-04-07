@@ -26,7 +26,7 @@ namespace AuldShiteburn.ItemData.KeyData
                 return new List<KeyItem>()
                 {
                     HideawayKey,
-                    ResidenceKey                    
+                    ResidenceKey
                 };
             }
         }

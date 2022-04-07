@@ -1,6 +1,5 @@
 ﻿using AuldShiteburn.CombatData;
 using AuldShiteburn.CombatData.AbilityData;
-using AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.HeathenAbilities;
 using AuldShiteburn.EntityData.PlayerData.Classes;
 using AuldShiteburn.ItemData;
 using AuldShiteburn.ItemData.ArmourData;

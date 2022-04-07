@@ -2,10 +2,10 @@
 using AuldShiteburn.EntityData;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.MonkAbilities
 {
+    [Serializable]
     internal class MoonlightBurstAbility : Ability
     {
         public override string Name => "Moonlight Burst";
@@ -20,22 +20,9 @@ namespace AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.MonkAbil
         {
             int offsetY = Console.CursorTop + 2;
             Utils.SetCursorInteract(offsetY - 2);
-            if (ActiveCooldown > 0)
+            if (ActiveCooldown <= 0)
             {
-                ActiveCooldown--;
-                Utils.WriteColour($"{Name} is on cooldown {ActiveCooldown}/{Cooldown}.", ConsoleColor.Red);
-                Console.ReadKey(true);
-                return new CombatPayload(false);
-            }
-            else if (!PlayerEntity.Instance.CheckResourceLevel(ResourceCost))
-            {
-                Utils.WriteColour($"You lack the resources to use this ability.", ConsoleColor.Red);
-                Console.ReadKey(true);
-                return new CombatPayload(false);
-            }
-            else if (ActiveCooldown <= 0)
-            {
-                PlayerEntity.Instance.Stamina -= ResourceCost;
+                PlayerEntity.Instance.Mana -= ResourceCost;
                 Random rand = new Random();
                 for (int i = 0; i < enemies.Count; i++)
                 {
@@ -49,7 +36,7 @@ namespace AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.MonkAbil
                         enemies.Remove(enemies[i]);
                         i = -1;
                     }
-                    Console.ReadKey(false);
+                    Console.ReadKey(true);
                 }
                 ActiveCooldown = Cooldown;
                 return new CombatPayload(false, true);

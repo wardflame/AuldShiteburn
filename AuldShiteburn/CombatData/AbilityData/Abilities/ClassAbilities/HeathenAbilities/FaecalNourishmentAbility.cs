@@ -2,7 +2,6 @@
 using AuldShiteburn.EntityData;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.HeathenAbilities
 {
@@ -16,32 +15,14 @@ namespace AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.HeathenA
 
         public override CombatPayload UseAbility(List<EnemyEntity> enemies)
         {
-            Utils.SetCursorInteract(Console.CursorTop - 1);
-            if (ActiveCooldown > 0)
+            Utils.SetCursorInteract(Console.CursorTop + 1);
+            if (ActiveCooldown <= 0)
             {
-                ActiveCooldown--;
-                Utils.WriteColour($"{Name} is on cooldown {ActiveCooldown}/{Cooldown}.", ConsoleColor.Red);
-                return new CombatPayload(false);
-            }
-            else if (!PlayerEntity.Instance.CheckResourceLevel(ResourceCost))
-            {
-                Utils.WriteColour($"You lack the resources to use this ability.", ConsoleColor.Red);
-                return new CombatPayload(false);
-            }
-            else if (ActiveCooldown <= 0)
-            {
+                PlayerEntity.Instance.Mana -= ResourceCost;
                 Random rand = new Random();
                 int heal = rand.Next(6, 13);
-                PlayerEntity.Instance.HP += 
+                PlayerEntity.Instance.HP += heal;
                 ActiveCooldown = Cooldown;
-                if (PlayerEntity.Instance.UsesStamina)
-                {
-                    PlayerEntity.Instance.Stamina -= ResourceCost;
-                }
-                else if (PlayerEntity.Instance.UsesMana)
-                {
-                    PlayerEntity.Instance.Mana -= ResourceCost;
-                }
                 return new CombatPayload(false, true);
             }
             return new CombatPayload(false);
