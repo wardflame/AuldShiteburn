@@ -1,8 +1,8 @@
-# ▒█░░▒█ █▀▀ █░░ █▀▀ █▀▀█ █▀▄▀█ █▀▀ 　 ▀▀█▀▀ █▀▀█ 　 ▒█▀▀▀█ █░░█ ░▀░ ▀▀█▀▀ █▀▀ █▀▀▄ █░░█ █▀▀█ █▀▀▄ 
-# ▒█▒█▒█ █▀▀ █░░ █░░ █░░█ █░▀░█ █▀▀ 　 ░░█░░ █░░█ 　 ░▀▀▀▄▄ █▀▀█ ▀█▀ ░░█░░ █▀▀ █▀▀▄ █░░█ █▄▄▀ █░░█ 
-# ▒█▄▀▄█ ▀▀▀ ▀▀▀ ▀▀▀ ▀▀▀▀ ▀░░░▀ ▀▀▀ 　 ░░▀░░ ▀▀▀▀ 　 ▒█▄▄▄█ ▀░░▀ ▀▀▀ ░░▀░░ ▀▀▀ ▀▀▀░ ░▀▀▀ ▀░▀▀ ▀░░▀
+▒█░░▒█ █▀▀ █░░ █▀▀ █▀▀█ █▀▄▀█ █▀▀ 　 ▀▀█▀▀ █▀▀█ 　 ▒█▀▀▀█ █░░█ ░▀░ ▀▀█▀▀ █▀▀ █▀▀▄ █░░█ █▀▀█ █▀▀▄ 
+▒█▒█▒█ █▀▀ █░░ █░░ █░░█ █░▀░█ █▀▀ 　 ░░█░░ █░░█ 　 ░▀▀▀▄▄ █▀▀█ ▀█▀ ░░█░░ █▀▀ █▀▀▄ █░░█ █▄▄▀ █░░█ 
+▒█▄▀▄█ ▀▀▀ ▀▀▀ ▀▀▀ ▀▀▀▀ ▀░░░▀ ▀▀▀ 　 ░░▀░░ ▀▀▀▀ 　 ▒█▄▄▄█ ▀░░▀ ▀▀▀ ░░▀░░ ▀▀▀ ▀▀▀░ ░▀▀▀ ▀░▀▀ ▀░░▀
 
-# [CONTROLS]
+[CONTROLS]
 W - Move up.
 S - Move down.
 A - Move left.
@@ -14,29 +14,29 @@ Arrow Keys - Menu navigation.
 Enter - Menu select.
 Backspace - Menu back/cancel.
 
-# [LEGEND]
->>>> Interactables (Walking into any of these will begin an interaction.)
-- @@ - Shitefire
-- (( - Obelisk
-- %% - NPC
-- !! - Storage Container
-- ?? - Loot Pile
-- XX - Locked Door
-- -- - Passage Tile (leads to new room.)
+[LEGEND]
+>> Interactables (Walking into any of these will begin an interaction.)
+@@ - Shitefire
+(( - Obelisk
+%% - NPC
+!! - Storage Container
+?? - Loot Pile
+XX - Locked Door
+-- - Passage Tile (leads to new room.)
 
 
->>>> Non-Interactables
+>> Non-Interactables
 ## - Wall
 .. - Open Door
 
-# [THE PREMISE]
+[THE PREMISE]
 You are one of many notable figure in the realm. The name 'Auld Shiteburn' has long been in your memory.
 Once a normal village where shite was burned, something terrible took hold of the place, and now it has
 become the heart of a great omen; if not stopped, the rotting shite may spread. On behalf of the people,
 you've pledged to investigate the place and rid it of its foul curse. Save the unfortunate and purify
 the land.
 
-# [GAMEPLAY]
+[GAMEPLAY]
 >> Classes
 Each notable figure has a class, providing 1-3 unique abilities, with offensive, defensive or utility
 potential. Some classes will be stronger against certain foes. Your character is given a random class on
