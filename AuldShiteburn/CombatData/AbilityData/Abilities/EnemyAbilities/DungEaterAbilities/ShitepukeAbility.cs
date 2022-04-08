@@ -6,6 +6,7 @@ using System.Text;
 
 namespace AuldShiteburn.CombatData.AbilityData.Abilities.EnemyAbilities.DungEaterAbilities
 {
+    [Serializable]
     internal class ShitepukeAbility : Ability
     {
         public override string Name => "Shite Puke";

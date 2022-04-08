@@ -1,6 +1,6 @@
 ﻿using AuldShiteburn.CombatData;
 using AuldShiteburn.CombatData.AbilityData;
-using AuldShiteburn.CombatData.AbilityData.Abilities.EnemyAbilities.MadHunterAbilities;
+using AuldShiteburn.CombatData.AbilityData.Abilities.EnemyAbilities.DungEaterAbilities;
 using AuldShiteburn.ItemData;
 using System;
 using System.Collections.Generic;
@@ -8,6 +8,7 @@ using System.Text;
 
 namespace AuldShiteburn.EntityData.Enemies
 {
+    [Serializable]
     internal class DungEaterEnemyEntity : EnemyEntity
     {
         public DungEaterEnemyEntity()
@@ -22,7 +23,9 @@ namespace AuldShiteburn.EntityData.Enemies
             StunCap = 2;
             Abilities = new List<Ability>()
             {
-                new MadSlashAbility()
+                new ClawedSwipeAbility(),
+                new DungTossAbility(),
+                new ShitepukeAbility()
             };
         }
     }

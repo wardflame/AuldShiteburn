@@ -88,8 +88,8 @@ namespace AuldShiteburn.EntityData
             Random rand = new Random();
 
             #region Class Generation and Stat Assignments
-            //Instance.Class = CharacterClass.Classes[rand.Next(CharacterClass.Classes.Count)];
-            Instance.Class = new MonkClass();
+            Instance.Class = CharacterClass.Classes[rand.Next(CharacterClass.Classes.Count)];
+            //Instance.Class = new MarauderClass();
             Instance.MaxHP = Instance.Class.Statistics.HP;
             Instance.HP = Instance.Class.Statistics.HP;
             Instance.UsesStamina = Instance.Class.Statistics.UsesStamina;
@@ -98,6 +98,7 @@ namespace AuldShiteburn.EntityData
             Instance.Stamina = Instance.Class.Statistics.Stamina;
             Instance.MaxMana = Instance.Class.Statistics.Mana;
             Instance.Mana = Instance.Class.Statistics.Mana;
+            Instance.StunCap = Instance.Class.Statistics.StunCap;
             #endregion Class Generation
 
             #region Name Generation
@@ -146,7 +147,6 @@ namespace AuldShiteburn.EntityData
 
             int initialPhys = combatPayload.PhysicalDamage;
             int initialProp = combatPayload.PropertyDamage;
-            int totalDamage = 0;
             // If the player has an active status effect, run its effect.
             #region Status Effect Application
             if (Instance.AbilityStatusEffect != null && Instance.AbilityStatusEffect.GetType() == typeof(DefenseStatusEffect))
@@ -160,7 +160,7 @@ namespace AuldShiteburn.EntityData
             #endregion Status Effect Application
 
             Utils.SetCursorInteract(1);
-            Utils.WriteColour("You ");
+            Utils.WriteColour($"You ");
 
             //If the payload has a stun in it, apply the stun.
             #region Stun Application
@@ -169,12 +169,16 @@ namespace AuldShiteburn.EntityData
                 if (!Stunned)
                 {
                     StunTimer = combatPayload.StunCount;
-                    Utils.WriteColour($"are stunned for {StunTimer} turns,", ConsoleColor.Blue);
+                    Utils.WriteColour($"are stunned for ");
+                    Utils.WriteColour($"{StunTimer} ", ConsoleColor.Blue);
+                    Utils.WriteColour($"turns,");
                     JustStunned = true;
                 }
                 else
                 {
-                    Utils.WriteColour($"are already stunned and cannot be again for {StunTimer} turns,", ConsoleColor.DarkYellow);
+                    Utils.WriteColour($"are already stunned and cannot be again for ", ConsoleColor.DarkYellow);
+                    Utils.WriteColour($"{StunTimer} ", ConsoleColor.Blue);
+                    Utils.WriteColour($"turns, ", ConsoleColor.DarkYellow);
                 }
                 Utils.SetCursorInteract(Console.CursorTop - 1);
             }
@@ -182,55 +186,72 @@ namespace AuldShiteburn.EntityData
 
             // If player has armour equipped, mitigate where possible, else apply the damage directly.
             #region Damage Application
+            int totalDamage;
             if (Instance.EquippedArmour != null)
             {
                 ArmourItem playerArmour = Instance.EquippedArmour;
-
                 #region Physical Damage Mitigation
-                int physDamage = combatPayload.PhysicalDamage -= playerArmour.PhysicalMitigation;
-                if (physDamage < 0)
+                if (combatPayload.HasPhysical)
                 {
-                    physDamage = 0;
-                }
-                Utils.WriteColour($"take ");
-                Utils.WriteColour($"{physDamage}/{initialPhys} ", ConsoleColor.Red);
-                Utils.WriteColour($"{combatPayload.PhysicalAttackType} damage, ");
-                Utils.SetCursorInteract(Console.CursorTop - 1);
-                #endregion Physical Damage Mitigation
 
-                #region Property Damage Mitigation
-                int propDamage = combatPayload.PropertyDamage -= playerArmour.PropertyMitigation;
-                if (propDamage < 0)
-                {
-                    propDamage = 0;
+                    combatPayload.PhysicalDamage -= playerArmour.PhysicalMitigation;
+                    if (combatPayload.PhysicalDamage < 0)
+                    {
+                        combatPayload.PhysicalDamage = 0;
+                    }
+                    Utils.WriteColour($"take ");
+                    Utils.WriteColour($"{combatPayload.PhysicalDamage}/{initialPhys} ", ConsoleColor.Red);
+                    Utils.WriteColour($"{combatPayload.PhysicalAttackType} damage, ");
+                    Utils.SetCursorInteract(Console.CursorTop - 1);
+
                 }
-                Utils.WriteColour("and ");
-                Utils.WriteColour($"{propDamage}/{initialProp} ", ConsoleColor.Red);
-                Utils.WriteColour($"{combatPayload.PropertyAttackType} damage ");
-                Utils.SetCursorInteract(Console.CursorTop - 1);
+                #endregion Physical Damage Mitigation
+                #region Property Damage Mitigation
+                if (combatPayload.HasProperty)
+                {
+
+                    combatPayload.PropertyDamage -= playerArmour.PropertyMitigation;
+                    if (combatPayload.PropertyDamage < 0)
+                    {
+                        combatPayload.PropertyDamage = 0;
+                    }
+                    if (combatPayload.HasPhysical) Utils.WriteColour("and ");
+                    else Utils.WriteColour("takes ");
+                    Utils.WriteColour($"{combatPayload.PropertyDamage}/{initialProp} ", ConsoleColor.Red);
+                    Utils.WriteColour($"{combatPayload.PropertyAttackType} damage ");
+                    Utils.SetCursorInteract(Console.CursorTop - 1);
+                }
                 #endregion Property Damage Mitigation
 
-                totalDamage = physDamage + propDamage;
-                Utils.WriteColour($"for a total of ");
-                Utils.WriteColour($"{totalDamage} ", ConsoleColor.Red);
-                Utils.WriteColour($"damage.");
-                Utils.SetCursorInteract(Console.CursorTop - 1);
             }
             else
             {
-                totalDamage += combatPayload.PhysicalDamage;
-                Utils.WriteColour("take ");
-                Utils.WriteColour($"{combatPayload.PhysicalDamage} ", ConsoleColor.Red);
-                Utils.WriteColour($"physical damage,");
-                Utils.SetCursorInteract(Console.CursorTop - 1);
-                totalDamage += combatPayload.PropertyDamage;
-                Utils.WriteColour("and ");
-                Utils.WriteColour($"{combatPayload.PropertyDamage} ", ConsoleColor.Red);
-                Utils.SetCursorInteract(Console.CursorTop - 1);
-                Utils.WriteColour($"for a total of ");
-                Utils.WriteColour($"{totalDamage} ", ConsoleColor.Red);
-                Utils.WriteColour($"damage.");
+                #region Physical Damage Mitigation
+                if (combatPayload.HasPhysical)
+                {
+                    Utils.WriteColour("takes ");
+                    Utils.WriteColour($"{combatPayload.PhysicalDamage} ", ConsoleColor.Red);
+                    Utils.WriteColour($"physical damage,");
+                    Utils.SetCursorInteract(Console.CursorTop - 1);
+                }
+                #endregion Physical Damage Mitigation
+                #region Property Damage Mitigation
+                if (combatPayload.HasProperty)
+                {
+                    if (combatPayload.HasPhysical) Utils.WriteColour("and ");
+                    else Utils.WriteColour("takes ");
+                    Utils.WriteColour($"{combatPayload.PropertyDamage} ", ConsoleColor.Red);
+                    Utils.SetCursorInteract(Console.CursorTop - 1);
+                }
+                #endregion Property Damage Mitigation
             }
+            #region Total Damage Calculation
+            totalDamage = combatPayload.PhysicalDamage + combatPayload.PropertyDamage;
+            Utils.WriteColour($"for a total of ");
+            Utils.WriteColour($"{totalDamage} ", ConsoleColor.Red);
+            Utils.WriteColour($"damage.");
+            Utils.SetCursorInteract(Console.CursorTop - 1);
+            #endregion Total Damage Calculation
             #endregion Damage Application
 
             // If player has riposte status effect, apply debuff to enemy.

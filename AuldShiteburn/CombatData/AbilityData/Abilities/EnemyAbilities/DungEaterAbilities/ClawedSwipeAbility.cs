@@ -6,6 +6,7 @@ using System.Text;
 
 namespace AuldShiteburn.CombatData.AbilityData.Abilities.EnemyAbilities.DungEaterAbilities
 {
+    [Serializable]
     internal class ClawedSwipeAbility : Ability
     {
         public override string Name => "Clawed Swipe";
@@ -13,8 +14,8 @@ namespace AuldShiteburn.CombatData.AbilityData.Abilities.EnemyAbilities.DungEate
         public override int Cooldown => 0;
         public override int ResourceCost => 0;
         public override PhysicalDamageType PhysicalDamageType => PhysicalDamageType.Slash;
-        public override int PhysicalMinDamage => 5;
-        public override int PhysicalMaxDamage => 7;
+        public override int PhysicalMinDamage => 7;
+        public override int PhysicalMaxDamage => 9;
 
         public override CombatPayload UseAbility(List<EnemyEntity> enemies)
         {

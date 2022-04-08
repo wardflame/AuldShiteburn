@@ -21,8 +21,8 @@ namespace AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.Marauder
 
         public override CombatPayload UseAbility(List<EnemyEntity> enemies)
         {
-            int offsetY = Console.CursorTop + 2;
-            Utils.SetCursorInteract(offsetY - 2);
+            int offsetY = Console.CursorTop + 1;
+            Utils.SetCursorInteract(Console.CursorTop);
             if (ActiveCooldown <= 0)
             {
                 PlayerEntity.Instance.Stamina -= ResourceCost;
@@ -43,10 +43,17 @@ namespace AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.Marauder
                         PlayerEntity.Instance.HP += 4;
                         PlayerEntity.Instance.Stamina += 6;
                         enemies.Remove(enemies[i]);
-                        i = -1;
+                        i--;
                     }
-                    Console.ReadKey(true);
+                    Utils.SetCursorInteract(Console.CursorTop);
+                    if (i < enemies.Count - 1)
+                    {
+                        Utils.WriteColour("Press any key to continue.");
+                        Console.ReadKey(true);
+                    }
                 }
+                Utils.ClearInteractArea(Console.CursorTop - 3, 1);
+                Utils.SetCursorInteract(Console.CursorTop - 4);
                 ActiveCooldown = Cooldown;
                 return new CombatPayload(false, true);
             }

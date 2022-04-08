@@ -12,10 +12,10 @@ namespace AuldShiteburn.MapData.TileData.Tiles
     [Serializable]
     internal class LootTile : Tile
     {
-        private const float CHANCE_KEY = 0.95f;
-        private const float CHANCE_WEAPON = 0.6f;
-        private const float CHANCE_ARMOUR = 0.4f;
-        private const float CHANCE_CONSUMABLE = 0.0f;
+        private const float CHANCE_KEY = 0.02f;
+        private const float CHANCE_WEAPON = 0.3f;
+        private const float CHANCE_ARMOUR = 0.25f;
+        private const float CHANCE_CONSUMABLE = 1f;
 
         public override bool Collidable => false;
         public override ConsoleColor Foreground => Looted ? ConsoleColor.DarkGray : ConsoleColor.Magenta;
@@ -37,24 +37,24 @@ namespace AuldShiteburn.MapData.TileData.Tiles
             {
                 Random rand = new Random();
                 double chance = rand.NextDouble();
-                if (chance >= CHANCE_KEY)
+                if (chance <= CHANCE_KEY)
                 {
                     KeyItem lootKey = KeyItem.AllKeys[rand.Next(KeyItem.AllKeys.Count)];
                     Items.Add(lootKey);
                 }
                 chance = rand.NextDouble();
-                if (chance >= CHANCE_WEAPON)
+                if (chance <= CHANCE_WEAPON)
                 {
                     Items.Add(WeaponItem.GenerateWeapon());
                 }
                 chance = rand.NextDouble();
-                if (chance >= CHANCE_ARMOUR)
+                if (chance <= CHANCE_ARMOUR)
                 {
                     ArmourItem armour = ArmourItem.AllStandardArmours[rand.Next(ArmourItem.AllStandardArmours.Count)];
                     Items.Add(armour);
                 }
                 chance = rand.NextDouble();
-                if (chance >= CHANCE_CONSUMABLE)
+                if (chance <= CHANCE_CONSUMABLE)
                 {
                     ConsumableItem consumable = ConsumableItem.AllConsumables[rand.Next(ConsumableItem.AllConsumables.Count)];
                     Items.Add(consumable);
