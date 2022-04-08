@@ -23,7 +23,7 @@ namespace AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.HeathenA
                 int heal = rand.Next(6, 13);
                 PlayerEntity.Instance.HP += heal;
                 ActiveCooldown = Cooldown;
-                return new CombatPayload(false, true);
+                return new CombatPayload(isAttack: false, isUtility: true);
             }
             return new CombatPayload(false);
         }

@@ -16,7 +16,7 @@ namespace AuldShiteburn.EntityData.PlayerData.Classes
             ("Fighter", ClassType.Fighter,
             new TitleData(PlayerGenerationData.FighterTitlesMale, PlayerGenerationData.FighterTitlesFemale),
             new ClassStatistics(28, 20, 0, 2),
-            new ProficiencyData(ArmourFamily.HeavyArmour, WeaponFamily.MartialArms, PropertyDamageType.Standard, GeneralMaterials.None),
+            new ProficiencyData(ArmourFamily.HeavyArmour, WeaponFamily.MartialArms, PropertyDamageType.None, GeneralMaterials.Steel),
             new List<Ability>()
             {
                 new DefensiveStanceAbility()

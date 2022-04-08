@@ -27,7 +27,7 @@ namespace AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.HeathenA
                     propertyDamageType: PropertyDamageType.Occult,
                     propertyNulOrMit: true);
                 ActiveCooldown = Cooldown;
-                return new CombatPayload(false, true);
+                return new CombatPayload(isAttack: false, isUtility: true);
             }
             return new CombatPayload(false);
         }

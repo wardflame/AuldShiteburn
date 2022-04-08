@@ -2,6 +2,7 @@
 using AuldShiteburn.CombatData.AbilityData;
 using AuldShiteburn.CombatData.PayloadData;
 using AuldShiteburn.CombatData.StatusEffectData;
+using AuldShiteburn.EntityData.PlayerData.Classes;
 using AuldShiteburn.ItemData;
 using System;
 using System.Collections.Generic;
@@ -64,11 +65,41 @@ namespace AuldShiteburn.EntityData
             Utils.WriteColour($"{Name} ");
             Utils.WriteColour($"{HP}/{MaxHP} ", ConsoleColor.Red);
 
-            if (StatusEffect != null)
+            #region Status and Stun Check
+            if (combatPayload.HasStatus)
             {
+                StatusEffect = combatPayload.StatusEffect;
+                Utils.WriteColour($"is afflicted with ");
+                Utils.WriteColour($"{StatusEffect.Name}", StatusEffect.DisplayColor);
+                Utils.WriteColour($",");
+                Utils.SetCursorInteract(Console.CursorTop - 1);
                 combatPayload = StatusEffect.EffectActive(combatPayload);
+                JustAfflicted = true;
             }
 
+            if (combatPayload.IsStun)
+            {
+                if (!Stunned)
+                {
+                    StunTimer = combatPayload.StunCount;
+                    Utils.WriteColour($"is stunned for ");
+                    Utils.WriteColour($"{StunTimer} ", ConsoleColor.Blue);
+                    Utils.WriteColour($"rounds,");
+                    JustStunned = true;
+                }
+                else
+                {
+                    Utils.WriteColour($"{Name} ", ConsoleColor.DarkYellow);
+                    Utils.WriteColour($"{HP}/{MaxHP} ", ConsoleColor.Red);
+                    Utils.WriteColour($"is already stunned and cannot be again for ", ConsoleColor.DarkYellow);
+                    Utils.WriteColour($"{StunTimer} ", ConsoleColor.Blue);
+                    Utils.WriteColour($"rounds,", ConsoleColor.DarkYellow);
+                }
+                Utils.SetCursorInteract(Console.CursorTop - 1);
+            }
+            #endregion Status and Stun Check
+
+            #region Damage Calculation
             int physDamage = combatPayload.PhysicalDamage;
             if (combatPayload.HasPhysical)
             {
@@ -91,7 +122,7 @@ namespace AuldShiteburn.EntityData
                 Utils.SetCursorInteract(Console.CursorTop - 1);
             }
             int propDamage = combatPayload.PropertyDamage;
-            if (combatPayload.HasProperty)
+            if (combatPayload.HasProperty && combatPayload.PropertyAttackType != PropertyDamageType.Standard)
             {
                 if (PropertyWeakness == combatPayload.PropertyAttackType)
                 {
@@ -116,49 +147,28 @@ namespace AuldShiteburn.EntityData
                         if (combatPayload.HasPhysical)
                         {
                             Utils.WriteColour("and ");
-                            Utils.WriteColour($"{propDamage} ", ConsoleColor.DarkYellow);
-                            Utils.WriteColour($"{combatPayload.PropertyAttackType} damage, ");
                         }
                         else
                         {
                             Utils.WriteColour("takes ");
-                            Utils.WriteColour($"{propDamage} ", ConsoleColor.DarkYellow);
-                            Utils.WriteColour($"{combatPayload.PropertyAttackType} damage, ");
                         }
+                        Utils.WriteColour($"{propDamage} ", ConsoleColor.DarkYellow);
+                        Utils.WriteColour($"{combatPayload.PropertyAttackType} damage, ");
                     }
                 }
                 Utils.SetCursorInteract(Console.CursorTop - 1);
             }
+            #endregion Damage Calculation
+
             int totalDamage = physDamage + propDamage;
             if (totalDamage < 0) totalDamage = 0;
             Utils.WriteColour($"for a total of ");
             Utils.WriteColour($"{totalDamage} ", ConsoleColor.Red);
             Utils.WriteColour($"damage.");
-            if (combatPayload.IsStun)
-            {
-                Utils.SetCursorInteract(Console.CursorTop - 1);
-                if (!Stunned)
-                {
-                    StunTimer = combatPayload.StunCount;
-                    Utils.WriteColour($"{Name} ");
-                    Utils.WriteColour($"{HP}/{MaxHP} ", ConsoleColor.Red);
-                    Utils.WriteColour($"is stunned for ");
-                    Utils.WriteColour($"{StunTimer} ", ConsoleColor.Blue);
-                    Utils.WriteColour($"turns!");
-                }
-                else
-                {
-                    Utils.WriteColour($"{Name} ", ConsoleColor.DarkYellow);
-                    Utils.WriteColour($"{HP}/{MaxHP} ", ConsoleColor.Red);
-                    Utils.WriteColour($"is already stunned and cannot be again for ", ConsoleColor.DarkYellow);
-                    Utils.WriteColour($"{StunTimer} ", ConsoleColor.Blue);
-                    Utils.WriteColour($"turns!", ConsoleColor.DarkYellow);
-                }
-            }
             HP -= totalDamage;
             if (HP <= 0)
             {
-                Utils.SetCursorInteract(Console.CursorTop);
+                Utils.SetCursorInteract(Console.CursorTop - 1);
                 Utils.WriteColour($"{Name} is slain by the blow!", ConsoleColor.Green);
                 return true;
             }

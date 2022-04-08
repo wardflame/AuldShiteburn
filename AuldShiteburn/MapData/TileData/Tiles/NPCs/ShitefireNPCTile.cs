@@ -30,6 +30,7 @@ namespace AuldShiteburn.MapData.TileData.Tiles.NPCs
                         if (!area.BossArea)
                         {
                             area.InitEnemies();
+                            area.EnemiesDefeated = false;
                         }
                     }
                 }

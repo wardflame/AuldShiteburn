@@ -61,6 +61,8 @@ namespace AuldShiteburn.EntityData
                 }
             }
         }
+        public bool JustAfflicted { get; set; } = false;
+        public bool JustStunned { get; set; } = false;
         public bool Stunned => StunTimer > 0 ? true : false;
         public int StunCap { get; set; }
         private int stunTimer;

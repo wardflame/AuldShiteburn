@@ -829,11 +829,11 @@ namespace AuldShiteburn.EntityData.PlayerData
                         Utils.WriteColour(">>", ConsoleColor.Yellow);
                         if (ItemList[y - 1, typeColumn] is WeaponItem)
                         {
-                            WeaponAffinityCheck((WeaponItem)ItemList[y - 1, typeColumn]);
+                            PrintWeaponWithAffinity((WeaponItem)ItemList[y - 1, typeColumn]);
                         }
                         else if (ItemList[y - 1, typeColumn] is ArmourItem)
                         {
-                            ArmourAffinityCheck((ArmourItem)ItemList[y - 1, typeColumn]);
+                            PrintArmourWithAffinity((ArmourItem)ItemList[y - 1, typeColumn]);
                         }
                         else
                         {
@@ -861,12 +861,12 @@ namespace AuldShiteburn.EntityData.PlayerData
         /// if the player class is proficient with that part.
         /// </summary>
         /// <param name="weapon">Weapon to check affinities on.</param>
-        public void WeaponAffinityCheck(WeaponItem weapon)
+        public void PrintWeaponWithAffinity(WeaponItem weapon)
         {
             if (weapon != null)
             {
                 ConsoleColor proficient = ConsoleColor.Gray;
-                if (weapon.Property.Type != PropertyDamageType.Standard && PlayerEntity.Instance.Class.GetType() != typeof(FighterClass))
+                if (weapon.Property.Type != PropertyDamageType.Standard)
                 {
                     if (weapon.Property.HasAffinity)
                     {
@@ -899,7 +899,7 @@ namespace AuldShiteburn.EntityData.PlayerData
         /// If the player character is fully proficient with the armour, print it green.
         /// </summary>
         /// <param name="armour">Armour in question.</param>
-        public void ArmourAffinityCheck(ArmourItem armour)
+        public void PrintArmourWithAffinity(ArmourItem armour)
         {
             if (armour != null)
             {
@@ -909,7 +909,7 @@ namespace AuldShiteburn.EntityData.PlayerData
                 }
                 else
                 {
-                    Utils.WriteColour($"{armour.Name} ");
+                    Utils.WriteColour($"{armour.Name} ", ConsoleColor.Red);
                 }
             }
             else

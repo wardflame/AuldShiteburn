@@ -34,9 +34,11 @@ namespace AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.Marauder
                     int physDamage = rand.Next(PhysicalMinDamage, PhysicalMaxDamage + 1);
                     int propDamage = rand.Next(PropertyMinDamage, PropertyMaxDamage + 1);
                     if (enemies[i].ReceiveAttack
-                        (new CombatPayload(true, hasPhysical: true, hasProperty: true,
-                        physicalAttackType: PhysicalDamageType, propertyAttackType: PropertyDamageType,
-                        physicalDamage: physDamage, propertyDamage: propDamage), Console.CursorTop + 1))
+                        (new CombatPayload(
+                            isAttack: true,
+                            hasPhysical: true, hasProperty: true,
+                            physicalAttackType: PhysicalDamageType, propertyAttackType: PropertyDamageType,
+                            physicalDamage: physDamage, propertyDamage: propDamage), Console.CursorTop + 1))
                     {
                         PlayerEntity.Instance.HP += 4;
                         PlayerEntity.Instance.Stamina += 6;

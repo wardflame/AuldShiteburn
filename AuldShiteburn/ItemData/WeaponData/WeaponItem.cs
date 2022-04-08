@@ -47,20 +47,9 @@ namespace AuldShiteburn.ItemData.WeaponData
         /// </summary>
         public override void OnInventoryUse(InventorySortData sortData)
         {
-            if (Type.IsProficient)
-            {
-                WeaponItem equippedWeapon = PlayerEntity.Instance.EquippedWeapon;
-                PlayerEntity.Instance.Inventory.ItemList[sortData.index, sortData.typeColumn] = equippedWeapon;
-                PlayerEntity.Instance.EquippedWeapon = this;
-            }
-            else
-            {
-                Utils.SetCursorInteract(Console.CursorTop);
-                Utils.WriteColour("You are not proficient with this type of weapon.", ConsoleColor.Red);
-                Utils.SetCursorInteract(Console.CursorTop);
-                Utils.WriteColour("Press any key to continue.");
-                Console.ReadKey(true);
-            }
+            WeaponItem equippedWeapon = PlayerEntity.Instance.EquippedWeapon;
+            PlayerEntity.Instance.Inventory.ItemList[sortData.index, sortData.typeColumn] = equippedWeapon;
+            PlayerEntity.Instance.EquippedWeapon = this;
         }
 
         /// <summary>
@@ -74,7 +63,7 @@ namespace AuldShiteburn.ItemData.WeaponData
             weapon.Type = WeaponType.AllWeaponTypes[rand.Next(0, WeaponType.AllWeaponTypes.Count)];
 
             #region Material Generation
-            if (rand.NextDouble() <= 0.2)
+            if (rand.NextDouble() <= 0.08)
             {
                 weapon.Material = WeaponMaterial.WeaponMaterialList[rand.Next(3, WeaponMaterial.WeaponMaterialList.Count)];
             }
@@ -89,11 +78,11 @@ namespace AuldShiteburn.ItemData.WeaponData
             #endregion Material Generation
 
             #region Property Generation
-            if (rand.Next(1, 101) <= 8)
+            if (rand.NextDouble() <= 0.03)
             {
                 weapon.Property = WeaponProperty.WeaponPropertyDamaged;
             }
-            else if (rand.Next(1, 101) <= 15)
+            else if (rand.NextDouble() <= 0.08)
             {
                 weapon.Property = WeaponProperty.WeaponProperties[rand.Next(2, WeaponProperty.WeaponProperties.Count)];
             }

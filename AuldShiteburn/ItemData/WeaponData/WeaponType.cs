@@ -1,5 +1,6 @@
 ﻿using AuldShiteburn.CombatData;
 using AuldShiteburn.EntityData;
+using AuldShiteburn.EntityData.PlayerData.Classes;
 using System;
 using System.Collections.Generic;
 
@@ -11,21 +12,21 @@ namespace AuldShiteburn.ItemData.WeaponData
         #region DextrousWeapons
         public static WeaponType Dagger
         {
-            get { return new WeaponType("Dagger", WeaponFamily.DextrousSmallArms, PhysicalDamageType.Pierce, 1, 3); }
+            get { return new WeaponType("Dagger", WeaponFamily.DextrousSmallArms, PhysicalDamageType.Pierce, 1, 3, PhysicalDamageType.Slash); }
         }
         public static WeaponType Rapier
         {
-            get { return new WeaponType("Rapier", WeaponFamily.DextrousSmallArms, PhysicalDamageType.Pierce, 1, 3); }
+            get { return new WeaponType("Rapier", WeaponFamily.DextrousSmallArms, PhysicalDamageType.Pierce, 1, 3, PhysicalDamageType.Slash); }
         }
         public static WeaponType Shortsword
         {
-            get { return new WeaponType("Shortsword", WeaponFamily.DextrousSmallArms, PhysicalDamageType.Slash, 1, 3); }
+            get { return new WeaponType("Shortsword", WeaponFamily.DextrousSmallArms, PhysicalDamageType.Slash, 1, 3, PhysicalDamageType.Pierce); }
         }
         #endregion DextrousWeapons
         #region PrimitiveWeapons
         public static WeaponType HandAxe
         {
-            get { return new WeaponType("Hand Axe", WeaponFamily.PrimitiveArms, PhysicalDamageType.Slash, 2, 4); }
+            get { return new WeaponType("Hand Axe", WeaponFamily.PrimitiveArms, PhysicalDamageType.Slash, 2, 4, PhysicalDamageType.Strike); }
         }
         public static WeaponType Cudgel
         {
@@ -33,17 +34,17 @@ namespace AuldShiteburn.ItemData.WeaponData
         }
         public static WeaponType Spear
         {
-            get { return new WeaponType("Spear", WeaponFamily.PrimitiveArms, PhysicalDamageType.Pierce, 2, 4); }
+            get { return new WeaponType("Spear", WeaponFamily.PrimitiveArms, PhysicalDamageType.Pierce, 2, 4, PhysicalDamageType.Slash); }
         }
         #endregion PrimitiveWeapons
         #region MartialWeapons
         public static WeaponType Longsword
         {
-            get { return new WeaponType("Longsword", WeaponFamily.MartialArms, PhysicalDamageType.Slash, 3, 5); }
+            get { return new WeaponType("Longsword", WeaponFamily.MartialArms, PhysicalDamageType.Slash, 3, 5, PhysicalDamageType.Pierce); }
         }
         public static WeaponType BattleAxe
         {
-            get { return new WeaponType("Battle Axe", WeaponFamily.MartialArms, PhysicalDamageType.Slash, 3, 5); }
+            get { return new WeaponType("Battle Axe", WeaponFamily.MartialArms, PhysicalDamageType.Slash, 3, 5, PhysicalDamageType.Strike); }
         }
         public static WeaponType Mace
         {
@@ -51,17 +52,17 @@ namespace AuldShiteburn.ItemData.WeaponData
         }
         public static WeaponType Warhammer
         {
-            get { return new WeaponType("Warhammer", WeaponFamily.MartialArms, PhysicalDamageType.Strike, 3, 5); }
+            get { return new WeaponType("Warhammer", WeaponFamily.MartialArms, PhysicalDamageType.Strike, 3, 5, PhysicalDamageType.Pierce); }
         }
         #endregion MartialWeapons
         #region StrengthWeapons
         public static WeaponType Greatsword
         {
-            get { return new WeaponType("Greatsword", WeaponFamily.StrengthLargeArms, PhysicalDamageType.Slash, 5, 7); }
+            get { return new WeaponType("Greatsword", WeaponFamily.StrengthLargeArms, PhysicalDamageType.Slash, 5, 7, PhysicalDamageType.Pierce); }
         }
         public static WeaponType Greataxe
         {
-            get { return new WeaponType("Greataxe", WeaponFamily.StrengthLargeArms, PhysicalDamageType.Slash, 5, 7); }
+            get { return new WeaponType("Greataxe", WeaponFamily.StrengthLargeArms, PhysicalDamageType.Slash, 5, 7, PhysicalDamageType.Strike); }
         }
         public static WeaponType Greathammer
         {
@@ -151,7 +152,14 @@ namespace AuldShiteburn.ItemData.WeaponData
             {
                 if (IsProficient)
                 {
-                    return minDamage + Combat.PROFICIENCY_DAMAGE_BONUS_MINOR;
+                    if (PlayerEntity.Instance.Class.GetType() == typeof(FighterClass))
+                    {
+                        return maxDamage + Combat.PROFICIENCY_DAMAGE_BONUS_MODERATE;
+                    }
+                    else
+                    {
+                        return maxDamage + Combat.PROFICIENCY_DAMAGE_BONUS_MINOR;
+                    }
                 }
                 return minDamage;
             }
@@ -166,7 +174,14 @@ namespace AuldShiteburn.ItemData.WeaponData
             {
                 if (IsProficient)
                 {
-                    return maxDamage + Combat.PROFICIENCY_DAMAGE_BONUS_MINOR;
+                    if (PlayerEntity.Instance.Class.GetType() == typeof(FighterClass))
+                    {
+                        return maxDamage + Combat.PROFICIENCY_DAMAGE_BONUS_MODERATE;
+                    }
+                    else
+                    {
+                        return maxDamage + Combat.PROFICIENCY_DAMAGE_BONUS_MINOR;
+                    }
                 }
                 return maxDamage;
             }

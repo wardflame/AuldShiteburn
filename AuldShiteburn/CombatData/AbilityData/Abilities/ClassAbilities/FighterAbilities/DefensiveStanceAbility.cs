@@ -25,7 +25,7 @@ namespace AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.FighterA
                     ("Defensive Stance", 1, ConsoleColor.Cyan, EffectType.Buff,
                     EffectLevel.Major, allPhysicalDefense: true);
                 ActiveCooldown = Cooldown;
-                return new CombatPayload(false, true);
+                return new CombatPayload(isAttack: false, isUtility: true);
             }
             return new CombatPayload(false);
         }

@@ -3,6 +3,7 @@ using AuldShiteburn.EntityData;
 using AuldShiteburn.EntityData.Enemies;
 using AuldShiteburn.ItemData;
 using AuldShiteburn.ItemData.KeyData;
+using AuldShiteburn.ItemData.WeaponData;
 using AuldShiteburn.MapData.TileData;
 using AuldShiteburn.MapData.TileData.Tiles;
 using AuldShiteburn.MapData.TileData.Tiles.NPCs;
@@ -19,22 +20,25 @@ namespace AuldShiteburn.MapData.AreaData.Areas
         public override int Height => 20;
         public override bool CombatEncounter => true;
         public override bool BossArea => false;
-        private bool EnemiesDefeated { get; set; } = false;
 
         protected override void AddSpecialTiles()
         {
-            placeData.Add(new TilePlaceData(1, 6, new EarhNPCTile()));
             #region Earh House
+            // South wall.
             for (int x = 1; x <= 5; x++)
             {
                 placeData.Add(new TilePlaceData(x, 7, Tile.WallTile));
             }
+            // East wall.
             for (int y = 2; y <= 6; y++)
             {
                 placeData.Add(new TilePlaceData(5, y, Tile.WallTile));
 
             }
+            // Door.
             placeData.Add(new TilePlaceData(5, 1, new DoorTile(true, KeyItem.WestResidenceKey)));
+            // NPC
+            placeData.Add(new TilePlaceData(1, 6, new EarhNPCTile()));
             #endregion Earh House
             #region East House
             for (int x = 16; x <= 19; x++)
@@ -62,7 +66,32 @@ namespace AuldShiteburn.MapData.AreaData.Areas
             }
             #endregion East House
             #region South-West House
-            
+            // North wall.
+            for (int x = 2; x <= 6; x++)
+            {
+                placeData.Add(new TilePlaceData(x, 14, Tile.WallTile));
+            }
+            // South wall.
+            for (int x = 2; x <= 6; x++)
+            {
+                placeData.Add(new TilePlaceData(x, 17, Tile.WallTile));
+            }
+            // East wall.
+            placeData.Add(new TilePlaceData(6, 15, Tile.WallTile));
+            placeData.Add(new TilePlaceData(6, 16, Tile.WallTile));
+            // West Wall.
+            placeData.Add(new TilePlaceData(2, 15, Tile.WallTile));
+            // Door.
+            placeData.Add(new TilePlaceData(2, 16, new DoorTile(false)));
+            // Loot.
+            placeData.Add(new TilePlaceData(5, 15,
+                new LootTile("A burnt corpse in the fetal position",
+                new List<Item>()
+                {
+                            WeaponItem.GenerateWeapon(),
+                            KeyItem.ShitebreachSouthKey
+                },
+                false)));
             #endregion South-West House
         }
 
@@ -75,18 +104,9 @@ namespace AuldShiteburn.MapData.AreaData.Areas
 
         public override void OnFirstEnter()
         {
-            if (!EnemiesDefeated)
-            {
-                if (Combat.CombatEncounter(Enemies))
-                {
-                    SetTile(PlayerEntity.Instance.PosX + 1, PlayerEntity.Instance.PosY, new LootTile("Spoils of War", new List<Item>(), true, true));
-                    Map.Instance.PrintTile(PlayerEntity.Instance.PosX + 1, PlayerEntity.Instance.PosY);
-                    EnemiesDefeated = true;
-                }
-                EarhNPCTile earh = GetTile(1, 6) as EarhNPCTile;
-                earh.Interaction();
-                FirstEnter = false;
-            }
+            InitiateCombat();
+            EarhNPCTile earh = GetTile(1, 6) as EarhNPCTile;
+            earh.Interaction();
         }
 
         protected override void TileGeneration()

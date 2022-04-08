@@ -292,6 +292,11 @@ namespace AuldShiteburn.MapData
             if (CurrentArea.FirstEnter)
             {
                 CurrentArea.OnFirstEnter();
+                CurrentArea.FirstEnter = false;
+            }
+            else
+            {
+                CurrentArea.OnEnter();
             }
         }
         #endregion Areas

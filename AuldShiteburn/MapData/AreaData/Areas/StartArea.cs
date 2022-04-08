@@ -1,6 +1,7 @@
 ﻿using AuldShiteburn.ItemData;
 using AuldShiteburn.ItemData.ConsumableData.Consumables;
 using AuldShiteburn.ItemData.KeyData;
+using AuldShiteburn.ItemData.WeaponData;
 using AuldShiteburn.MapData.TileData;
 using AuldShiteburn.MapData.TileData.Tiles;
 using AuldShiteburn.MapData.TileData.Tiles.NPCs;
@@ -23,35 +24,36 @@ namespace AuldShiteburn.MapData.AreaData.Areas
         protected override void AddSpecialTiles()
         {
             #region Ormod House
-            placeData.Add(new TilePlaceData(3, 1, new OrmodNPCTile()));
-            /// South wall.
+            // South wall.
             for (int x = 1; x <= 6; x++)
             {
                 placeData.Add(new TilePlaceData(x, 5, Tile.WallTile));
             }
-            /// South porch wall.
+            // South porch wall.
             placeData.Add(new TilePlaceData(7, 7, Tile.WallTile));
-            /// West porch wall.
+            // West porch wall.
             for (int y = 5; y <= 7; y++)
             {
                 placeData.Add(new TilePlaceData(6, y, Tile.WallTile));
             }
-            /// East wall.
+            // East wall.
             for (int y = 1; y <= 7; y++)
             {
                 placeData.Add(new TilePlaceData(9, y, Tile.WallTile));
             }
-            /// Loot.
+            // Loot.
             placeData.Add(new TilePlaceData(6, 4,
                 new LootTile("The decaying corpse of a long-dead Heathen",
                 new List<Item>()
                 {
-                            new HealthRegenConsumable(),
-                            KeyItem.HideawayKey
+                    new HealthRegenConsumable(),
+                    KeyItem.HideawayKey
                 },
                 false)));
-            /// Door.
+            // Door.
             placeData.Add(new TilePlaceData(8, 7, new DoorTile(true, KeyItem.HideawayKey)));
+            // NPC.
+            placeData.Add(new TilePlaceData(3, 1, new OrmodNPCTile()));
             #endregion Ormod House
             placeData.Add(new TilePlaceData(5, 6, new StorageTile("Rotting Chest")));
             placeData.Add(new TilePlaceData(7, 8, new CrestfallenGrimrNPCTile()));
@@ -104,6 +106,10 @@ namespace AuldShiteburn.MapData.AreaData.Areas
         }
 
         public override void OnFirstEnter()
+        {
+        }
+
+        public override void OnEnter()
         {
         }
 

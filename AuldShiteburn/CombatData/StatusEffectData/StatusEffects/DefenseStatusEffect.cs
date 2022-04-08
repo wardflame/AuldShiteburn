@@ -9,6 +9,21 @@ namespace AuldShiteburn.CombatData.StatusEffectData.StatusEffects
     /// </summary>
     internal class DefenseStatusEffect : StatusEffect
     {
+        #region Global Defensive Stances
+        // Stagger: Debuff
+        public static DefenseStatusEffect Staggered
+        {
+            get
+            {
+                return new DefenseStatusEffect(
+                    "Staggered", 1,
+                    ConsoleColor.Magenta, EffectType.Debuff,
+                    physicalEffectLevel: EffectLevel.Moderate, propertyEffectLevel: EffectLevel.Moderate,
+                    allPhysicalDefense: true, allPropertyDefense: true);
+            }
+        }
+        #endregion
+
         public EffectLevel PhysicalEffectLevel { get; }
         public EffectLevel PropertyEffectLevel { get; }
         public PhysicalDamageType PhysicalTypeDefense { get; }
@@ -144,23 +159,26 @@ namespace AuldShiteburn.CombatData.StatusEffectData.StatusEffects
                         }
                         else if (Type == EffectType.Debuff)
                         {
-                            switch (PropertyEffectLevel)
+                            if (combatPayload.PropertyAttackType != PropertyDamageType.Damaged && combatPayload.PropertyAttackType != PropertyDamageType.Standard)
                             {
-                                case EffectLevel.Minor:
-                                    {
-                                        combatPayload.PropertyDamage += Combat.STATUS_MITIGATION_MINOR;
-                                    }
-                                    break;
-                                case EffectLevel.Moderate:
-                                    {
-                                        combatPayload.PropertyDamage += Combat.STATUS_MITIGATION_MODERATE;
-                                    }
-                                    break;
-                                case EffectLevel.Major:
-                                    {
-                                        combatPayload.PropertyDamage += Combat.STATUS_MITIGATION_MAJOR;
-                                    }
-                                    break;
+                                switch (PropertyEffectLevel)
+                                {
+                                    case EffectLevel.Minor:
+                                        {
+                                            combatPayload.PropertyDamage += Combat.STATUS_MITIGATION_MINOR;
+                                        }
+                                        break;
+                                    case EffectLevel.Moderate:
+                                        {
+                                            combatPayload.PropertyDamage += Combat.STATUS_MITIGATION_MODERATE;
+                                        }
+                                        break;
+                                    case EffectLevel.Major:
+                                        {
+                                            combatPayload.PropertyDamage += Combat.STATUS_MITIGATION_MAJOR;
+                                        }
+                                        break;
+                                }
                             }
                         }
                     }

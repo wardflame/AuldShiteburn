@@ -1,4 +1,6 @@
-﻿using AuldShiteburn.EntityData;
+﻿using AuldShiteburn.CombatData;
+using AuldShiteburn.EntityData;
+using AuldShiteburn.ItemData;
 using AuldShiteburn.MapData.TileData;
 using AuldShiteburn.MapData.TileData.Tiles;
 using System;
@@ -12,6 +14,7 @@ namespace AuldShiteburn.MapData
         public abstract string Name { get; }
         public abstract int Width { get; }
         public abstract int Height { get; }
+        public virtual bool EnemiesDefeated { get; set; } = false;
         public abstract bool CombatEncounter { get; }
         public abstract bool BossArea { get; }
         public virtual bool BossDefeated { get; protected set; }
@@ -33,6 +36,31 @@ namespace AuldShiteburn.MapData
         /// Experience generated on first entry.
         /// </summary>
         public abstract void OnFirstEnter();
+
+        /// <summary>
+        /// Experience generated on each entry.
+        /// </summary>
+        public virtual void OnEnter()
+        {
+            InitiateCombat();
+        }
+
+        /// <summary>
+        /// If EnemiesDefeated is false and there are enemies in the Enemies
+        /// list, run a combat encounter.
+        /// </summary>
+        public void InitiateCombat()
+        {
+            if (!EnemiesDefeated && Enemies.Count > 0)
+            {
+                if (Combat.CombatEncounter(Enemies))
+                {
+                    SetTile(PlayerEntity.Instance.PosX + 1, PlayerEntity.Instance.PosY, new LootTile("Spoils of War", new List<Item>(), true, true));
+                    Map.Instance.PrintTile(PlayerEntity.Instance.PosX + 1, PlayerEntity.Instance.PosY);
+                    EnemiesDefeated = true;
+                }
+            }
+        }
 
         /// <summary>
         /// Generate enemies for first entry.

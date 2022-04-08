@@ -18,8 +18,8 @@ namespace AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.MonkAbil
 
         public override CombatPayload UseAbility(List<EnemyEntity> enemies)
         {
-            int offsetY = Console.CursorTop + 2;
-            Utils.SetCursorInteract(offsetY - 2);
+            int offsetY = Console.CursorTop + 1;
+            Utils.SetCursorInteract(Console.CursorTop);
             if (ActiveCooldown <= 0)
             {
                 PlayerEntity.Instance.Mana -= ResourceCost;
@@ -30,14 +30,24 @@ namespace AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.MonkAbil
                     Utils.SetCursorInteract(offsetY - 2);
                     int propDamage = rand.Next(PropertyMinDamage, PropertyMaxDamage + 1);
                     if (enemies[i].ReceiveAttack
-                        (new CombatPayload(false, true, true, hasProperty: true,
-                        propertyAttackType: PropertyDamageType, propertyDamage: propDamage, stunCount: 3), Console.CursorTop + 1))
+                        (new CombatPayload(
+                            isAttack: false, isUtility: true, isStun: true,
+                            hasProperty: true,
+                            propertyAttackType: PropertyDamageType,
+                            propertyDamage: propDamage, stunCount: 3), Console.CursorTop + 1))
                     {
                         enemies.Remove(enemies[i]);
                         i = -1;
                     }
-                    Console.ReadKey(true);
+                    Utils.SetCursorInteract(Console.CursorTop);
+                    if (i < enemies.Count - 1)
+                    {
+                        Utils.WriteColour("Press any key to continue.");
+                        Console.ReadKey(true);
+                    }
                 }
+                Utils.ClearInteractArea(Console.CursorTop - 3, 1);
+                Utils.SetCursorInteract(Console.CursorTop - 4);
                 ActiveCooldown = Cooldown;
                 return new CombatPayload(false, true);
             }

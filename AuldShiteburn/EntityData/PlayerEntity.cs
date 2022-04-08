@@ -89,7 +89,7 @@ namespace AuldShiteburn.EntityData
 
             #region Class Generation and Stat Assignments
             //Instance.Class = CharacterClass.Classes[rand.Next(CharacterClass.Classes.Count)];
-            Instance.Class = new FighterClass();
+            Instance.Class = new MonkClass();
             Instance.MaxHP = Instance.Class.Statistics.HP;
             Instance.HP = Instance.Class.Statistics.HP;
             Instance.UsesStamina = Instance.Class.Statistics.UsesStamina;
@@ -159,22 +159,43 @@ namespace AuldShiteburn.EntityData
             }
             #endregion Status Effect Application
 
+            Utils.SetCursorInteract(1);
+            Utils.WriteColour("You ");
+
+            //If the payload has a stun in it, apply the stun.
+            #region Stun Application
+            if (combatPayload.IsStun)
+            {
+                if (!Stunned)
+                {
+                    StunTimer = combatPayload.StunCount;
+                    Utils.WriteColour($"are stunned for {StunTimer} turns,", ConsoleColor.Blue);
+                    JustStunned = true;
+                }
+                else
+                {
+                    Utils.WriteColour($"are already stunned and cannot be again for {StunTimer} turns,", ConsoleColor.DarkYellow);
+                }
+                Utils.SetCursorInteract(Console.CursorTop - 1);
+            }
+            #endregion Stun Application
+
             // If player has armour equipped, mitigate where possible, else apply the damage directly.
             #region Damage Application
-            Utils.SetCursorInteract(1);
             if (Instance.EquippedArmour != null)
             {
                 ArmourItem playerArmour = Instance.EquippedArmour;
 
                 #region Physical Damage Mitigation
-                Utils.WriteColour($"{Instance.Name} takes ");
                 int physDamage = combatPayload.PhysicalDamage -= playerArmour.PhysicalMitigation;
                 if (physDamage < 0)
                 {
                     physDamage = 0;
                 }
+                Utils.WriteColour($"take ");
                 Utils.WriteColour($"{physDamage}/{initialPhys} ", ConsoleColor.Red);
-                Utils.WriteColour($"{combatPayload.PhysicalAttackType} damage ");
+                Utils.WriteColour($"{combatPayload.PhysicalAttackType} damage, ");
+                Utils.SetCursorInteract(Console.CursorTop - 1);
                 #endregion Physical Damage Mitigation
 
                 #region Property Damage Mitigation
@@ -186,43 +207,31 @@ namespace AuldShiteburn.EntityData
                 Utils.WriteColour("and ");
                 Utils.WriteColour($"{propDamage}/{initialProp} ", ConsoleColor.Red);
                 Utils.WriteColour($"{combatPayload.PropertyAttackType} damage ");
+                Utils.SetCursorInteract(Console.CursorTop - 1);
                 #endregion Property Damage Mitigation
 
                 totalDamage = physDamage + propDamage;
                 Utils.WriteColour($"for a total of ");
                 Utils.WriteColour($"{totalDamage} ", ConsoleColor.Red);
                 Utils.WriteColour($"damage.");
+                Utils.SetCursorInteract(Console.CursorTop - 1);
             }
             else
             {
-                Utils.WriteColour($"{Instance.Name} takes ");
                 totalDamage += combatPayload.PhysicalDamage;
+                Utils.WriteColour("take ");
                 Utils.WriteColour($"{combatPayload.PhysicalDamage} ", ConsoleColor.Red);
-                Utils.WriteColour($"physical damage and ");
+                Utils.WriteColour($"physical damage,");
+                Utils.SetCursorInteract(Console.CursorTop - 1);
                 totalDamage += combatPayload.PropertyDamage;
+                Utils.WriteColour("and ");
                 Utils.WriteColour($"{combatPayload.PropertyDamage} ", ConsoleColor.Red);
+                Utils.SetCursorInteract(Console.CursorTop - 1);
                 Utils.WriteColour($"for a total of ");
                 Utils.WriteColour($"{totalDamage} ", ConsoleColor.Red);
                 Utils.WriteColour($"damage.");
             }
             #endregion Damage Application
-
-            // If the payload has a stun in it, apply the stun.
-            #region Stun Application
-            if (combatPayload.IsStun)
-            {
-                Utils.SetCursorInteract(Console.CursorTop - 1);
-                if (!Stunned)
-                {
-                    StunTimer = combatPayload.StunCount;
-                    Utils.WriteColour($"You are stunned for {StunTimer} turns!", ConsoleColor.DarkBlue);
-                }
-                else
-                {
-                    Utils.WriteColour($"You are already stunned and cannot be again for {StunTimer} turns!", ConsoleColor.DarkYellow);
-                }
-            }
-            #endregion Stun Application
 
             // If player has riposte status effect, apply debuff to enemy.
             #region Riposte Status
@@ -230,9 +239,11 @@ namespace AuldShiteburn.EntityData
             {
                 if (AbilityStatusEffect.Name == "Defensive Stance")
                 {
-                    enemy.StatusEffect = new DefenseStatusEffect
-                        ("Staggered", 1, ConsoleColor.Magenta, EffectType.Debuff, EffectLevel.Major, EffectLevel.Major,
-                        true, true);
+                    enemy.StatusEffect = DefenseStatusEffect.Staggered;
+                    Utils.SetCursorInteract(Console.CursorTop - 1);
+                    Utils.WriteColour("You riposte the enemy, inflicting ", ConsoleColor.DarkYellow);
+                    Utils.WriteColour($"{enemy.StatusEffect.Name}", enemy.StatusEffect.DisplayColor);
+                    Utils.WriteColour($"!", ConsoleColor.DarkYellow);
                 }
             }
             #endregion Riposte Status
@@ -336,12 +347,12 @@ namespace AuldShiteburn.EntityData
             Utils.WriteColour("Equipped Weapon", ConsoleColor.DarkYellow);
             Utils.SetCursorPlayerStat(9);
             Utils.WriteColour(">> ", ConsoleColor.Yellow);
-            Inventory.WeaponAffinityCheck(EquippedWeapon);
+            Inventory.PrintWeaponWithAffinity(EquippedWeapon);
             Utils.SetCursorPlayerStat(11);
             Utils.WriteColour("Equipped Armour", ConsoleColor.DarkYellow);
             Utils.SetCursorPlayerStat(12);
             Utils.WriteColour(">> ", ConsoleColor.Yellow);
-            Inventory.ArmourAffinityCheck(EquippedArmour);
+            Inventory.PrintArmourWithAffinity(EquippedArmour);
 
             Console.CursorTop = cursorTop;
         }

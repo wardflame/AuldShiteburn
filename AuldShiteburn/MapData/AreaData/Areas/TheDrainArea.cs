@@ -20,6 +20,11 @@ namespace AuldShiteburn.MapData.AreaData.Areas
         {
         }
 
+        public override void OnEnter()
+        {
+            
+        }
+
         protected override void TileGeneration()
         {
             for (int y = 0; y < Height; y++)

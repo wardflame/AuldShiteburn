@@ -30,10 +30,10 @@ namespace AuldShiteburn.CombatData
         public const int WEAKNESS_BONUS_MODIFIER = 2;
         #endregion Modifier Constants
 
-        private static int RoundNumber { get; set; } = 0;
+        private static int RoundNumber { get; set; }
 
         /// <summary>
-        /// Keep player and enemies fighting in a loop until one either they are all dead
+        /// Keep player and enemies fighting in a loop until all enemies are dead
         /// or the player has died.
         /// </summary>
         /// <param name="enemies">Enemies for the player to fight.</param>
@@ -45,6 +45,7 @@ namespace AuldShiteburn.CombatData
             {
                 PlayerCombatTurn(enemies);
                 EnemyCombatTurn(enemies);
+                AssessStatus(enemies);
                 RoundNumber++;
             }
             if (PlayerEntity.Instance.HP > 0)
@@ -63,6 +64,10 @@ namespace AuldShiteburn.CombatData
                 else if (PlayerEntity.Instance.UsesStamina)
                 {
                     PlayerEntity.Instance.Stamina = PlayerEntity.Instance.MaxStamina;
+                }
+                foreach (Ability ability in PlayerEntity.Instance.Class.Abilities)
+                {
+                    ability.ActiveCooldown = 0;
                 }
                 PlayerEntity.Instance.PrintStats();
                 return true;
@@ -89,15 +94,13 @@ namespace AuldShiteburn.CombatData
         private static void PlayerCombatTurn(List<EnemyEntity> enemies)
         {
             bool playerTurn = true;
-            bool stunReduction = false;
-            bool statusReduction = false;
             bool abilityCooldowns = false;
-            int endOffset = 0;
             while (playerTurn)
             {
+                #region Ability Cooldowns
                 if (RoundNumber > 1)
                 {
-                    #region Ability Cooldowns
+                    
                     if (!abilityCooldowns)
                     {
                         // Iterate through player abilities. If they have a cooldown active, decrement it.
@@ -107,54 +110,35 @@ namespace AuldShiteburn.CombatData
                         Utils.WriteColour("Cooldowns", ConsoleColor.DarkYellow);
                         foreach (Ability ability in PlayerEntity.Instance.Class.Abilities)
                         {
+                            Utils.SetCursorInteract(i++);
                             if (ability.ActiveCooldown > 0)
                             {
-                                ability.ActiveCooldown--;
-                                Utils.SetCursorInteract(i++);
                                 Utils.WriteColour($"{ability.Name} cooling down: {ability.ActiveCooldown}/{ability.Cooldown}", ConsoleColor.Magenta);
+                                ability.ActiveCooldown--;
                                 abilitiesCoolingDown++;
+                            }
+                            else
+                            {
+                                Utils.WriteColour($"{ability.Name}: ", ConsoleColor.Magenta);
+                                Utils.WriteColour($"Ready", ConsoleColor.DarkGreen);
                             }
                         }
                         if (abilitiesCoolingDown > 0)
                         {
+                            Utils.SetCursorInteract(Console.CursorTop);
+                            Utils.WriteColour("Press any key to continue.");
                             Console.ReadKey(true);
                             Utils.ClearInteractInterface();
                         }
                         abilityCooldowns = true;
                     }
-                    #endregion Ability Cooldowns
-                    #region Status Effects Duration
-                    if (PlayerEntity.Instance.AbilityStatusEffect != null && !statusReduction)
-                    {
-                        PlayerEntity.Instance.AbilityStatusEffect.Duration--;
-                        if (PlayerEntity.Instance.AbilityStatusEffect.Duration == 0)
-                        {
-                            PlayerEntity.Instance.AbilityStatusEffect = null;
-                        }
-                    }
-                    if (PlayerEntity.Instance.PotionStatusEffect != null && !statusReduction)
-                    {
-                        PlayerEntity.Instance.PotionStatusEffect.Duration--;
-                        if (PlayerEntity.Instance.PotionStatusEffect.Duration == 0)
-                        {
-                            PlayerEntity.Instance.PotionStatusEffect = null;
-                        }
-                    }
-                    #endregion Status Effects Duration
-                    #region Stun Duration
-                    if (PlayerEntity.Instance.Stunned && !stunReduction)
-                    {
-                        PlayerEntity.Instance.StunTimer--;
-                        stunReduction = true;
-                    }
-                    #endregion Stun Duration
                 }
+                #endregion Ability Cooldowns
                 PlayerEntity.Instance.PrintStats();
-                if (PlayerEntity.Instance.StunTimer <= 0)
+                if (!PlayerEntity.Instance.Stunned)
                 {
                     EnemyEntity enemy = ChooseEnemy(enemies);
                     int activity = ChooseActivity();
-                    endOffset = Console.CursorTop + 2;
                     if (activity >= 0)
                     {
                         #region Activity 1: Melee Combat
@@ -167,12 +151,10 @@ namespace AuldShiteburn.CombatData
                                 {
                                     enemies.Remove(enemy);
                                 }
-                                endOffset = Console.CursorTop + 2;
                                 playerTurn = false;
                             }
                             else
                             {
-                                endOffset = Console.CursorTop;
                                 Utils.SetCursorInteract(enemies.Count + 2);
                                 Utils.ClearInteractArea(length: 30);
                             }
@@ -190,19 +172,16 @@ namespace AuldShiteburn.CombatData
                                 {
                                     enemies.Remove(enemy);
                                 }
-                                endOffset = Console.CursorTop + 2;
                                 PlayerEntity.Instance.PrintStats();
                                 playerTurn = false;
                             }
                             else if (playerAbilityPayload.IsUtility)
                             {
-                                endOffset = Console.CursorTop + 2;
                                 PlayerEntity.Instance.PrintStats();
                                 playerTurn = false;
                             }
                             else
                             {
-                                endOffset = Console.CursorTop - 1;
                                 Utils.SetCursorInteract(enemies.Count + 2);
                                 Utils.ClearInteractArea(length: 30);
                             }
@@ -211,12 +190,11 @@ namespace AuldShiteburn.CombatData
                     }
                     else
                     {
-                        endOffset = Console.CursorTop;
-                        Utils.SetCursorInteract(enemies.Count + 2);
-                        Utils.ClearInteractArea(length: 30);
+                        Utils.ClearInteractInterface(30);
                     }
                 }
             }
+            #region Status Effect Actives
             if (PlayerEntity.Instance.AbilityStatusEffect != null && PlayerEntity.Instance.AbilityStatusEffect.GetType() == typeof(ReplenishStatusEffect) && RoundNumber > 1)
             {
                 PlayerEntity.Instance.AbilityStatusEffect.EffectActive(new CombatPayload(false));
@@ -225,8 +203,9 @@ namespace AuldShiteburn.CombatData
             {
                 PlayerEntity.Instance.PotionStatusEffect.EffectActive(new CombatPayload(false));
             }
+            #endregion Status Effect Actives
             // Readkey to ensure player has a chance to read the round's report.
-            Console.SetCursorPosition(Utils.UIInteractOffset, endOffset);
+            Utils.SetCursorInteract(Console.CursorTop);
             Utils.WriteColour("Press any key to continue.");
             Console.ReadKey(true);
             Utils.ClearInteractInterface(30);
@@ -240,24 +219,61 @@ namespace AuldShiteburn.CombatData
         /// <param name="enemies">List of enemies in the area.</param>
         private static void EnemyCombatTurn(List<EnemyEntity> enemies)
         {
-            int endOffset = 0;
+            int endOffset;
             bool enemyTurn = true;
             while (enemyTurn)
             {
                 foreach (EnemyEntity enemy in enemies)
                 {
-                    if (enemy.Stunned)
+                    if (!enemy.Stunned)
                     {
-                        Utils.SetCursorInteract();
-                        Utils.WriteColour($"{enemy.Name} ");
-                        Utils.WriteColour($"{enemy.HP}/{enemy.MaxHP} ", ConsoleColor.Red);
-                        Utils.WriteColour($"is stunned, recovering in ");
-                        Utils.WriteColour($"{enemy.StunTimer} ", ConsoleColor.Blue);
-                        Utils.WriteColour($"turns.");
-                        endOffset = Console.CursorTop + 2;
-                        enemy.StunTimer--;
+                        CombatPayload enemyAttack = enemy.PerformAttack(enemies);
+                        PlayerEntity.Instance.ReceiveAttack(enemyAttack, aggressor: enemy);
+                        // Readkey to ensure player has a chance to read the round's report.
+                        Console.CursorLeft = Utils.UIInteractOffset;
+                        Console.CursorTop += 2;
+                        Utils.WriteColour("Press any key to continue.");
+                        Console.ReadKey(true);
+                        Utils.ClearInteractInterface(30);
                     }
-                    if (enemy.StatusEffect != null && enemy.StatusEffect.Duration > 0)
+                }
+                enemyTurn = false;
+            }
+        }
+
+        /// <summary>
+        /// Run through player entity and enemies and check for stuns and
+        /// status effects. If any exist, decrement/remove them.
+        /// </summary>
+        /// <param name="enemies">List of enemies in current combat.</param>
+        private static void AssessStatus(List<EnemyEntity> enemies)
+        {
+            #region Status Effects Duration
+            if (PlayerEntity.Instance.AbilityStatusEffect != null)
+            {
+                PlayerEntity.Instance.AbilityStatusEffect.Duration--;
+                if (PlayerEntity.Instance.AbilityStatusEffect.Duration == 0)
+                {
+                    PlayerEntity.Instance.AbilityStatusEffect = null;
+                }
+            }
+            if (PlayerEntity.Instance.PotionStatusEffect != null)
+            {
+                PlayerEntity.Instance.PotionStatusEffect.Duration--;
+                if (PlayerEntity.Instance.PotionStatusEffect.Duration == 0)
+                {
+                    PlayerEntity.Instance.PotionStatusEffect = null;
+                }
+            }
+            foreach (EnemyEntity enemy in enemies)
+            {
+                if (enemy.StatusEffect != null)
+                {
+                    if (enemy.JustAfflicted)
+                    {
+                        enemy.JustAfflicted = false;
+                    }
+                    else
                     {
                         enemy.StatusEffect.Duration--;
                         if (enemy.StatusEffect.Duration == 0)
@@ -265,20 +281,37 @@ namespace AuldShiteburn.CombatData
                             enemy.StatusEffect = null;
                         }
                     }
-                    if (!enemy.Stunned)
-                    {
-                        CombatPayload enemyAttack = enemy.PerformAttack(enemies);
-                        endOffset = Console.CursorTop + 3;
-                        PlayerEntity.Instance.ReceiveAttack(enemyAttack, aggressor: enemy);
-                    }
-                    // Readkey to ensure player has a chance to read the round's report.
-                    Console.SetCursorPosition(Utils.UIInteractOffset, endOffset);
-                    Utils.WriteColour("Press any key to continue.");
-                    Console.ReadKey(true);
-                    Utils.ClearInteractInterface(30);
                 }
-                enemyTurn = false;
             }
+            #endregion Status Effects Duration
+            #region Stun Duration
+            if (PlayerEntity.Instance.Stunned)
+            {
+                if (PlayerEntity.Instance.JustStunned)
+                {
+                    PlayerEntity.Instance.JustStunned = false;
+                }
+                else
+                {
+                    PlayerEntity.Instance.StunTimer--;
+                }
+                
+            }
+            for (int i = 0; i < enemies.Count; i++)
+            {
+                if (enemies[i].Stunned)
+                {
+                    if (enemies[i].JustStunned)
+                    {
+                        enemies[i].JustStunned = false;
+                    }
+                    else
+                    {
+                        enemies[i].StunTimer--;
+                    }
+                }
+            }
+            #endregion Stun Duration
         }
 
         /// <summary>
@@ -336,9 +369,21 @@ namespace AuldShiteburn.CombatData
                     Utils.WriteColour($"{enemies[i].Name} ", ConsoleColor.Cyan);
                     Utils.WriteColour($"{enemies[i].HP}/{enemies[i].MaxHP} ", ConsoleColor.Red);
                     Utils.WriteColour($"HP ");
-                    if (enemies[i].StatusEffect != null)
+                    bool status = enemies[i].StatusEffect != null;
+                    bool stunned = enemies[i].Stunned;
+                    if (status && stunned)
                     {
-                        Utils.WriteColour($"{enemies[i].StatusEffect.Name}", enemies[i].StatusEffect.DisplayColor);
+                        Utils.WriteColour($"{enemies[i].StatusEffect.Name}: {enemies[i].StatusEffect.Duration}", enemies[i].StatusEffect.DisplayColor);
+                        Utils.WriteColour(", ");
+                        Utils.WriteColour($"Stunned: {enemies[i].StunTimer}", ConsoleColor.Blue);
+                    }
+                    else if (status)
+                    {
+                        Utils.WriteColour($"{enemies[i].StatusEffect.Name}: {enemies[i].StatusEffect.Duration}", enemies[i].StatusEffect.DisplayColor);
+                    }
+                    else if (stunned)
+                    {
+                        Utils.WriteColour($"Stunned: {enemies[i].StunTimer}", ConsoleColor.Blue);
                     }
                 }
                 InputSystem.GetInput();
@@ -565,6 +610,7 @@ namespace AuldShiteburn.CombatData
             Ability chosenAbility = PlayerEntity.Instance.Class.Abilities[index];
             if (chosenAbility.ActiveCooldown > 0)
             {
+                Utils.SetCursorInteract(Console.CursorTop);
                 Utils.WriteColour($"{chosenAbility.Name} is on cooldown {chosenAbility.ActiveCooldown}/{chosenAbility.Cooldown}.", ConsoleColor.Red);
                 Console.ReadKey(true);
                 return new CombatPayload(false);

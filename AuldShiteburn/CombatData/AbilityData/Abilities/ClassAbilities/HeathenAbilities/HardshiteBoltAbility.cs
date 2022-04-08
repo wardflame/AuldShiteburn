@@ -24,7 +24,12 @@ namespace AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.HeathenA
                 Random rand = new Random();
                 int damage = rand.Next(PropertyMinDamage, PropertyMaxDamage + 1);
                 ActiveCooldown = Cooldown;
-                return new CombatPayload(true, isStun: true, hasProperty: true, propertyAttackType: PropertyDamageType.Occult, propertyDamage: damage, stunCount: 2);
+                return new CombatPayload(
+                    isAttack: true, isStun: true,
+                    hasProperty: true,
+                    propertyAttackType: PropertyDamageType.Occult,
+                    propertyDamage: damage,
+                    stunCount: 2);
             }
             return new CombatPayload(false);
         }

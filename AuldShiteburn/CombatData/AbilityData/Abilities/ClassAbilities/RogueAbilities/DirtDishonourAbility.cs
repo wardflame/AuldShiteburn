@@ -1,4 +1,6 @@
 ﻿using AuldShiteburn.CombatData.PayloadData;
+using AuldShiteburn.CombatData.StatusEffectData;
+using AuldShiteburn.CombatData.StatusEffectData.StatusEffects;
 using AuldShiteburn.EntityData;
 using System;
 using System.Collections.Generic;
@@ -9,9 +11,9 @@ namespace AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.RogueAbi
     internal class DirtDishonourAbility : Ability
     {
         public override string Name => "Dirt and Dishonour";
-        public override string Description => "Hurl dirt at an enemy, stunning them for 1 round, and attack them with your equipped weapon.";
-        public override int Cooldown => 0;
-        public override int ResourceCost => 3;
+        public override string Description => "Hurl dirt at an enemy and attack, applying Staggered and Stunned for 1 round.";
+        public override int Cooldown => 3;
+        public override int ResourceCost => 6;
         public override PhysicalDamageType PhysicalDamageType => PlayerEntity.Instance.EquippedWeapon.Type.PrimaryAttack;
         public override int PhysicalMinDamage => PlayerEntity.Instance.EquippedWeapon.MinPhysDamage;
         public override int PhysicalMaxDamage => PlayerEntity.Instance.EquippedWeapon.MaxPhysDamage;
@@ -35,9 +37,13 @@ namespace AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.RogueAbi
                 int physDamage = rand.Next(PhysicalMinDamage, PhysicalMaxDamage + 1);
                 int propDamage = rand.Next(PropertyMinDamage, PropertyMaxDamage + 1);
                 ActiveCooldown = Cooldown;
-                return new CombatPayload(true, isStun: true, hasPhysical: true, hasProperty: true,
+                return new CombatPayload(
+                    isAttack: true, isStun: true,
+                    hasStatus: true, hasPhysical: true, hasProperty: true,
+                    statusEffect: DefenseStatusEffect.Staggered,
                     physicalAttackType: PhysicalDamageType, physicalDamage: physDamage,
-                    propertyAttackType: PropertyDamageType, propertyDamage: propDamage, stunCount: 1);
+                    propertyAttackType: PropertyDamageType, propertyDamage: propDamage,
+                    stunCount: 1);
             }
             return new CombatPayload(false);
         }

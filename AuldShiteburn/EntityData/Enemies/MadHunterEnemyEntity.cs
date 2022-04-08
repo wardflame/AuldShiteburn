@@ -13,7 +13,7 @@ namespace AuldShiteburn.EntityData.Enemies
         public MadHunterEnemyEntity()
         {
             Random rand = new Random();
-            int health = rand.Next(9, 16);
+            int health = rand.Next(12, 19);
             Name = "Mad Hunter";
             MaxHP = health;
             HP = health;

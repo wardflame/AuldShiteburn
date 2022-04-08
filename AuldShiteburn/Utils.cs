@@ -147,7 +147,8 @@ namespace AuldShiteburn
             {
                 Console.CursorLeft = UIPlayerStatOffset + offsetX;
                 Console.CursorTop = y;
-                Utils.WriteColour(new string(' ', Console.WindowWidth - (UIPlayerStatOffset + offsetX)));
+                int width = Map.Instance.CurrentArea.Width * 2 - (UIPlayerStatOffset - offsetX);
+                WriteColour(new string(' ', width));
             }
         }
 

@@ -16,7 +16,7 @@ namespace AuldShiteburn.ItemData.WeaponData
         }
         public static WeaponProperty WeaponPropertyStandard
         {
-            get { return new WeaponProperty("Standard", PropertyDamageType.Standard, ClassType.Fighter, 0, 0); }
+            get { return new WeaponProperty("Standard", PropertyDamageType.Standard, ClassType.None, 0, 0); }
         }
         public static WeaponProperty WeaponPropertyFlaming
         {

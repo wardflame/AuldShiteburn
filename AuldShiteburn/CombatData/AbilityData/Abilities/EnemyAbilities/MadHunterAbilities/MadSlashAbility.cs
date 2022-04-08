@@ -20,7 +20,11 @@ namespace AuldShiteburn.CombatData.AbilityData.Abilities.EnemyAbilities.MadHunte
         {
             Random rand = new Random();
             int physDamage = rand.Next(PhysicalMinDamage, PhysicalMaxDamage + 1);
-            return new CombatPayload(true, hasPhysical: true, physicalAttackType: PhysicalDamageType, physicalDamage: physDamage);
+            return new CombatPayload(
+                isAttack: true,
+                hasPhysical: true,
+                physicalAttackType: PhysicalDamageType,
+                physicalDamage: physDamage);
         }
     }
 }
