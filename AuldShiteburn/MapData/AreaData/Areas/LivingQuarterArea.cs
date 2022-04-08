@@ -104,7 +104,7 @@ namespace AuldShiteburn.MapData.AreaData.Areas
 
         public override void OnFirstEnter()
         {
-            InitiateCombat();
+            InitiateCombat(true);
             EarhNPCTile earh = GetTile(1, 6) as EarhNPCTile;
             earh.Interaction();
         }

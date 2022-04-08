@@ -1,5 +1,12 @@
-﻿using AuldShiteburn.MapData.TileData;
+﻿using AuldShiteburn.EntityData.Enemies;
+using AuldShiteburn.ItemData;
+using AuldShiteburn.ItemData.ArmourData;
+using AuldShiteburn.ItemData.KeyData;
+using AuldShiteburn.MapData.TileData;
+using AuldShiteburn.MapData.TileData.Tiles;
+using AuldShiteburn.MapData.TileData.Tiles.NPCs.NarrationNPCs;
 using System;
+using System.Collections.Generic;
 
 namespace AuldShiteburn.MapData.AreaData.Areas
 {
@@ -14,6 +21,8 @@ namespace AuldShiteburn.MapData.AreaData.Areas
 
         protected override void AddSpecialTiles()
         {
+            // Boss narration tile.
+            placeData.Add(new TilePlaceData(1, 1, new ShitepileNarrationNPCTile()));
             #region Generate Shite Mound Tiles
             int radius = 6;
             Random rand = new Random();
@@ -33,10 +42,21 @@ namespace AuldShiteburn.MapData.AreaData.Areas
 
         public override void InitEnemies()
         {
+            Enemies.Add(new DungEaterEnemyEntity());
         }
 
         public override void OnFirstEnter()
         {
+            Tile narrationTile = GetTile(1, 1);
+            ShitepileNarrationNPCTile narration = (ShitepileNarrationNPCTile)narrationTile;
+            narration.Interaction();
+            Utils.ClearInteractInterface();
+            InitiateCombat(false);
+            LootTile.GenerateLootTile(false, new List<Item>()
+            {
+                ArmourItem.IndomitableCuirass,
+                KeyItem.WestResidenceKey
+            });
         }
 
         protected override void TileGeneration()

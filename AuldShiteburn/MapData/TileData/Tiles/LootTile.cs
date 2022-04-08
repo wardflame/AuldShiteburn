@@ -17,7 +17,7 @@ namespace AuldShiteburn.MapData.TileData.Tiles
         private const float CHANCE_ARMOUR = 0.4f;
         private const float CHANCE_CONSUMABLE = 0.0f;
 
-        public override bool Collidable => Looted ? false : true;
+        public override bool Collidable => false;
         public override ConsoleColor Foreground => Looted ? ConsoleColor.DarkGray : ConsoleColor.Magenta;
         string Message { get; }
         public List<Item> Items { get; } = new List<Item>();
@@ -50,7 +50,7 @@ namespace AuldShiteburn.MapData.TileData.Tiles
                 chance = rand.NextDouble();
                 if (chance >= CHANCE_ARMOUR)
                 {
-                    ArmourItem armour = ArmourItem.AllArmours[rand.Next(ArmourItem.AllArmours.Count)];
+                    ArmourItem armour = ArmourItem.AllStandardArmours[rand.Next(ArmourItem.AllStandardArmours.Count)];
                     Items.Add(armour);
                 }
                 chance = rand.NextDouble();
@@ -62,7 +62,7 @@ namespace AuldShiteburn.MapData.TileData.Tiles
             }
         }
 
-        public static bool GenerateLootTile()
+        public static bool GenerateLootTile(bool randomLoot = true, List<Item> presetLoot = null)
         {
             int spawnX = PlayerEntity.Instance.PosX;
             int spawnY = PlayerEntity.Instance.PosY;
@@ -78,7 +78,7 @@ namespace AuldShiteburn.MapData.TileData.Tiles
                     int checkX = PlayerEntity.Instance.PosX + x;
                     int checkY = PlayerEntity.Instance.PosY + y;
                     Tile emptyTile = Map.Instance.CurrentArea.GetTile(checkX, checkY);
-                    if (emptyTile != null && emptyTile.DisplayChar == Tile.AirTile.DisplayChar)
+                    if (emptyTile != null && emptyTile.DisplayChar == AirTile.DisplayChar)
                     {
                         spawnX = checkX;
                         spawnY = checkY;
@@ -95,8 +95,16 @@ namespace AuldShiteburn.MapData.TileData.Tiles
             {
                 return false;
             }
-            Map.Instance.CurrentArea.SetTile(spawnX, spawnY,
+            if (randomLoot)
+            {
+                Map.Instance.CurrentArea.SetTile(spawnX, spawnY,
                 new LootTile("Loot Pile", new List<Item>(), true, true));
+            }
+            else
+            {
+                Map.Instance.CurrentArea.SetTile(spawnX, spawnY,
+                new LootTile("Loot Pile", presetLoot, false, true));
+            }
             Map.Instance.PrintTile(spawnX, spawnY);
             return true;
         }

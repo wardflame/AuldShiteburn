@@ -13,7 +13,7 @@ namespace AuldShiteburn.EntityData.Enemies
         public ShiteHuskEnemyEntity()
         {
             Random rand = new Random();
-            int health = rand.Next(10, 17);
+            int health = rand.Next(11, 16);
             Name = "Shite Husk";
             MaxHP = health;
             HP = health;

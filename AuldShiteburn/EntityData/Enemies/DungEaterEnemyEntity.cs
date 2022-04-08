@@ -4,23 +4,22 @@ using AuldShiteburn.CombatData.AbilityData.Abilities.EnemyAbilities.MadHunterAbi
 using AuldShiteburn.ItemData;
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace AuldShiteburn.EntityData.Enemies
 {
-    [Serializable]
-    internal class MadHunterEnemyEntity : EnemyEntity
+    internal class DungEaterEnemyEntity : EnemyEntity
     {
-        public MadHunterEnemyEntity()
+        public DungEaterEnemyEntity()
         {
-            Random rand = new Random();
-            int health = rand.Next(17, 21);
-            Name = "Mad Hunter";
+            int health = 60;
+            Name = "The Dung Eater";
             MaxHP = health;
             HP = health;
-            PhysicalWeakness = PhysicalDamageType.Slash;
+            PhysicalWeakness = PhysicalDamageType.Pierce;
             MaterialWeakness = GeneralMaterials.Moonstone;
             PropertyWeakness = PropertyDamageType.Fire;
-            StunCap = 6;
+            StunCap = 2;
             Abilities = new List<Ability>()
             {
                 new MadSlashAbility()

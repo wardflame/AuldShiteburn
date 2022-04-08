@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace AuldShiteburn.MapData.TileData.Tiles.NPCs
+namespace AuldShiteburn.MapData.TileData.Tiles.NPCs.GameFeatureNPCs
 {
     [Serializable]
     internal class ShitefireNPCTile : NPCTile

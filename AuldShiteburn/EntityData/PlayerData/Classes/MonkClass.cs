@@ -15,7 +15,7 @@ namespace AuldShiteburn.EntityData.PlayerData.Classes
         public MonkClass() : base
             ("Monk", ClassType.Monk,
             new TitleData(PlayerGenerationData.MonkTitlesMale, PlayerGenerationData.MonkTitlesFemale),
-            new ClassStatistics(22, 0, 20, 3),
+            new ClassStatistics(20, 0, 20, 3),
             new ProficiencyData(ArmourFamily.LightArmour, WeaponFamily.PrimitiveArms, PropertyDamageType.Holy, GeneralMaterials.Moonstone),
             new List<Ability>()
             {

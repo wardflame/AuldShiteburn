@@ -15,7 +15,7 @@ namespace AuldShiteburn.EntityData.PlayerData.Classes
         public RogueClass() : base
             ("Rogue", ClassType.Rogue,
             new TitleData(PlayerGenerationData.RogueTitles),
-            new ClassStatistics(16, 30, 0, 4),
+            new ClassStatistics(18, 30, 0, 4),
             new ProficiencyData(ArmourFamily.LightArmour, WeaponFamily.DextrousSmallArms, PropertyDamageType.Cold, GeneralMaterials.None),
             new List<Ability>()
             {

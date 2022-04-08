@@ -20,7 +20,7 @@ namespace AuldShiteburn.ItemData.ArmourData
         }
         public static ArmourItem Gambeson
         {
-            get { return new ArmourItem("Gambeson", ArmourFamily.LightArmour, 4, 1); }
+            get { return new ArmourItem("Gambeson", ArmourFamily.LightArmour, 4, 2); }
         }
         #endregion Light Armours
         #region Medium Armours
@@ -34,7 +34,7 @@ namespace AuldShiteburn.ItemData.ArmourData
         }
         public static ArmourItem Brigandine
         {
-            get { return new ArmourItem("Brigandine", ArmourFamily.MediumArmour, 6, 2); }
+            get { return new ArmourItem("Brigandine", ArmourFamily.MediumArmour, 6, 3); }
         }
         #endregion Medium Armours
         #region Heavy Armours
@@ -48,12 +48,26 @@ namespace AuldShiteburn.ItemData.ArmourData
         }
         public static ArmourItem Breastplate
         {
-            get { return new ArmourItem("Breastplate", ArmourFamily.HeavyArmour, 8, 3); }
+            get { return new ArmourItem("Breastplate", ArmourFamily.HeavyArmour, 8, 4); }
         }
         #endregion Heavy Armours
+        #region Special Armours
+        public static ArmourItem GrandWarlockGarb
+        {
+            get { return new ArmourItem("Grand Warlock's Garb", ArmourFamily.LightArmour, 5, 9); }
+        }
+        public static ArmourItem IndomitableCuirass
+        {
+            get { return new ArmourItem("Indomitable Cuirass", ArmourFamily.MediumArmour, 7, 7); }
+        }
+        public static ArmourItem GrailKnightPlate
+        {
+            get { return new ArmourItem("Grail Knight Plate", ArmourFamily.HeavyArmour, 9, 5); }
+        }
+        #endregion Special Armours
 
         #region Armour Lists
-        public static List<ArmourItem> AllArmours
+        public static List<ArmourItem> AllStandardArmours
         {
             get
             {

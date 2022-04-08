@@ -14,10 +14,10 @@ namespace AuldShiteburn.MapData
         public abstract string Name { get; }
         public abstract int Width { get; }
         public abstract int Height { get; }
-        public virtual bool EnemiesDefeated { get; set; } = false;
+        public bool EnemiesDefeated { get; set; } = false;
         public abstract bool CombatEncounter { get; }
         public abstract bool BossArea { get; }
-        public virtual bool BossDefeated { get; protected set; }
+        public bool BossDefeated { get; protected set; } = false;
         public bool FirstEnter { get; set; } = true;
         private Tile[] area;
         protected List<TilePlaceData> placeData = new List<TilePlaceData>();
@@ -42,20 +42,23 @@ namespace AuldShiteburn.MapData
         /// </summary>
         public virtual void OnEnter()
         {
-            InitiateCombat();
+            InitiateCombat(true);
         }
 
         /// <summary>
         /// If EnemiesDefeated is false and there are enemies in the Enemies
         /// list, run a combat encounter.
         /// </summary>
-        public void InitiateCombat()
+        public void InitiateCombat(bool randomLoot)
         {
             if (!EnemiesDefeated && Enemies.Count > 0)
             {
                 if (Combat.CombatEncounter(Enemies))
                 {
-                    SetTile(PlayerEntity.Instance.PosX + 1, PlayerEntity.Instance.PosY, new LootTile("Spoils of War", new List<Item>(), true, true));
+                    if (randomLoot)
+                    {
+                        LootTile.GenerateLootTile();
+                    }
                     Map.Instance.PrintTile(PlayerEntity.Instance.PosX + 1, PlayerEntity.Instance.PosY);
                     EnemiesDefeated = true;
                 }

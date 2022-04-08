@@ -15,7 +15,7 @@ namespace AuldShiteburn.EntityData.PlayerData.Classes
         public HeathenClass() : base
             ("Heathen", ClassType.Heathen,
             new TitleData(PlayerGenerationData.HeathenTitles),
-            new ClassStatistics(12, 0, 30, 3),
+            new ClassStatistics(16, 0, 30, 3),
             new ProficiencyData(ArmourFamily.LightArmour, WeaponFamily.PrimitiveArms, PropertyDamageType.Occult, GeneralMaterials.Hardshite),
             new List<Ability>()
             {

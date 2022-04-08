@@ -5,6 +5,7 @@ using AuldShiteburn.ItemData.WeaponData;
 using AuldShiteburn.MapData.TileData;
 using AuldShiteburn.MapData.TileData.Tiles;
 using AuldShiteburn.MapData.TileData.Tiles.NPCs;
+using AuldShiteburn.MapData.TileData.Tiles.NPCs.GameFeatureNPCs;
 using System;
 using System.Collections.Generic;
 

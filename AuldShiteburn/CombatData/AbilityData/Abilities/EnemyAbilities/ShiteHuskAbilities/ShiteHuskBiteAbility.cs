@@ -24,7 +24,11 @@ namespace AuldShiteburn.CombatData.AbilityData.Abilities.EnemyAbilities.ShiteHus
             Random rand = new Random();
             int physDamage = rand.Next(PhysicalMinDamage, PhysicalMaxDamage + 1);
             int propDamage = rand.Next(PropertyMinDamage, PropertyMaxDamage + 1);
-            return new CombatPayload(true, hasPhysical: true, hasProperty: true, physicalAttackType: PhysicalDamageType, propertyAttackType: PropertyDamageType, physicalDamage: physDamage, propertyDamage: propDamage);
+            return new CombatPayload(
+                isAttack: true,
+                hasPhysical: true, hasProperty: true,
+                physicalAttackType: PhysicalDamageType, propertyAttackType: PropertyDamageType,
+                physicalDamage: physDamage, propertyDamage: propDamage);
         }
     }
 }

@@ -13,7 +13,6 @@ namespace AuldShiteburn.MapData.AreaData.Areas
         public override int Height => 20;
         public override bool CombatEncounter => true;
         public override bool BossArea => true;
-        public override bool BossDefeated => false;
 
         public override void InitEnemies()
         {
