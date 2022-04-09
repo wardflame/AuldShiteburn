@@ -49,11 +49,11 @@ namespace AuldShiteburn
         /// </summary>
         /// <param name="query">Query string.</param>
         /// <returns></returns>
-        public static bool VerificationQuery(string query)
+        public static bool VerificationQuery(string query, ConsoleColor colour = ConsoleColor.Gray)
         {
             if (query != null)
             {
-                WriteColour(query);
+                WriteColour(query, colour);
             }
             do
             {

@@ -100,7 +100,7 @@ namespace AuldShiteburn.CombatData
                 #region Ability Cooldowns
                 if (RoundNumber > 1)
                 {
-                    
+
                     if (!abilityCooldowns)
                     {
                         // Iterate through player abilities. If they have a cooldown active, decrement it.
@@ -295,7 +295,7 @@ namespace AuldShiteburn.CombatData
                 {
                     PlayerEntity.Instance.StunTimer--;
                 }
-                
+
             }
             for (int i = 0; i < enemies.Count; i++)
             {

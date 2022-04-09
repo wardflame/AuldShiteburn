@@ -1,7 +1,6 @@
 ﻿using AuldShiteburn.ItemData;
 using AuldShiteburn.ItemData.ConsumableData.Consumables;
 using AuldShiteburn.ItemData.KeyData;
-using AuldShiteburn.ItemData.WeaponData;
 using AuldShiteburn.MapData.TileData;
 using AuldShiteburn.MapData.TileData.Tiles;
 using AuldShiteburn.MapData.TileData.Tiles.NPCs;
@@ -44,13 +43,13 @@ namespace AuldShiteburn.MapData.AreaData.Areas
             }
             // Loot.
             placeData.Add(new TilePlaceData(6, 4,
-                new LootTile("The decaying corpse of a long-dead Heathen",
+                new LootTile("The decaying corpse of a long-dead Heathen", false, false,
                 new List<Item>()
                 {
                     new HealthRegenConsumable(),
                     KeyItem.HideawayKey
-                },
-                false)));
+                })
+                ));
             // Door.
             placeData.Add(new TilePlaceData(8, 7, new DoorTile(true, KeyItem.HideawayKey)));
             // NPC.
@@ -58,8 +57,8 @@ namespace AuldShiteburn.MapData.AreaData.Areas
             #endregion Ormod House
             placeData.Add(new TilePlaceData(5, 6, new StorageTile("Rotting Chest")));
             placeData.Add(new TilePlaceData(7, 8, new CrestfallenGrimrNPCTile()));
-            #region Moonlight Shrine
-            placeData.Add(new TilePlaceData(2, 10, new GameStatusObeliskNPCTile()));
+            #region Moonlight Altar
+            placeData.Add(new TilePlaceData(2, 10, new GameStatusAltarNPCTile()));
             placeData.Add(new TilePlaceData(1, 9, Tile.MoonlightStoneTile));
             for (int y = 8; y <= 12; y++)
             {
@@ -74,8 +73,7 @@ namespace AuldShiteburn.MapData.AreaData.Areas
                     placeData.Add(new TilePlaceData(x, y, Tile.MoonlightStoneTile));
                 }
             }
-
-            #endregion Moonlight Shrine
+            #endregion Moonlight Altar
             #region Barred South Door
             for (int x = 7; x <= 12; x++)
             {
@@ -98,8 +96,8 @@ namespace AuldShiteburn.MapData.AreaData.Areas
             }
             #endregion Barred South Door
             placeData.Add(new TilePlaceData(7, 15, new ShitefireNPCTile()));
-            
-            
+
+
         }
 
         public override void InitEnemies()

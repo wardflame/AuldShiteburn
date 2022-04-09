@@ -59,7 +59,7 @@ namespace AuldShiteburn.MapData.TileData.Tiles
         /// <param name="promptYes">Custom yes string.</param>
         /// <param name="promptNo">Custom no string.</param>
         /// <returns></returns>
-        protected bool Decision(string promptYes = "Accept", string promptNo = "Refuse")
+        protected bool Decision(string promptYes = "Yes", string promptNo = "No")
         {
             Utils.SetCursorInteract(3);
             Utils.WriteColour(Description($"{promptYes} (Y) {promptNo} (N)"));

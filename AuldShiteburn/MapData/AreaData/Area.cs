@@ -1,6 +1,5 @@
 ﻿using AuldShiteburn.CombatData;
 using AuldShiteburn.EntityData;
-using AuldShiteburn.ItemData;
 using AuldShiteburn.MapData.TileData;
 using AuldShiteburn.MapData.TileData.Tiles;
 using System;

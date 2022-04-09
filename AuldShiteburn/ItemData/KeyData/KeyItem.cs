@@ -23,7 +23,35 @@ namespace AuldShiteburn.ItemData.KeyData
         {
             get { return new KeyItem("Shitebreach South Key", "Unlocks the door in the South of Shitebreach."); }
         }
+        public static KeyItem DrainCellsKey
+        {
+            get { return new KeyItem("Drain Cells Key", "Unlocks the cells in The Drain."); }
+        }
+        public static KeyItem DrainGateKey
+        {
+            get { return new KeyItem("Drain Gate Key", "Unlocks the gate in the South of The Drain."); }
+        }
+        public static KeyItem GuildMastersKey
+        {
+            get { return new KeyItem("Guild Master's Key", "Unlocks the private quarters in the Guild Hall."); }
+        }
         #endregion Keys
+        #region Notes
+        public static KeyItem ScrappyNote
+        {
+            get { return new KeyItem("Scrappy Note", "'Rodor, if you receive this, I've left the cell master key in my quarters of the Guild Hall.'"); }
+        }
+        #endregion Notes
+        #region Wards
+        public static KeyItem ShitestainedAmulet
+        {
+            get { return new KeyItem("Shite-stained Amulet", "A marble amulet once pale like moonlight, now dull and dormant."); }
+        }
+        public static KeyItem MoonlitAmulet
+        {
+            get { return new KeyItem("Moonlit Amulet", "Visions of the heart brimming with light."); }
+        }
+        #endregion Wards
 
         public override string Name { get; }
         public string Description { get; }

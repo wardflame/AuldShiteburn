@@ -24,13 +24,14 @@ namespace AuldShiteburn.MapData.TileData.Tiles
         public bool Temporary { get; set; }
         public bool Looted { get; set; } = false;
 
-        public LootTile(string message, List<Item> itemList, bool randomised, bool temporary = false) : base("?", false)
+        public LootTile(string message, bool temporary, bool randomised = true, List<Item> itemList = null) : base("?", false)
         {
             Message = message;
             Temporary = temporary;
             if (!randomised)
             {
-                Items = itemList;
+                if (itemList != null) Items = itemList;
+                else Utils.WriteColour("Null list, mate.", ConsoleColor.Red);
             }
             /// If the items in the loot tile aren't fixed, generate them by chance.
             else
@@ -98,12 +99,12 @@ namespace AuldShiteburn.MapData.TileData.Tiles
             if (randomLoot)
             {
                 Map.Instance.CurrentArea.SetTile(spawnX, spawnY,
-                new LootTile("Loot Pile", new List<Item>(), true, true));
+                new LootTile("Loot Pile", true));
             }
             else
             {
                 Map.Instance.CurrentArea.SetTile(spawnX, spawnY,
-                new LootTile("Loot Pile", presetLoot, false, true));
+                new LootTile("Loot Pile", true));
             }
             Map.Instance.PrintTile(spawnX, spawnY);
             return true;

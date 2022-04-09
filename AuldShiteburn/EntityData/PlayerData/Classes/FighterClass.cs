@@ -15,7 +15,7 @@ namespace AuldShiteburn.EntityData.PlayerData.Classes
         public FighterClass() : base
             ("Fighter", ClassType.Fighter,
             new TitleData(PlayerGenerationData.FighterTitlesMale, PlayerGenerationData.FighterTitlesFemale),
-            new ClassStatistics(22, 20, 0, 2),
+            new ClassStatistics(22, 20, 0, 1),
             new ProficiencyData(ArmourFamily.HeavyArmour, WeaponFamily.MartialArms, PropertyDamageType.None, GeneralMaterials.Steel),
             new List<Ability>()
             {

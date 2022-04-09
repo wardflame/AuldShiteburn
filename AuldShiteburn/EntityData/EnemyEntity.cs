@@ -2,7 +2,6 @@
 using AuldShiteburn.CombatData.AbilityData;
 using AuldShiteburn.CombatData.PayloadData;
 using AuldShiteburn.CombatData.StatusEffectData;
-using AuldShiteburn.EntityData.PlayerData.Classes;
 using AuldShiteburn.ItemData;
 using System;
 using System.Collections.Generic;

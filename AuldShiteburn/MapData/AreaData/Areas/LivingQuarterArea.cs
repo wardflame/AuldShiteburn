@@ -1,6 +1,4 @@
-﻿using AuldShiteburn.CombatData;
-using AuldShiteburn.EntityData;
-using AuldShiteburn.EntityData.Enemies;
+﻿using AuldShiteburn.EntityData.Enemies;
 using AuldShiteburn.ItemData;
 using AuldShiteburn.ItemData.KeyData;
 using AuldShiteburn.ItemData.WeaponData;
@@ -85,13 +83,13 @@ namespace AuldShiteburn.MapData.AreaData.Areas
             placeData.Add(new TilePlaceData(2, 16, new DoorTile(false)));
             // Loot.
             placeData.Add(new TilePlaceData(5, 15,
-                new LootTile("A burnt corpse in the fetal position",
-                new List<Item>()
+                new LootTile("A burnt corpse in the fetal position", false,
+                itemList: new List<Item>()
                 {
                             WeaponItem.GenerateWeapon(),
                             KeyItem.ShitebreachSouthKey
-                },
-                false)));
+                })
+                ));
             #endregion South-West House
         }
 

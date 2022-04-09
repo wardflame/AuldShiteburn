@@ -1,5 +1,4 @@
 ﻿using AuldShiteburn.CombatData.PayloadData;
-using AuldShiteburn.CombatData.StatusEffectData;
 using AuldShiteburn.CombatData.StatusEffectData.StatusEffects;
 using AuldShiteburn.EntityData;
 using System;

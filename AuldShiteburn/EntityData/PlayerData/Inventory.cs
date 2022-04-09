@@ -1,5 +1,4 @@
 ﻿using AuldShiteburn.CombatData;
-using AuldShiteburn.EntityData.PlayerData.Classes;
 using AuldShiteburn.ItemData;
 using AuldShiteburn.ItemData.ArmourData;
 using AuldShiteburn.ItemData.ConsumableData;

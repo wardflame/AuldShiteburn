@@ -1,11 +1,10 @@
 ﻿using AuldShiteburn.BackendData;
-using AuldShiteburn.CombatData;
 using AuldShiteburn.CombatData.PayloadData;
 using AuldShiteburn.CombatData.StatusEffectData;
 using AuldShiteburn.CombatData.StatusEffectData.StatusEffects;
 using AuldShiteburn.EntityData.PlayerData;
-using AuldShiteburn.EntityData.PlayerData.Classes;
 using AuldShiteburn.ItemData.ArmourData;
+using AuldShiteburn.ItemData.KeyData;
 using AuldShiteburn.ItemData.WeaponData;
 using AuldShiteburn.MenuData;
 using AuldShiteburn.MenuData.Menus;
@@ -27,6 +26,34 @@ namespace AuldShiteburn.EntityData
         public StatusEffect PotionStatusEffect { get; set; }
         public WeaponItem EquippedWeapon { get; set; }
         public ArmourItem EquippedArmour { get; set; }
+        public bool CarryingDullAmulet
+        {
+            get
+            {
+                for (int i = 0; i < Instance.Inventory.Row; i++)
+                {
+                    if (Instance.Inventory.ItemList[i, 3] != null)
+                    {
+                        if (Instance.Inventory.ItemList[i, 3].Name == KeyItem.ShitestainedAmulet.Name) return true;
+                    }
+                }
+                return false;
+            }
+        }
+        public bool CarryingMoonlitAmulet
+        {
+            get
+            {
+                for (int i = 0; i < Instance.Inventory.Row; i++)
+                {
+                    if (Instance.Inventory.ItemList[i, 3] != null)
+                    {
+                        if (Instance.Inventory.ItemList[i, 3].Name == KeyItem.MoonlitAmulet.Name) return true;
+                    }
+                }
+                return false;
+            }
+        }
 
         public override void Move()
         {
@@ -127,6 +154,8 @@ namespace AuldShiteburn.EntityData
             Instance.EquippedWeapon = WeaponItem.GenerateSpawnWeapon(Instance.Class.ClassType);
             Instance.EquippedArmour = ArmourItem.GenerateSpawnArmour(Instance.Class.ClassType);
             #endregion Loot Assignment
+
+            Instance.Inventory.ItemList[0, 3] = KeyItem.ShitestainedAmulet;
 
             return Instance;
         }
