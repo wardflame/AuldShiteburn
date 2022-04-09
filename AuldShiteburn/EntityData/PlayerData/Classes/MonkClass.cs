@@ -16,7 +16,7 @@ namespace AuldShiteburn.EntityData.PlayerData.Classes
             ("Monk", ClassType.Monk,
             new TitleData(PlayerGenerationData.MonkTitlesMale, PlayerGenerationData.MonkTitlesFemale),
             new ClassStatistics(20, 0, 20, 2),
-            new ProficiencyData(ArmourFamily.LightArmour, WeaponFamily.PrimitiveArms, PropertyDamageType.Holy, GeneralMaterials.Moonstone),
+            new ProficiencyData(ArmourFamily.Light, WeaponFamily.PrimitiveArms, PropertyDamageType.Holy, GeneralMaterials.Moonstone),
             new List<Ability>()
             {
                 new MoonlightBurstAbility()

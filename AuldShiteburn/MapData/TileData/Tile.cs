@@ -11,6 +11,8 @@ namespace AuldShiteburn.MapData.TileData
         public static BasicTile MetalGrateTile { get; } = new BasicTile("/", true, ConsoleColor.DarkGray);
         public static BasicTile ShiteMoundTile { get; } = new BasicTile("#", true, ConsoleColor.DarkYellow);
         public static BasicTile MoonlightStoneTile { get; } = new BasicTile("=", true, ConsoleColor.White);
+        public static BasicTile DefiledStoneTile { get; } = new BasicTile("=", true, ConsoleColor.DarkGray);
+        public static BasicTile BrokenAltar { get; } = new BasicTile("¬", true, ConsoleColor.DarkYellow);
 
         public virtual string DisplayChar { get; }
         public virtual bool Collidable { get; }

@@ -19,7 +19,7 @@ namespace AuldShiteburn.CombatData.AbilityData.Abilities.EnemyAbilities.ShiteHus
         public override int PropertyMinDamage => 2;
         public override int PropertyMaxDamage => 3;
 
-        public override CombatPayload UseAbility(List<EnemyEntity> enemies)
+        public override CombatPayload UseAbility(List<EnemyEntity> enemies, EnemyEntity enemy = null)
         {
             Random rand = new Random();
             int physDamage = rand.Next(PhysicalMinDamage, PhysicalMaxDamage + 1);

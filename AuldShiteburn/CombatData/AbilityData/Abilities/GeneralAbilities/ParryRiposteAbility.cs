@@ -15,7 +15,7 @@ namespace AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.GeneralA
         public override int Cooldown => 3;
         public override int ResourceCost => 4;
 
-        public override CombatPayload UseAbility(List<EnemyEntity> enemies)
+        public override CombatPayload UseAbility(List<EnemyEntity> enemies, EnemyEntity enemy = null)
         {
             Utils.SetCursorInteract(Console.CursorTop + 1);
             if (ActiveCooldown == 0)

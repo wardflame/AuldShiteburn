@@ -172,6 +172,9 @@ namespace AuldShiteburn.EntityData
             Instance.EquippedArmour = ArmourItem.GenerateSpawnArmour(Instance.Class.ClassType);
             #endregion Loot Assignment
 
+            Instance.Inventory.ItemList[0, 1] = ArmourItem.HeavyGambeson;
+            Instance.Inventory.ItemList[1, 1] = ArmourItem.FullPlate;
+
             return Instance;
         }
 

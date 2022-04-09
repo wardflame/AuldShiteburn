@@ -16,10 +16,9 @@ namespace AuldShiteburn.EntityData.Enemies
             Name = "The Dung Eater";
             MaxHP = health;
             HP = health;
-            PhysicalWeakness = PhysicalDamageType.Pierce;
-            MaterialWeakness = GeneralMaterials.Moonstone;
-            PropertyWeakness = PropertyDamageType.Fire;
-            StunCap = 2;
+            PhysicalWeaknesses = new List<PhysicalDamageType>() { PhysicalDamageType.Slash };
+            PropertyWeaknesses = new List<PropertyDamageType>() { PropertyDamageType.Fire };
+            StunCap = 1;
             Abilities = new List<Ability>()
             {
                 new ClawedSwipeAbility(),

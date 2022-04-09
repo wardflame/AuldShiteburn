@@ -1,4 +1,5 @@
-﻿using AuldShiteburn.ItemData;
+﻿using AuldShiteburn.EntityData.Enemies;
+using AuldShiteburn.ItemData;
 using AuldShiteburn.ItemData.ArmourData;
 using AuldShiteburn.ItemData.ConsumableData;
 using AuldShiteburn.ItemData.KeyData;
@@ -17,7 +18,7 @@ namespace AuldShiteburn.MapData.AreaData.Areas
         public override string Name => "Market";
         public override int Width => 20;
         public override int Height => 20;
-        public override bool CombatEncounter => false;
+        public override bool CombatEncounter => true;
         public override bool BossArea => false;
 
         protected override void AddSpecialTiles()
@@ -69,6 +70,7 @@ namespace AuldShiteburn.MapData.AreaData.Areas
                     ConsumableItem.AllConsumables[rand.Next(ConsumableItem.AllConsumables.Count)],
                     ConsumableItem.AllConsumables[rand.Next(ConsumableItem.AllConsumables.Count)]
                 })));
+            placeData.Add(new TilePlaceData(3, 1, new LootTile("Abandoned Sack", false, true)));
             #endregion Loot
             // NPCs
             placeData.Add(new TilePlaceData(4, 15, new BashfulEadwynNPCTile()));
@@ -76,6 +78,9 @@ namespace AuldShiteburn.MapData.AreaData.Areas
 
         public override void InitEnemies()
         {
+            Enemies.Add(new BloatedBruiserEnemyEntity());
+            Enemies.Add(new ShiteHuskEnemyEntity());
+            Enemies.Add(new ShiteHuskEnemyEntity());
         }
 
         public override void OnFirstEnter()

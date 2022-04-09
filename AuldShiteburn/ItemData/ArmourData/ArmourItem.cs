@@ -10,59 +10,59 @@ namespace AuldShiteburn.ItemData.ArmourData
     internal class ArmourItem : Item
     {
         #region Light Armours
-        public static ArmourItem SackClothRobe
-        {
-            get { return new ArmourItem("Sack Cloth Robe", ArmourFamily.LightArmour, 2, 1); }
-        }
         public static ArmourItem WoolenRags
         {
-            get { return new ArmourItem("Woolen Rags", ArmourFamily.LightArmour, 2, 1); }
+            get { return new ArmourItem("Woolen Rags", ArmourFamily.Light, 2, 1); }
         }
         public static ArmourItem Gambeson
         {
-            get { return new ArmourItem("Gambeson", ArmourFamily.LightArmour, 4, 2); }
+            get { return new ArmourItem("Gambeson", ArmourFamily.Light, 3, 1); }
+        }
+        public static ArmourItem HeavyGambeson
+        {
+            get { return new ArmourItem("Heavy Gambeson", ArmourFamily.Light, 5, 2); }
         }
         #endregion Light Armours
         #region Medium Armours
-        public static ArmourItem HideWrappings
+        public static ArmourItem PaddedFur
         {
-            get { return new ArmourItem("Hide Wrappings", ArmourFamily.MediumArmour, 4, 2); }
-        }
-        public static ArmourItem FurPadding
-        {
-            get { return new ArmourItem("Fur Padding", ArmourFamily.MediumArmour, 4, 2); }
+            get { return new ArmourItem("Padded Fur", ArmourFamily.Medium, 4, 2); }
         }
         public static ArmourItem Brigandine
         {
-            get { return new ArmourItem("Brigandine", ArmourFamily.MediumArmour, 6, 3); }
+            get { return new ArmourItem("Brigandine", ArmourFamily.Medium, 5, 2); }
+        }
+        public static ArmourItem SplintPlate
+        {
+            get { return new ArmourItem("Splint Plate", ArmourFamily.Medium, 7, 3); }
         }
         #endregion Medium Armours
         #region Heavy Armours
-        public static ArmourItem Maille
+        public static ArmourItem Lamellar
         {
-            get { return new ArmourItem("Maille", ArmourFamily.HeavyArmour, 6, 3); }
+            get { return new ArmourItem("Lamellar", ArmourFamily.Heavy, 6, 3); }
         }
-        public static ArmourItem ScaleCoat
+        public static ArmourItem PaddedMaille
         {
-            get { return new ArmourItem("Scale Coat", ArmourFamily.HeavyArmour, 6, 3); }
+            get { return new ArmourItem("Padded Maille", ArmourFamily.Heavy, 7, 3); }
         }
-        public static ArmourItem Breastplate
+        public static ArmourItem FullPlate
         {
-            get { return new ArmourItem("Breastplate", ArmourFamily.HeavyArmour, 8, 4); }
+            get { return new ArmourItem("Full Plate", ArmourFamily.Heavy, 9, 4); }
         }
         #endregion Heavy Armours
         #region Special Armours
         public static ArmourItem GrandWarlockGarb
         {
-            get { return new ArmourItem("Grand Warlock's Garb", ArmourFamily.LightArmour, 5, 9); }
+            get { return new ArmourItem("Grand Warlock's Garb", ArmourFamily.Light, 6, 10); }
         }
         public static ArmourItem IndomitableCuirass
         {
-            get { return new ArmourItem("Indomitable Cuirass", ArmourFamily.MediumArmour, 7, 7); }
+            get { return new ArmourItem("Indomitable Cuirass", ArmourFamily.Medium, 8, 8); }
         }
         public static ArmourItem GrailKnightPlate
         {
-            get { return new ArmourItem("Grail Knight Plate", ArmourFamily.HeavyArmour, 9, 5); }
+            get { return new ArmourItem("Grail Knight Plate", ArmourFamily.Heavy, 10, 6); }
         }
         #endregion Special Armours
 
@@ -73,15 +73,15 @@ namespace AuldShiteburn.ItemData.ArmourData
             {
                 return new List<ArmourItem>()
                     {
-                        SackClothRobe,
                         WoolenRags,
                         Gambeson,
-                        HideWrappings,
-                        FurPadding,
+                        HeavyGambeson,
+                        PaddedFur,
                         Brigandine,
-                        Maille,
-                        ScaleCoat,
-                        Breastplate
+                        SplintPlate,
+                        Lamellar,
+                        PaddedMaille,
+                        FullPlate
                     };
             }
         }
@@ -91,9 +91,9 @@ namespace AuldShiteburn.ItemData.ArmourData
             {
                 return new List<ArmourItem>()
                     {
-                        SackClothRobe,
                         WoolenRags,
-                        Gambeson
+                        Gambeson,
+                        HeavyGambeson
                     };
             }
         }
@@ -103,9 +103,9 @@ namespace AuldShiteburn.ItemData.ArmourData
             {
                 return new List<ArmourItem>()
                     {
-                        HideWrappings,
-                        FurPadding,
-                        Brigandine
+                        PaddedFur,
+                        Brigandine,
+                        SplintPlate
                     };
             }
         }
@@ -115,9 +115,9 @@ namespace AuldShiteburn.ItemData.ArmourData
             {
                 return new List<ArmourItem>()
                     {
-                        Maille,
-                        ScaleCoat,
-                        Breastplate
+                        Lamellar,
+                        PaddedMaille,
+                        FullPlate
                     };
             }
         }
@@ -210,17 +210,17 @@ namespace AuldShiteburn.ItemData.ArmourData
                     break;
                 case ClassType.Fighter:
                     {
-                        armour = Maille;
+                        armour = Lamellar;
                     }
                     break;
                 case ClassType.Marauder:
                     {
-                        armour = HideWrappings;
+                        armour = PaddedFur;
                     }
                     break;
                 case ClassType.Monk:
                     {
-                        armour = SackClothRobe;
+                        armour = WoolenRags;
                     }
                     break;
                 case ClassType.Rogue:

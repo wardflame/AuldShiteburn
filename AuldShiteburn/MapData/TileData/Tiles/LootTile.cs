@@ -13,8 +13,8 @@ namespace AuldShiteburn.MapData.TileData.Tiles
     internal class LootTile : Tile
     {
         private const float CHANCE_KEY = 0.02f;
-        private const float CHANCE_WEAPON = 0.3f;
-        private const float CHANCE_ARMOUR = 0.25f;
+        private const float CHANCE_WEAPON = 0.12f;
+        private const float CHANCE_ARMOUR = 0.18f;
         private const float CHANCE_CONSUMABLE = 1f;
 
         public override bool Collidable => false;

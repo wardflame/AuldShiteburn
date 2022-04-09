@@ -7,6 +7,7 @@ using System.Text;
 
 namespace AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.RogueAbilities
 {
+    [Serializable]
     internal class SmokeBombAbility : Ability
     {
         public override string Name => "Smoke Bomb";
@@ -14,7 +15,7 @@ namespace AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.RogueAbi
         public override int Cooldown => 5;
         public override int ResourceCost => 0;
 
-        public override CombatPayload UseAbility(List<EnemyEntity> enemies)
+        public override CombatPayload UseAbility(List<EnemyEntity> enemies, EnemyEntity enemy = null)
         {
             int offsetY = Console.CursorTop + 1;
             Utils.SetCursorInteract(Console.CursorTop);

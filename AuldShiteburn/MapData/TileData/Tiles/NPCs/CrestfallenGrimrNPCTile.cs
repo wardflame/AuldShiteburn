@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace AuldShiteburn.MapData.TileData.Tiles.NPCs
 {
+    [Serializable]
     internal class CrestfallenGrimrNPCTile : NPCTile
     {
         public override string NPCName => "Crestfallen Grimr";

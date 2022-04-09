@@ -16,7 +16,7 @@ namespace AuldShiteburn.EntityData.PlayerData.Classes
             ("Marauder", ClassType.Marauder,
             new TitleData(PlayerGenerationData.MarauderTitles),
             new ClassStatistics(24, 30, 0, 1),
-            new ProficiencyData(ArmourFamily.MediumArmour, WeaponFamily.StrengthLargeArms, PropertyDamageType.Fire, GeneralMaterials.None),
+            new ProficiencyData(ArmourFamily.Medium, WeaponFamily.StrengthLargeArms, PropertyDamageType.Fire, GeneralMaterials.None),
             new List<Ability>()
             {
                 new EnragedCleaveAbility()

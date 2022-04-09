@@ -7,6 +7,7 @@ using System.Text;
 
 namespace AuldShiteburn.MapData.TileData.Tiles.NPCs
 {
+    [Serializable]
     internal class BoudicaNPCTile : NPCTile
     {
         public override string NPCName => finishedDrain ? "Shaman Boudica" : "Boudica";

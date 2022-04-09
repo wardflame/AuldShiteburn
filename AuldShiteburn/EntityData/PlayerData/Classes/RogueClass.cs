@@ -17,7 +17,7 @@ namespace AuldShiteburn.EntityData.PlayerData.Classes
             ("Rogue", ClassType.Rogue,
             new TitleData(PlayerGenerationData.RogueTitles),
             new ClassStatistics(18, 30, 0, 2),
-            new ProficiencyData(ArmourFamily.LightArmour, WeaponFamily.DextrousSmallArms, PropertyDamageType.Cold, GeneralMaterials.None),
+            new ProficiencyData(ArmourFamily.Light, WeaponFamily.DextrousSmallArms, PropertyDamageType.Cold, GeneralMaterials.None),
             new List<Ability>()
             {
                 new ParryRiposteAbility(),

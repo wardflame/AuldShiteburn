@@ -20,7 +20,7 @@ namespace AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.RogueAbi
         public override int PropertyMinDamage => PlayerEntity.Instance.EquippedWeapon.MinPropDamage;
         public override int PropertyMaxDamage => PlayerEntity.Instance.EquippedWeapon.MaxPropDamage;
 
-        public override CombatPayload UseAbility(List<EnemyEntity> enemies)
+        public override CombatPayload UseAbility(List<EnemyEntity> enemies, EnemyEntity enemy = null)
         {
             Utils.SetCursorInteract(Console.CursorTop + 1);
             if (PlayerEntity.Instance.EquippedWeapon == null)

@@ -5,9 +5,9 @@ namespace AuldShiteburn.ItemData.ArmourData
     [Serializable]
     enum ArmourFamily
     {
-        HeavyArmour,
-        MediumArmour,
-        LightArmour
+        Heavy,
+        Medium,
+        Light
     }
 
     enum ArmourMaterials

@@ -219,7 +219,6 @@ namespace AuldShiteburn.CombatData
         /// <param name="enemies">List of enemies in the area.</param>
         private static void EnemyCombatTurn(List<EnemyEntity> enemies)
         {
-            int endOffset;
             bool enemyTurn = true;
             while (enemyTurn)
             {

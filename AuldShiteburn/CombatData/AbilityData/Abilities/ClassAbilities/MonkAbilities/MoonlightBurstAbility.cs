@@ -16,7 +16,7 @@ namespace AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.MonkAbil
         public override int PropertyMinDamage => 5;
         public override int PropertyMaxDamage => 7;
 
-        public override CombatPayload UseAbility(List<EnemyEntity> enemies)
+        public override CombatPayload UseAbility(List<EnemyEntity> enemies, EnemyEntity enemy = null)
         {
             int offsetY = Console.CursorTop + 1;
             Utils.SetCursorInteract(Console.CursorTop);

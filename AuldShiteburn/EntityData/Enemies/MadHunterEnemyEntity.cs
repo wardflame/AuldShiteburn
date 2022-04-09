@@ -17,10 +17,9 @@ namespace AuldShiteburn.EntityData.Enemies
             Name = "Mad Hunter";
             MaxHP = health;
             HP = health;
-            PhysicalWeakness = PhysicalDamageType.Slash;
-            MaterialWeakness = GeneralMaterials.Moonstone;
-            PropertyWeakness = PropertyDamageType.Fire;
-            StunCap = 6;
+            PhysicalWeaknesses = new List<PhysicalDamageType>() { PhysicalDamageType.Pierce };
+            PropertyWeaknesses = new List<PropertyDamageType>() { PropertyDamageType.Occult, PropertyDamageType.Cold };
+            StunCap = 3;
             Abilities = new List<Ability>()
             {
                 new MadSlashAbility()

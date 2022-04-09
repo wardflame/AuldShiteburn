@@ -16,7 +16,7 @@ namespace AuldShiteburn.CombatData.AbilityData.Abilities.EnemyAbilities.DungEate
         public override int PhysicalMinDamage => 7;
         public override int PhysicalMaxDamage => 9;
 
-        public override CombatPayload UseAbility(List<EnemyEntity> enemies)
+        public override CombatPayload UseAbility(List<EnemyEntity> enemies, EnemyEntity enemy = null)
         {
             Random rand = new Random();
             int physDamage = rand.Next(PhysicalMinDamage, PhysicalMaxDamage + 1);

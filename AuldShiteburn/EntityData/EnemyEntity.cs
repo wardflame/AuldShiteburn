@@ -14,9 +14,8 @@ namespace AuldShiteburn.EntityData
         public override string EntityChar => "";
         public List<Ability> Abilities { get; protected set; }
         public StatusEffect StatusEffect { get; set; }
-        public PhysicalDamageType PhysicalWeakness { get; protected set; }
-        public GeneralMaterials MaterialWeakness { get; protected set; }
-        public PropertyDamageType PropertyWeakness { get; protected set; }
+        public List<PhysicalDamageType> PhysicalWeaknesses { get; protected set; }
+        public List<PropertyDamageType> PropertyWeaknesses { get; protected set; }
 
         /// <summary>
         /// Reduce all active cooldowns by one and then filter through abilities
@@ -102,7 +101,16 @@ namespace AuldShiteburn.EntityData
             int physDamage = combatPayload.PhysicalDamage;
             if (combatPayload.HasPhysical)
             {
-                if (PhysicalWeakness == combatPayload.PhysicalAttackType)
+                bool physTypeWeakness = false;
+                foreach (PhysicalDamageType physWeakness in PhysicalWeaknesses)
+                {
+                    if (physWeakness == combatPayload.PhysicalAttackType)
+                    {
+                        physTypeWeakness = true;
+                        break;
+                    }
+                }
+                if (physTypeWeakness)
                 {
                     physDamage += Combat.WEAKNESS_BONUS_MODIFIER;
                     Utils.WriteColour($"is weak to ");
@@ -123,7 +131,16 @@ namespace AuldShiteburn.EntityData
             int propDamage = combatPayload.PropertyDamage;
             if (combatPayload.HasProperty && combatPayload.PropertyAttackType != PropertyDamageType.Standard)
             {
-                if (PropertyWeakness == combatPayload.PropertyAttackType)
+                bool propTypeWeakness = false;
+                foreach (PropertyDamageType propWeakness in PropertyWeaknesses)
+                {
+                    if (propWeakness == combatPayload.PropertyAttackType)
+                    {
+                        propTypeWeakness = true;
+                        break;
+                    }
+                }
+                if (propTypeWeakness)
                 {
                     propDamage += Combat.WEAKNESS_BONUS_MODIFIER;
                     Utils.WriteColour($"is weak to ");

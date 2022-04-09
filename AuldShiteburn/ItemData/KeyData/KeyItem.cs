@@ -35,6 +35,18 @@ namespace AuldShiteburn.ItemData.KeyData
         {
             get { return new KeyItem("Guild Master's Key", "Unlocks the private quarters in the Guild Hall."); }
         }
+        public static KeyItem GuildHallEastKey
+        {
+            get { return new KeyItem("Guild Hall East Key", "Unlocks the east door in the Guild Hall."); }
+        }
+        public static KeyItem GuildHallWestKey
+        {
+            get { return new KeyItem("Guild Hall West Key", "Unlocks the west door in the Guild Hall."); }
+        }
+        public static KeyItem GranaryKey
+        {
+            get { return new KeyItem("Granary Key", "Unlocks the Granary door."); }
+        }
         #endregion Keys
         #region Notes
         public static KeyItem ScrappyNote

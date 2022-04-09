@@ -450,8 +450,12 @@ namespace AuldShiteburn.EntityData.PlayerData
                     Utils.WriteColour("Property Mitigation: ");
                     Utils.WriteColour($"{armour.PropertyMitigation}", ConsoleColor.Magenta);
                     Utils.SetCursorInteract(3);
+                    Utils.WriteColour("Armour Family: ");
+                    if (armour.IsProficient) Utils.WriteColour($"{armour.ArmourFamily}", ConsoleColor.Green);
+                    else Utils.WriteColour($"{armour.ArmourFamily}", ConsoleColor.Red);
+                    Utils.SetCursorInteract(4);
                     Utils.WriteColour("(E) Equip Armour");
-                    offset = 4;
+                    offset = 5;
                 }
                 else if (currentItem is ConsumableItem || currentItem.GetType().IsSubclassOf(typeof(ConsumableItem)))
                 {

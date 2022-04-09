@@ -39,6 +39,6 @@ namespace AuldShiteburn.CombatData.AbilityData
         public virtual int PropertyMinDamage { get; }
         public virtual int PropertyMaxDamage { get; }
 
-        public abstract CombatPayload UseAbility(List<EnemyEntity> enemies);
+        public abstract CombatPayload UseAbility(List<EnemyEntity> enemies, EnemyEntity enemy = null);
     }
 }

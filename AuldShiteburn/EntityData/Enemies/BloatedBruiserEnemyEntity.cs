@@ -1,28 +1,31 @@
 ﻿using AuldShiteburn.CombatData;
 using AuldShiteburn.CombatData.AbilityData;
+using AuldShiteburn.CombatData.AbilityData.Abilities.EnemyAbilities.BloatedBruiserAbilities;
 using AuldShiteburn.CombatData.AbilityData.Abilities.EnemyAbilities.ShiteHuskAbilities;
 using AuldShiteburn.ItemData;
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace AuldShiteburn.EntityData.Enemies
 {
-    [Serializable]
-    internal class ShiteHuskEnemyEntity : EnemyEntity
+    internal class BloatedBruiserEnemyEntity : EnemyEntity
     {
-        public ShiteHuskEnemyEntity()
+        public BloatedBruiserEnemyEntity()
         {
             Random rand = new Random();
-            int health = rand.Next(11, 16);
-            Name = "Shite Husk";
+            int health = rand.Next(19, 24);
+            Name = "Bloated Bruiser";
             MaxHP = health;
             HP = health;
-            PhysicalWeaknesses = new List<PhysicalDamageType>() { PhysicalDamageType.Slash, PhysicalDamageType.Pierce };
+            PhysicalWeaknesses = new List<PhysicalDamageType>() { PhysicalDamageType.Pierce };
             PropertyWeaknesses = new List<PropertyDamageType>() { PropertyDamageType.Fire, PropertyDamageType.Holy };
-            StunCap = 3;
+            StunCap = 2;
             Abilities = new List<Ability>()
             {
-                new ShiteHuskBiteAbility()
+                new BruiserPunchAbility(),
+                new PussBathAbility(),
+                new WildSmashAbility()
             };
         }
     }

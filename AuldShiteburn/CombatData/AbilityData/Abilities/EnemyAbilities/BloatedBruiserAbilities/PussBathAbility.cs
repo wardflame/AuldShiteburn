@@ -2,16 +2,17 @@
 using AuldShiteburn.EntityData;
 using System;
 using System.Collections.Generic;
+using System.Text;
 
-namespace AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.HeathenAbilities
+namespace AuldShiteburn.CombatData.AbilityData.Abilities.EnemyAbilities.BloatedBruiserAbilities
 {
     [Serializable]
-    internal class FaecalNourishmentAbility : Ability
+    internal class PussBathAbility : Ability
     {
-        public override string Name => "Faecal Nourishment";
-        public override string Description => "Take nourishment in shite, restoring 6-12 HP.";
+        public override string Name => "Puss Bath";
+        public override string Description => "seals some wounds with an expulsion of puss.";
         public override int Cooldown => 3;
-        public override int ResourceCost => 4;
+        public override int ResourceCost => 0;
 
         public override CombatPayload UseAbility(List<EnemyEntity> enemies, EnemyEntity enemy = null)
         {
@@ -20,8 +21,8 @@ namespace AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.HeathenA
             {
                 PlayerEntity.Instance.Mana -= ResourceCost;
                 Random rand = new Random();
-                int heal = rand.Next(6, 13);
-                PlayerEntity.Instance.HP += heal;
+                int heal = rand.Next(4, 9);
+                enemy.HP += heal;
                 ActiveCooldown = Cooldown;
                 return new CombatPayload(isAttack: false, isUtility: true);
             }

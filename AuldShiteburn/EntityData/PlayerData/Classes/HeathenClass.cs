@@ -16,7 +16,7 @@ namespace AuldShiteburn.EntityData.PlayerData.Classes
             ("Heathen", ClassType.Heathen,
             new TitleData(PlayerGenerationData.HeathenTitles),
             new ClassStatistics(16, 0, 30, 2),
-            new ProficiencyData(ArmourFamily.LightArmour, WeaponFamily.PrimitiveArms, PropertyDamageType.Occult, GeneralMaterials.Hardshite),
+            new ProficiencyData(ArmourFamily.Light, WeaponFamily.PrimitiveArms, PropertyDamageType.Occult, GeneralMaterials.Hardshite),
             new List<Ability>()
             {
                 new HardshiteBoltAbility(),

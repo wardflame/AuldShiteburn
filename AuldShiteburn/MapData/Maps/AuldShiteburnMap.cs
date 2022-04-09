@@ -25,7 +25,7 @@ namespace AuldShiteburn.MapData.Maps
 
         protected override void SetFixedAreas()
         {
-            SetArea(0, 0, new MarketArea());
+            SetArea(0, 0, new GraveyardArea());
             SetArea(2, 2, new EndArea());
             SetArea(1, 0, new LivingQuarterArea());
             SetArea(1, 1, new ShitepileArea());
