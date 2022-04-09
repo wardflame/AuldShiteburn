@@ -1,5 +1,12 @@
-﻿using AuldShiteburn.MapData.TileData;
+﻿using AuldShiteburn.ItemData;
+using AuldShiteburn.ItemData.ArmourData;
+using AuldShiteburn.ItemData.ConsumableData;
+using AuldShiteburn.ItemData.KeyData;
+using AuldShiteburn.MapData.TileData;
+using AuldShiteburn.MapData.TileData.Tiles;
+using AuldShiteburn.MapData.TileData.Tiles.NPCs;
 using System;
+using System.Collections.Generic;
 
 namespace AuldShiteburn.MapData.AreaData.Areas
 {
@@ -14,7 +21,59 @@ namespace AuldShiteburn.MapData.AreaData.Areas
 
         protected override void AddSpecialTiles()
         {
-
+            #region Mill House Structure
+            for (int y = 3; y <= 16; y++)
+            {
+                placeData.Add(new TilePlaceData(4, y, Tile.WallTile));
+                if (y >= 6) placeData.Add(new TilePlaceData(8, y, Tile.WallTile));
+            }
+            for (int y = 3; y <= 16; y++)
+            {
+                placeData.Add(new TilePlaceData(15, y, Tile.WallTile));
+            }
+            for (int x = 5; x <= 15; x++)
+            {
+                placeData.Add(new TilePlaceData(x, 3, Tile.WallTile));
+            }
+            for (int y = 6; y <= 14; y++)
+            {
+                placeData.Add(new TilePlaceData(11, y, Tile.WallTile));
+            }
+            for (int x = 9; x <= 10; x++)
+            {
+                placeData.Add(new TilePlaceData(x, 6, Tile.WallTile));
+            }
+            for (int x = 9; x <= 10; x++)
+            {
+                placeData.Add(new TilePlaceData(x, 6, Tile.WallTile));
+            }
+            placeData.Add(new TilePlaceData(10, 6, new DoorTile(false)));
+            for (int x = 9; x <= 11; x++)
+            {
+                placeData.Add(new TilePlaceData(x, 10, Tile.WallTile));
+            }
+            for (int x = 5; x <= 15; x++)
+            {
+                placeData.Add(new TilePlaceData(x, 16, Tile.WallTile));
+            }
+            placeData.Add(new TilePlaceData(10, 14, Tile.WallTile));
+            placeData.Add(new TilePlaceData(6, 16, new DoorTile(true, KeyItem.MillHouseKey)));
+            #endregion Mill House Structure
+            #region Loot
+            // Loot.
+            Random rand = new Random();
+            placeData.Add(new TilePlaceData(9, 9, new LootTile("Shrivelled Warlord", false, false,
+                new List<Item>()
+                {
+                    ArmourItem.SplintPlate,
+                    ConsumableItem.AllConsumables[rand.Next(ConsumableItem.AllConsumables.Count)],
+                    ConsumableItem.AllConsumables[rand.Next(ConsumableItem.AllConsumables.Count)],
+                    ConsumableItem.AllConsumables[rand.Next(ConsumableItem.AllConsumables.Count)]
+                })));
+            //placeData.Add(new TilePlaceData(5, 4, new LootTile("Crumpled Sack", false, true)));
+            #endregion Loot
+            // NPC
+            placeData.Add(new TilePlaceData(10, 11, new HumbleLarNPCTile()));
         }
 
         protected override void TileGeneration()

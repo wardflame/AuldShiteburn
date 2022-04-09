@@ -1,4 +1,5 @@
 ﻿using AuldShiteburn.EntityData;
+using AuldShiteburn.EntityData.PlayerData;
 using AuldShiteburn.ItemData.WeaponData;
 using AuldShiteburn.MapData.AreaData.Areas;
 using System;
@@ -27,7 +28,7 @@ namespace AuldShiteburn.MapData.TileData.Tiles.NPCs
             {
                 finishedDrain = CycleInteraction(drainMeeting);
                 StartArea shitebreach = (StartArea)Map.Instance.ActiveAreas[Map.Instance.GetIndex(0, 0)];
-                shitebreach.SetTile(2, 10, this);
+                shitebreach.SetTile(2, 12, this);
                 Map.Instance.CurrentArea.SetTile(18, 1, AirTile);
                 Map.Instance.PrintTile(18, 1);
                 shitebreach.NPCsRemaining--;
@@ -35,12 +36,41 @@ namespace AuldShiteburn.MapData.TileData.Tiles.NPCs
             else if (!giftGiven)
             {
                 giftGiven = CycleInteraction(shitebreachMeeting);
+                WeaponType wType = WeaponType.Longsword;
+                switch(PlayerEntity.Instance.Class.ClassType)
+                {
+                    case ClassType.Heathen:
+                        {
+                            wType = WeaponType.HandAxe;
+                        }
+                        break;
+                    case ClassType.Fighter:
+                        {
+                            wType = WeaponType.Longsword;
+                        }
+                        break;
+                    case ClassType.Marauder:
+                        {
+                            wType = WeaponType.Greatsword;
+                        }
+                        break;
+                    case ClassType.Monk:
+                        {
+                            wType = WeaponType.Spear;
+                        }
+                        break;
+                    case ClassType.Rogue:
+                        {
+                            wType = WeaponType.Shortsword;
+                        }
+                        break;
+                }
                 if (giftGiven)
                 {
                     PlayerEntity.Instance.Inventory.AddItem(
                     new WeaponItem()
                     {
-                        Type = WeaponType.Longsword,
+                        Type = wType,
                         Material = WeaponMaterial.WeaponMaterialMoonstone,
                         Property = WeaponProperty.WeaponPropertyHoly
                     }, true);

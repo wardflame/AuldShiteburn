@@ -1,5 +1,6 @@
 ﻿using AuldShiteburn.EntityData.Enemies;
 using AuldShiteburn.ItemData;
+using AuldShiteburn.ItemData.ArmourData;
 using AuldShiteburn.ItemData.ConsumableData;
 using AuldShiteburn.ItemData.KeyData;
 using AuldShiteburn.MapData.TileData;
@@ -64,6 +65,7 @@ namespace AuldShiteburn.MapData.AreaData.Areas
                 new List<Item>()
                 {
                     KeyItem.GuildMastersKey,
+                    ArmourItem.Gambeson,
                     ConsumableItem.AllConsumables[rand.Next(ConsumableItem.AllConsumables.Count)],
                     ConsumableItem.AllConsumables[rand.Next(ConsumableItem.AllConsumables.Count)],
                     ConsumableItem.AllConsumables[rand.Next(ConsumableItem.AllConsumables.Count)]

@@ -1,5 +1,6 @@
 ﻿using AuldShiteburn.EntityData.Enemies;
 using AuldShiteburn.ItemData;
+using AuldShiteburn.ItemData.ArmourData;
 using AuldShiteburn.ItemData.KeyData;
 using AuldShiteburn.ItemData.WeaponData;
 using AuldShiteburn.MapData.TileData;
@@ -33,6 +34,8 @@ namespace AuldShiteburn.MapData.AreaData.Areas
                 placeData.Add(new TilePlaceData(5, y, Tile.WallTile));
 
             }
+            // Loot
+            placeData.Add(new TilePlaceData(1, 3, new LootTile("Small Box", false, true)));
             // Door.
             placeData.Add(new TilePlaceData(5, 1, new DoorTile(true, KeyItem.WestResidenceKey)));
             // NPC
@@ -83,11 +86,17 @@ namespace AuldShiteburn.MapData.AreaData.Areas
             placeData.Add(new TilePlaceData(2, 16, new DoorTile(false)));
             // Loot.
             placeData.Add(new TilePlaceData(5, 15,
-                new LootTile("A burnt corpse in the fetal position", false, false,
+                new LootTile("An aged warrior, eternally sleeping", false, false,
                 new List<Item>()
                 {
-                            WeaponItem.GenerateWeapon(),
-                            KeyItem.ShitebreachSouthKey
+                    KeyItem.ShitebreachSouthKey,
+                    ArmourItem.Brigandine,
+                    new WeaponItem()
+                    {
+                        Type = WeaponType.Greataxe,
+                        Material = WeaponMaterial.WeaponMaterialSteel,
+                        Property = WeaponProperty.WeaponPropertyStandard
+                    }
                 })
                 ));
             #endregion South-West House

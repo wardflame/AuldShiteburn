@@ -1,5 +1,6 @@
 ﻿using AuldShiteburn.CombatData;
 using AuldShiteburn.EntityData;
+using AuldShiteburn.EntityData.PlayerData.Classes;
 using System;
 using System.Collections.Generic;
 
@@ -49,12 +50,16 @@ namespace AuldShiteburn.ItemData.WeaponData
             {
                 if (HasAffinity)
                 {
-                    return minDamage + Combat.PROFICIENCY_DAMAGE_BONUS_MINOR;
+                    if (PlayerEntity.Instance.Class.GetType() == typeof(FighterClass) && Name == WeaponMaterialSteel.Name)
+                    {
+                        return maxDamage + Combat.PROFICIENCY_ARMOUR_MITIGATION_MODERATE;
+                    }
+                    else
+                    {
+                        return maxDamage + Combat.PROFICIENCY_DAMAGE_BONUS_MINOR;
+                    }
                 }
-                else
-                {
-                    return minDamage;
-                }
+                return minDamage;
             }
             private set
             {
@@ -67,7 +72,14 @@ namespace AuldShiteburn.ItemData.WeaponData
             {
                 if (HasAffinity)
                 {
-                    return maxDamage + Combat.PROFICIENCY_DAMAGE_BONUS_MINOR;
+                    if (PlayerEntity.Instance.Class.GetType() == typeof(FighterClass) && Name == WeaponMaterialSteel.Name)
+                    {
+                        return maxDamage + Combat.PROFICIENCY_ARMOUR_MITIGATION_MODERATE;
+                    }
+                    else
+                    {
+                        return maxDamage + Combat.PROFICIENCY_DAMAGE_BONUS_MINOR;
+                    }
                 }
                 return maxDamage;
             }

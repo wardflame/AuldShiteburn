@@ -23,7 +23,7 @@ namespace AuldShiteburn.ItemData.KeyData
         {
             get { return new KeyItem("Shitebreach South Key", "Unlocks the door in the South of Shitebreach."); }
         }
-        public static KeyItem DrainCellsKey
+        public static KeyItem DrainCellKey
         {
             get { return new KeyItem("Drain Cells Key", "Unlocks the cells in The Drain."); }
         }
@@ -43,9 +43,9 @@ namespace AuldShiteburn.ItemData.KeyData
         {
             get { return new KeyItem("Guild Hall West Key", "Unlocks the west door in the Guild Hall."); }
         }
-        public static KeyItem GranaryKey
+        public static KeyItem MillHouseKey
         {
-            get { return new KeyItem("Granary Key", "Unlocks the Granary door."); }
+            get { return new KeyItem("Mill House Key", "Unlocks the Mill House door."); }
         }
         #endregion Keys
         #region Notes
@@ -81,6 +81,12 @@ namespace AuldShiteburn.ItemData.KeyData
                     EastResidenceKey,
                     WestResidenceKey,
                     ShitebreachSouthKey,
+                    DrainCellKey,
+                    DrainGateKey,
+                    GuildMastersKey,
+                    GuildHallEastKey,
+                    GuildHallWestKey,
+                    MillHouseKey
                 };
             }
         }

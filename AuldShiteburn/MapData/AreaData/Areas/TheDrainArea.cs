@@ -65,13 +65,13 @@ namespace AuldShiteburn.MapData.AreaData.Areas
             // West cell grate wall & door.
             for (int x = 1; x <= 4; x++)
             {
-                if (x == 1) placeData.Add(new TilePlaceData(x, 3, new DoorTile(true, KeyItem.DrainCellsKey)));
+                if (x == 1) placeData.Add(new TilePlaceData(x, 3, new DoorTile(true, KeyItem.DrainCellKey)));
                 else placeData.Add(new TilePlaceData(x, 3, Tile.MetalGrateTile));
             }
             // East cell grate wall & door.
             for (int x = 15; x <= 18; x++)
             {
-                if (x == 17) placeData.Add(new TilePlaceData(x, 5, new DoorTile(true, KeyItem.DrainCellsKey)));
+                if (x == 17) placeData.Add(new TilePlaceData(x, 5, new DoorTile(true, KeyItem.DrainCellKey)));
                 else placeData.Add(new TilePlaceData(x, 5, Tile.MetalGrateTile));
             }
             // South wall, grate & door.
@@ -96,7 +96,7 @@ namespace AuldShiteburn.MapData.AreaData.Areas
                 new List<Item>()
                 {
                     KeyItem.ScrappyNote,
-                    ArmourItem.Gambeson,
+                    ArmourItem.HeavyGambeson,
                     new WeaponItem()
                     {
                         Type = WeaponType.Shortsword,

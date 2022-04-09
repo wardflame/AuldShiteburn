@@ -30,7 +30,6 @@ namespace AuldShiteburn.MapData.AreaData.Areas
                 for (int x = 4; x <= 14; x++)
                 {
                     if (x % 2 == 0 && y % 2 == 0) placeData.Add(new TilePlaceData(x, y, Tile.WallTile));
-                    if (y == 4 && x == 15) placeData.Add(new TilePlaceData(x, y, new DoorTile(true, KeyItem.GuildMastersKey)));
                 }
             }
             #endregion Tombstones
@@ -49,18 +48,22 @@ namespace AuldShiteburn.MapData.AreaData.Areas
             placeData.Add(new TilePlaceData(9, 14, new LootTile("Slain Warlock", false, false,
                 new List<Item>()
                 {
+                    KeyItem.DrainCellKey,
+                    ArmourItem.GrandWarlockGarb,
                     new WeaponItem()
                     {
-                        Type = WeaponType.Shortsword,
+                        Type = WeaponType.HandAxe,
                         Material = WeaponMaterial.WeaponMaterialHardshite,
                         Property = WeaponProperty.WeaponPropertyShiteSlick
-                    },
-                    ArmourItem.GrandWarlockGarb,
-                    KeyItem.GranaryKey
+                    }
                 })));
             placeData.Add(new TilePlaceData(4, 5, new LootTile("Tribute", false, true)));
             placeData.Add(new TilePlaceData(8, 7, new LootTile("Tribute", false, true)));
-            placeData.Add(new TilePlaceData(6, 11, new LootTile("Tribute", false, true)));
+            placeData.Add(new TilePlaceData(6, 11, new LootTile("Tribute", false, false,
+                new List<Item>()
+                {
+                    ArmourItem.FullPlate
+                })));
             placeData.Add(new TilePlaceData(12, 9, new LootTile("Tribute", false, true)));
             #endregion Loot
             // Narration

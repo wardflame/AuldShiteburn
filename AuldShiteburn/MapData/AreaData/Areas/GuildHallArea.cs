@@ -44,8 +44,8 @@ namespace AuldShiteburn.MapData.AreaData.Areas
                 for (int x = 8; x <= 12; x++)
                 {
                     if (x < 9 || x > 11) placeData.Add(new TilePlaceData(x, y, Tile.WallTile));
-                    if (x == 8 && y == 15) placeData.Add(new TilePlaceData(x, y, new DoorTile(true, KeyItem.GuildMastersKey)));
-                    if (x == 12 && y == 15) placeData.Add(new TilePlaceData(x, y, new DoorTile(true, KeyItem.GuildMastersKey)));
+                    if (x == 8 && y == 15) placeData.Add(new TilePlaceData(x, y, new DoorTile(true, KeyItem.GuildHallWestKey)));
+                    if (x == 12 && y == 15) placeData.Add(new TilePlaceData(x, y, new DoorTile(true, KeyItem.GuildHallEastKey)));
                 }
             }
             #endregion Walls
@@ -57,7 +57,7 @@ namespace AuldShiteburn.MapData.AreaData.Areas
                 {
                     new WeaponItem()
                     {
-                        Type = WeaponType.Greatsword,
+                        Type = WeaponType.Longsword,
                         Material = WeaponMaterial.WeaponMaterialSteel,
                         Property = WeaponProperty.WeaponPropertyStandard
                     },
