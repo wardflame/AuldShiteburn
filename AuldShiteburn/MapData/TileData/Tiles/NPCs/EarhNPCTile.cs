@@ -1,6 +1,5 @@
 ﻿using AuldShiteburn.EntityData;
 using AuldShiteburn.ItemData.ArmourData;
-using AuldShiteburn.ItemData.WeaponData;
 using AuldShiteburn.MapData.AreaData.Areas;
 using System;
 using System.Collections.Generic;

@@ -1,6 +1,5 @@
 ﻿using AuldShiteburn.EntityData.Enemies;
 using AuldShiteburn.ItemData;
-using AuldShiteburn.ItemData.ArmourData;
 using AuldShiteburn.ItemData.KeyData;
 using AuldShiteburn.ItemData.WeaponData;
 using AuldShiteburn.MapData.TileData;

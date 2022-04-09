@@ -4,7 +4,6 @@ using AuldShiteburn.CombatData.PayloadData;
 using AuldShiteburn.CombatData.StatusEffectData;
 using AuldShiteburn.CombatData.StatusEffectData.StatusEffects;
 using AuldShiteburn.EntityData.PlayerData;
-using AuldShiteburn.EntityData.PlayerData.Classes;
 using AuldShiteburn.ItemData.ArmourData;
 using AuldShiteburn.ItemData.KeyData;
 using AuldShiteburn.ItemData.WeaponData;

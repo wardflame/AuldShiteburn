@@ -1,7 +1,6 @@
 ﻿using AuldShiteburn.MapData.AreaData.Areas;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace AuldShiteburn.MapData.TileData.Tiles.NPCs
 {

@@ -4,7 +4,6 @@ using AuldShiteburn.CombatData.PayloadData;
 using AuldShiteburn.CombatData.StatusEffectData.StatusEffects;
 using AuldShiteburn.EntityData;
 using AuldShiteburn.ItemData.WeaponData;
-using AuldShiteburn.MapData;
 using System;
 using System.Collections.Generic;
 

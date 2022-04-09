@@ -37,7 +37,7 @@ namespace AuldShiteburn.MapData
         protected List<Area> AvailableAreas { get; } = new List<Area>();
         public Area[] ActiveAreas { get; set; }
         public Area CurrentArea => ActiveAreas[GetIndex(posX, posY)];
-        
+
         public Map()
         {
             ActiveAreas = new Area[Width * Height];

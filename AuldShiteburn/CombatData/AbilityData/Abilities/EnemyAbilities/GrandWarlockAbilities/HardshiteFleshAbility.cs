@@ -1,10 +1,8 @@
 ﻿using AuldShiteburn.CombatData.PayloadData;
-using AuldShiteburn.CombatData.StatusEffectData;
 using AuldShiteburn.CombatData.StatusEffectData.StatusEffects;
 using AuldShiteburn.EntityData;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace AuldShiteburn.CombatData.AbilityData.Abilities.EnemyAbilities.GrandWarlockAbilities
 {
