@@ -15,10 +15,11 @@ namespace AuldShiteburn.EntityData.PlayerData
     [Serializable]
     internal class Inventory
     {
+        private static int ColumnOffset { get; } = 36;
         public static int WeaponOffset { get; } = 0;
-        public static int ArmourOffset { get; } = 34;
-        public static int ConsumableOffset { get; } = 68;
-        public static int KeyOffset { get; } = 102;
+        public static int ArmourOffset { get; } = WeaponOffset + ColumnOffset;
+        public static int ConsumableOffset { get; } = ArmourOffset + ColumnOffset;
+        public static int KeyOffset { get; } = ConsumableOffset + ColumnOffset;
 
         public string Name { get; }
         public Item[,] ItemList { get; set; }
@@ -259,7 +260,7 @@ namespace AuldShiteburn.EntityData.PlayerData
                             if (typeColumn <= Column - 1 && typeColumn > 0)
                             {
                                 typeColumn--;
-                                typeOffset -= 34;
+                                typeOffset -= ColumnOffset;
                                 if (playerElseStorage)
                                 {
                                     Utils.ClearPlayerInventoryInterface();
@@ -280,7 +281,7 @@ namespace AuldShiteburn.EntityData.PlayerData
                             if (typeColumn >= 0 && typeColumn < Column - 1)
                             {
                                 typeColumn++;
-                                typeOffset += 34;
+                                typeOffset += ColumnOffset;
                                 if (playerElseStorage)
                                 {
                                     Utils.ClearPlayerInventoryInterface();
@@ -643,6 +644,14 @@ namespace AuldShiteburn.EntityData.PlayerData
             {
                 LootTile tile = (LootTile)currentTile;
                 tile.Items.Add(dropItem);
+                if (sortData.isPlayerInventory)
+                {
+                    PlayerEntity.Instance.Inventory.ItemList[sortData.index, sortData.typeColumn] = null;
+                }
+                else
+                {
+                    ItemList[sortData.index, sortData.typeColumn] = null;
+                }
             }
             else
             {

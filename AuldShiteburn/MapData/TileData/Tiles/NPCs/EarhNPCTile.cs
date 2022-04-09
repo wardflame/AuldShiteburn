@@ -1,4 +1,8 @@
-﻿using System;
+﻿using AuldShiteburn.EntityData;
+using AuldShiteburn.ItemData.ArmourData;
+using AuldShiteburn.ItemData.WeaponData;
+using AuldShiteburn.MapData.AreaData.Areas;
+using System;
 using System.Collections.Generic;
 
 namespace AuldShiteburn.MapData.TileData.Tiles.NPCs
@@ -8,8 +12,8 @@ namespace AuldShiteburn.MapData.TileData.Tiles.NPCs
     {
         public override string NPCName => "Earh";
         private List<InteractionData> stage1BeatEnemies = new List<InteractionData>();
-        private List<InteractionData> stage1Interim = new List<InteractionData>();
         private List<InteractionData> stage2Freed = new List<InteractionData>();
+        private List<InteractionData> shitebreachMeet = new List<InteractionData>();
         private bool stage1 = false;
         private bool stage2 = false;
 
@@ -27,6 +31,19 @@ namespace AuldShiteburn.MapData.TileData.Tiles.NPCs
             else if (!stage2)
             {
                 stage2 = CycleInteraction(stage2Freed);
+                if (stage2)
+                {
+                    PlayerEntity.Instance.Inventory.AddItem(ArmourItem.IndomitableCuirass, true);
+                    StartArea shitebreach = (StartArea)Map.Instance.ActiveAreas[Map.Instance.GetIndex(0, 0)];
+                    shitebreach.SetTile(5, 1, this);
+                    Map.Instance.CurrentArea.SetTile(1, 6, AirTile);
+                    Map.Instance.PrintTile(1, 6);
+                    shitebreach.NPCsRemaining--;
+                }
+            }
+            else
+            {
+                CycleInteraction(shitebreachMeet);
             }
         }
 
@@ -46,6 +63,11 @@ namespace AuldShiteburn.MapData.TileData.Tiles.NPCs
             stage1BeatEnemies.Add(new InteractionData(Dialogue($"I beg of you, free me from this house, so that I may return to Ormod.")));
             stage1BeatEnemies.Add(new InteractionData(Dialogue($"Should you choose to pursue the key, take fire with you.")));
             stage1BeatEnemies.Add(new InteractionData(Dialogue($"Before the beast could snatch Orlege away, I saw it recoil at his torch's touch.")));
+            stage2Freed.Add(new InteractionData(Dialogue($"You've actually done it... That shit-eater is dead? Gods be praised.")));
+            stage2Freed.Add(new InteractionData(Description($"Earh unbuckles his cuirass and offers it to you.")));
+            stage2Freed.Add(new InteractionData(Dialogue($"By my honour, it's yours. I'll see you back in Shitebreach.")));
+            shitebreachMeet.Add(new InteractionData(Dialogue($"Hail, friend. It is good to be back in Ormod's presence.")));
+            shitebreachMeet.Add(new InteractionData(Dialogue($"I am forever in your debt.")));
         }
     }
 }

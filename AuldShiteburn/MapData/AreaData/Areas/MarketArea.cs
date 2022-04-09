@@ -71,7 +71,7 @@ namespace AuldShiteburn.MapData.AreaData.Areas
                 })));
             #endregion Loot
             // NPCs
-            placeData.Add(new TilePlaceData(4, 15, new BoudicaNPCTile()));
+            placeData.Add(new TilePlaceData(4, 15, new BashfulEadwynNPCTile()));
         }
 
         public override void InitEnemies()

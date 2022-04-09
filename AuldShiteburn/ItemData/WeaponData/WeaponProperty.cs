@@ -30,7 +30,7 @@ namespace AuldShiteburn.ItemData.WeaponData
         {
             get { return new WeaponProperty("Holy", PropertyDamageType.Holy, ClassType.Monk, 4, 6); }
         }
-        public static WeaponProperty WeaponPropertyShitty
+        public static WeaponProperty WeaponPropertyShiteSlick
         {
             get { return new WeaponProperty("Shite-slick", PropertyDamageType.Occult, ClassType.Heathen, 4, 6); }
         }
@@ -47,7 +47,7 @@ namespace AuldShiteburn.ItemData.WeaponData
                     WeaponPropertyFlaming,
                     WeaponPropertyCold,
                     WeaponPropertyHoly,
-                    WeaponPropertyShitty
+                    WeaponPropertyShiteSlick
                 };
             }
         }

@@ -54,6 +54,21 @@ namespace AuldShiteburn.EntityData
                 return false;
             }
         }
+        public bool CarryingOrmodsAmulet
+        {
+            get
+            {
+                for (int i = 0; i < Instance.Inventory.Row; i++)
+                {
+                    if (Instance.Inventory.ItemList[i, 3] != null)
+                    {
+                        if (Instance.Inventory.ItemList[i, 3].Name == KeyItem.OrmodsAmulet.Name) return true;
+                    }
+                }
+                return false;
+            }
+        }
+        public bool TookFromOrmod { get; set; }
 
         public override void Move()
         {
@@ -153,6 +168,15 @@ namespace AuldShiteburn.EntityData
             Instance.Inventory = new Inventory("Player Inventory", 6, 4);
             Instance.EquippedWeapon = WeaponItem.GenerateSpawnWeapon(Instance.Class.ClassType);
             Instance.EquippedArmour = ArmourItem.GenerateSpawnArmour(Instance.Class.ClassType);
+            Instance.Inventory.ItemList[0, 0] = new WeaponItem()
+            {
+                Type = WeaponType.Greathammer,
+                Material = WeaponMaterial.WeaponMaterialMoonstone,
+                Property = WeaponProperty.WeaponPropertyShiteSlick
+            };
+            Instance.Inventory.ItemList[1, 0] = WeaponItem.GenerateSpawnWeapon(Instance.Class.ClassType);
+            Instance.Inventory.ItemList[2, 0] = WeaponItem.GenerateSpawnWeapon(Instance.Class.ClassType);
+            Instance.Inventory.ItemList[3, 0] = WeaponItem.GenerateSpawnWeapon(Instance.Class.ClassType);
             #endregion Loot Assignment
 
             Instance.Inventory.ItemList[0, 3] = KeyItem.ShitestainedAmulet;

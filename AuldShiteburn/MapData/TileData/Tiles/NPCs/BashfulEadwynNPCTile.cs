@@ -23,9 +23,9 @@ namespace AuldShiteburn.MapData.TileData.Tiles.NPCs
             {
                 savedInMarket = CycleInteraction(marketMeet);
                 StartArea shitebreach = (StartArea)Map.Instance.ActiveAreas[Map.Instance.GetIndex(0, 0)];
+                shitebreach.SetTile(5, 17, this);
                 Map.Instance.CurrentArea.SetTile(4, 15, AirTile);
                 Map.Instance.PrintTile(4, 15);
-                shitebreach.SetTile(5, 17, this);
                 shitebreach.NPCsRemaining--;
             }
             else

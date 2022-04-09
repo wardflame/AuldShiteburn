@@ -9,7 +9,7 @@ namespace AuldShiteburn.MapData.TileData.Tiles.NPCs
 {
     internal class BoudicaNPCTile : NPCTile
     {
-        public override string NPCName => finishedDrain ? "Boudica" : "Shaman Boudica";
+        public override string NPCName => finishedDrain ? "Shaman Boudica" : "Boudica";
         private List<InteractionData> drainMeeting = new List<InteractionData>();
         private List<InteractionData> shitebreachMeeting = new List<InteractionData>();
         private List<InteractionData> shitebreachRegular = new List<InteractionData>();
@@ -27,9 +27,9 @@ namespace AuldShiteburn.MapData.TileData.Tiles.NPCs
             {
                 finishedDrain = CycleInteraction(drainMeeting);
                 StartArea shitebreach = (StartArea)Map.Instance.ActiveAreas[Map.Instance.GetIndex(0, 0)];
+                shitebreach.SetTile(2, 10, this);
                 Map.Instance.CurrentArea.SetTile(18, 1, AirTile);
                 Map.Instance.PrintTile(18, 1);
-                shitebreach.SetTile(2, 10, this);
                 shitebreach.NPCsRemaining--;
             }
             else if (!giftGiven)

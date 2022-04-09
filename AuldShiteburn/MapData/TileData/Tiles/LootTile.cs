@@ -18,11 +18,18 @@ namespace AuldShiteburn.MapData.TileData.Tiles
         private const float CHANCE_CONSUMABLE = 1f;
 
         public override bool Collidable => false;
-        public override ConsoleColor Foreground => Looted ? ConsoleColor.DarkGray : ConsoleColor.Magenta;
+        public override ConsoleColor Foreground => HasItems ? ConsoleColor.Magenta : ConsoleColor.DarkGray;
         string Message { get; }
         public List<Item> Items { get; } = new List<Item>();
         public bool Temporary { get; set; }
-        public bool Looted { get; set; } = false;
+        public bool HasItems
+        {
+            get
+            {
+                if (Items.Count > 0) return true;
+                return false;
+            }
+        }
 
         public LootTile(string message, bool temporary, bool randomised = true, List<Item> itemList = null) : base("?", false)
         {
@@ -104,7 +111,7 @@ namespace AuldShiteburn.MapData.TileData.Tiles
             else
             {
                 Map.Instance.CurrentArea.SetTile(spawnX, spawnY,
-                new LootTile("Loot Pile", true));
+                new LootTile("Loot Pile", true, false, presetLoot));
             }
             Map.Instance.PrintTile(spawnX, spawnY);
             return true;
@@ -129,7 +136,6 @@ namespace AuldShiteburn.MapData.TileData.Tiles
                 else
                 {
                     Items.Clear();
-                    Looted = true;
                 }
             }
             Utils.ClearInteractInterface();

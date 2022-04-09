@@ -54,7 +54,6 @@ namespace AuldShiteburn.MapData.AreaData.Areas
             InitiateCombat(false);
             LootTile.GenerateLootTile(false, new List<Item>()
             {
-                ArmourItem.IndomitableCuirass,
                 KeyItem.WestResidenceKey
             });
         }

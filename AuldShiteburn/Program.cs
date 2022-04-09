@@ -7,7 +7,7 @@ namespace AuldShiteburn
         static void Main(string[] args)
         {
             Console.Title = "Auld Shiteburn";
-            Console.WindowWidth = 168;
+            Console.WindowWidth = 172;
             Console.WindowHeight = 44;
             Console.CursorVisible = false;
 

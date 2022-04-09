@@ -42,7 +42,11 @@ namespace AuldShiteburn.ItemData.KeyData
             get { return new KeyItem("Scrappy Note", "'Rodor, if you receive this, I've left the cell master key in my quarters of the Guild Hall.'"); }
         }
         #endregion Notes
-        #region Wards
+        #region Amulets
+        public static KeyItem OrmodsAmulet
+        {
+            get { return new KeyItem("Ormod's Amulet", "A simple wooden amulet carved crudely by an amateur. It is warm to the touch."); }
+        }
         public static KeyItem ShitestainedAmulet
         {
             get { return new KeyItem("Shite-stained Amulet", "A marble amulet once pale like moonlight, now dull and dormant."); }
@@ -51,7 +55,7 @@ namespace AuldShiteburn.ItemData.KeyData
         {
             get { return new KeyItem("Moonlit Amulet", "Visions of the heart brimming with light."); }
         }
-        #endregion Wards
+        #endregion Amulets
 
         public override string Name { get; }
         public string Description { get; }
