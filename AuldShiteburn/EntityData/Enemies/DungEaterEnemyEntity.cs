@@ -12,7 +12,7 @@ namespace AuldShiteburn.EntityData.Enemies
     {
         public DungEaterEnemyEntity()
         {
-            int health = 60;
+            int health = 80;
             Name = "The Dung Eater";
             MaxHP = health;
             HP = health;
@@ -23,7 +23,7 @@ namespace AuldShiteburn.EntityData.Enemies
             {
                 new ClawedSwipeAbility(),
                 new DungTossAbility(),
-                new ShitepukeAbility()
+                new FlamingGreatswordSwingAbility()
             };
         }
     }

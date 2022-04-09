@@ -194,7 +194,7 @@ new game or death.
 >> Abilities
 Abilities provide offensive, defensive, utility, or a combination, advantages to a class in combat. For
 example, the Heathen class has the ability Shite Ward, which provides nullification to Occult damage for
-three turns.
+three combat rounds.
 
 >> Proficiencies
 Each class has proficiencies, which provide damage or resistance bonuses to weapons and armour. You will

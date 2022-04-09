@@ -51,7 +51,7 @@ namespace AuldShiteburn.EntityData
                     Utils.WriteColour($"{Name} ", ConsoleColor.DarkYellow);
                     Utils.WriteColour($"{HP}/{MaxHP} ", ConsoleColor.Red);
                     Utils.WriteColour($"{ability.Description}", ConsoleColor.DarkYellow);
-                    return ability.UseAbility(enemies);
+                    return ability.UseAbility(enemies, this);
                 }
             }
             return new CombatPayload(false);

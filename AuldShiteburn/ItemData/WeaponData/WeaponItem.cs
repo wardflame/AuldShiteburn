@@ -67,7 +67,7 @@ namespace AuldShiteburn.ItemData.WeaponData
             {
                 weapon.Material = WeaponMaterial.WeaponMaterialList[rand.Next(3, WeaponMaterial.WeaponMaterialList.Count)];
             }
-            else if (rand.NextDouble() <= 0.4)
+            else if (rand.NextDouble() <= 0.28)
             {
                 weapon.Material = WeaponMaterial.WeaponMaterialSteel;
             }

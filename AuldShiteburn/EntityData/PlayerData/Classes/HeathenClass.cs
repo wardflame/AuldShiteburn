@@ -19,7 +19,7 @@ namespace AuldShiteburn.EntityData.PlayerData.Classes
             new ProficiencyData(ArmourFamily.Light, WeaponFamily.PrimitiveArms, PropertyDamageType.Occult, GeneralMaterials.Hardshite),
             new List<Ability>()
             {
-                new HardshiteBoltAbility(),
+                new HardshiteShardAbility(),
                 new ShiteWardAbility(),
                 new FaecalNourishmentAbility()
             }

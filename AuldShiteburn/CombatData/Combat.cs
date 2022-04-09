@@ -618,6 +618,7 @@ namespace AuldShiteburn.CombatData
             }
             else if (!PlayerEntity.Instance.CheckResourceLevel(chosenAbility.ResourceCost))
             {
+                Utils.SetCursorInteract(Console.CursorTop);
                 Utils.WriteColour($"You lack the resources to use this ability.", ConsoleColor.Red);
                 Console.ReadKey(true);
                 return new CombatPayload(false);

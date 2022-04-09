@@ -45,6 +45,31 @@ namespace AuldShiteburn.CombatData.StatusEffectData.StatusEffects
             }
         }
         #endregion
+        #region Monk Defense Effects
+        public static DefenseStatusEffect MoonWard
+        {
+            get
+            {
+                return new DefenseStatusEffect(
+                    "Moon Ward", 3,
+                    ConsoleColor.Cyan, EffectType.Buff,
+                    propertyEffectLevel: EffectLevel.Moderate,
+                    allPropertyDefense: true);
+            }
+        }
+        #endregion Monk Defense Effects
+        #region Grand Warlock Effects
+        public static DefenseStatusEffect HardshiteFlesh
+        {
+            get
+            {
+                return new DefenseStatusEffect
+                    ("Hardshite Flesh", 4, ConsoleColor.DarkYellow, EffectType.Buff,
+                    physicalEffectLevel: EffectLevel.Minor, propertyEffectLevel: EffectLevel.Moderate,
+                    allPhysicalDefense: true, allPropertyDefense: true);
+            }
+        }
+        #endregion Grand Warlock Effects
 
         public EffectLevel PhysicalEffectLevel { get; }
         public EffectLevel PropertyEffectLevel { get; }

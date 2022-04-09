@@ -1,9 +1,11 @@
-﻿using AuldShiteburn.ItemData;
+﻿using AuldShiteburn.EntityData.Enemies;
+using AuldShiteburn.ItemData;
 using AuldShiteburn.ItemData.ArmourData;
 using AuldShiteburn.ItemData.KeyData;
 using AuldShiteburn.ItemData.WeaponData;
 using AuldShiteburn.MapData.TileData;
 using AuldShiteburn.MapData.TileData.Tiles;
+using AuldShiteburn.MapData.TileData.Tiles.NPCs.NarrationNPCs;
 using System;
 using System.Collections.Generic;
 
@@ -44,31 +46,39 @@ namespace AuldShiteburn.MapData.AreaData.Areas
             #endregion Defiled Shrine
             #region Loot
             // Loot.
-            placeData.Add(new TilePlaceData(9, 14, new LootTile("Disembowled Sacrifice", false, false,
+            placeData.Add(new TilePlaceData(9, 14, new LootTile("Slain Warlock", false, false,
                 new List<Item>()
                 {
                     new WeaponItem()
                     {
-                        Type = WeaponType.Mace,
-                        Material = WeaponMaterial.WeaponMaterialSteel,
-                        Property = WeaponProperty.WeaponPropertyStandard
+                        Type = WeaponType.Shortsword,
+                        Material = WeaponMaterial.WeaponMaterialHardshite,
+                        Property = WeaponProperty.WeaponPropertyShiteSlick
                     },
-                    ArmourItem.SplintPlate,
+                    ArmourItem.GrandWarlockGarb,
                     KeyItem.GranaryKey
                 })));
-            placeData.Add(new TilePlaceData(5, 4, new LootTile("Crumpled Sack", false, true)));
-            placeData.Add(new TilePlaceData(2, 1, new LootTile("Small Box", false, true)));
-            placeData.Add(new TilePlaceData(1, 11, new LootTile("Drawer", false, true)));
-            placeData.Add(new TilePlaceData(7, 18, new LootTile("Writing Desk", false, true)));
+            placeData.Add(new TilePlaceData(4, 5, new LootTile("Tribute", false, true)));
+            placeData.Add(new TilePlaceData(8, 7, new LootTile("Tribute", false, true)));
+            placeData.Add(new TilePlaceData(6, 11, new LootTile("Tribute", false, true)));
+            placeData.Add(new TilePlaceData(12, 9, new LootTile("Tribute", false, true)));
             #endregion Loot
+            // Narration
+            placeData.Add(new TilePlaceData(1, 1, new GraveyardNarrationNPCTile()));
         }
 
         public override void InitEnemies()
         {
+            Enemies.Add(new GrandWarlockEnemyEntity());
         }
 
         public override void OnFirstEnter()
         {
+            Tile narrationTile = GetTile(1, 1);
+            GraveyardNarrationNPCTile narration = (GraveyardNarrationNPCTile)narrationTile;
+            narration.Interaction();
+            Utils.ClearInteractInterface();
+            if (!InitiateCombat(true)) return;
         }
 
         protected override void TileGeneration()

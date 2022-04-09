@@ -2,6 +2,7 @@
 using AuldShiteburn.ItemData;
 using AuldShiteburn.ItemData.ArmourData;
 using AuldShiteburn.ItemData.KeyData;
+using AuldShiteburn.ItemData.WeaponData;
 using AuldShiteburn.MapData.TileData;
 using AuldShiteburn.MapData.TileData.Tiles;
 using AuldShiteburn.MapData.TileData.Tiles.NPCs.NarrationNPCs;
@@ -54,6 +55,12 @@ namespace AuldShiteburn.MapData.AreaData.Areas
             if (!InitiateCombat(false)) return;
             LootTile.GenerateLootTile(false, new List<Item>()
             {
+                new WeaponItem()
+                {
+                    Type = WeaponType.Greatsword,
+                    Material = WeaponMaterial.WeaponMaterialSteel,
+                    Property = WeaponProperty.WeaponPropertyFlaming
+                },
                 KeyItem.WestResidenceKey
             });
         }

@@ -3,7 +3,7 @@ using AuldShiteburn.EntityData;
 using System;
 using System.Collections.Generic;
 
-namespace AuldShiteburn.CombatData.AbilityData.Abilities.EnemyAbilities.DungEaterAbilities
+namespace AuldShiteburn.CombatData.AbilityData.Abilities.EnemyAbilities.GrandWarlockAbilities
 {
     [Serializable]
     internal class ShitepukeAbility : Ability

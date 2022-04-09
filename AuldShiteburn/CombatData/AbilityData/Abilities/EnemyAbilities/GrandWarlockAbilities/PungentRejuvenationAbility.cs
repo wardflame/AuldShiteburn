@@ -4,13 +4,12 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace AuldShiteburn.CombatData.AbilityData.Abilities.EnemyAbilities.BloatedBruiserAbilities
+namespace AuldShiteburn.CombatData.AbilityData.Abilities.EnemyAbilities.GrandWarlockAbilities
 {
-    [Serializable]
-    internal class PussBathAbility : Ability
+    internal class PungentRejuvenationAbility : Ability
     {
-        public override string Name => "Puss Bath";
-        public override string Description => "seals some wounds with an expulsion of puss.";
+        public override string Name => "Pungent Rejuvenation";
+        public override string Description => "surrounds themself in a shite-slick salve, healing wounds!";
         public override int Cooldown => 3;
         public override int ResourceCost => 0;
 
@@ -20,7 +19,7 @@ namespace AuldShiteburn.CombatData.AbilityData.Abilities.EnemyAbilities.BloatedB
             if (ActiveCooldown <= 0)
             {
                 Random rand = new Random();
-                int heal = rand.Next(4, 9);
+                int heal = rand.Next(6, 13);
                 enemy.HP += heal;
                 ActiveCooldown = Cooldown;
                 return new CombatPayload(isAttack: false, isUtility: true);

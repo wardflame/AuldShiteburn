@@ -59,11 +59,11 @@ namespace AuldShiteburn.MapData.AreaData.Areas
                 {
                     new WeaponItem()
                     {
-                        Type = WeaponType.Mace,
+                        Type = WeaponType.Greatsword,
                         Material = WeaponMaterial.WeaponMaterialSteel,
                         Property = WeaponProperty.WeaponPropertyStandard
                     },
-                    ArmourItem.HeavyGambeson,
+                    ArmourItem.PaddedMaille,
                     KeyItem.GuildHallEastKey
                 })));
             placeData.Add(new TilePlaceData(5, 4, new LootTile("Crumpled Sack", false, true)));

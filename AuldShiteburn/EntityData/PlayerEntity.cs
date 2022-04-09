@@ -132,8 +132,8 @@ namespace AuldShiteburn.EntityData
             Random rand = new Random();
 
             #region Class Generation and Stat Assignments
-            //Instance.Class = CharacterClass.Classes[rand.Next(CharacterClass.Classes.Count)];
-            Instance.Class = new RogueClass();
+            Instance.Class = CharacterClass.Classes[rand.Next(CharacterClass.Classes.Count)];
+            //Instance.Class = new RogueClass();
             Instance.MaxHP = Instance.Class.Statistics.HP;
             Instance.HP = Instance.Class.Statistics.HP;
             Instance.UsesStamina = Instance.Class.Statistics.UsesStamina;
@@ -172,8 +172,7 @@ namespace AuldShiteburn.EntityData
             Instance.EquippedArmour = ArmourItem.GenerateSpawnArmour(Instance.Class.ClassType);
             #endregion Loot Assignment
 
-            Instance.Inventory.ItemList[0, 1] = ArmourItem.HeavyGambeson;
-            Instance.Inventory.ItemList[1, 1] = ArmourItem.FullPlate;
+            //Instance.Inventory.ItemList[0, 1] = ArmourItem.HeavyGambeson;
 
             return Instance;
         }
@@ -206,8 +205,11 @@ namespace AuldShiteburn.EntityData
             }
             #endregion Status Effect Application
 
-            Utils.SetCursorInteract(1);
-            Utils.WriteColour($"You ");
+            if (combatPayload.IsAttack)
+            {
+                Utils.SetCursorInteract(1);
+                Utils.WriteColour($"You ");
+            }
 
             //If the payload has a stun in it, apply the stun.
             #region Stun Application
@@ -263,7 +265,7 @@ namespace AuldShiteburn.EntityData
                         combatPayload.PropertyDamage = 0;
                     }
                     if (combatPayload.HasPhysical) Utils.WriteColour("and ");
-                    else Utils.WriteColour("takes ");
+                    else Utils.WriteColour("take ");
                     Utils.WriteColour($"{combatPayload.PropertyDamage}/{initialProp} ", ConsoleColor.Red);
                     Utils.WriteColour($"{combatPayload.PropertyAttackType} damage ");
                     Utils.SetCursorInteract(Console.CursorTop - 1);
@@ -294,10 +296,13 @@ namespace AuldShiteburn.EntityData
             }
             #region Total Damage Calculation
             totalDamage = combatPayload.PhysicalDamage + combatPayload.PropertyDamage;
-            Utils.WriteColour($"for a total of ");
-            Utils.WriteColour($"{totalDamage} ", ConsoleColor.Red);
-            Utils.WriteColour($"damage.");
-            Utils.SetCursorInteract(Console.CursorTop - 1);
+            if (totalDamage > 0)
+            {
+                Utils.WriteColour($"for a total of ");
+                Utils.WriteColour($"{totalDamage} ", ConsoleColor.Red);
+                Utils.WriteColour($"damage.");
+                Utils.SetCursorInteract(Console.CursorTop - 1);
+            }
             #endregion Total Damage Calculation
             #endregion Damage Application
 
