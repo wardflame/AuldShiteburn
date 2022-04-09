@@ -5,12 +5,12 @@ using AuldShiteburn.EntityData;
 using System;
 using System.Collections.Generic;
 
-namespace AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.FighterAbilities
+namespace AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.GeneralAbilities
 {
     [Serializable]
-    internal class DefensiveStanceAbility : Ability
+    internal class ParryRiposteAbility : Ability
     {
-        public override string Name => "Defensive Stance";
+        public override string Name => "Parry and Riposte";
         public override string Description => "Gain Major physical Mitigation and stagger enemies for 1 turn if they fail to do damage.";
         public override int Cooldown => 3;
         public override int ResourceCost => 4;

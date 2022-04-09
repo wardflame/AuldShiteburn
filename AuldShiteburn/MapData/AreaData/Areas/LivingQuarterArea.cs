@@ -83,8 +83,8 @@ namespace AuldShiteburn.MapData.AreaData.Areas
             placeData.Add(new TilePlaceData(2, 16, new DoorTile(false)));
             // Loot.
             placeData.Add(new TilePlaceData(5, 15,
-                new LootTile("A burnt corpse in the fetal position", false,
-                itemList: new List<Item>()
+                new LootTile("A burnt corpse in the fetal position", false, false,
+                new List<Item>()
                 {
                             WeaponItem.GenerateWeapon(),
                             KeyItem.ShitebreachSouthKey
@@ -102,7 +102,7 @@ namespace AuldShiteburn.MapData.AreaData.Areas
 
         public override void OnFirstEnter()
         {
-            InitiateCombat(true);
+            if (!InitiateCombat(true)) return;
             EarhNPCTile earh = GetTile(1, 6) as EarhNPCTile;
             earh.Interaction();
         }

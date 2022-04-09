@@ -4,6 +4,7 @@ using AuldShiteburn.CombatData.PayloadData;
 using AuldShiteburn.CombatData.StatusEffectData.StatusEffects;
 using AuldShiteburn.EntityData;
 using AuldShiteburn.ItemData.WeaponData;
+using AuldShiteburn.MapData;
 using System;
 using System.Collections.Generic;
 
@@ -79,8 +80,9 @@ namespace AuldShiteburn.CombatData
                 Console.CursorTop += 2;
                 Utils.WriteColour("Press any key to continue.");
                 Console.ReadKey(true);
+                Console.Clear();
                 Game.playing = false;
-                Game.mainMenu = true;
+                Game.running = false;
                 return false;
             }
         }
@@ -123,13 +125,10 @@ namespace AuldShiteburn.CombatData
                                 Utils.WriteColour($"Ready", ConsoleColor.DarkGreen);
                             }
                         }
-                        if (abilitiesCoolingDown > 0)
-                        {
-                            Utils.SetCursorInteract(Console.CursorTop);
-                            Utils.WriteColour("Press any key to continue.");
-                            Console.ReadKey(true);
-                            Utils.ClearInteractInterface();
-                        }
+                        Utils.SetCursorInteract(Console.CursorTop);
+                        Utils.WriteColour("Press any key to continue.");
+                        Console.ReadKey(true);
+                        Utils.ClearInteractInterface();
                         abilityCooldowns = true;
                     }
                 }
@@ -190,6 +189,7 @@ namespace AuldShiteburn.CombatData
                     }
                     else
                     {
+                        playerTurn = false;
                         Utils.ClearInteractInterface(30);
                     }
                 }
@@ -568,7 +568,9 @@ namespace AuldShiteburn.CombatData
                         Utils.SetCursorInteract(offsetY + 1, 25);
                         Utils.WriteColour(abilities[i].Description);
                         Utils.SetCursorInteract(offsetY + 2, 25);
-                        Utils.WriteColour($"Cooldown: {abilities[i].Cooldown}");
+                        Utils.WriteColour($"Cooldown: ");
+                        if (abilities[i].ActiveCooldown > 0) Utils.WriteColour($"{abilities[i].ActiveCooldown}/{abilities[i].Cooldown}", ConsoleColor.Red);
+                        else Utils.WriteColour($"{abilities[i].ActiveCooldown}/{abilities[i].Cooldown}", ConsoleColor.Green);
                         Utils.SetCursorInteract(offsetY + 3, 25);
                         Utils.WriteColour($"Resource Cost: {abilities[i].ResourceCost}");
                     }

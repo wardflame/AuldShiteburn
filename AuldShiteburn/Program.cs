@@ -11,8 +11,12 @@ namespace AuldShiteburn
             Console.WindowHeight = 44;
             Console.CursorVisible = false;
 
-            Game game = new Game();
-            game.GameRunning();
+            bool running = true;
+            while (running)
+            {
+                Game game = new Game();
+                game.GameRunning();
+            }
         }
     }
 }

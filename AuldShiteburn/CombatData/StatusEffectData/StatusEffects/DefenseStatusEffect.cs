@@ -9,14 +9,36 @@ namespace AuldShiteburn.CombatData.StatusEffectData.StatusEffects
     /// </summary>
     internal class DefenseStatusEffect : StatusEffect
     {
-        #region Global Defensive Stances
+        #region Global Defense Effects
         // Stagger: Debuff
-        public static DefenseStatusEffect Staggered
+        public static DefenseStatusEffect Staggered1
         {
             get
             {
                 return new DefenseStatusEffect(
                     "Staggered", 1,
+                    ConsoleColor.Magenta, EffectType.Debuff,
+                    physicalEffectLevel: EffectLevel.Moderate, propertyEffectLevel: EffectLevel.Moderate,
+                    allPhysicalDefense: true, allPropertyDefense: true);
+            }
+        }
+        public static DefenseStatusEffect Staggered2
+        {
+            get
+            {
+                return new DefenseStatusEffect(
+                    "Staggered", 2,
+                    ConsoleColor.Magenta, EffectType.Debuff,
+                    physicalEffectLevel: EffectLevel.Moderate, propertyEffectLevel: EffectLevel.Moderate,
+                    allPhysicalDefense: true, allPropertyDefense: true);
+            }
+        }
+        public static DefenseStatusEffect Staggered3
+        {
+            get
+            {
+                return new DefenseStatusEffect(
+                    "Staggered", 3,
                     ConsoleColor.Magenta, EffectType.Debuff,
                     physicalEffectLevel: EffectLevel.Moderate, propertyEffectLevel: EffectLevel.Moderate,
                     allPhysicalDefense: true, allPropertyDefense: true);

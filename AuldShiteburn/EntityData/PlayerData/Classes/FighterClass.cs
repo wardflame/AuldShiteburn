@@ -1,6 +1,6 @@
 ﻿using AuldShiteburn.CombatData;
 using AuldShiteburn.CombatData.AbilityData;
-using AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.FighterAbilities;
+using AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.GeneralAbilities;
 using AuldShiteburn.ItemData;
 using AuldShiteburn.ItemData.ArmourData;
 using AuldShiteburn.ItemData.WeaponData;
@@ -19,7 +19,7 @@ namespace AuldShiteburn.EntityData.PlayerData.Classes
             new ProficiencyData(ArmourFamily.HeavyArmour, WeaponFamily.MartialArms, PropertyDamageType.None, GeneralMaterials.Steel),
             new List<Ability>()
             {
-                new DefensiveStanceAbility()
+                new ParryRiposteAbility()
             }
             )
         { }

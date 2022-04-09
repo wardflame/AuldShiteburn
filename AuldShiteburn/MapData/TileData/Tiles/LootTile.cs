@@ -31,7 +31,7 @@ namespace AuldShiteburn.MapData.TileData.Tiles
             }
         }
 
-        public LootTile(string message, bool temporary, bool randomised = true, List<Item> itemList = null) : base("?", false)
+        public LootTile(string message, bool temporary, bool randomised, List<Item> itemList = null) : base("?", false)
         {
             Message = message;
             Temporary = temporary;
@@ -106,7 +106,7 @@ namespace AuldShiteburn.MapData.TileData.Tiles
             if (randomLoot)
             {
                 Map.Instance.CurrentArea.SetTile(spawnX, spawnY,
-                new LootTile("Loot Pile", true));
+                new LootTile("Loot Pile", true, true));
             }
             else
             {

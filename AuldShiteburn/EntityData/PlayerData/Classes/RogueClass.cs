@@ -1,5 +1,6 @@
 ﻿using AuldShiteburn.CombatData;
 using AuldShiteburn.CombatData.AbilityData;
+using AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.GeneralAbilities;
 using AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.RogueAbilities;
 using AuldShiteburn.ItemData;
 using AuldShiteburn.ItemData.ArmourData;
@@ -19,7 +20,9 @@ namespace AuldShiteburn.EntityData.PlayerData.Classes
             new ProficiencyData(ArmourFamily.LightArmour, WeaponFamily.DextrousSmallArms, PropertyDamageType.Cold, GeneralMaterials.None),
             new List<Ability>()
             {
-                new DirtDishonourAbility()
+                new ParryRiposteAbility(),
+                new DirtDishonourAbility(),
+                new SmokeBombAbility()
             }
             )
         { }

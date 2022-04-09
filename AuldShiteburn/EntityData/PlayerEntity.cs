@@ -1,8 +1,10 @@
 ﻿using AuldShiteburn.BackendData;
+using AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.GeneralAbilities;
 using AuldShiteburn.CombatData.PayloadData;
 using AuldShiteburn.CombatData.StatusEffectData;
 using AuldShiteburn.CombatData.StatusEffectData.StatusEffects;
 using AuldShiteburn.EntityData.PlayerData;
+using AuldShiteburn.EntityData.PlayerData.Classes;
 using AuldShiteburn.ItemData.ArmourData;
 using AuldShiteburn.ItemData.KeyData;
 using AuldShiteburn.ItemData.WeaponData;
@@ -130,8 +132,8 @@ namespace AuldShiteburn.EntityData
             Random rand = new Random();
 
             #region Class Generation and Stat Assignments
-            Instance.Class = CharacterClass.Classes[rand.Next(CharacterClass.Classes.Count)];
-            //Instance.Class = new MarauderClass();
+            //Instance.Class = CharacterClass.Classes[rand.Next(CharacterClass.Classes.Count)];
+            Instance.Class = new RogueClass();
             Instance.MaxHP = Instance.Class.Statistics.HP;
             Instance.HP = Instance.Class.Statistics.HP;
             Instance.UsesStamina = Instance.Class.Statistics.UsesStamina;
@@ -168,18 +170,7 @@ namespace AuldShiteburn.EntityData
             Instance.Inventory = new Inventory("Player Inventory", 6, 4);
             Instance.EquippedWeapon = WeaponItem.GenerateSpawnWeapon(Instance.Class.ClassType);
             Instance.EquippedArmour = ArmourItem.GenerateSpawnArmour(Instance.Class.ClassType);
-            Instance.Inventory.ItemList[0, 0] = new WeaponItem()
-            {
-                Type = WeaponType.Greathammer,
-                Material = WeaponMaterial.WeaponMaterialMoonstone,
-                Property = WeaponProperty.WeaponPropertyShiteSlick
-            };
-            Instance.Inventory.ItemList[1, 0] = WeaponItem.GenerateSpawnWeapon(Instance.Class.ClassType);
-            Instance.Inventory.ItemList[2, 0] = WeaponItem.GenerateSpawnWeapon(Instance.Class.ClassType);
-            Instance.Inventory.ItemList[3, 0] = WeaponItem.GenerateSpawnWeapon(Instance.Class.ClassType);
             #endregion Loot Assignment
-
-            Instance.Inventory.ItemList[0, 3] = KeyItem.ShitestainedAmulet;
 
             return Instance;
         }
@@ -311,9 +302,9 @@ namespace AuldShiteburn.EntityData
             #region Riposte Status
             if (totalDamage <= 0 && AbilityStatusEffect != null)
             {
-                if (AbilityStatusEffect.Name == "Defensive Stance")
+                if (AbilityStatusEffect.Name == new ParryRiposteAbility().Name)
                 {
-                    enemy.StatusEffect = DefenseStatusEffect.Staggered;
+                    enemy.StatusEffect = DefenseStatusEffect.Staggered1;
                     Utils.SetCursorInteract(Console.CursorTop - 1);
                     Utils.WriteColour("You riposte the enemy, inflicting ", ConsoleColor.DarkYellow);
                     Utils.WriteColour($"{enemy.StatusEffect.Name}", enemy.StatusEffect.DisplayColor);

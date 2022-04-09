@@ -19,7 +19,7 @@ namespace AuldShiteburn.CombatData.AbilityData.Abilities.EnemyAbilities.DungEate
         public override CombatPayload UseAbility(List<EnemyEntity> enemies)
         {
             Random rand = new Random();
-            int propDamage = rand.Next(PhysicalMinDamage, PhysicalMaxDamage + 1);
+            int propDamage = rand.Next(PropertyMinDamage, PropertyMaxDamage + 1);
             return new CombatPayload(
                 isAttack: true,
                 hasProperty: true,

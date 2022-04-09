@@ -14,10 +14,10 @@ namespace AuldShiteburn.CombatData.AbilityData.Abilities.EnemyAbilities.ShiteHus
         public override int ResourceCost => 0;
         public override PhysicalDamageType PhysicalDamageType => PhysicalDamageType.Pierce;
         public override PropertyDamageType PropertyDamageType => PropertyDamageType.Occult;
-        public override int PhysicalMinDamage => 4;
-        public override int PhysicalMaxDamage => 6;
+        public override int PhysicalMinDamage => 3;
+        public override int PhysicalMaxDamage => 4;
         public override int PropertyMinDamage => 2;
-        public override int PropertyMaxDamage => 4;
+        public override int PropertyMaxDamage => 3;
 
         public override CombatPayload UseAbility(List<EnemyEntity> enemies)
         {

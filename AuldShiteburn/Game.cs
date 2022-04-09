@@ -13,6 +13,13 @@ namespace AuldShiteburn
         public static bool running = true;
         public static bool playing = true;
 
+        public Game()
+        {
+            running = true;
+            mainMenu = true;
+            playing = true;
+        }
+
         public void GameRunning()
         {
             Directories.SaveDirectoryInit();

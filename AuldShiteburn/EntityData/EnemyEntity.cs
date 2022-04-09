@@ -161,10 +161,13 @@ namespace AuldShiteburn.EntityData
 
             int totalDamage = physDamage + propDamage;
             if (totalDamage < 0) totalDamage = 0;
-            Utils.WriteColour($"for a total of ");
-            Utils.WriteColour($"{totalDamage} ", ConsoleColor.Red);
-            Utils.WriteColour($"damage.");
-            HP -= totalDamage;
+            if (totalDamage > 0)
+            {
+                Utils.WriteColour($"for a total of ");
+                Utils.WriteColour($"{totalDamage} ", ConsoleColor.Red);
+                Utils.WriteColour($"damage.");
+                HP -= totalDamage;
+            }
             if (HP <= 0)
             {
                 Utils.SetCursorInteract(Console.CursorTop - 1);

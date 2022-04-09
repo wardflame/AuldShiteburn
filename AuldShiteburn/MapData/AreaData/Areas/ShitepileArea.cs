@@ -51,7 +51,7 @@ namespace AuldShiteburn.MapData.AreaData.Areas
             ShitepileNarrationNPCTile narration = (ShitepileNarrationNPCTile)narrationTile;
             narration.Interaction();
             Utils.ClearInteractInterface();
-            InitiateCombat(false);
+            if (!InitiateCombat(false)) return;
             LootTile.GenerateLootTile(false, new List<Item>()
             {
                 KeyItem.WestResidenceKey

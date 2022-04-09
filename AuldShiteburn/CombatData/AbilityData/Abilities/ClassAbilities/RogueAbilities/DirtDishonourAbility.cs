@@ -12,7 +12,7 @@ namespace AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.RogueAbi
         public override string Name => "Dirt and Dishonour";
         public override string Description => "Hurl dirt at an enemy and attack, applying Staggered and Stunned for 1 round.";
         public override int Cooldown => 3;
-        public override int ResourceCost => 6;
+        public override int ResourceCost => 4;
         public override PhysicalDamageType PhysicalDamageType => PlayerEntity.Instance.EquippedWeapon.Type.PrimaryAttack;
         public override int PhysicalMinDamage => PlayerEntity.Instance.EquippedWeapon.MinPhysDamage;
         public override int PhysicalMaxDamage => PlayerEntity.Instance.EquippedWeapon.MaxPhysDamage;
@@ -39,7 +39,7 @@ namespace AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.RogueAbi
                 return new CombatPayload(
                     isAttack: true, isStun: true,
                     hasStatus: true, hasPhysical: true, hasProperty: true,
-                    statusEffect: DefenseStatusEffect.Staggered,
+                    statusEffect: DefenseStatusEffect.Staggered1,
                     physicalAttackType: PhysicalDamageType, physicalDamage: physDamage,
                     propertyAttackType: PropertyDamageType, propertyDamage: propDamage,
                     stunCount: 1);

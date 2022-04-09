@@ -48,11 +48,12 @@ namespace AuldShiteburn.MapData
         /// If EnemiesDefeated is false and there are enemies in the Enemies
         /// list, run a combat encounter.
         /// </summary>
-        public void InitiateCombat(bool randomLoot)
+        public bool InitiateCombat(bool randomLoot)
         {
             if (!EnemiesDefeated && Enemies.Count > 0)
             {
-                if (Combat.CombatEncounter(Enemies))
+                if (!Combat.CombatEncounter(Enemies)) return false;
+                else
                 {
                     if (randomLoot)
                     {
@@ -62,6 +63,7 @@ namespace AuldShiteburn.MapData
                     EnemiesDefeated = true;
                 }
             }
+            return true;
         }
 
         /// <summary>
