@@ -1,10 +1,12 @@
 ﻿using AuldShiteburn.CombatData;
 using AuldShiteburn.CombatData.AbilityData;
 using AuldShiteburn.CombatData.AbilityData.Abilities.EnemyAbilities.GrandWarlockAbilities;
+using System;
 using System.Collections.Generic;
 
 namespace AuldShiteburn.EntityData.Enemies
 {
+    [Serializable]
     internal class GrandWarlockEnemyEntity : EnemyEntity
     {
         public GrandWarlockEnemyEntity()

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 namespace AuldShiteburn.CombatData.AbilityData.Abilities.EnemyAbilities.GrandWarlockAbilities
 {
+    [Serializable]
     internal class PungentRejuvenationAbility : Ability
     {
         public override string Name => "Pungent Rejuvenation";

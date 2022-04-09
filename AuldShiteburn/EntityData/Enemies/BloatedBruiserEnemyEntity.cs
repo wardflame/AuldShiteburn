@@ -6,6 +6,7 @@ using System.Collections.Generic;
 
 namespace AuldShiteburn.EntityData.Enemies
 {
+    [Serializable]
     internal class BloatedBruiserEnemyEntity : EnemyEntity
     {
         public BloatedBruiserEnemyEntity()

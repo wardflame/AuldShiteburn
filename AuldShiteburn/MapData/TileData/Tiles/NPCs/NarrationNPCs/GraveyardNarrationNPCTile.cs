@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace AuldShiteburn.MapData.TileData.Tiles.NPCs.NarrationNPCs
 {
+    [Serializable]
     internal class GraveyardNarrationNPCTile : NPCTile
     {
         public override string NPCName => "Graveyard";
