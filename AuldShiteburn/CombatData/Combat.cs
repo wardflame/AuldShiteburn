@@ -338,7 +338,7 @@ namespace AuldShiteburn.CombatData
             CombatPayload attackPayload = new CombatPayload(true);
             Random rand = new Random();
             WeaponItem playerWeapon = PlayerEntity.Instance.EquippedWeapon;
-            attackPayload.PhysicalDamage = rand.Next(playerWeapon.MinPhysDamage, playerWeapon.MaxPhysDamage);
+            attackPayload.PhysicalDamage = rand.Next(playerWeapon.MinPhysDamage, playerWeapon.MaxPhysDamage + 1);
             if (attackPayload.PhysicalDamage > 0)
             {
                 attackPayload.PhysicalAttackType = playerWeapon.Type.PrimaryAttack;
@@ -348,7 +348,7 @@ namespace AuldShiteburn.CombatData
                 }
                 attackPayload.HasPhysical = true;
             }
-            attackPayload.PropertyDamage = rand.Next(playerWeapon.MinPropDamage, playerWeapon.MaxPropDamage);
+            attackPayload.PropertyDamage = rand.Next(playerWeapon.MinPropDamage, playerWeapon.MaxPropDamage + 1);
             if (attackPayload.PropertyDamage > 0 || playerWeapon.Property.Type == PropertyDamageType.Damaged)
             {
                 attackPayload.PropertyAttackType = playerWeapon.Property.Type;
