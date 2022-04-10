@@ -1,4 +1,5 @@
-﻿using AuldShiteburn.ItemData;
+﻿using AuldShiteburn.EntityData.Enemies;
+using AuldShiteburn.ItemData;
 using AuldShiteburn.ItemData.ArmourData;
 using AuldShiteburn.ItemData.ConsumableData;
 using AuldShiteburn.ItemData.KeyData;
@@ -70,7 +71,12 @@ namespace AuldShiteburn.MapData.AreaData.Areas
                     ConsumableItem.AllConsumables[rand.Next(ConsumableItem.AllConsumables.Count)],
                     ConsumableItem.AllConsumables[rand.Next(ConsumableItem.AllConsumables.Count)]
                 })));
-            //placeData.Add(new TilePlaceData(5, 4, new LootTile("Crumpled Sack", false, true)));
+            placeData.Add(new TilePlaceData(9, 11, new LootTile("Small Box", false, false,
+                new List<Item>()
+                {
+                    KeyItem.DrainGateKey,
+                    ConsumableItem.AllConsumables[rand.Next(ConsumableItem.AllConsumables.Count)]
+                })));
             #endregion Loot
             // NPC
             placeData.Add(new TilePlaceData(10, 11, new HumbleLarNPCTile()));
@@ -96,11 +102,15 @@ namespace AuldShiteburn.MapData.AreaData.Areas
 
         public override void OnFirstEnter()
         {
-
+            InitiateCombat(true);
         }
 
         public override void InitEnemies()
         {
+            Enemies.Add(new ShiteHuskEnemyEntity());
+            Enemies.Add(new ShiteHuskEnemyEntity());
+            Enemies.Add(new ShiteHuskEnemyEntity());
+            Enemies.Add(new ShiteHuskEnemyEntity());
         }
     }
 }

@@ -96,8 +96,6 @@ namespace AuldShiteburn.MapData.AreaData.Areas
             }
             #endregion Barred South Door
             placeData.Add(new TilePlaceData(7, 15, new ShitefireNPCTile()));
-
-
         }
 
         public override void InitEnemies()

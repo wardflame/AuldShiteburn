@@ -29,7 +29,7 @@ namespace AuldShiteburn.ItemData.KeyData
         }
         public static KeyItem DrainGateKey
         {
-            get { return new KeyItem("Drain Gate Key", "Unlocks the gate in the South of The Drain."); }
+            get { return new KeyItem("Drain Gate Key", "Unlocks the gate in the south of The Drain."); }
         }
         public static KeyItem GuildMastersKey
         {

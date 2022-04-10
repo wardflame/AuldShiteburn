@@ -82,6 +82,9 @@ namespace AuldShiteburn.MapData.AreaData.Areas
             narration.Interaction();
             Utils.ClearInteractInterface();
             if (!InitiateCombat(true)) return;
+            BossDefeated = true;
+            StartArea shitebreach = (StartArea)Map.Instance.ActiveAreas[Map.Instance.GetIndex(0, 0)];
+            shitebreach.BossesRemaining--;
         }
 
         protected override void TileGeneration()

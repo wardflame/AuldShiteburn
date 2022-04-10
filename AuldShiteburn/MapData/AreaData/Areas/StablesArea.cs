@@ -1,6 +1,14 @@
-﻿using AuldShiteburn.EntityData.Enemies;
+﻿using AuldShiteburn.EntityData;
+using AuldShiteburn.EntityData.Enemies;
+using AuldShiteburn.EntityData.PlayerData;
+using AuldShiteburn.ItemData;
+using AuldShiteburn.ItemData.ConsumableData.Consumables;
+using AuldShiteburn.ItemData.KeyData;
+using AuldShiteburn.ItemData.WeaponData;
 using AuldShiteburn.MapData.TileData;
+using AuldShiteburn.MapData.TileData.Tiles;
 using System;
+using System.Collections.Generic;
 
 namespace AuldShiteburn.MapData.AreaData.Areas
 {
@@ -13,6 +21,41 @@ namespace AuldShiteburn.MapData.AreaData.Areas
         public override bool CombatEncounter => true;
         public override bool BossArea => false;
 
+        protected override void AddSpecialTiles()
+        {
+            #region Stable
+            // Stable Border
+            for (int y = 4; y <= 16; y++)
+            {
+                placeData.Add(new TilePlaceData(3, y, Tile.WallTile));
+            }
+            for (int y = 4; y <= 7; y++)
+            {
+                placeData.Add(new TilePlaceData(8, y, Tile.WallTile));
+            }
+            for (int y = 10; y <= 14; y++)
+            {
+                placeData.Add(new TilePlaceData(8, y, Tile.WallTile));
+            }
+            for (int y = 13; y <= 15; y++)
+            {
+                placeData.Add(new TilePlaceData(15, y, Tile.WallTile));
+            }
+            for (int x = 4; x <= 7; x++)
+            {
+                placeData.Add(new TilePlaceData(x, 4, Tile.WallTile));
+            }
+            for (int x = 4; x <= 15; x++)
+            {
+                placeData.Add(new TilePlaceData(x, 16, Tile.WallTile));
+            }
+            for (int x = 6; x <= 15; x++)
+            {
+                placeData.Add(new TilePlaceData(x, 12, Tile.WallTile));
+            }
+            #endregion Stable
+        }
+
         public override void InitEnemies()
         {
             Enemies.Add(new MadHunterEnemyEntity());
@@ -21,6 +64,50 @@ namespace AuldShiteburn.MapData.AreaData.Areas
 
         public override void OnFirstEnter()
         {
+            if (!InitiateCombat(true)) return;
+            Random rand = new Random();
+            WeaponType wType = WeaponType.Longsword;
+            switch (PlayerEntity.Instance.Class.ClassType)
+            {
+                case ClassType.Heathen:
+                    {
+                        wType = WeaponType.PrimitiveWeaponTypes[rand.Next(WeaponType.PrimitiveWeaponTypes.Count)];
+                    }
+                    break;
+                case ClassType.Fighter:
+                    {
+                        wType = WeaponType.MartialWeaponTypes[rand.Next(WeaponType.MartialWeaponTypes.Count)];
+                    }
+                    break;
+                case ClassType.Marauder:
+                    {
+                        wType = WeaponType.StrengthWeaponTypes[rand.Next(WeaponType.StrengthWeaponTypes.Count)];
+                    }
+                    break;
+                case ClassType.Monk:
+                    {
+                        wType = WeaponType.PrimitiveWeaponTypes[rand.Next(WeaponType.PrimitiveWeaponTypes.Count)];
+                    }
+                    break;
+                case ClassType.Rogue:
+                    {
+                        wType = WeaponType.DextrousWeaponTypes[rand.Next(WeaponType.DextrousWeaponTypes.Count)];
+                    }
+                    break;
+            }
+            placeData.Add(new TilePlaceData(14, 13,
+                new LootTile("Hunter Corpse", false, false,
+                new List<Item>()
+                {
+                    KeyItem.MillHouseKey,
+                    new WeaponItem()
+                    {
+                        Type = wType,
+                        Material = WeaponMaterial.WeaponMaterialSteel,
+                        Property = WeaponProperty.WeaponPropertyFlaming
+                    }
+                })
+                ));
         }
 
         protected override void TileGeneration()

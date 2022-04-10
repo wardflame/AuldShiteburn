@@ -9,7 +9,7 @@ namespace AuldShiteburn.CombatData.AbilityData.Abilities.EnemyAbilities.MadHunte
     internal class MadSlashAbility : Ability
     {
         public override string Name => "Mad Slash";
-        public override string Description => $"flails their axe at {PlayerEntity.Instance.Name} with reckless abandon!";
+        public override string Description => $"swings their gunaxe at with reckless abandon!";
         public override int Cooldown => 0;
         public override int ResourceCost => 0;
         public override PhysicalDamageType PhysicalDamageType => PhysicalDamageType.Slash;

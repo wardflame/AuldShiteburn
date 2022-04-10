@@ -1,6 +1,7 @@
 ﻿using AuldShiteburn.EntityData.Enemies;
 using AuldShiteburn.ItemData;
 using AuldShiteburn.ItemData.ArmourData;
+using AuldShiteburn.ItemData.ConsumableData;
 using AuldShiteburn.ItemData.KeyData;
 using AuldShiteburn.ItemData.WeaponData;
 using AuldShiteburn.MapData.TileData;
@@ -65,6 +66,17 @@ namespace AuldShiteburn.MapData.AreaData.Areas
             {
                 placeData.Add(new TilePlaceData(15, y, Tile.WallTile));
             }
+            Random rand = new Random();
+            placeData.Add(new TilePlaceData(14, 5,
+                new LootTile("Drawer", false, false,
+                new List<Item>()
+                {
+                    KeyItem.GuildHallWestKey,
+                    ConsumableItem.AllConsumables[rand.Next(ConsumableItem.AllConsumables.Count)],
+                    ConsumableItem.AllConsumables[rand.Next(ConsumableItem.AllConsumables.Count)],
+                    ConsumableItem.AllConsumables[rand.Next(ConsumableItem.AllConsumables.Count)]
+                })
+                ));
             #endregion East House
             #region South-West House
             // North wall.
@@ -104,7 +116,6 @@ namespace AuldShiteburn.MapData.AreaData.Areas
 
         public override void InitEnemies()
         {
-            Enemies.Add(new ShiteHuskEnemyEntity());
             Enemies.Add(new ShiteHuskEnemyEntity());
             Enemies.Add(new ShiteHuskEnemyEntity());
         }

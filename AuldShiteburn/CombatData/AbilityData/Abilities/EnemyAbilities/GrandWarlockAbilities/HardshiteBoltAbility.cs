@@ -25,7 +25,7 @@ namespace AuldShiteburn.CombatData.AbilityData.Abilities.EnemyAbilities.GrandWar
             if (ActiveCooldown <= 0)
             {
                 Random rand = new Random();
-                int physDamage = rand.Next(PropertyMinDamage, PropertyMaxDamage + 1);
+                int physDamage = rand.Next(PhysicalMinDamage, PhysicalMaxDamage + 1);
                 int propDamage = rand.Next(PropertyMinDamage, PropertyMaxDamage + 1);
                 ActiveCooldown = Cooldown;
                 return new CombatPayload(

@@ -20,10 +20,10 @@ namespace AuldShiteburn.MapData.AreaData.Areas
 
         public override void OnFirstEnter()
         {
-            if (Combat.CombatEncounter(Enemies))
-            {
-                BossDefeated = true;
-            }
+            if (!InitiateCombat(true)) return;
+            BossDefeated = true;
+            StartArea shitebreach = (StartArea)Map.Instance.ActiveAreas[Map.Instance.GetIndex(0, 0)];
+            shitebreach.BossesRemaining--;
         }
 
         protected override void TileGeneration()

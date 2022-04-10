@@ -62,6 +62,9 @@ namespace AuldShiteburn.MapData.AreaData.Areas
                 },
                 KeyItem.WestResidenceKey
             });
+            BossDefeated = true;
+            StartArea shitebreach = (StartArea)Map.Instance.ActiveAreas[Map.Instance.GetIndex(0, 0)];
+            shitebreach.BossesRemaining--;
         }
 
         protected override void TileGeneration()

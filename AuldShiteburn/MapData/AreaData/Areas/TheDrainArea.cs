@@ -16,7 +16,7 @@ namespace AuldShiteburn.MapData.AreaData.Areas
         public override string Name => "The Drain";
         public override int Width => 20;
         public override int Height => 20;
-        public override bool CombatEncounter => true;
+        public override bool CombatEncounter => false;
         public override bool BossArea => false;
 
         protected override void AddSpecialTiles()
@@ -126,11 +126,6 @@ namespace AuldShiteburn.MapData.AreaData.Areas
 
         public override void OnFirstEnter()
         {
-        }
-
-        public override void OnEnter()
-        {
-
         }
 
         protected override void TileGeneration()

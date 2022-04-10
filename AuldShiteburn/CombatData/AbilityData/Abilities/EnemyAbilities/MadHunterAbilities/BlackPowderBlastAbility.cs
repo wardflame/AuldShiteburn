@@ -2,19 +2,16 @@
 using AuldShiteburn.EntityData;
 using System;
 using System.Collections.Generic;
+using System.Text;
 
-namespace AuldShiteburn.CombatData.AbilityData.Abilities.EnemyAbilities.DungEaterAbilities
+namespace AuldShiteburn.CombatData.AbilityData.Abilities.EnemyAbilities.MadHunterAbilities
 {
-    [Serializable]
-    internal class FlamingGreatswordSwingAbility : Ability
+    internal class BlackPowderBlastAbility : Ability
     {
-        public override string Name => "Flaming Greatsword Swing";
-        public override string Description => $"swings its flaming greatsword violently in a flurry of blows!";
-        public override int Cooldown => 5;
+        public override string Name => "Black Powder Blast";
+        public override string Description => $"launches flame from their gunaxe!";
+        public override int Cooldown => 3;
         public override int ResourceCost => 0;
-        public override PhysicalDamageType PhysicalDamageType => PhysicalDamageType.Slash;
-        public override int PhysicalMinDamage => 6;
-        public override int PhysicalMaxDamage => 12;
         public override PropertyDamageType PropertyDamageType => PropertyDamageType.Fire;
         public override int PropertyMinDamage => 4;
         public override int PropertyMaxDamage => 6;
@@ -25,7 +22,7 @@ namespace AuldShiteburn.CombatData.AbilityData.Abilities.EnemyAbilities.DungEate
             if (ActiveCooldown <= 0)
             {
                 Random rand = new Random();
-                int physDamage = rand.Next(PhysicalMinDamage, PhysicalMaxDamage + 1);
+                int physDamage = rand.Next(PropertyMinDamage, PropertyMaxDamage + 1);
                 int propDamage = rand.Next(PropertyMinDamage, PropertyMaxDamage + 1);
                 ActiveCooldown = Cooldown;
                 return new CombatPayload(
