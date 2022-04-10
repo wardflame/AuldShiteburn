@@ -1,8 +1,10 @@
 ﻿using AuldShiteburn.BackendData;
+using AuldShiteburn.CombatData;
 using AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.GeneralAbilities;
 using AuldShiteburn.CombatData.PayloadData;
 using AuldShiteburn.CombatData.StatusEffectData;
 using AuldShiteburn.CombatData.StatusEffectData.StatusEffects;
+using AuldShiteburn.EntityData.Enemies;
 using AuldShiteburn.EntityData.PlayerData;
 using AuldShiteburn.EntityData.PlayerData.Classes;
 using AuldShiteburn.ItemData.ArmourData;
@@ -172,7 +174,8 @@ namespace AuldShiteburn.EntityData
             Instance.EquippedArmour = ArmourItem.GenerateSpawnArmour(Instance.Class.ClassType);
             #endregion Loot Assignment
 
-            //Instance.Inventory.ItemList[0, 1] = ArmourItem.HeavyGambeson;
+            Instance.MaxHP = 1000;
+            Instance.HP = 1000;
 
             return Instance;
         }
@@ -225,9 +228,9 @@ namespace AuldShiteburn.EntityData
                 }
                 else
                 {
-                    Utils.WriteColour($"are already stunned and cannot be again for ", ConsoleColor.DarkYellow);
+                    Utils.WriteColour($"are already stunned and cannot be again for ");
                     Utils.WriteColour($"{StunTimer} ", ConsoleColor.Blue);
-                    Utils.WriteColour($"turns, ", ConsoleColor.DarkYellow);
+                    Utils.WriteColour($"turns, ");
                 }
                 Utils.SetCursorInteract(Console.CursorTop - 1);
             }
@@ -235,6 +238,11 @@ namespace AuldShiteburn.EntityData
 
             // If player has armour equipped, mitigate where possible, else apply the damage directly.
             #region Damage Application
+            if (enemy.GetType() == typeof(ShiteAvatarEnemyEntity) && CarryingMoonlitAmulet &! TookFromOrmod)
+            {
+                combatPayload.PhysicalDamage -= Combat.PROFICIENCY_ARMOUR_MITIGATION_MINOR;
+                combatPayload.PropertyDamage -= Combat.PROFICIENCY_ARMOUR_MITIGATION_MINOR;
+            }
             int totalDamage;
             if (Instance.EquippedArmour != null)
             {
@@ -312,7 +320,7 @@ namespace AuldShiteburn.EntityData
             {
                 if (AbilityStatusEffect.Name == DefenseStatusEffect.ParryAndRiposte.Name)
                 {
-                    enemy.StatusEffect = DefenseStatusEffect.Staggered1;
+                    enemy.StatusEffect = DefenseStatusEffect.Staggered2;
                     enemy.JustAfflicted = true;
                     Utils.SetCursorInteract(Console.CursorTop - 1);
                     Utils.WriteColour("You parry the enemy, inflicting ", ConsoleColor.DarkYellow);

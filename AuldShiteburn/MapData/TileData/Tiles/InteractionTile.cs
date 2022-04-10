@@ -155,6 +155,11 @@ namespace AuldShiteburn.MapData.TileData.Tiles
                                             return true;
                                         }
                                         index++;
+                                        if (index >= interactions.Count)
+                                        {
+                                            Utils.ClearInteractArea(2, 2);
+                                            return true;
+                                        }
                                         Utils.ClearInteractArea(2, 2);
                                         PrintInteraction(interactions[index]);
                                         PrintBrowseUI(true);

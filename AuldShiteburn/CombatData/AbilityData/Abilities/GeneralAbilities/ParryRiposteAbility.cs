@@ -11,7 +11,7 @@ namespace AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.GeneralA
     internal class ParryRiposteAbility : Ability
     {
         public override string Name => "Parry and Riposte";
-        public override string Description => "Gain Major physical Mitigation and stagger enemies for 1 turn if they fail to do damage.";
+        public override string Description => "Gain Major physical Mitigation and stagger enemies for 2 turns if they fail to do damage.";
         public override int Cooldown => 3;
         public override int ResourceCost => 4;
 

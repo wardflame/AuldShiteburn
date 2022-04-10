@@ -8,16 +8,18 @@ namespace AuldShiteburn.MapData.TileData
     {
         public static BasicTile AirTile { get; } = new BasicTile(" ", false);
         public static BasicTile WallTile { get; } = new BasicTile("#", true, ConsoleColor.DarkGray);
+        public static BasicTile GrassTile { get; } = new BasicTile("~", false, ConsoleColor.DarkGray);
         public static BasicTile MetalGrateTile { get; } = new BasicTile("/", true, ConsoleColor.DarkGray);
         public static BasicTile ShiteMoundTile { get; } = new BasicTile("#", true, ConsoleColor.DarkYellow);
         public static BasicTile MoonlightStoneTile { get; } = new BasicTile("=", true, ConsoleColor.White);
         public static BasicTile DefiledStoneTile { get; } = new BasicTile("=", true, ConsoleColor.DarkGray);
         public static BasicTile BrokenAltar { get; } = new BasicTile("¬", true, ConsoleColor.DarkYellow);
+        public static BasicTile FinalArenaTile { get; } = new BasicTile("`", false, ConsoleColor.DarkGray);
 
         public virtual string DisplayChar { get; }
         public virtual bool Collidable { get; }
-        public virtual ConsoleColor Foreground { get; protected set; }
-        public virtual ConsoleColor Background { get; protected set; }
+        public virtual ConsoleColor Foreground { get; set; }
+        public virtual ConsoleColor Background { get; set; }
 
         public Tile(string displayChar, bool collidable, ConsoleColor foreground = ConsoleColor.White, ConsoleColor background = ConsoleColor.Black)
         {

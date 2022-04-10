@@ -66,10 +66,13 @@ namespace AuldShiteburn.MapData.TileData.Tiles.NPCs
                         {
                             for (int i = 0; i < PlayerEntity.Instance.Inventory.Row; i++)
                             {
-                                if (PlayerEntity.Instance.Inventory.ItemList[i, 3].Name == KeyItem.OrmodsAmulet.Name)
+                                if (PlayerEntity.Instance.Inventory.ItemList[i, 3] != null)
                                 {
-                                    PlayerEntity.Instance.Inventory.ItemList[i, 3] = null;
-                                    PlayerEntity.Instance.PrintInventory();
+                                    if (PlayerEntity.Instance.Inventory.ItemList[i, 3].Name == KeyItem.OrmodsAmulet.Name)
+                                    {
+                                        PlayerEntity.Instance.Inventory.ItemList[i, 3] = null;
+                                        PlayerEntity.Instance.PrintInventory();
+                                    }
                                 }
                             }
                             CycleInteraction(returnedAmulet);

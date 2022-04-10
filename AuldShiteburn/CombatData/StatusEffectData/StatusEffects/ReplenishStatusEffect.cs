@@ -30,7 +30,7 @@ namespace AuldShiteburn.CombatData.StatusEffectData.StatusEffects
         {
             Random rand = new Random();
             Console.CursorLeft = Utils.UIInteractOffset;
-            Console.CursorTop += 4;
+            Console.CursorTop += 2;
             if (RepHealth)
             {
                 int hpRestored = rand.Next(MinReplenish, MaxReplenish + 1);

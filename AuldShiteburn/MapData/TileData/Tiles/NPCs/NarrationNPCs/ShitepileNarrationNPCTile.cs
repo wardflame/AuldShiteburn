@@ -12,7 +12,7 @@ namespace AuldShiteburn.MapData.TileData.Tiles.NPCs.NarrationNPCs
         private bool CutsceneFinished { get; set; } = false;
         private List<InteractionData> shitepileBossIntro = new List<InteractionData>();
 
-        public ShitepileNarrationNPCTile() : base(" ")
+        public ShitepileNarrationNPCTile() : base(AirTile.DisplayChar)
         {
         }
 

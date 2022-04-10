@@ -12,7 +12,7 @@ namespace AuldShiteburn.MapData.TileData.Tiles.NPCs.NarrationNPCs
         private bool CutsceneFinished { get; set; } = false;
         private List<InteractionData> graveyardBossIntro = new List<InteractionData>();
 
-        public GraveyardNarrationNPCTile() : base(" ")
+        public GraveyardNarrationNPCTile() : base(AirTile.DisplayChar)
         {
         }
 

@@ -4,6 +4,7 @@ using AuldShiteburn.CombatData.PayloadData;
 using AuldShiteburn.CombatData.StatusEffectData.StatusEffects;
 using AuldShiteburn.EntityData;
 using AuldShiteburn.ItemData.WeaponData;
+using AuldShiteburn.MapData;
 using System;
 using System.Collections.Generic;
 
@@ -51,7 +52,14 @@ namespace AuldShiteburn.CombatData
             if (PlayerEntity.Instance.HP > 0)
             {
                 Utils.SetCursorInteract();
-                ASCIIArt.PrintASCII(ASCIIArt.VICTORY_MESSAGE, ConsoleColor.Green);
+                if (Map.Instance.CurrentArea.BossArea)
+                {
+                    ASCIIArt.PrintASCII(ASCIIArt.VICTORY_BOSS, ConsoleColor.DarkYellow);
+                }
+                else
+                {
+                    ASCIIArt.PrintASCII(ASCIIArt.VICTORY_MESSAGE, ConsoleColor.Green);
+                }
                 Console.CursorTop += 2;
                 Utils.WriteColour("Press any key to continue.");
                 Console.ReadKey(true);
@@ -191,6 +199,14 @@ namespace AuldShiteburn.CombatData
                         Utils.ClearInteractInterface(30);
                     }
                 }
+                else
+                {
+                    Utils.SetCursorInteract();
+                    Utils.WriteColour("You are stunned, recovering in ");
+                    Utils.WriteColour($"{PlayerEntity.Instance.StunTimer} ", ConsoleColor.Blue);
+                    Utils.WriteColour($"rounds!");
+                    playerTurn = false;
+                }
             }
             #region Status Effect Actives
             if (PlayerEntity.Instance.AbilityStatusEffect != null && PlayerEntity.Instance.AbilityStatusEffect.GetType() == typeof(ReplenishStatusEffect) && RoundNumber > 1)
@@ -228,7 +244,7 @@ namespace AuldShiteburn.CombatData
                         PlayerEntity.Instance.ReceiveAttack(enemyAttack, aggressor: enemy);
                         // Readkey to ensure player has a chance to read the round's report.
                         Console.CursorLeft = Utils.UIInteractOffset;
-                        Console.CursorTop += 2;
+                        Console.CursorTop += 1;
                         Utils.WriteColour("Press any key to continue.");
                         Console.ReadKey(true);
                         Utils.ClearInteractInterface(30);
