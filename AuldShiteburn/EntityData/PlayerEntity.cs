@@ -134,8 +134,7 @@ namespace AuldShiteburn.EntityData
             Random rand = new Random();
 
             #region Class Generation and Stat Assignments
-            //Instance.Class = CharacterClass.Classes[rand.Next(CharacterClass.Classes.Count)];
-            Instance.Class = new FighterClass();
+            Instance.Class = CharacterClass.Classes[rand.Next(CharacterClass.Classes.Count)];
             Instance.MaxHP = Instance.Class.Statistics.HP;
             Instance.HP = Instance.Class.Statistics.HP;
             Instance.UsesStamina = Instance.Class.Statistics.UsesStamina;
@@ -174,10 +173,8 @@ namespace AuldShiteburn.EntityData
             Instance.EquippedArmour = ArmourItem.GenerateSpawnArmour(Instance.Class.ClassType);
             #endregion Loot Assignment
 
-            Instance.Inventory.ItemList[0, 0] = WeaponItem.GodSword;
-
-            Instance.MaxHP = 1000;
-            Instance.HP = 1000;
+            // In case you need to skip through.
+            // Instance.Inventory.ItemList[0, 0] = WeaponItem.GodSword;
 
             return Instance;
         }
