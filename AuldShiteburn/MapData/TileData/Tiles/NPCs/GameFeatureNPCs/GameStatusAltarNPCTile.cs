@@ -10,7 +10,8 @@ namespace AuldShiteburn.MapData.TileData.Tiles.NPCs.GameFeatureNPCs
     [Serializable]
     internal class GameStatusAltarNPCTile : NPCTile
     {
-        public override ConsoleColor Foreground => GameFinished ? ConsoleColor.DarkGray : ConsoleColor.Cyan;
+        public override ConsoleColor Foreground => ConsoleColor.Cyan;
+        public override bool Collidable => true;
         public bool GameFinished { get; set; } = false;
 
         public GameStatusAltarNPCTile() : base("(")

@@ -243,7 +243,7 @@ namespace AuldShiteburn.CombatData
                         CombatPayload enemyAttack = enemy.PerformAttack(enemies);
                         PlayerEntity.Instance.ReceiveAttack(enemyAttack, aggressor: enemy);
                         // Readkey to ensure player has a chance to read the round's report.
-                        Utils.SetCursorInteract(Console.CursorTop);
+                        Utils.SetCursorInteract(Console.CursorTop - 1);
                         Utils.WriteColour("Press any key to continue.");
                         Console.ReadKey(true);
                         Utils.ClearInteractInterface(30);

@@ -104,6 +104,18 @@ namespace AuldShiteburn.MapData.AreaData.Areas
                         Property = WeaponProperty.WeaponPropertyStandard
                     }
                 })));
+            placeData.Add(new TilePlaceData(7, 18, new LootTile("Fallen Knight", false, false,
+                new List<Item>()
+                {
+                    KeyItem.ScrappyNote,
+                    ArmourItem.GrailKnightPlate,
+                    new WeaponItem()
+                    {
+                        Type = WeaponType.Longsword,
+                        Material = WeaponMaterial.WeaponMaterialSteel,
+                        Property = WeaponProperty.WeaponPropertyHoly
+                    }
+                })));
             placeData.Add(new TilePlaceData(4, 1, new LootTile("Rat-gnawed Prisoner", false, false,
                 new List<Item>()
                 {
