@@ -1,633 +1,962 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.HeathenAbilities.ShiteflameTossAbility" Collapsed="true">
-    <Position X="6" Y="17.25" Width="1.5" />
+  <Class Name="AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.HeathenAbilities.FaecalNourishmentAbility" Collapsed="true">
+    <Position X="26.5" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAACAgAAAAAAAAAARBIAAAAAAgAAAAAAAAAAA=</HashCode>
-      <FileName>CombatData\AbilityData\Abilities\ClassAbilities\HeathenAbilities\ShiteflameTossAbility.cs</FileName>
+      <HashCode>AAAAAAAAACAgAAAAAAAAAAQAIAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>CombatData\AbilityData\Abilities\ClassAbilities\HeathenAbilities\FaecalNourishmentAbility.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.HeathenAbilities.HardshiteShardAbility" Collapsed="true">
+    <Position X="33.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAgAAAAAAAAAARBIAEAAACgAAAAAAAACAA=</HashCode>
+      <FileName>CombatData\AbilityData\Abilities\ClassAbilities\HeathenAbilities\HardshiteShardAbility.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.HeathenAbilities.ShiteWardAbility" Collapsed="true">
-    <Position X="8.25" Y="17.25" Width="1.5" />
+    <Position X="40" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAACAgAAAAAAAAAAQAIAAAAAAgAAAAAAAAAAA=</HashCode>
       <FileName>CombatData\AbilityData\Abilities\ClassAbilities\HeathenAbilities\ShiteWardAbility.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.MarauderAbilities.EnragedCleaveAbility" Collapsed="true">
+    <Position X="44.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAgAAAAAAAAAARBIAEAAACgAAAAAAAACAA=</HashCode>
+      <FileName>CombatData\AbilityData\Abilities\ClassAbilities\MarauderAbilities\EnragedCleaveAbility.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.MonkAbilities.ElathasSanctuaryAbility" Collapsed="true">
+    <Position X="49" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAgAAAAAAAAAAQAIAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>CombatData\AbilityData\Abilities\ClassAbilities\MonkAbilities\ElathasSanctuaryAbility.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.MonkAbilities.MoonlightBurstAbility" Collapsed="true">
+    <Position X="53.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAgAAAAAAAAAAQAIAAAAACgAAAAAAAACAA=</HashCode>
+      <FileName>CombatData\AbilityData\Abilities\ClassAbilities\MonkAbilities\MoonlightBurstAbility.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.RogueAbilities.DirtDishonourAbility" Collapsed="true">
+    <Position X="58" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAgAAAAAAAAAARBIAEAAACgAAAAAAAACAA=</HashCode>
+      <FileName>CombatData\AbilityData\Abilities\ClassAbilities\RogueAbilities\DirtDishonourAbility.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.RogueAbilities.SmokeBombAbility" Collapsed="true">
+    <Position X="62.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAgAAAAAAAAAAQAIAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>CombatData\AbilityData\Abilities\ClassAbilities\RogueAbilities\SmokeBombAbility.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.CombatData.AbilityData.Abilities.EnemyAbilities.BloatedBruiserAbilities.BruiserPunchAbility" Collapsed="true">
+    <Position X="67" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAgAAAAAAAAAARBIAEAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>CombatData\AbilityData\Abilities\EnemyAbilities\BloatedBruiserAbilities\BruiserPunchAbility.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.CombatData.AbilityData.Abilities.EnemyAbilities.BloatedBruiserAbilities.PussBathAbility" Collapsed="true">
+    <Position X="71.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAgAAAAAAAAAAQAIAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>CombatData\AbilityData\Abilities\EnemyAbilities\BloatedBruiserAbilities\PussBathAbility.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.CombatData.AbilityData.Abilities.EnemyAbilities.BloatedBruiserAbilities.WildSmashAbility" Collapsed="true">
+    <Position X="76" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAgAAAAAAAAAARBIAEAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>CombatData\AbilityData\Abilities\EnemyAbilities\BloatedBruiserAbilities\WildSmashAbility.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.CombatData.AbilityData.Abilities.EnemyAbilities.DungEaterAbilities.ClawedSwipeAbility" Collapsed="true">
+    <Position X="80.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAgAAAAAAAAAARBIAEAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>CombatData\AbilityData\Abilities\EnemyAbilities\DungEaterAbilities\ClawedSwipeAbility.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.CombatData.AbilityData.Abilities.EnemyAbilities.DungEaterAbilities.DungTossAbility" Collapsed="true">
+    <Position X="28.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAgAAAAAAAAAARBIAEAAACgAAAAAAAACAA=</HashCode>
+      <FileName>CombatData\AbilityData\Abilities\EnemyAbilities\DungEaterAbilities\DungTossAbility.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.CombatData.AbilityData.Abilities.EnemyAbilities.DungEaterAbilities.FlamingGreatswordSwingAbility" Collapsed="true">
+    <Position X="35.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAgAAAAAAAAAARBIAEAAACgAAAAAAAACAA=</HashCode>
+      <FileName>CombatData\AbilityData\Abilities\EnemyAbilities\DungEaterAbilities\FlamingGreatswordSwingAbility.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.CombatData.AbilityData.Abilities.EnemyAbilities.GrandWarlockAbilities.HardshiteBoltAbility" Collapsed="true">
+    <Position X="42.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAgAAAAAAAAAARBIAEAAACgAAAAAAAACAA=</HashCode>
+      <FileName>CombatData\AbilityData\Abilities\EnemyAbilities\GrandWarlockAbilities\HardshiteBoltAbility.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.CombatData.AbilityData.Abilities.EnemyAbilities.GrandWarlockAbilities.HardshiteFleshAbility" Collapsed="true">
+    <Position X="46.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAgAAAAAAAAAAQAIAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>CombatData\AbilityData\Abilities\EnemyAbilities\GrandWarlockAbilities\HardshiteFleshAbility.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.CombatData.AbilityData.Abilities.EnemyAbilities.GrandWarlockAbilities.PungentRejuvenationAbility" Collapsed="true">
+    <Position X="51.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAgAAAAAAAAAAQAIAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>CombatData\AbilityData\Abilities\EnemyAbilities\GrandWarlockAbilities\PungentRejuvenationAbility.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.CombatData.AbilityData.Abilities.EnemyAbilities.GrandWarlockAbilities.ShitepukeAbility" Collapsed="true">
+    <Position X="55.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAgAAAAAAAAAAQAIAAAAACgAAAAAAAACAA=</HashCode>
+      <FileName>CombatData\AbilityData\Abilities\EnemyAbilities\GrandWarlockAbilities\ShitepukeAbility.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.CombatData.AbilityData.Abilities.EnemyAbilities.MadHunterAbilities.BlackPowderBlastAbility" Collapsed="true">
+    <Position X="60.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAgAAAAAAAAAAQAIAAAAACgAAAAAAAACAA=</HashCode>
+      <FileName>CombatData\AbilityData\Abilities\EnemyAbilities\MadHunterAbilities\BlackPowderBlastAbility.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.CombatData.AbilityData.Abilities.EnemyAbilities.MadHunterAbilities.MadSlashAbility" Collapsed="true">
+    <Position X="64.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAgAAAAAAAAAARBIAEAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>CombatData\AbilityData\Abilities\EnemyAbilities\MadHunterAbilities\MadSlashAbility.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.CombatData.AbilityData.Abilities.EnemyAbilities.ShiteAvatarAbilities.EldritchEruptionAbility" Collapsed="true">
+    <Position X="69.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAgAAAAAAAAAARBIAEAAACgAAAAAAAACAA=</HashCode>
+      <FileName>CombatData\AbilityData\Abilities\EnemyAbilities\ShiteAvatarAbilities\EldritchEruptionAbility.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.CombatData.AbilityData.Abilities.EnemyAbilities.ShiteAvatarAbilities.SavageBiteAbility" Collapsed="true">
+    <Position X="73.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAgAAAAAAAAAARBIAEAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>CombatData\AbilityData\Abilities\EnemyAbilities\ShiteAvatarAbilities\SavageBiteAbility.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.CombatData.AbilityData.Abilities.EnemyAbilities.ShiteAvatarAbilities.ShiteJetAbility" Collapsed="true">
+    <Position X="78.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAgAAAAAAAAAAQAIAAAAACgAAAAAAAACAA=</HashCode>
+      <FileName>CombatData\AbilityData\Abilities\EnemyAbilities\ShiteAvatarAbilities\ShiteJetAbility.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.CombatData.AbilityData.Abilities.EnemyAbilities.ShiteAvatarAbilities.TailWhipAbility" Collapsed="true">
+    <Position X="82.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAgAAAAAAAAAARBIAEAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>CombatData\AbilityData\Abilities\EnemyAbilities\ShiteAvatarAbilities\TailWhipAbility.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Class Name="AuldShiteburn.CombatData.AbilityData.Abilities.EnemyAbilities.ShiteHuskAbilities.ShiteHuskBiteAbility" Collapsed="true">
-    <Position X="10.5" Y="17.25" Width="1.5" />
+    <Position X="31" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAACAgAAAAAAAAAARBIAEAAACgAAAAAAAACAA=</HashCode>
       <FileName>CombatData\AbilityData\Abilities\EnemyAbilities\ShiteHuskAbilities\ShiteHuskBiteAbility.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.GeneralAbilities.ParryRiposteAbility" Collapsed="true">
+    <Position X="37.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAgAAAAAAAAAAQAIAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>CombatData\AbilityData\Abilities\GeneralAbilities\ParryRiposteAbility.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Class Name="AuldShiteburn.CombatData.AbilityData.Ability" Collapsed="true">
-    <Position X="8.25" Y="16" Width="1.5" />
+    <Position X="54.5" Y="1.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAACAgAABAAAAAAARBIAEAAADgAAAAAAAACAA=</HashCode>
       <FileName>CombatData\AbilityData\Ability.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AuldShiteburn.CombatData.PayloadData.CombatPayload" Collapsed="true">
-    <Position X="30.5" Y="1" Width="1.5" />
+    <Position X="88.75" Y="1.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAQACAAAAAAAQAAAAACAEkAAAgAABCAA=</HashCode>
+      <HashCode>AAAAAAgAAAAAAQACAAAAAAAQAAIAACAEkAAAgAABCAA=</HashCode>
       <FileName>CombatData\PayloadData\CombatPayload.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AuldShiteburn.CombatData.StatusEffectData.StatusEffects.DefenseStatusEffect" Collapsed="true">
-    <Position X="15.75" Y="11.25" Width="1.5" />
+    <Position X="28.75" Y="8.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAgggAAAAAAAAACAAAAAAAAAAAAAABAAAQQARAAAAA=</HashCode>
+      <HashCode>AIAjggAAAAAAAAACAIAAAAAAABAAAABBAAQQARAAAAA=</HashCode>
       <FileName>CombatData\StatusEffectData\StatusEffects\DefenseStatusEffect.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="AuldShiteburn.CombatData.StatusEffectData.StatusEffect" Collapsed="true">
-    <Position X="15.75" Y="10" Width="1.5" />
+  <Class Name="AuldShiteburn.CombatData.StatusEffectData.StatusEffects.ReplenishStatusEffect" Collapsed="true">
+    <Position X="31" Y="8.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAACAAAAAAAAAAQAAAABAAAAAAQAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAQAAAAAgAAAAAAAAAEAAAAAAQQAAABAAAA=</HashCode>
+      <FileName>CombatData\StatusEffectData\StatusEffects\ReplenishStatusEffect.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.CombatData.StatusEffectData.StatusEffect" Collapsed="true">
+    <Position X="30" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAAAAAAAAAQAAAABAAAAAQQAAAAAAAA=</HashCode>
       <FileName>CombatData\StatusEffectData\StatusEffect.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AuldShiteburn.CombatData.Combat" Collapsed="true">
-    <Position X="28.75" Y="1" Width="1.5" />
+    <Position X="87" Y="1.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AKAAAAAAAAEAIAIAAGAAIAhAQAgEBAAAQAAAACAAAWA=</HashCode>
+      <HashCode>AKAAAAAAAAUEIAIAAGAAIAhAQAgEBAAAQAAAACAAAWA=</HashCode>
       <FileName>CombatData\Combat.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="AuldShiteburn.MapData.AreaData.Areas.EndArea" Collapsed="true">
-    <Position X="6.25" Y="2.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAABAAAAAAAAQAAAUQAAAAAAAAAAAAAAQAAAAA=</HashCode>
-      <FileName>MapData\AreaData\Areas\EndArea.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="AuldShiteburn.MapData.AreaData.Areas.GraveyardArea" Collapsed="true">
-    <Position X="10.75" Y="2.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAABAAAAAAAAQAAAUQAAAAAAAAAAAAAAQAAAAA=</HashCode>
-      <FileName>MapData\AreaData\Areas\GraveyardArea.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="AuldShiteburn.MapData.AreaData.Areas.GuildHallArea" Collapsed="true">
-    <Position X="13" Y="2.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAABAAAAAAAAQAAAUQAAAAAAAAAAAAAAQAAAAA=</HashCode>
-      <FileName>MapData\AreaData\Areas\GuildHallArea.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="AuldShiteburn.MapData.AreaData.Areas.LivingQuarterArea" Collapsed="true">
-    <Position X="15.25" Y="2.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAABAAAAAAAAwAAAUQAAAAAAAAAAAAAAQAAAAA=</HashCode>
-      <FileName>MapData\AreaData\Areas\LivingQuarterArea.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="AuldShiteburn.MapData.AreaData.Areas.MarketArea" Collapsed="true">
-    <Position X="17.5" Y="2.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAABAAAAAAAAQAAAUQAAAAAAAAAAAAAAQAAAAA=</HashCode>
-      <FileName>MapData\AreaData\Areas\MarketArea.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="AuldShiteburn.MapData.AreaData.Areas.ShitepileArea" Collapsed="true">
-    <Position X="19.75" Y="2.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAABAAAAAAAAQAAAUQAAAAAAAAAAAAAAQAAAAA=</HashCode>
-      <FileName>MapData\AreaData\Areas\ShitepileArea.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="AuldShiteburn.MapData.AreaData.Areas.ShiterootGardenArea" Collapsed="true">
-    <Position X="22" Y="2.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAABAAAAAAAAQAAAUQAAAAAAAAAAAAAAQAAAAA=</HashCode>
-      <FileName>MapData\AreaData\Areas\ShiterootGardenArea.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="AuldShiteburn.MapData.AreaData.Areas.StablesArea" Collapsed="true">
-    <Position X="24.25" Y="2.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAABAAAAAAAAQAAAUQAAAAAAAAAAAAAAQAAAAA=</HashCode>
-      <FileName>MapData\AreaData\Areas\StablesArea.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="AuldShiteburn.MapData.AreaData.Areas.StartArea" Collapsed="true">
-    <Position X="1.75" Y="2.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAABAAAAAAAAwAAAUQAAAAAAAAAAAAAAQAAAAA=</HashCode>
-      <FileName>MapData\AreaData\Areas\StartArea.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="AuldShiteburn.MapData.AreaData.Areas.TheDrainArea" Collapsed="true">
-    <Position X="4" Y="2.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAABAAAAAAAAQAAAUQAAAAAAAAAAAAAAQAAAAA=</HashCode>
-      <FileName>MapData\AreaData\Areas\TheDrainArea.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="AuldShiteburn.MapData.AreaData.Areas.TheGranaryArea" Collapsed="true">
-    <Position X="8.5" Y="2.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAABAAAAAAAAQAAAUQAAAAAAAAAAAAAAQAAAAA=</HashCode>
-      <FileName>MapData\AreaData\Areas\TheGranaryArea.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="AuldShiteburn.MapData.Area" Collapsed="true">
-    <Position X="13" Y="1" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>ARAAAAAABAAAAAAQAwAAAUQAAAAAAAABAAAAEQAAAiE=</HashCode>
-      <FileName>MapData\AreaData\Area.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="AuldShiteburn.MapData.Map" Collapsed="true">
-    <Position X="8.75" Y="10" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>wAAEEKAAhAMQAAEwlAAAAMQAwAAAAAgBQAAAwAIAAQA=</HashCode>
-      <FileName>MapData\Map.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="AuldShiteburn.MapData.Maps.AuldShiteburnMap" Collapsed="true">
-    <Position X="8.75" Y="11.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAEAAABAAAAAAAAAAAAEQAAAAAAAAAAAAAAAAABAA=</HashCode>
-      <FileName>MapData\Maps\AuldShiteburnMap.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="AuldShiteburn.MapData.TileData.Tiles.NPCs.OrmodNPCTile" Collapsed="true">
-    <Position X="12.5" Y="11.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAACAAAAAAAAAAAAEAAAAAAAAQCAAAAAAQAAEAABA=</HashCode>
-      <FileName>MapData\TileData\Tiles\NPCs\OrmodNPCTile.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="AuldShiteburn.MapData.TileData.Tiles.DoorTile" Collapsed="true">
-    <Position X="10.25" Y="8.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAACAgAAAAAAAAAAAEAAAAAAAEAAAAICAAAAAAAAA=</HashCode>
-      <FileName>MapData\TileData\Tiles\DoorTile.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="AuldShiteburn.MapData.TileData.Tiles.InteractionTile" Collapsed="true">
-    <Position X="12.5" Y="8.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAEAQAAgAAABAAAAAAAAAAAAAQAAIAAQAAEAABA=</HashCode>
-      <FileName>MapData\TileData\Tiles\InteractionTile.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="AuldShiteburn.MapData.TileData.Tiles.LootTile" Collapsed="true">
-    <Position X="14.75" Y="8.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAACAAAAAAGQABAAAAAOAAAAAAAAIAICAAIAAAAAA=</HashCode>
-      <FileName>MapData\TileData\Tiles\LootTile.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="AuldShiteburn.MapData.TileData.Tiles.NPCTile" Collapsed="true">
-    <Position X="12.5" Y="9.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAEAAAA=</HashCode>
-      <FileName>MapData\TileData\Tiles\NPCTile.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="AuldShiteburn.MapData.TileData.Tiles.PassageTile" Collapsed="true">
-    <Position X="1.25" Y="8.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
-      <FileName>MapData\TileData\Tiles\PassageTile.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="AuldShiteburn.MapData.TileData.Tiles.StorageTile" Collapsed="true">
-    <Position X="3.5" Y="8.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAgA=</HashCode>
-      <FileName>MapData\TileData\Tiles\StorageTile.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="AuldShiteburn.MapData.TileData.Tiles.TrapTile" Collapsed="true">
-    <Position X="5.75" Y="8.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAACAAAAAAAAAAAAAAAAAAAAAEAAAAIAAAAAAAAEA=</HashCode>
-      <FileName>MapData\TileData\Tiles\TrapTile.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="AuldShiteburn.MapData.TileData.BasicTile" Collapsed="true">
-    <Position X="8" Y="8.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
-      <FileName>MapData\TileData\BasicTile.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="AuldShiteburn.MapData.TileData.Tile" Collapsed="true">
-    <Position X="8" Y="7" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAACAAAAAAAAAEAAAAAAAAAAgEAAAAICAgAABAABA=</HashCode>
-      <FileName>MapData\TileData\Tile.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="AuldShiteburn.EntityData.PlayerData.Classes.FighterClass" Collapsed="true">
-    <Position X="7.75" Y="14.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>EntityData\PlayerData\Classes\FighterClass.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="AuldShiteburn.EntityData.PlayerData.Classes.HeathenClass" Collapsed="true">
-    <Position X="10" Y="14.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>EntityData\PlayerData\Classes\HeathenClass.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="AuldShiteburn.EntityData.PlayerData.Classes.MarauderClass" Collapsed="true">
-    <Position X="1" Y="14.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>EntityData\PlayerData\Classes\MarauderClass.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="AuldShiteburn.EntityData.PlayerData.Classes.MonkClass" Collapsed="true">
-    <Position X="3.25" Y="14.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>EntityData\PlayerData\Classes\MonkClass.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="AuldShiteburn.EntityData.PlayerData.Classes.RogueClass" Collapsed="true">
-    <Position X="5.5" Y="14.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>EntityData\PlayerData\Classes\RogueClass.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="AuldShiteburn.EntityData.PlayerData.CharacterClass" Collapsed="true">
-    <Position X="5.5" Y="13" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>EAAAQQAAAAEAAEAEAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>EntityData\PlayerData\CharacterClass.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="AuldShiteburn.EntityData.PlayerData.Inventory" Collapsed="true">
-    <Position X="28.75" Y="2" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>CAAAAAAAAEBAAACAAAhAgAUAwAAGAwAQAKAAEAAAgQA=</HashCode>
-      <FileName>EntityData\PlayerData\Inventory.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="AuldShiteburn.EntityData.Enemies.ShiteHuskEnemyEntity" Collapsed="true">
-    <Position X="0.75" Y="20.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>EntityData\Enemies\ShiteHuskEnemyEntity.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="AuldShiteburn.EntityData.EnemyEntity" Collapsed="true">
-    <Position X="0.75" Y="18.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAgQCQAAAIAAACAAAAAAAAAAAAAABAAAAAAAAAAQAAA=</HashCode>
-      <FileName>EntityData\EnemyEntity.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="AuldShiteburn.EntityData.Entity" Collapsed="true">
-    <Position X="2" Y="16" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAIAAACAAAAAAwAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>EntityData\Entity.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="AuldShiteburn.EntityData.LivingEntity" Collapsed="true">
-    <Position X="2" Y="17.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AIgAQAAAJAAAACQAAAAAEAQSQAAAAAAgAABAIIAAACA=</HashCode>
-      <FileName>EntityData\LivingEntity.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="AuldShiteburn.EntityData.PlayerEntity" Collapsed="true">
-    <Position X="3" Y="18.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAgAAAAAAoCEACAARAIABAAEAAICIBAAQAAAAwAAAAA=</HashCode>
-      <FileName>EntityData\PlayerEntity.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="AuldShiteburn.ItemData.ArmourData.ArmourItem" Collapsed="true">
-    <Position X="24.5" Y="14.25" Width="1.5" />
+    <Position X="43.75" Y="17.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>CQhAAEABAAAAEABEAggAgEQAwAAgkAAUAAAghCAAAgA=</HashCode>
+      <HashCode>AIhAAEAAAAAAQCAGABQAAEQEwAAAkAAUAAAgCCAEAAI=</HashCode>
       <FileName>ItemData\ArmourData\ArmourItem.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="AuldShiteburn.ItemData.WeaponData.WeaponItem" Collapsed="true">
-    <Position X="13.25" Y="14.25" Width="1.5" />
+  <Class Name="AuldShiteburn.ItemData.ConsumableData.Consumables.HealthRegenConsumable" Collapsed="true">
+    <Position X="46" Y="19" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AEAAAAAAAACAAQAAAAABAAQAAgAAEAAAAQCAAQIAAAA=</HashCode>
+      <HashCode>gAAAAACAAAAgAAAAAAAAAAQAAAAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ItemData\ConsumableData\Consumables\HealthRegenConsumable.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.ItemData.ConsumableData.Consumables.ManaRegenConsumable" Collapsed="true">
+    <Position X="48.25" Y="19" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAQAAAAAEAAgAAAAACAAAAA=</HashCode>
+      <FileName>ItemData\ConsumableData\Consumables\ManaRegenConsumable.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.ItemData.ConsumableData.Consumables.PhysicalDefenseConsumable" Collapsed="true">
+    <Position X="50.5" Y="19" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAQAAAAAEAAgAAAAACAAAAA=</HashCode>
+      <FileName>ItemData\ConsumableData\Consumables\PhysicalDefenseConsumable.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.ItemData.ConsumableData.Consumables.ShiteDefenseConsumable" Collapsed="true">
+    <Position X="52.75" Y="19" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAACAAAAgAAAAAAAAAAQAAAAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ItemData\ConsumableData\Consumables\ShiteDefenseConsumable.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.ItemData.ConsumableData.Consumables.StaminaRegenConsumable" Collapsed="true">
+    <Position X="55" Y="19" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAQQAAAAEBAAAAAAAAAAAAA=</HashCode>
+      <FileName>ItemData\ConsumableData\Consumables\StaminaRegenConsumable.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.ItemData.ConsumableData.ConsumableItem" Collapsed="true">
+    <Position X="50.5" Y="17.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAgAAAAAAAAAAAAgAAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ItemData\ConsumableData\ConsumableItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.ItemData.KeyData.KeyItem" Collapsed="true">
+    <Position X="57.25" Y="17.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAiQCAgAQCAAAAAAAQEAAAAEAAAAIAAAAEYAgA=</HashCode>
+      <FileName>ItemData\KeyData\KeyItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.ItemData.WeaponData.WeaponItem" Collapsed="true">
+    <Position X="41.5" Y="17.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAACAAQAAAQABAAQAAgAAEAAAAQCAAQIAAAA=</HashCode>
       <FileName>ItemData\WeaponData\WeaponItem.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AuldShiteburn.ItemData.WeaponData.WeaponMaterial" Collapsed="true">
-    <Position X="28.75" Y="3" Width="1.5" />
+    <Position X="87" Y="4.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AEAAAAAAkAAAAIAAAgAAEAYAAABCAAAAAAAAAACAAAE=</HashCode>
       <FileName>ItemData\WeaponData\WeaponMaterial.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AuldShiteburn.ItemData.WeaponData.WeaponProperty" Collapsed="true">
-    <Position X="30.5" Y="3" Width="1.5" />
+    <Position X="88.75" Y="4.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>gAAAAggAgAAAAIAAAgAAAAYAAABCAAAAAQAABEAAAAA=</HashCode>
+      <HashCode>gAAAAggAgAAAAIAAAAAAAAYAAABCAEAAAQAABEAAAAA=</HashCode>
       <FileName>ItemData\WeaponData\WeaponProperty.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AuldShiteburn.ItemData.WeaponData.WeaponType" Collapsed="true">
-    <Position X="32.25" Y="3" Width="1.5" />
+    <Position X="90.5" Y="4.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAQAAQgCAAAIAAYIRQAIYAIoACIAAAAABCACICBAE=</HashCode>
+      <HashCode>AAQAQAAQgCAAAIAAYYRQAIYAIoACIAAAAABCACICBAE=</HashCode>
       <FileName>ItemData\WeaponData\WeaponType.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="AuldShiteburn.ItemData.KeyData.KeyItem" Collapsed="true">
-    <Position X="15.5" Y="14.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAgAAAgAQAAAAAAAAQAAAgAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>ItemData\KeyData\KeyItem.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="AuldShiteburn.ItemData.ConsumableData.ConsumableItem" Collapsed="true">
-    <Position X="20" Y="14.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>QAAAAAAAAgAgAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>ItemData\ConsumableData\ConsumableItem.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="AuldShiteburn.ItemData.ConsumableData.Consumables.HealthElixirConsumableItem" Collapsed="true">
-    <Position X="17.75" Y="15.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>gAAAAACAAgAgAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>ItemData\ConsumableData\Consumables\HealthElixirConsumableItem.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="AuldShiteburn.ItemData.ConsumableData.Consumables.ManaElixirConsumableItem" Collapsed="true">
-    <Position X="20" Y="15.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAgAgAAAAAAAAAAQAAAAAAAAgAAAAACAAAAA=</HashCode>
-      <FileName>ItemData\ConsumableData\Consumables\ManaElixirConsumableItem.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="AuldShiteburn.ItemData.ConsumableData.Consumables.StaminaElixirConsumableItem" Collapsed="true">
-    <Position X="22.25" Y="15.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAgAgAAAAAAAAAAQQAAAAABAAAAAAAAAAAAA=</HashCode>
-      <FileName>ItemData\ConsumableData\Consumables\StaminaElixirConsumableItem.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="AuldShiteburn.ItemData.Item" Collapsed="true">
-    <Position X="18.75" Y="13" Width="1.5" />
+    <Position X="49.25" Y="16.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAEAAAAAAAAAAAAAA=</HashCode>
       <FileName>ItemData\Item.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="AuldShiteburn.MapData.AreaData.Areas.EndArea" Collapsed="true">
+    <Position X="36" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAwAAAUQAAAAAAAAAAAAAAQAAACA=</HashCode>
+      <FileName>MapData\AreaData\Areas\EndArea.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.MapData.AreaData.Areas.GraveyardArea" Collapsed="true">
+    <Position X="38.25" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAwAAAUQAAAAAAAAAAAAAAQAAACA=</HashCode>
+      <FileName>MapData\AreaData\Areas\GraveyardArea.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.MapData.AreaData.Areas.GuildHallArea" Collapsed="true">
+    <Position X="40.5" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAwAAAUQAAAAAAAAAAAAAAQAAACA=</HashCode>
+      <FileName>MapData\AreaData\Areas\GuildHallArea.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.MapData.AreaData.Areas.LivingQuarterArea" Collapsed="true">
+    <Position X="42.75" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAwAAAUQAAAAAAAAAAAAAAQAAACA=</HashCode>
+      <FileName>MapData\AreaData\Areas\LivingQuarterArea.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.MapData.AreaData.Areas.MarketArea" Collapsed="true">
+    <Position X="45" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAwAAAUQAAAAAAAAAAAAAAQAAACA=</HashCode>
+      <FileName>MapData\AreaData\Areas\MarketArea.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.MapData.AreaData.Areas.ShitepileArea" Collapsed="true">
+    <Position X="47.25" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAwAAAUQAAAAAAAAAAAAAAQAAACA=</HashCode>
+      <FileName>MapData\AreaData\Areas\ShitepileArea.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.MapData.AreaData.Areas.ShiterootGardenArea" Collapsed="true">
+    <Position X="24.75" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAwAAAUQAAAAAAAAAAAAAAQAAACA=</HashCode>
+      <FileName>MapData\AreaData\Areas\ShiterootGardenArea.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.MapData.AreaData.Areas.StablesArea" Collapsed="true">
+    <Position X="27" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAwAAAUQAAAAAAAAAAAAAAQAAACA=</HashCode>
+      <FileName>MapData\AreaData\Areas\StablesArea.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.MapData.AreaData.Areas.StartArea" Collapsed="true">
+    <Position X="29.25" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAA4AAAUQAAAAAAAAAAIAAAYAAACA=</HashCode>
+      <FileName>MapData\AreaData\Areas\StartArea.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.MapData.AreaData.Areas.TheDrainArea" Collapsed="true">
+    <Position X="31.5" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAwAAAUQAAAAAAAAAAAAAAQAAACA=</HashCode>
+      <FileName>MapData\AreaData\Areas\TheDrainArea.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.MapData.AreaData.Areas.TheMillHouseArea" Collapsed="true">
+    <Position X="33.75" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAwAAAUQAAAAAAAAAAAAAAQAAACA=</HashCode>
+      <FileName>MapData\AreaData\Areas\TheMillHouseArea.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.MapData.Area" Collapsed="true">
+    <Position X="36" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ARAAAAABBAAAAAAQAwAAAUQQAAEAAAAAAIAAEQAAQiE=</HashCode>
+      <FileName>MapData\AreaData\Area.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.MapData.Map" Collapsed="true">
+    <Position X="23.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>wAAEEKAAhAMQBAEwlAAAAEQAhAAAAAgBQAAAwAYAAQA=</HashCode>
+      <FileName>MapData\Map.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.MapData.Maps.AuldShiteburnMap" Collapsed="true">
+    <Position X="23.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAABAAAAAAAAAAAAEQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MapData\Maps\AuldShiteburnMap.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.MapData.TileData.Tiles.NPCs.GameFeatureNPCs.GameStatusAltarNPCTile" Collapsed="true">
+    <Position X="50.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAACAQAIEAAAA=</HashCode>
+      <FileName>MapData\TileData\Tiles\NPCs\GameFeatureNPCs\GameStatusAltarNPCTile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.MapData.TileData.Tiles.NPCs.GameFeatureNPCs.ShitefireNPCTile" Collapsed="true">
+    <Position X="52.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAIAAAAAAAAAAAAAAAAAAAAAQAAEAABA=</HashCode>
+      <FileName>MapData\TileData\Tiles\NPCs\GameFeatureNPCs\ShitefireNPCTile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.MapData.TileData.Tiles.NPCs.NarrationNPCs.FoulstenchNarrationNPCTile" Collapsed="true">
+    <Position X="54.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAEAAAAAAAAAAAAAAEAAADAQAAEIABA=</HashCode>
+      <FileName>MapData\TileData\Tiles\NPCs\NarrationNPCs\FoulstenchNarrationNPCTile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.MapData.TileData.Tiles.NPCs.NarrationNPCs.GraveyardNarrationNPCTile" Collapsed="true">
+    <Position X="57" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAEAAAAAAAAAAAAAAAAAAAACAQAAEIABA=</HashCode>
+      <FileName>MapData\TileData\Tiles\NPCs\NarrationNPCs\GraveyardNarrationNPCTile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.MapData.TileData.Tiles.NPCs.NarrationNPCs.ShitepileNarrationNPCTile" Collapsed="true">
+    <Position X="34.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAAAAAAAAAAAEAAAAAAACAQAAEIABA=</HashCode>
+      <FileName>MapData\TileData\Tiles\NPCs\NarrationNPCs\ShitepileNarrationNPCTile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.MapData.TileData.Tiles.NPCs.BashfulEadwynNPCTile" Collapsed="true">
+    <Position X="36.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAgABQAAEAABA=</HashCode>
+      <FileName>MapData\TileData\Tiles\NPCs\BashfulEadwynNPCTile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.MapData.TileData.Tiles.NPCs.BoudicaNPCTile" Collapsed="true">
+    <Position X="39" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAgAQAAAAAAAAAAAAAIAgAAAAAAAAQAAEAABA=</HashCode>
+      <FileName>MapData\TileData\Tiles\NPCs\BoudicaNPCTile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.MapData.TileData.Tiles.NPCs.CrestfallenGrimrNPCTile" Collapsed="true">
+    <Position X="41.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAACAAAACAAAQAAEAABA=</HashCode>
+      <FileName>MapData\TileData\Tiles\NPCs\CrestfallenGrimrNPCTile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.MapData.TileData.Tiles.NPCs.EarhNPCTile" Collapsed="true">
+    <Position X="43.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAQCAAAAABQAAEAABI=</HashCode>
+      <FileName>MapData\TileData\Tiles\NPCs\EarhNPCTile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.MapData.TileData.Tiles.NPCs.HumbleLarNPCTile" Collapsed="true">
+    <Position X="45.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAABQAAEAABA=</HashCode>
+      <FileName>MapData\TileData\Tiles\NPCs\HumbleLarNPCTile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.MapData.TileData.Tiles.NPCs.OrmodNPCTile" Collapsed="true">
+    <Position X="48" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAgAABAAAAAAAAAAYwAAAAAAAAQgAAAQAAEAABA=</HashCode>
+      <FileName>MapData\TileData\Tiles\NPCs\OrmodNPCTile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.MapData.TileData.Tiles.DoorTile" Collapsed="true">
+    <Position X="32.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAgAAAAAAQAAAAAAAAAAAAEAAAAICAAAAAAAAA=</HashCode>
+      <FileName>MapData\TileData\Tiles\DoorTile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.MapData.TileData.Tiles.InteractionTile" Collapsed="true">
+    <Position X="45.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAQAAgAAABAAAAAAAAAAAAAQAAIAAQAAEAABA=</HashCode>
+      <FileName>MapData\TileData\Tiles\InteractionTile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.MapData.TileData.Tiles.LootTile" Collapsed="true">
+    <Position X="59.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAACAAAAAAGAABAAAAAOAAAAEAAAIAICAAIAAAAAA=</HashCode>
+      <FileName>MapData\TileData\Tiles\LootTile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.MapData.TileData.Tiles.NPCTile" Collapsed="true">
+    <Position X="45.75" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAEAAAA=</HashCode>
+      <FileName>MapData\TileData\Tiles\NPCTile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.MapData.TileData.Tiles.PassageTile" Collapsed="true">
+    <Position X="61.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>MapData\TileData\Tiles\PassageTile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.MapData.TileData.Tiles.StorageTile" Collapsed="true">
+    <Position X="25.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAgA=</HashCode>
+      <FileName>MapData\TileData\Tiles\StorageTile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.MapData.TileData.Tiles.TrapTile" Collapsed="true">
+    <Position X="27.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAAAAAAAAAAAAAEAAAAIAAAAAAAAEA=</HashCode>
+      <FileName>MapData\TileData\Tiles\TrapTile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.MapData.TileData.BasicTile" Collapsed="true">
+    <Position X="30" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>MapData\TileData\BasicTile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.MapData.TileData.Tile" Collapsed="true">
+    <Position X="43.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACEAAAAAAAAEBAEAAAAAAAgGBAAAICAgAABQAJA=</HashCode>
+      <FileName>MapData\TileData\Tile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.EntityData.Enemies.BloatedBruiserEnemyEntity" Collapsed="true">
+    <Position X="24.25" Y="20.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>EntityData\Enemies\BloatedBruiserEnemyEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.EntityData.Enemies.DungEaterEnemyEntity" Collapsed="true">
+    <Position X="26.5" Y="20.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>EntityData\Enemies\DungEaterEnemyEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.EntityData.Enemies.GrandWarlockEnemyEntity" Collapsed="true">
+    <Position X="28.75" Y="20.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>EntityData\Enemies\GrandWarlockEnemyEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.EntityData.Enemies.MadHunterEnemyEntity" Collapsed="true">
+    <Position X="31" Y="20.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>EntityData\Enemies\MadHunterEnemyEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.EntityData.Enemies.ShiteAvatarEnemyEntity" Collapsed="true">
+    <Position X="33.25" Y="20.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>EntityData\Enemies\ShiteAvatarEnemyEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.EntityData.Enemies.ShiteHuskEnemyEntity" Collapsed="true">
+    <Position X="35.5" Y="20.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>EntityData\Enemies\ShiteHuskEnemyEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.EntityData.PlayerData.Classes.FighterClass" Collapsed="true">
+    <Position X="39" Y="21.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>EntityData\PlayerData\Classes\FighterClass.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.EntityData.PlayerData.Classes.HeathenClass" Collapsed="true">
+    <Position X="41.25" Y="21.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>EntityData\PlayerData\Classes\HeathenClass.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.EntityData.PlayerData.Classes.MarauderClass" Collapsed="true">
+    <Position X="43.5" Y="21.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>EntityData\PlayerData\Classes\MarauderClass.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.EntityData.PlayerData.Classes.MonkClass" Collapsed="true">
+    <Position X="45.75" Y="21.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>EntityData\PlayerData\Classes\MonkClass.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.EntityData.PlayerData.Classes.RogueClass" Collapsed="true">
+    <Position X="48" Y="21.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>EntityData\PlayerData\Classes\RogueClass.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.EntityData.PlayerData.CharacterClass" Collapsed="true">
+    <Position X="43.5" Y="20.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAQQAAAAEAAEAEAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>EntityData\PlayerData\CharacterClass.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.EntityData.PlayerData.Inventory" Collapsed="true">
+    <Position X="90.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAACAAEBAAACAAAhAgAUAwQACAwAQCKAAAAAAgQQ=</HashCode>
+      <FileName>EntityData\PlayerData\Inventory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.EntityData.EnemyEntity" Collapsed="true">
+    <Position X="30" Y="19" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgQAQAAEIAAACAAIAAAAAAAAAIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>EntityData\EnemyEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.EntityData.Entity" Collapsed="true">
+    <Position X="31" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAACAAAAAAwAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>EntityData\Entity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.EntityData.LivingEntity" Collapsed="true">
+    <Position X="31" Y="17.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIgAQAAAJAAAACQAAAAAEAQSQAAAAAAgAABAIIABACA=</HashCode>
+      <FileName>EntityData\LivingEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.EntityData.PlayerEntity" Collapsed="true">
+    <Position X="37.75" Y="19" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAABAoGEACCATAIABAAEAAAGABAAQQAAAgAAAAA=</HashCode>
+      <FileName>EntityData\PlayerEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Class Name="AuldShiteburn.OptionsData.Options.Loading.LoadSlotOption" Collapsed="true">
-    <Position X="1.5" Y="5.25" Width="1.5" />
+    <Position X="29" Y="14.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAgAAAAAAAAAAAgAEAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
       <FileName>OptionsData\Options\Loading\LoadSlotOption.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AuldShiteburn.OptionsData.Options.Loading.SaveSlotOption" Collapsed="true">
-    <Position X="3.75" Y="5.25" Width="1.5" />
+    <Position X="31.25" Y="14.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
       <FileName>OptionsData\Options\Loading\SaveSlotOption.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AuldShiteburn.OptionsData.Options.Settings.SexRatioOption" Collapsed="true">
-    <Position X="6" Y="5.25" Width="1.5" />
+    <Position X="33.5" Y="14.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>OptionsData\Options\Settings\SexRatioOption.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AuldShiteburn.OptionsData.Options.ExitOption" Collapsed="true">
-    <Position X="8.25" Y="5.25" Width="1.5" />
+    <Position X="35.75" Y="14.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>OptionsData\Options\ExitOption.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AuldShiteburn.OptionsData.Options.LoadGameOption" Collapsed="true">
-    <Position X="10.5" Y="5.25" Width="1.5" />
+    <Position X="38" Y="14.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>OptionsData\Options\LoadGameOption.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AuldShiteburn.OptionsData.Options.NewGameOption" Collapsed="true">
-    <Position X="12.75" Y="5.25" Width="1.5" />
+    <Position X="40.25" Y="14.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>OptionsData\Options\NewGameOption.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AuldShiteburn.OptionsData.Options.ResumeOption" Collapsed="true">
-    <Position X="15" Y="5.25" Width="1.5" />
+    <Position X="42.5" Y="14.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>OptionsData\Options\ResumeOption.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AuldShiteburn.OptionsData.Options.SaveGameOption" Collapsed="true">
-    <Position X="17.25" Y="5.25" Width="1.5" />
+    <Position X="24.5" Y="14.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>OptionsData\Options\SaveGameOption.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AuldShiteburn.OptionsData.Options.SettingsOption" Collapsed="true">
-    <Position X="19.5" Y="5.25" Width="1.5" />
+    <Position X="26.75" Y="14.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>OptionsData\Options\SettingsOption.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AuldShiteburn.OptionData.Option" Collapsed="true">
-    <Position X="10.5" Y="4" Width="1.5" />
+    <Position X="33.5" Y="13.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AgAAgAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>OptionsData\Option.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AuldShiteburn.BackendData.GameSettings" Collapsed="true">
-    <Position X="27" Y="2" Width="1.5" />
+    <Position X="87" Y="2.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAgAAAAIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
       <FileName>BackendData\GameSettings.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AuldShiteburn.BackendData.Playtime" Collapsed="true">
-    <Position X="32.25" Y="2" Width="1.5" />
+    <Position X="87" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>QhAAAAQAAAAAAAAAAAAAAAAAAAgAAIAAAAAAAAAAAAA=</HashCode>
       <FileName>BackendData\Playtime.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AuldShiteburn.SaveData.Directories" Collapsed="true">
-    <Position X="32.25" Y="1" Width="1.5" />
+    <Position X="90.5" Y="1.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAIAABAAAAAAAAAAAAAAAAABAAAAEAAAAAAAAAAAA=</HashCode>
       <FileName>SaveData\Directories.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AuldShiteburn.SaveData.Load" Collapsed="true">
-    <Position X="30.5" Y="2" Width="1.5" />
+    <Position X="85.25" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAEAABAAAAAAAAAAAAAAIAAAACAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>SaveData\Load.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AuldShiteburn.SaveData.Save" Collapsed="true">
-    <Position X="27" Y="3" Width="1.5" />
+    <Position X="90.5" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAQAAAABAAAAAAAAAAAAAAAAAAAAAAACAA=</HashCode>
       <FileName>SaveData\Save.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AuldShiteburn.ArtData.ASCIIArt" Collapsed="true">
-    <Position X="27" Y="1" Width="1.5" />
+    <Position X="85.25" Y="1.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>IAAgQARAAAAAAAIAFABIIAAAgAAAAQAAAAAAgAAUAAA=</HashCode>
+      <HashCode>IAAgQARAAAAAgAIAFABIYAAAgAAAAQAAAAAAgBAUAAA=</HashCode>
       <FileName>ArtData\ASCIIArt.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AuldShiteburn.MenuData.Menus.MainMenu" Collapsed="true">
-    <Position X="0.75" Y="11.25" Width="1.5" />
+    <Position X="23.75" Y="8.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAgAAAAAAAA=</HashCode>
       <FileName>MenuData\Menus\MainMenu.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AuldShiteburn.MenuData.Menus.PauseMenu" Collapsed="true">
-    <Position X="3" Y="11.25" Width="1.5" />
+    <Position X="26" Y="8.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAgAAAAAAAA=</HashCode>
       <FileName>MenuData\Menus\PauseMenu.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AuldShiteburn.MenuData.Menu" Collapsed="true">
-    <Position X="2" Y="10" Width="1.5" />
+    <Position X="25" Y="7.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AEAQAAAAAAAAAAQAAAAAAAAAAAAAAAAAQAgAAAABAAA=</HashCode>
       <FileName>MenuData\Menu.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="AuldShiteburn.Game" Collapsed="true">
+    <Position X="85.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAgAAAAAAAgAEAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Game.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.InputSystem" Collapsed="true">
+    <Position X="88.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>InputSystem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.Program" Collapsed="true">
+    <Position X="88.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuldShiteburn.Utils" Collapsed="true">
+    <Position X="85.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAIAAAAAAAAADAIAAAAAASCACAACRgAIAAAAAAk=</HashCode>
+      <FileName>Utils.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Struct Name="AuldShiteburn.CombatData.AbilityData.Abilities.AbilityListData" Collapsed="true">
-    <Position X="27" Y="4.25" Width="1.5" />
+    <Position X="85.25" Y="5.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>CAAAAAAAAAAAAAgACAAAAAAEAAAAAAAAAAAAAAAAAgA=</HashCode>
       <FileName>CombatData\AbilityData\Abilities\AbilityListData.cs</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="AuldShiteburn.MapData.TileData.InteractionData" Collapsed="true">
-    <Position X="30.5" Y="4.25" Width="1.5" />
+    <Position X="88.75" Y="5.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAEAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAEAAAAAIAA=</HashCode>
       <FileName>MapData\TileData\InteractionData.cs</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="AuldShiteburn.MapData.TileData.TilePlaceData" Collapsed="true">
-    <Position X="30.5" Y="5.25" Width="1.5" />
+    <Position X="88.75" Y="6.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAABgAAAAAAA=</HashCode>
       <FileName>MapData\TileData\TilePlaceData.cs</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="AuldShiteburn.EntityData.PlayerData.TitleData" Collapsed="true">
-    <Position X="32.25" Y="5.25" Width="1.5" />
+    <Position X="90.5" Y="6.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAgAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>EntityData\PlayerData\CharacterClass.cs</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="AuldShiteburn.EntityData.PlayerData.ClassStatistics" Collapsed="true">
-    <Position X="28.75" Y="4.25" Width="1.5" />
+    <Position X="87" Y="5.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AIAAQAAAAAAAAAQAAAAAAAAAQAAAAAAAAAAAIIAAAAA=</HashCode>
       <FileName>EntityData\PlayerData\CharacterClass.cs</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="AuldShiteburn.EntityData.PlayerData.ProficiencyData" Collapsed="true">
-    <Position X="28.75" Y="5.25" Width="1.5" />
+    <Position X="87" Y="6.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>QAAAAAAAAQQAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAA=</HashCode>
       <FileName>EntityData\PlayerData\CharacterClass.cs</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="AuldShiteburn.EntityData.PlayerData.InventorySortData" Collapsed="true">
-    <Position X="32.25" Y="4.25" Width="1.5" />
+    <Position X="90.5" Y="5.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>EAAAAAAAAAAAAAAAAAAAAQAAAAAAAAgAQAAAAAABAAA=</HashCode>
       <FileName>EntityData\PlayerData\InventorySortData.cs</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="AuldShiteburn.EntityData.PlayerData.PlayerGenerationData" Collapsed="true">
-    <Position X="27" Y="5.25" Width="1.5" />
+    <Position X="85.25" Y="6.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>gABAAAAAAAABBCAAAAAAAEAAAAAAECAAAAAAAAAAAAA=</HashCode>
       <FileName>EntityData\PlayerData\PlayerGenerationData.cs</FileName>
     </TypeIdentifier>
   </Struct>
+  <Enum Name="AuldShiteburn.CombatData.StatusEffectData.EffectType" Collapsed="true">
+    <Position X="87" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAQAAAgAAAAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>CombatData\StatusEffectData\StatusEffect.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
   <Enum Name="AuldShiteburn.CombatData.EffectLevel" Collapsed="true">
-    <Position X="32.25" Y="6.5" Width="1.5" />
+    <Position X="85.25" Y="8.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAgAAEAACA=</HashCode>
       <FileName>CombatData\Combat.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="AuldShiteburn.CombatData.PhysicalDamageType" Collapsed="true">
-    <Position X="28.75" Y="7.25" Width="1.5" />
+    <Position X="90.5" Y="8.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAEAAAAAAAABAAAACAAAAAAAAAAEAAAA=</HashCode>
       <FileName>CombatData\DamageTypes.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="AuldShiteburn.CombatData.PropertyDamageType" Collapsed="true">
-    <Position X="30.5" Y="7.25" Width="1.5" />
+    <Position X="85.25" Y="9.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAgAAAAAAQAAAAAIBEAAAAAAAIAAEAAAA=</HashCode>
       <FileName>CombatData\DamageTypes.cs</FileName>
     </TypeIdentifier>
   </Enum>
-  <Enum Name="AuldShiteburn.EntityData.PlayerData.ClassType" Collapsed="true">
-    <Position X="30.5" Y="6.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAACAAAAIAAAAAAAICAAAAAAAAAAAACAAAAAAAEAAAA=</HashCode>
-      <FileName>EntityData\PlayerData\CharacterClass.cs</FileName>
-    </TypeIdentifier>
-  </Enum>
   <Enum Name="AuldShiteburn.ItemData.ArmourData.ArmourFamily" Collapsed="true">
-    <Position X="27" Y="6.5" Width="1.5" />
+    <Position X="85.25" Y="7.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAEAAAAAAAAAAAACAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAEAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAEAAA=</HashCode>
       <FileName>ItemData\ArmourData\ArmourGeneralData.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="AuldShiteburn.ItemData.ArmourData.ArmourMaterials" Collapsed="true">
-    <Position X="28.75" Y="6.5" Width="1.5" />
+    <Position X="87" Y="7.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ItemData\ArmourData\ArmourGeneralData.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="AuldShiteburn.ItemData.WeaponData.WeaponFamily" Collapsed="true">
-    <Position X="32.25" Y="7.25" Width="1.5" />
+    <Position X="87" Y="9.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAEgAAAAAAAAAAAAAAQAAACAAAAAAAAAAAA=</HashCode>
       <FileName>ItemData\WeaponData\WeaponGeneralData.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="AuldShiteburn.ItemData.GeneralMaterials" Collapsed="true">
-    <Position X="27" Y="7.25" Width="1.5" />
+    <Position X="88.75" Y="8.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAABAAAAAAEAAgAAEAAAA=</HashCode>
       <FileName>ItemData\ItemGeneralData.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="AuldShiteburn.EntityData.PlayerData.ClassType" Collapsed="true">
+    <Position X="88.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAIAAAAAAAICAAAAAAAAAAAACAAAAAAAEAAAA=</HashCode>
+      <FileName>EntityData\PlayerData\CharacterClass.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="AuldShiteburn.Direction" Collapsed="true">
+    <Position X="90.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAABAAQ=</HashCode>
+      <FileName>Direction.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Font Name="Segoe UI" Size="9" />
