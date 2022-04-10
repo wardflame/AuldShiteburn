@@ -85,6 +85,7 @@ namespace AuldShiteburn.MapData.AreaData.Areas
 
         public override void OnFirstEnter()
         {
+            if (!InitiateCombat(true)) return;
         }
 
         protected override void TileGeneration()

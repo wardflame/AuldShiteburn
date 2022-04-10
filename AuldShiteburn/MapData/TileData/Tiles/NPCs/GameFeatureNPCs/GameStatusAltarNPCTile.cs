@@ -36,7 +36,9 @@ namespace AuldShiteburn.MapData.TileData.Tiles.NPCs.GameFeatureNPCs
             #region Lost Souls Check
             string npcs = numbers[shitebreach.NPCsRemaining];
             Utils.SetCursorInteract(2);
-            Utils.WriteColour($"{npcs} lost souls still linger Shiteburn.", ConsoleColor.White);
+            Utils.WriteColour($"{npcs} lost ", ConsoleColor.White);
+            if (shitebreach.NPCsRemaining == 1) Utils.WriteColour($"soul still lingers Shiteburn.", ConsoleColor.White);
+            else Utils.WriteColour($"souls still linger Shiteburn.", ConsoleColor.White);
             #endregion Lost Souls Check
 
             #region Bosses Remaining Check
@@ -44,7 +46,10 @@ namespace AuldShiteburn.MapData.TileData.Tiles.NPCs.GameFeatureNPCs
             {
                 string bosses = numbers[shitebreach.BossesRemaining];
                 Utils.SetCursorInteract(3);
-                Utils.WriteColour($"{bosses} dark creatures remain to be felled.", ConsoleColor.DarkGray);
+                Utils.WriteColour($"{bosses} dark ", ConsoleColor.DarkGray);
+                if (shitebreach.BossesRemaining == 1) Utils.WriteColour($"creature remains to be felled.", ConsoleColor.DarkGray);
+                else Utils.WriteColour($"creatures remain to be felled.", ConsoleColor.DarkGray);
+
             }
             #endregion Bosses Remaining Check
 
@@ -91,6 +96,11 @@ namespace AuldShiteburn.MapData.TileData.Tiles.NPCs.GameFeatureNPCs
                     Console.CursorLeft = 5;
                     Console.CursorTop += 1;
                     Utils.WriteColour("SID: 1543493");
+                    Console.CursorLeft = 5;
+                    Console.CursorTop += 2;
+                    Utils.WriteColour("Press any key to continue.");
+                    Console.Clear();
+                    Map.Instance.PrintMap();
                 }
             }
         }

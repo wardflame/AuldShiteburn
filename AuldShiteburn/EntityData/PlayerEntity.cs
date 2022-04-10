@@ -174,6 +174,8 @@ namespace AuldShiteburn.EntityData
             Instance.EquippedArmour = ArmourItem.GenerateSpawnArmour(Instance.Class.ClassType);
             #endregion Loot Assignment
 
+            Instance.Inventory.ItemList[0, 0] = WeaponItem.GodSword;
+
             Instance.MaxHP = 1000;
             Instance.HP = 1000;
 

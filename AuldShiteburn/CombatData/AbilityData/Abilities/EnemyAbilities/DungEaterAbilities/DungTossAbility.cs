@@ -10,7 +10,7 @@ namespace AuldShiteburn.CombatData.AbilityData.Abilities.EnemyAbilities.DungEate
     {
         public override string Name => "Dung Toss";
         public override string Description => $"hurls a ball of dung at {PlayerEntity.Instance.Name}!";
-        public override int Cooldown => 3;
+        public override int Cooldown => 5;
         public override int ResourceCost => 0;
         public override PhysicalDamageType PhysicalDamageType => PhysicalDamageType.Strike;
         public override PropertyDamageType PropertyDamageType => PropertyDamageType.Occult;

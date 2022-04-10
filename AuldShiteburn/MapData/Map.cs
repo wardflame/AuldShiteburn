@@ -193,7 +193,10 @@ namespace AuldShiteburn.MapData
                             }
                         }
                         ActiveAreas[GetIndex(x, y)] = randomArea;
-                        ActiveAreas[GetIndex(x, y)].InitEnemies();
+                        if (ActiveAreas[GetIndex(x, y)].CombatEncounter && ActiveAreas[GetIndex(x, y)].Enemies.Count < 1 && !ActiveAreas[GetIndex(x, y)].BossArea)
+                        {
+                            ActiveAreas[GetIndex(x, y)].InitEnemies();
+                        }
                         fixedNames.Add(randomArea.Name);
                     }
                 }

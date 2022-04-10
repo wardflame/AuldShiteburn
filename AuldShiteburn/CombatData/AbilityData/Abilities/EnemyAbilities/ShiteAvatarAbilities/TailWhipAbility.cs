@@ -6,6 +6,7 @@ using System.Text;
 
 namespace AuldShiteburn.CombatData.AbilityData.Abilities.EnemyAbilities.ShiteAvatarAbilities
 {
+    [Serializable]
     internal class TailWhipAbility : Ability
     {
         public override string Name => "Tail Whip";

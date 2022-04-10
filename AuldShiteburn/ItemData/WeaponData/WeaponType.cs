@@ -69,6 +69,10 @@ namespace AuldShiteburn.ItemData.WeaponData
             get { return new WeaponType("Greathammer", WeaponFamily.StrengthLargeArms, PhysicalDamageType.Strike, 5, 7); }
         }
         #endregion StrengthWeapons
+        public static WeaponType GodSword
+        {
+            get { return new WeaponType("God Sword", WeaponFamily.MartialArms, PhysicalDamageType.Slash, 1000, 1000, PhysicalDamageType.Pierce); }
+        }
 
         public static List<WeaponType> AllWeaponTypes
         {

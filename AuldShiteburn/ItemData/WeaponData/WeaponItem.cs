@@ -8,6 +8,18 @@ namespace AuldShiteburn.ItemData.WeaponData
     [Serializable]
     internal class WeaponItem : Item
     {
+        public static WeaponItem GodSword
+        {
+            get
+            {
+                return new WeaponItem()
+                {
+                    Type = WeaponType.GodSword,
+                    Material = WeaponMaterial.WeaponMaterialMoonstone,
+                    Property = WeaponProperty.WeaponPropertyHoly
+                };
+            }
+        }
         public override string Name
         {
             get

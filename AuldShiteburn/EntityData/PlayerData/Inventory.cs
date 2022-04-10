@@ -108,8 +108,13 @@ namespace AuldShiteburn.EntityData.PlayerData
             int offset = 0;
             if (!playerElseStorage)
             {
+                Utils.ClearInteractInterface();
                 Utils.SetCursorInteract();
                 Utils.WriteColour(Name, ConsoleColor.DarkYellow);
+            }
+            else
+            {
+                Utils.ClearPlayerInventoryInterface();
             }
             for (int x = 0; x < Column; x++)
             {
@@ -257,10 +262,18 @@ namespace AuldShiteburn.EntityData.PlayerData
                         break;
                     case ConsoleKey.LeftArrow:
                         {
-                            if (typeColumn <= Column - 1 && typeColumn > 0)
+                            if (typeColumn <= Column - 1 && typeColumn >= 0)
                             {
                                 typeColumn--;
-                                typeOffset -= ColumnOffset;
+                                if (typeColumn < 0)
+                                {
+                                    typeColumn = Column - 1;
+                                    typeOffset = KeyOffset;
+                                }
+                                else
+                                {
+                                    typeOffset -= ColumnOffset;
+                                }
                                 if (playerElseStorage)
                                 {
                                     Utils.ClearPlayerInventoryInterface();
@@ -278,10 +291,18 @@ namespace AuldShiteburn.EntityData.PlayerData
                         break;
                     case ConsoleKey.RightArrow:
                         {
-                            if (typeColumn >= 0 && typeColumn < Column - 1)
+                            if (typeColumn >= 0 && typeColumn <= Column - 1)
                             {
                                 typeColumn++;
-                                typeOffset += ColumnOffset;
+                                if (typeColumn >= Column)
+                                {
+                                    typeColumn = 0;
+                                    typeOffset = WeaponOffset;
+                                }
+                                else
+                                {
+                                    typeOffset += ColumnOffset;
+                                }
                                 if (playerElseStorage)
                                 {
                                     Utils.ClearPlayerInventoryInterface();
@@ -414,7 +435,8 @@ namespace AuldShiteburn.EntityData.PlayerData
             {
                 Utils.ClearInteractInterface();
                 int offset = 2;
-                InventorySortData sortData = NavigateInventory(playerElseStorage);
+                InventorySortData sortData;
+                sortData = NavigateInventory(playerElseStorage);
                 if (sortData.index < 0)
                 {
                     return;
@@ -502,15 +524,17 @@ namespace AuldShiteburn.EntityData.PlayerData
                                     }
                                 }
                                 PlayerEntity.Instance.PrintStats();
+                                PrintInventory(true);
                                 choosing = false;
-                                interacting = false;
+                                //interacting = false;
                             }
                             break;
                         case ConsoleKey.D:
                             {
                                 PlayerEntity.Instance.Inventory.DropItem(currentItem, sortData);
+                                PrintInventory(true);
                                 choosing = false;
-                                interacting = false;
+                                //interacting = false;
                             }
                             break;
                         case ConsoleKey.Backspace:

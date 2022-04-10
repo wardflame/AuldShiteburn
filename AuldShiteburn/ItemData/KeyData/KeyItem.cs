@@ -51,7 +51,7 @@ namespace AuldShiteburn.ItemData.KeyData
         #region Notes
         public static KeyItem ScrappyNote
         {
-            get { return new KeyItem("Scrappy Note", "'Rodor, if you receive this, I've left the cell master key in my quarters of the Guild Hall.'"); }
+            get { return new KeyItem("Scrappy Note", "Rodor, should you need supply and sanctuary, seek my quarters in the Guild Hall. My key remains in the Market."); }
         }
         #endregion Notes
         #region Amulets
