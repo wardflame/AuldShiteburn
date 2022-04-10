@@ -4,6 +4,7 @@ using AuldShiteburn.CombatData.PayloadData;
 using AuldShiteburn.CombatData.StatusEffectData;
 using AuldShiteburn.CombatData.StatusEffectData.StatusEffects;
 using AuldShiteburn.EntityData.PlayerData;
+using AuldShiteburn.EntityData.PlayerData.Classes;
 using AuldShiteburn.ItemData.ArmourData;
 using AuldShiteburn.ItemData.KeyData;
 using AuldShiteburn.ItemData.WeaponData;
@@ -131,8 +132,8 @@ namespace AuldShiteburn.EntityData
             Random rand = new Random();
 
             #region Class Generation and Stat Assignments
-            Instance.Class = CharacterClass.Classes[rand.Next(CharacterClass.Classes.Count)];
-            //Instance.Class = new RogueClass();
+            //Instance.Class = CharacterClass.Classes[rand.Next(CharacterClass.Classes.Count)];
+            Instance.Class = new FighterClass();
             Instance.MaxHP = Instance.Class.Statistics.HP;
             Instance.HP = Instance.Class.Statistics.HP;
             Instance.UsesStamina = Instance.Class.Statistics.UsesStamina;
@@ -309,11 +310,12 @@ namespace AuldShiteburn.EntityData
             #region Riposte Status
             if (totalDamage <= 0 && AbilityStatusEffect != null)
             {
-                if (AbilityStatusEffect.Name == new ParryRiposteAbility().Name)
+                if (AbilityStatusEffect.Name == DefenseStatusEffect.ParryAndRiposte.Name)
                 {
                     enemy.StatusEffect = DefenseStatusEffect.Staggered1;
+                    enemy.JustAfflicted = true;
                     Utils.SetCursorInteract(Console.CursorTop - 1);
-                    Utils.WriteColour("You riposte the enemy, inflicting ", ConsoleColor.DarkYellow);
+                    Utils.WriteColour("You parry the enemy, inflicting ", ConsoleColor.DarkYellow);
                     Utils.WriteColour($"{enemy.StatusEffect.Name}", enemy.StatusEffect.DisplayColor);
                     Utils.WriteColour($"!", ConsoleColor.DarkYellow);
                 }

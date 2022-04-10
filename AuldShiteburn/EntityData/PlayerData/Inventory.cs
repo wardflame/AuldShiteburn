@@ -432,10 +432,14 @@ namespace AuldShiteburn.EntityData.PlayerData
                     Utils.SetCursorInteract(1);
                     WeaponItem weapon = (WeaponItem)currentItem;
                     Utils.WriteColour("Physical Damage: ");
-                    Utils.WriteColour($"{weapon.MinPhysDamage} - {weapon.MaxPhysDamage}");
+                    Utils.WriteColour($"{weapon.MinPhysDamage}", ConsoleColor.Green);
+                    Utils.WriteColour($" - ");
+                    Utils.WriteColour($"{weapon.MaxPhysDamage}", ConsoleColor.Green);
                     Utils.SetCursorInteract(2);
                     Utils.WriteColour("Property Damage: ");
-                    Utils.WriteColour($"{weapon.MinPropDamage} - {weapon.MaxPropDamage}");
+                    Utils.WriteColour($"{weapon.MinPropDamage}", ConsoleColor.Magenta);
+                    Utils.WriteColour($" - ");
+                    Utils.WriteColour($"{weapon.MaxPropDamage}", ConsoleColor.Magenta);
                     Utils.SetCursorInteract(3);
                     Utils.WriteColour("(E) Equip Weapon");
                     offset = 4;

@@ -50,14 +50,7 @@ namespace AuldShiteburn.ItemData.WeaponData
             {
                 if (HasAffinity)
                 {
-                    if (PlayerEntity.Instance.Class.GetType() == typeof(FighterClass) && Name == WeaponMaterialSteel.Name)
-                    {
-                        return maxDamage + Combat.PROFICIENCY_ARMOUR_MITIGATION_MODERATE;
-                    }
-                    else
-                    {
-                        return maxDamage + Combat.PROFICIENCY_DAMAGE_BONUS_MINOR;
-                    }
+                    return minDamage + Combat.PROFICIENCY_DAMAGE_BONUS_MINOR;
                 }
                 return minDamage;
             }
@@ -72,14 +65,7 @@ namespace AuldShiteburn.ItemData.WeaponData
             {
                 if (HasAffinity)
                 {
-                    if (PlayerEntity.Instance.Class.GetType() == typeof(FighterClass) && Name == WeaponMaterialSteel.Name)
-                    {
-                        return maxDamage + Combat.PROFICIENCY_ARMOUR_MITIGATION_MODERATE;
-                    }
-                    else
-                    {
-                        return maxDamage + Combat.PROFICIENCY_DAMAGE_BONUS_MINOR;
-                    }
+                    return maxDamage + Combat.PROFICIENCY_DAMAGE_BONUS_MINOR;
                 }
                 return maxDamage;
             }

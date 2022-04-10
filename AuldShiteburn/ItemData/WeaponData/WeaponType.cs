@@ -154,11 +154,11 @@ namespace AuldShiteburn.ItemData.WeaponData
                 {
                     if (PlayerEntity.Instance.Class.GetType() == typeof(FighterClass))
                     {
-                        return maxDamage + Combat.PROFICIENCY_DAMAGE_BONUS_MODERATE;
+                        return minDamage + Combat.PROFICIENCY_DAMAGE_BONUS_MODERATE;
                     }
                     else
                     {
-                        return maxDamage + Combat.PROFICIENCY_DAMAGE_BONUS_MINOR;
+                        return minDamage + Combat.PROFICIENCY_DAMAGE_BONUS_MINOR;
                     }
                 }
                 return minDamage;

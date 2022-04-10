@@ -188,7 +188,6 @@ namespace AuldShiteburn.CombatData
                     }
                     else
                     {
-                        playerTurn = false;
                         Utils.ClearInteractInterface(30);
                     }
                 }

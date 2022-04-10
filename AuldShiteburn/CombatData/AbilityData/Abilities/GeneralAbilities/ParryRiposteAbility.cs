@@ -21,9 +21,7 @@ namespace AuldShiteburn.CombatData.AbilityData.Abilities.ClassAbilities.GeneralA
             if (ActiveCooldown == 0)
             {
                 PlayerEntity.Instance.Stamina -= ResourceCost;
-                PlayerEntity.Instance.AbilityStatusEffect = new DefenseStatusEffect
-                    ("Defensive Stance", 1, ConsoleColor.Cyan, EffectType.Buff,
-                    EffectLevel.Major, allPhysicalDefense: true);
+                PlayerEntity.Instance.AbilityStatusEffect = DefenseStatusEffect.ParryAndRiposte;
                 ActiveCooldown = Cooldown;
                 return new CombatPayload(isAttack: false, isUtility: true);
             }

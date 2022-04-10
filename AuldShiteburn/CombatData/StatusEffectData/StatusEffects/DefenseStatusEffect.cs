@@ -45,6 +45,17 @@ namespace AuldShiteburn.CombatData.StatusEffectData.StatusEffects
             }
         }
         #endregion
+        #region Fighter Defense Effects
+        public static DefenseStatusEffect ParryAndRiposte
+        {
+            get
+            {
+                return new DefenseStatusEffect
+                    ("Parry and Riposte", 1, ConsoleColor.Cyan, EffectType.Buff,
+                    EffectLevel.Major, allPhysicalDefense: true);
+            }
+        }
+        #endregion Fighter Defense Effects
         #region Monk Defense Effects
         public static DefenseStatusEffect MoonWard
         {

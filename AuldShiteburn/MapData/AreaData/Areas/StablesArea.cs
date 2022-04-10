@@ -64,7 +64,6 @@ namespace AuldShiteburn.MapData.AreaData.Areas
 
         public override void OnFirstEnter()
         {
-            if (!InitiateCombat(true)) return;
             Random rand = new Random();
             WeaponType wType = WeaponType.Longsword;
             switch (PlayerEntity.Instance.Class.ClassType)
@@ -95,8 +94,7 @@ namespace AuldShiteburn.MapData.AreaData.Areas
                     }
                     break;
             }
-            placeData.Add(new TilePlaceData(14, 13,
-                new LootTile("Hunter Corpse", false, false,
+            SetTile(14, 13, new LootTile("Hunter Corpse", false, false,
                 new List<Item>()
                 {
                     KeyItem.MillHouseKey,
@@ -106,8 +104,9 @@ namespace AuldShiteburn.MapData.AreaData.Areas
                         Material = WeaponMaterial.WeaponMaterialSteel,
                         Property = WeaponProperty.WeaponPropertyFlaming
                     }
-                })
-                ));
+                }));
+            Map.Instance.PrintTile(14, 13);
+            if (!InitiateCombat(true)) return;
         }
 
         protected override void TileGeneration()
